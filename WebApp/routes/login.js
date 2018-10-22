@@ -57,4 +57,34 @@ router.post('/register', function(req, res){
     })
 })
 
+router.post('/changePassword', function(req,res){
+    var username = req.body.username;
+    var newPassword = req.body.newPassword;
+    var password = req.body.password;
+
+    var query = 'SELECT USER_PASSWORD FROM Participants WHERE USER_NAME = ?';
+
+    conn.query(query, username, function(err, result, fields){
+        if(err || result == undefined){
+            console.log(err);
+            res.send("Username not found");
+            return;
+        }
+
+        var currentPassword = result[0].USER_PASSWORD;
+
+        if(currentPassword === password){
+            query2 = 'UPDATE Participants SET USER_PASSWORD = ? WHERE USER_NAME = ?';
+            conn.query(query2, [newPassword, username], function(err,result_query2){
+                if(err){
+                    console.log(err);
+                    return;
+                }
+                res.send("Password Updated Successfully");
+            })
+        }
+
+    })
+})
+
 module.exports=router;
