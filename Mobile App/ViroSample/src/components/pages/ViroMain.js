@@ -75,22 +75,22 @@ export default class ViroSample extends Component {
         <View style={localStyles.inner} >
 
           <Text style={localStyles.titleText}>
-            Choose your desired experience:
+            Press for Augmented Reality View
           </Text>
 
           <TouchableHighlight style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(AR_NAVIGATOR_TYPE)}
             underlayColor={'#68a0ff'} >
 
-            <Text style={localStyles.buttonText}>AR</Text>
+            <Text style={localStyles.buttonText}>Go</Text>
           </TouchableHighlight>
 
-          <TouchableHighlight style={localStyles.buttons}
+          {/*<TouchableHighlight style={localStyles.buttons}
             onPress={this._getExperienceButtonOnPress(VR_NAVIGATOR_TYPE)}
             underlayColor={'#68a0ff'} >
 
             <Text style={localStyles.buttonText}>VR</Text>
-          </TouchableHighlight>
+    </TouchableHighlight>*/}
         </View>
       </View>
     );
@@ -133,7 +133,7 @@ export default class ViroSample extends Component {
 var localStyles = StyleSheet.create({
   viroContainer :{
     flex : 1,
-    backgroundColor: "black",
+    backgroundColor: "white",
   },
   outer : {
     flex : 1,
@@ -155,7 +155,7 @@ var localStyles = StyleSheet.create({
     fontSize : 25
   },
   buttonText: {
-    color:'#fff',
+    color:'black',
     textAlign:'center',
     fontSize : 20
   },
@@ -166,7 +166,7 @@ var localStyles = StyleSheet.create({
     paddingBottom:20,
     marginTop: 10,
     marginBottom: 10,
-    backgroundColor:'#68a0cf',
+    backgroundColor:'#c9c9c9',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#fff',

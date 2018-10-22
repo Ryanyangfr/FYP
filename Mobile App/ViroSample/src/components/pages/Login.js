@@ -24,7 +24,7 @@ export default class Login extends React.Component {
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <View style={styles.container}>
                 <View style={styles.loginContainer}>
-                <Image resizeMode="cover" style={styles.logo} source={require('../images/mainpage.gif')} />
+                <Image resizeMode="contain" style={styles.logo} source={require('../images/mainpage.png')} />
                 </View>
 
                 <View style={styles.formContainer}>
@@ -67,7 +67,7 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0a1a1d',
+        backgroundColor: "black",
     },
     loginContainer:{
         alignItems: 'center',
@@ -84,15 +84,15 @@ const styles = StyleSheet.create({
       backgroundColor: 'rgba(225,225,225,0.2)',
       marginBottom: 10,
       padding: 10,
-      color: '#fff'
+      color: '#FFFFFF'
   },
   buttonContainer:{
-      backgroundColor: '#ab93c9',
+      backgroundColor: '#c9c9c9',
       paddingVertical: 15,
       marginBottom:10
   },
   buttonText:{
-      color: '#fff',
+      color: 'black',
       textAlign: 'center',
       fontWeight: '700'
   }
