@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity,StyleSheet,View, Image} from 'react-native';
-import firebase from '../../../firebase';
+import firebase from '../../../../firebase';
 
 export  default class Welcome extends React.Component {
     state = { currentUser: null }

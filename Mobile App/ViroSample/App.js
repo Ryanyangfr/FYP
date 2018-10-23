@@ -1,5 +1,5 @@
 import React from 'react';
-import AppNavigator from './src/components/navigator/AppNavigator';
+import AppNavigator from './js/src/components/navigator/AppNavigator';
 
 export default class App extends React.Component {
   

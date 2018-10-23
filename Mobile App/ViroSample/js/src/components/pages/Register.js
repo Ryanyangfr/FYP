@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TextInput, TouchableOpacity,StyleSheet,View, Image,KeyboardAvoidingView} from 'react-native';
-import firebase from '../../../firebase';
+import firebase from '../../../../firebase';
 
 export default class Register extends React.Component {
     state = { email: '', password: '', errorMessage: 'hello'}
