@@ -19,7 +19,7 @@ router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 //         if (err){
 //             //response when there is an error
 //             res.send('username or password is wrong');
-//         }
+//         }`
 //         // console.log(result)
 //         //getting the password from the database output
 //         var password = result[0].USER_PASSWORD;
