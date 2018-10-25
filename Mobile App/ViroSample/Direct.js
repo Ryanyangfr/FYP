@@ -1,7 +1,6 @@
 import React from 'react';
-import AppNavigator from './js/src/components/navigator/AppNavigator';
 import BottomNavigator from './js/src/components/navigator/BottomNavigator';
-export default class App extends React.Component {
+export default class Direct extends React.Component {
   
   constructor(props) {
     super(props)
@@ -11,8 +10,7 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <AppNavigator/>
-
+        <BottomNavigator/>
     );
   }
 }

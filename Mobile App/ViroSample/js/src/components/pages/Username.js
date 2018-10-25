@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, TextInput, TouchableOpacity,StyleSheet,View, Image,KeyboardAvoidingView} from 'react-native';
 
-export default class Login extends React.Component {
+export default class UserName extends React.Component {
     
     constructor(props) {
         super(props);
@@ -16,7 +16,7 @@ export default class Login extends React.Component {
     async onFetchLoginRecords() {
         var data = {
          username: this.state.pin,
-         user_id:'5',
+         user_id:'7',
          team_id:'1'
         };
         try {
@@ -32,8 +32,8 @@ export default class Login extends React.Component {
          }
         );
          if (response.status >= 200 && response.status < 300) {
-            //alert("authenticated successfully!!!");
-            this.props.navigation.navigate("BottomNavigator")
+            alert("authenticated successfully!!!");
+            this.props.navigation.navigate("ViroMain")
          }
        } catch (errors) {
     

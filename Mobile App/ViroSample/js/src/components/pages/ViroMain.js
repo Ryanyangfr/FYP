@@ -15,6 +15,7 @@ import {
   StyleSheet,
   PixelRatio,
   TouchableHighlight,
+  Keyboard
 } from 'react-native';
 
 import {
@@ -42,6 +43,9 @@ var AR_NAVIGATOR_TYPE = "AR";
 var defaultNavigatorType = UNSET;
 
 export default class ViroSample extends Component {
+  componentDidMount(){
+    Keyboard.dismiss();
+  }
   constructor() {
     super();
 

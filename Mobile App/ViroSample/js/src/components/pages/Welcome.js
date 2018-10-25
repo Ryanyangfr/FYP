@@ -5,10 +5,7 @@ import firebase from '../../../../firebase';
 export  default class Welcome extends React.Component {
     state = { currentUser: null }
 
-    componentDidMount() {
-      const { currentUser } = firebase.auth()
-      this.setState({ currentUser })
-  }
+
   signOutUser = async () => {
     try {
         await firebase.auth().signOut();

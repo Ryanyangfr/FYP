@@ -1,10 +1,12 @@
 import { createStackNavigator } from 'react-navigation';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-import Welcome from '../pages/Welcome';
 import Loading from '../pages/Loading';
 import ViroMain from '../pages/ViroMain';
 import ProfilePage from '../pages/ProfilePage';
+import BottomNavigator from './BottomNavigator';
+import Username from '../pages/Username';
+import Main from '../pages/Main';
 
 const AppNavigator = createStackNavigator({
     Loading: { 
@@ -18,38 +20,23 @@ const AppNavigator = createStackNavigator({
             headerStyle: {height: 30}
         }, 
     },
-
-    Welcome: { 
-        screen: Welcome,
-        navigationOptions:{
-            title:'Welcome',
-            headerStyle: {height: 30}
-       } 
-    },
     
-    Register: { 
-        screen: Register,
+    Username: { 
+        screen: Username,
         navigationOptions:{
-            title:'Register',
-            headerStyle: {height: 30}
-        } 
-    },
-    
-    ViroMain: {
-        screen: ViroMain,
-        navigationOptions:{
-            title:'ViroMain',
+            title:'Username',
             headerStyle: {height: 30}
         } 
     },
 
-    ProfilePage:{
-        screen: ProfilePage,
+    BottomNavigator:{
+        screen: BottomNavigator,
         navigationOptions:{
-            title:'Profile',
-            headerStyle: {height: 30}
+            title:'Engaging U',
+            headerStyle: {height: 30},
+            header: null
         }
-    },
+    }
 },
 {
 
