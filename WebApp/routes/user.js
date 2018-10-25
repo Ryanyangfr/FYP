@@ -38,11 +38,17 @@ router.get('/retrieveAllUser', function(req,res){
     var query = "SELECT * FROM PARTICIPANT";
 
     conn.query(query, function(err,result){
+        var respond_message = [];
         if (err){
             res.end("No participants has joined");
         }
 
-        res.send(result);
+        for(var i=0; i<result.length; i++){
+            respond_message.push({username: result[i].USERNAME})
+        }
+
+        console.log(respond_message);
+        res.send(JSON.stringify(respond_message));
     })
 })
 
@@ -51,11 +57,11 @@ router.get('/register', function(req, res){
     //gets parameters from post request
     var username = req.query.username;
     var user_id = req.query.user_id;
-    var trail_id = req.query.trail_id;
+    var team_id = req.query.team_id;
 
-    var query = "INSERT INTO PARTICIPANT (USERNAME,USER_ID,TRAIL_ID) VALUES (?,?,?)";
+    var query = "INSERT INTO PARTICIPANT (USER_ID,USERNAME,TEAM_ID) VALUES (?,?,?)";
     //updates database
-    conn.query(query,[username,user_id,trail_id], function(err,results){
+    conn.query(query,[user_id,username,team_id], function(err,results){
         if(err){
             console.log(err);
             res.send('failed to update, check parameters');
