@@ -1,5 +1,7 @@
 import React from 'react';
-import MapView from 'react-native-maps';
+
+import{View} from 'react-native';
+
 // declare this outside of render
   var region = {
     latitude: 37.78825,
@@ -7,14 +9,13 @@ import MapView from 'react-native-maps';
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
-// add this to render
-
 export default class Main extends React.Component {
   render() {
     return (
-      <MapView
-      initialRegion={region}
-    />
+      <View>
+
+        
+      </View>
     );
   }
 }
