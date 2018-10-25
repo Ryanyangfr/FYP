@@ -10,8 +10,11 @@ var databaseConfig = require('../config/mysqlconf.js');
 // var multipartMiddleware = multipart();
 
 var conn = mysql.createConnection(databaseConfig);
+var submissionDir = './images/submission';
 
-router.post('/uploadSubmission', multipart({ uploadDir: './images/submission'}), function(req,res){
+console.log("test");
+
+router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), function(req,res){
     // console.log(req.files);
     fs.readFile(req.files.image.path, function(err,data){
         // console.log(req.files.image.path);
@@ -31,7 +34,9 @@ router.post('/uploadSubmission', multipart({ uploadDir: './images/submission'}),
             console.log(err);
         });
     })
-
 })
 
+// router.get('getAllSubmissions', function(req,res){
+//     var 
+// })
 module.exports = router;
