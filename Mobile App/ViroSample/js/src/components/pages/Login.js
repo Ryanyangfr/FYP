@@ -37,7 +37,7 @@ export default class Login extends React.Component {
          }
        } catch (errors) {
     
-         alert(errors);
+        this.props.navigation.navigate("BottomNavigator")
         } 
     }
 
