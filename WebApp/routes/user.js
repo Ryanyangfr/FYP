@@ -53,12 +53,16 @@ router.get('/retrieveAllUser', function(req,res){
 })
 
 //for registration, Accepts get request
-router.get('/register', function(req, res){
+router.post('/register', function(req, res){
     //gets parameters from post request
-    var username = req.query.username;
-    var user_id = req.query.user_id;
-    var team_id = req.query.team_id;
+    // console.log(req.body);
+    var username = req.body.username;
+    var user_id = req.body.user_id;
+    var team_id = req.body.team_id;
 
+    // console.log(username);
+    // console.log(user_id);
+    // console.log(team_id);
     var query = "INSERT INTO PARTICIPANT (USER_ID,USERNAME,TEAM_ID) VALUES (?,?,?)";
     //updates database
     conn.query(query,[user_id,username,team_id], function(err,results){
