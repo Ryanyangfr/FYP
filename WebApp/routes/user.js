@@ -36,7 +36,7 @@ router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 //for getting all users
 router.get('/retrieveAllUser', function(req,res){
     var query = "SELECT * FROM PARTICIPANT";
-
+    console.log('User registered');
     conn.query(query, function(err,result){
         var respond_message = [];
         if (err){
