@@ -60,9 +60,9 @@ router.post('/register', function(req, res){
     var user_id = req.body.user_id;
     var team_id = req.body.team_id;
 
-    // console.log(username);
-    // console.log(user_id);
-    // console.log(team_id);
+    console.log(username);
+    console.log(user_id);
+    console.log(team_id);
     var query = "INSERT INTO PARTICIPANT (USER_ID,USERNAME,TEAM_ID) VALUES (?,?,?)";
     //updates database
     conn.query(query,[user_id,username,team_id], function(err,results){
