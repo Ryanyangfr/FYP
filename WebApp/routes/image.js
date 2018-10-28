@@ -75,11 +75,11 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
 
         var query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, QUESTION_ID) VALUES (?,?,?,?,?)'
 
-        // console.log("submission: " + submission_id);
-        // console.log("image url: " + new_image_path);
-        // console.log("team id: " + team_id);
-        // console.log("trail instance id: " + trail_instance_id);
-        // console.log("question id: " + question_id);
+        console.log("submission: " + submission_id);
+        console.log("image url: " + new_image_path);
+        console.log("team id: " + team_id);
+        console.log("trail instance id: " + trail_instance_id);
+        console.log("question id: " + question_id);
         
     
         conn.query(query,[submission_id, new_image_path, team_id, trail_instance_id, question_id],function(err,data){
