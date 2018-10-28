@@ -66,7 +66,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
         var new_image_path = path.normalize(image_path.substring(
                             0,image_path.lastIndexOf('\\')+1)
                             + req.files.image.name);
-            // console.log(req.files);
+            console.log(new_image_path);
             // console.log(image_path);
             // console.log(image_path.lastIndexOf('\\')+1);
             // console.log(req.files.image.name);
