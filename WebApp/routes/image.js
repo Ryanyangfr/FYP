@@ -63,10 +63,10 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
             res.send("Uploaded!!!");
         }
         var image_path = req.files.image.path
-        var new_image_path = path.normalize(image_path.substring(
+        var new_image_path = path.normalize(submissionDir + '/' + image_path.substring(
                             0,image_path.lastIndexOf('\\')+1)
                             + req.files.image.name);
-            console.log(new_image_path);
+            console.log();
             // console.log(image_path);
             // console.log(image_path.lastIndexOf('\\')+1);
             // console.log(req.files.image.name);
