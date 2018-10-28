@@ -93,18 +93,18 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
     
 })
 
-router.get('/getAllSubmissions', function(req,res){
-    var query = 'SELECT SUBMISSION_IMAGE_URL FROM SUBMISSION'
-    conn.query(query, function(err, data){
-        if(err){
-            console.log(err);
-        } else{
-            for(var i=0; i<data.length; i++){
-                var image_url = data[i].SUBMISSION_IMAGE_URL;
-                console.log(image_url);
-            }
-        }
+// router.get('/getAllSubmissions', function(req,res){
+//     var query = 'SELECT SUBMISSION_IMAGE_URL FROM SUBMISSION'
+//     conn.query(query, function(err, data){
+//         if(err){
+//             console.log(err);
+//         } else{
+//             for(var i=0; i<data.length; i++){
+//                 var image_url = data[i].SUBMISSION_IMAGE_URL;
+                
+//             }
+//         }
 
-    })
-})
+//     })
+// })
 module.exports = router;
