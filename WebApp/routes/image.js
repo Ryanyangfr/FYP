@@ -21,7 +21,7 @@ conn.query('SELECT MAX(SUBMISSION_ID) as SUBMISSION_ID FROM SUBMISSION', functio
     // console.log(data[0].submission_id);
 
     if(data[0].submission_id === undefined){
-        conn.query('select count(*) as count from submission', function(err, data2){
+        conn.query('select count(*) as count from SUBMISSION', function(err, data2){
                 if (err){
                     console.log("error: " + err);
                 }
