@@ -65,11 +65,12 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                                 0,image_path.lastIndexOf('\\')+1)
                                 + req.files.image.name);
                 console.log();
-                // console.log(image_path);
+                console.log(image_path);
                 // console.log(image_path.lastIndexOf('\\')+1);
                 // console.log(req.files.image.name);
             fs.rename(image_path, new_image_path, function(err){
                 // res.send(err);
+                console.log(err);
             });
     
             var query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, QUESTION_ID) VALUES (?,?,?,?,?)'
