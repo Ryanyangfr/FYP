@@ -97,18 +97,41 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
     
 })
 
-router.get('/getAllSubmissions', function(req,res){
-    var query = 'SELECT SUBMISSION_IMAGE_URL FROM SUBMISSION'
-    conn.query(query, function(err, data){
-        if(err){
-            console.log(err);
-        } else{
-            for(var i=0; i<data.length; i++){
-                var image_url = data[i].SUBMISSION_IMAGE_URL;
-                
-            }
-        }
+router.get('/getSubmission', function(req,res){
+    // var query = 'SELECT SUBMISSION_IMAGE_URL FROM SUBMISSION'
+    // conn.query(query, function(err, data){
+    //     if(err){
+    //         console.log(err);
+    //     } else{
+    //         for(var i=0; i<data.length; i++){
+    //             var image_url = data[i].SUBMISSION_IMAGE_URL;
+    //         }
+    //     }
 
-    })
+    // })
+
+    var team_id = req.query.team_id;
+    var trail_instance_id = req.query.trail_instance_id;
+    var question = req.query.question;
+
+    // console.log(question);
+
+    conn.query('SELECT QUESTION_ID FROM SUBMISSION_QUESTION WHERE QUESTION = ?', question, function(err, data){
+        if (err){
+            console.log("error here: " + err);
+        } else{
+            var question_id = data[0].QUESTION_ID;
+            var query = 'SELECT SUBMISSION_IMAGE_URL FROM SUBMISSION WHERE QUESTION_ID = ? AND TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
+
+            var sqlQuery = conn.query(query, [question_id,team_id,trail_instance_id], function(err, data2){
+                if(err){
+                    console.log(sqlQuery.sql);
+                } else{
+                    var parentDir = path.normalize(__dirname + "/..");
+                    res.sendFile(path.normalize(parentDir + '/' + data2[0].SUBMISSION_IMAGE_URL));
+                }
+            })
+        }
+    });
 })
 module.exports = router;
