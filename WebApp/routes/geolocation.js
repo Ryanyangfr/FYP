@@ -21,9 +21,8 @@ router.get('/getAllHotspots', function(req,res){
                 var lat = element.LATITUDE;
                 var long = element.LONGTITUDE;
 
-                response.push({type: "Feature", 
-                                geometry: {type: "Point", coordinates: [lat,long]},
-                            properties: {name: hotspot_name}});
+                response.push({coordinates: [lat,long],
+                            name: hotspot_name});
             })
 
         res.end(JSON.stringify(response, null, 4));
