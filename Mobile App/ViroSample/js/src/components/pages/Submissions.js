@@ -1,4 +1,4 @@
-/*'use strict';
+'use strict';
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -69,18 +69,18 @@ const styles = StyleSheet.create({
     margin: 20
   }
 });
-*/
-import React from 'react';
-import { Text, TouchableOpacity,StyleSheet,View, Image} from 'react-native';
+
+// import React from 'react';
+// import { Text, TouchableOpacity,StyleSheet,View, Image} from 'react-native';
 
 
-export default class Submissions extends React.Component {
-  render() {
+// export default class Submissions extends React.Component {
+//   render() {
    
-    return(
-      <View >
-        <Text>Submissions</Text>
-    </View>
-    )
-  }
-}
+//     return(
+//       <View >
+//         <Text>Submissions</Text>
+//     </View>
+//     )
+//   }
+// }
