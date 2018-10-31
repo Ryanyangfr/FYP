@@ -26,7 +26,7 @@ INSERT INTO MISSION VALUES
 (5, 'Li Ka Shing Library'),
 (6, 'Administrative Building');
 
-INSERT INTO QUIZ_QUESTION
+INSERT INTO QUIZ_QUESTION VALUES
 ('In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
 ('In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 1),
 ('In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 1);
@@ -49,7 +49,7 @@ INSERT INTO QUIZ_QUESTION
 
 
 
-INSERT INTO QUIZ_OPTION
+INSERT INTO QUIZ_OPTION VALUES
 ('In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment'),
 ('In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Character'),
 ('In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Culture'),
