@@ -28,11 +28,16 @@ router.get('/getQuizzes', function(req, res){
                     if (err){
                         console.log(err);
                     } else{
+                        var answer_index = 0;
                         quiz_option = [];
-                        quiz_details.forEach(function(detail){
+                        quiz_details.forEach(function(detail, i){
+                            if(detail.QUIZ_OPTION == details.QUIZ_ANSWER){
+                                answer_index = i;
+                            }
                             quiz_option.push(detail.QUIZ_OPTION);
                         })
-                        response.push({hotspot: hotspot_name, quiz_question:quiz_details[0].QUIZ_QUESTION,  quiz_answer: quiz_details[0].QUIZ_ANSWER, quiz_options: quiz_option}); 
+
+                        response.push({hotspot: hotspot_name, quiz_question:quiz_details[0].QUIZ_QUESTION,  quiz_answer: i, quiz_options: quiz_option});
                         if (number == missions.length){
                             res.end(JSON.stringify(response, null, 3));
                         }
