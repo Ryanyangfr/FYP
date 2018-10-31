@@ -18,3 +18,5 @@ router.get('/getInstance', function(req,res){
         }
     })
 });
+
+module.exports = router;
