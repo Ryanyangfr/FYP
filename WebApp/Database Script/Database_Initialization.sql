@@ -90,7 +90,7 @@ INSERT INTO QUIZ_OPTION VALUES
 ('A Great University represents:', 'Pre-eminent and Esteemed Global City University in Asia'),
 ('A Great University represents:', 'Transformative Education for A New Generation of Graduates'),
 ('A Great University represents:', 'Leader In Cutting Edge Multi-disciplinary Research'),
-('A Great University represents:', 'Pre-eminent and Esteemed Global City University in Asia'),
+('A Great University represents:', 'Tacking World’s Complexities, Impacting Human Positively'),
 ('Who is the founding dean of School of Economics?', 'Professor Roberto S. Mariano'),
 ('Who is the founding dean of School of Economics?', 'Professor James Tang'),
 ('Who is the founding dean of School of Economics?', 'Professor Bryce Hool'),
