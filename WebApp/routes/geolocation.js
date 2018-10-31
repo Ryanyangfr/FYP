@@ -8,9 +8,10 @@ var databaseConfig = require('../config/mysqlconf.js');
 var conn = mysql.createConnection(databaseConfig);
 
 router.get('/getAllHotspots', function(req,res){
-    var query = 'SELECT * FROM HOTSPOT';
+    var trail_instance_id = req.query.trail_instance_id;
+    var query = 'SELECT * FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?)';
 
-    conn.query(query, function(err,result){
+    conn.query(query, trail_instance_id, function(err,result){
         if(err){
             console.log('query 1 error: ' + err);
         } else{
