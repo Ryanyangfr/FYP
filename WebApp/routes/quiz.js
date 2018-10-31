@@ -32,7 +32,7 @@ router.get('/getQuizzes', function(req, res){
                         quiz_option = [];
                         quiz_details.forEach(function(detail, i){
                             if(detail.QUIZ_OPTION == detail.QUIZ_ANSWER){
-                                answer_index = i;
+                                answer_index = i+1;
                             }
                             quiz_option.push(detail.QUIZ_OPTION);
                         })
