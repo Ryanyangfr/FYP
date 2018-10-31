@@ -4,7 +4,7 @@ INSERT INTO NARRATIVE VALUES
 (3, 'The School of Economics and Social Science was established on 1 July 2002 under the Bachelor of Science degree. The Bachelor of Social Science undergraduate degree programme had 3 majors -Psychology, Sociology, and Political Science. In April 2007, the School of Economics and the School of Social Sciences were established as separate schools to better focus on the development of the undergraduate and graduate curricula and programmes, as well as faculty research in the respective disciplines. The current dean for School of Economics and School of Social Science are Prof Bryce Hool and Tan Yoo Guan respectively.'),
 (4,'Established in 2003, School of Information Systems is a dynamic school that is constantly seeking to lift our education and research to a higher level. It houses 10 institutes, centres, labs and initiatives (ICLIs) in SMU. These ICLIs have several areas of focus such as Analytics for Business, Consumer & Social Insights, Urban Management & Sustainability, Ageing & Healthcare Management, Finance & Financial Markets, and Cybersecurity Initiative.'),
 (5,'School of law officially commence in 2007, welcoming its first batch of student to its LLB and JD programmes at the helm of Professor Michael Furmston. However, the law department has always been in SMU within Lee Kong Chian School of Business, created and headed by Professor Andrew Phang (presently Judge of Appeal). The SOL Building broke ground on 20 January 2014 and was officially opened in 2017. Prior to this, School of Law was sharing the same building as School of Accountancy. A key feature of the new building is the Kwa Geok Choo Law Library, named in memory of the late Madam Kwa Geok Choo, wife of former Prime Minister Lee Kuan Yew. The 2,200-square-metre Law Library is fully equipped with modern technology wired for legal research in the 21st century.'),
-(6,'Officially opened on 24 February 2006, the library was named after Hong Kong businessman Dr. Li Ka-Shing, Chairman of Cheung Kong (Holdings) Limited and Hutchison Whampoa Limited. The Li Ka Shing Foundation donated an endowment to the library for collections and to the University for scholarship. SMU Libraries offers a range of learning spaces, including open areas for individual and collaborative use, study carrels, project rooms equipped with LCD panels, learning labs, quiet areas, investment studio, graduate lounges, and Hive - an innovative space for collaborative learning.'),
+(6,'Officially opened on 24 February 2006, the library was named after Hong Kong businessman Dr. Li Ka-Shing, Chairman of Cheung Kong (Holdings) Limited and Hutchison Whampoa Limited. The Li Ka Shing Foundation donated an endowment to the library for collections and to the University for scholarship. SMU Libraries offers a range of learning spaces, including open areas for individual and collaborative use, study carrels, project rooms equipped with LCD panels, learning labs, quiet areas, investment studio, graduate lounges, and Hive - an innovative space for collaborative learning.');
 (7, 'Home to around 10,000 undergraduates and postgraduates, SMU comprises six schools which offer a wide range of bachelor’s, master’s and PhD degree programmes in the disciplinary areas associated with the six schools, as well as in inter- disciplinary combinations of these areas. At level three, there is a Multi-Purpose Sports Hall, commonly used for CCA training sessions, competition, camps, examination hall and many more.');
 
 INSERT INTO AR_GAME VALUES (1,'1');
@@ -45,7 +45,7 @@ INSERT INTO QUIZ_QUESTION
 ('The Living Analytics Research Centre (LARC) is a collaboration with ________.', 'Carnegie Mellon University', 4),
 ('Which level is the Office of Finance located at?', '11', 7),
 ('We are required to tap the employee card in the lift’s card reader if we want to access Levels __  and above.', '7', 7),
-('The University Lounge is a great place for all employees and alumni members to relax. It is located at Level ___ in the Administration building.', '6', 7),
+('The University Lounge is a great place for all employees and alumni members to relax. It is located at Level ___ in the Administration building.', '6', 7);
 
 
 
@@ -122,7 +122,7 @@ INSERT INTO QUIZ_OPTION
 ('The University Lounge is a great place for all employees and alumni members to relax. It is located at Level ___ in the Administration building.', '6'),
 ('The University Lounge is a great place for all employees and alumni members to relax. It is located at Level ___ in the Administration building.', '5'),
 ('The University Lounge is a great place for all employees and alumni members to relax. It is located at Level ___ in the Administration building.', '4'),
-('The University Lounge is a great place for all employees and alumni members to relax. It is located at Level ___ in the Administration building.', '3'),
+('The University Lounge is a great place for all employees and alumni members to relax. It is located at Level ___ in the Administration building.', '3');
 
 
 
@@ -138,7 +138,7 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 (9, 'Locate the Hive at the Learning Commons and take a wefie!', 6),
 (10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 6),
 (11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 6),
-(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 6),
+(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 6);
 
 
 
