@@ -94,7 +94,7 @@ INSERT INTO QUIZ_OPTION VALUES
 ('Who is the founding dean of School of Economics?', 'Professor Roberto S. Mariano'),
 ('Who is the founding dean of School of Economics?', 'Professor James Tang'),
 ('Who is the founding dean of School of Economics?', 'Professor Bryce Hool'),
-('What is one way in which SMU supports staff in achieving excellence?', 'Virtual classrooms')
+('What is one way in which SMU supports staff in achieving excellence?', 'Virtual classrooms'),
 ('What is one way in which SMU supports staff in achieving excellence?', 'Recreational programs'),
 ('What is one way in which SMU supports staff in achieving excellence?', 'Open Enrolment Program'),
 ('What does collegiality entail in SMU?', 'Working together with my colleagues'),
