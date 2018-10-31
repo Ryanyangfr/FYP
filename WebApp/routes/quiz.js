@@ -31,7 +31,7 @@ router.get('/getQuizzes', function(req, res){
                         var answer_index = 0;
                         quiz_option = [];
                         quiz_details.forEach(function(detail, i){
-                            if(detail.QUIZ_OPTION == details.QUIZ_ANSWER){
+                            if(detail.QUIZ_OPTION == detail.QUIZ_ANSWER){
                                 answer_index = i;
                             }
                             quiz_option.push(detail.QUIZ_OPTION);
