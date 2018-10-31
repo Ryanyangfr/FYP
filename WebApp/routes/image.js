@@ -46,7 +46,8 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
     submission_index++;
     var team_id = req.body.team_id;
     var trail_instance_id = req.body.trail_instance_id;
-    var question = req.body.question
+    var question = req.body.question;
+    console.log('question: ' + question);
 
     conn.query('SELECT QUESTION_ID FROM SUBMISSION_QUESTION WHERE QUESTION = ?', question, function(err, data){
         if(err){
