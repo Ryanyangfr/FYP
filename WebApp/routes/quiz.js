@@ -37,7 +37,7 @@ router.get('/getQuizzes', function(req, res){
                             quiz_option.push(detail.QUIZ_OPTION);
                         })
 
-                        response.push({hotspot: hotspot_name, quiz_question:quiz_details[0].QUIZ_QUESTION,  quiz_answer: i, quiz_options: quiz_option});
+                        response.push({hotspot: hotspot_name, quiz_question:quiz_details[0].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option});
                         if (number == missions.length){
                             res.end(JSON.stringify(response, null, 3));
                         }
