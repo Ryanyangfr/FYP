@@ -23,8 +23,9 @@ INSERT INTO MISSION VALUES
 (2, 'School of Accountancy'),
 (3, 'School of Economics/School of Social Sciences'),
 (4, 'School of Information Systems'),
-(5, 'Li Ka Shing Library'),
-(6, 'Administrative Building');
+(5, 'School of Law'),
+(6, 'Li Ka Shing Library'),
+(7, 'Administrative Building');
 
 INSERT INTO QUIZ VALUES
 ('In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
