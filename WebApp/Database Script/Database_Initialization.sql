@@ -86,7 +86,7 @@ INSERT INTO QUIZ_OPTION VALUES
 ('A Global Exemplar represents:', 'Pre-eminent and Esteemed Global City University in Asia'),
 ('A Global Exemplar represents:', 'Transformative Education for A New Generation of Graduates'),
 ('A Global Exemplar represents:', 'Leader In Cutting Edge Multi-disciplinary Research'),
-('A Global Exemplar represents:', 'Pre-eminent and Esteemed Global City University in Asia'),
+('A Global Exemplar represents:', 'Tacking World’s Complexities, Impacting Human Positively'),
 ('A Great University represents:', 'Pre-eminent and Esteemed Global City University in Asia'),
 ('A Great University represents:', 'Transformative Education for A New Generation of Graduates'),
 ('A Great University represents:', 'Leader In Cutting Edge Multi-disciplinary Research'),
