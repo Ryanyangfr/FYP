@@ -35,8 +35,8 @@ router.get('/getQuizzes', function(req, res){
                             var quiz_question = [];
                             // use to keep track of answer index
                             var count = 1;
+                            var quiz_option = [];
                             quiz_details.forEach(function(detail, i){
-                                var quiz_option = [];
                                 if(detail.QUIZ_OPTION == detail.QUIZ_ANSWER){
                                     answer_index = count;;
                                     count = 1;
@@ -47,11 +47,12 @@ router.get('/getQuizzes', function(req, res){
                                 console.log('currentQuiz_ID: ' + currentQuiz_ID);
                                 console.log('quiz id: ' + detail.QUIZ_ID);
 
-                                quiz_option.push(detail.QUIZ_OPTION);
                                 if (currentQuiz_ID != detail.QUIZ_ID){
                                     currentQuiz_ID = detail.QUIZ_ID
                                     quiz_question.push({quiz_question:quiz_details[i-1].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option})
+                                    quiz_option = [];
                                 }
+                                quiz_option.push(detail.QUIZ_OPTION);
                             })
                             
                             response.push({hotspot: hotspot_name, quiz: quiz_question});
