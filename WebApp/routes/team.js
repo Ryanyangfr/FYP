@@ -14,6 +14,10 @@ router.post('/updateScore', function(req,res){
     var instance_id = req.body.trail_instance_id;
     var update = parseInt(req.body.score);
     
+    console.log('team_id: ' + team_id);
+    console.log('instance_id: ' + instance_id);
+    console.log('score: ' + score);
+
     var query = 'SELECT TEAM_POINTS FROM TEAM WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
 
     conn.query(query, [team_id, instance_id], function(err, team){
