@@ -41,7 +41,7 @@ router.get('/retrieveAllUser', function(req,res){
     conn.query(query, function(err,result){
         var respond_message = [];
         if (err){
-            res.end("No participants has joined");
+            res.send("No participants has joined");
         }
 
         for(var i=0; i<result.length; i++){
