@@ -40,11 +40,11 @@ router.get('/getQuizzes', function(req, res){
                             })
                             
                             response.push({hotspot: hotspot_name, quiz_question:quiz_details[0].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option});
-                            if (mission == missions.length){
-                                res.end(JSON.stringify(response, null, 3));
-                            }
-                            console.log('number: ' + number);
+                            console.log('mission: ' + mission);
                             console.log('mission length: ' + missions.length);
+                        }
+                        if (mission == missions.length){
+                            res.end(JSON.stringify(response, null, 3));
                         }
                         // number = number + 1;
                     }
