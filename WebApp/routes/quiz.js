@@ -27,6 +27,7 @@ router.get('/getQuizzes', function(req, res){
                 conn.query(mission_query, mission, function(err, quiz_details){
                     if (err){
                         console.log(err);
+                        number = number + 1;
                     } else{
                         if (quiz_details.length != 0){
                             var answer_index = 0;
@@ -45,8 +46,8 @@ router.get('/getQuizzes', function(req, res){
                             console.log('number: ' + number);
                             console.log('mission length: ' + missions.length);
                         }
+                        number = number + 1;
                     }
-                    number = number + 1;
                 })
 
             })
