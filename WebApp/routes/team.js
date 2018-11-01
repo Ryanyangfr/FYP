@@ -20,7 +20,7 @@ router.post('/updateScore', function(req,res){
         if (err){
             console.log(err)
         } else{
-            var points = team.TEAM_POINTS + update;
+            var points = team[0].TEAM_POINTS + update;
             console.log('points: ' + points)
             queryUpdate = 'UPDATE TEAM SET TEAM_POINTS = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
 
