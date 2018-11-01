@@ -27,7 +27,7 @@ router.get('/getQuizzes', function(req, res){
                     console.log(hotspot_name);
                     if (err){
                         console.log(err);
-                        number = number + 1;
+                        // number = number + 1;
                     } else{
                         if (quiz_details.length != 0){
                             var answer_index = 0;
@@ -40,13 +40,13 @@ router.get('/getQuizzes', function(req, res){
                             })
                             
                             response.push({hotspot: hotspot_name, quiz_question:quiz_details[0].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option});
-                            if (number == missions.length){
+                            if (mission == missions.length){
                                 res.end(JSON.stringify(response, null, 3));
                             }
                             console.log('number: ' + number);
                             console.log('mission length: ' + missions.length);
                         }
-                        number = number + 1;
+                        // number = number + 1;
                     }
                 })
 
