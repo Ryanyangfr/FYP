@@ -12,7 +12,7 @@ var conn = mysql.createConnection(databaseConfig);
 router.post('/updateScore', function(req,res){
     var team_id = req.body.team_id;
     var instance_id = req.body.trail_instance_id;
-    var update = req.body.score;
+    var update = parseInt(req.body.score);
     
     var query = 'SELECT TEAM_POINTS FROM TEAM WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
 
