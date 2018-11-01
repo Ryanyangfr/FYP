@@ -25,7 +25,7 @@ INSERT INTO MISSION VALUES
 (4, 'School of Information Systems'),
 (5, 'School of Law'),
 (6, 'Li Ka Shing Library'),
-(7, 'Administrative Building')
+(7, 'Administrative Building'),
 (8, 'Lee Kong Chian School of Business'),
 (9, 'School of Accountancy'),
 (10, 'School of Economics/School of Social Sciences'),
