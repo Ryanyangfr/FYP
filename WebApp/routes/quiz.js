@@ -44,6 +44,7 @@ router.get('/getQuizzes', function(req, res){
 
                                 console.log('option: ' + detail.QUIZ_OPTION);
                                 console.log('count: ' + count);
+                                console.log('answer_index: ' + answer_index);
                                 // console.log('currentQuiz_ID: ' + currentQuiz_ID);
                                 // console.log('quiz id: ' + detail.QUIZ_ID);
 
