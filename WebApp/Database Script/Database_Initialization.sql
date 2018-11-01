@@ -33,11 +33,9 @@ INSERT INTO MISSION VALUES
 (12, 'School of Information Systems'),
 (13, 'School of Law'),
 (14, 'School of Law'),
-(15, 'School of Law'),
 (16, 'Li Ka Shing Library'),
 (17, 'Li Ka Shing Library'),
-(18, 'Li Ka Shing Library'),
-(19, 'Li Ka Shing Library');
+(18, 'Li Ka Shing Library');
 
 INSERT INTO QUIZ VALUES
 (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
@@ -147,15 +145,38 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 (5, 'Locate Living Analytics Research Centre (LARC) and take a wefie together with LARC’s logo!', 12),
 (6, 'Locate the SMU Hall and take a wefie outside of the Hall! (Hint: Basement)', 13),
 (7, 'Locate the Kwa Geok Choo Library and take a wefie next to the scenic elevator!', 14),
-(8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 15),
+(8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 5),
 (9, 'Locate the Hive at the Learning Commons and take a wefie!', 16),
 (10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 17),
 (11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 18),
-(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 19);
+(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 6);
 
+INSERT INTO TRAIL VALUES
+(1,45);
 
+INSERT INTO TRAIL_INSTANCE VALUES
+(1,1);
 
+INSERT INTO TRAIL_MISSION VALUES
+(1,1),
+(1,2),
+(1,3),
+(1,4),
+(1,5),
+(1,6);
 
+INSERT INTO TRAIL_HOTSPOT VALUES
+(1, 'Lee Kong Chian School of Business'),
+(1, 'School of Accountancy'),
+(1, 'School of Economics/School of Social Sciences'),
+(1, 'School of Information Systems'),
+(1, 'School of Law'),
+(1, 'Li Ka Shing Library');
+
+INSERT INTO TEAM VALUES
+(1,0,1),
+(2,0,1),
+(3,0,1);
 
 
 
