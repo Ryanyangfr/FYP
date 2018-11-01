@@ -57,10 +57,10 @@ router.get('/retrieveAllUser', function(req,res){
 router.post('/register', function(req, res){
     //gets parameters from post request
     // console.log(req.body);
-    numUsersEntered = numUsersEntered;
     var username = req.body.username;
     var user_id = numUsersEntered+1;
     var team_id = numUsersEntered%3 + 1;
+    numUsersEntered = numUsersEntered+1;
 
     console.log(username);
     console.log(user_id);
