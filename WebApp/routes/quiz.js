@@ -41,7 +41,6 @@ router.get('/getQuizzes', function(req, res){
                                 if(detail.QUIZ_OPTION == detail.QUIZ_ANSWER){
                                     answer_index = count;
                                 }
-                                count = count + 1;
 
                                 // console.log('option: ' + detail.QUIZ_OPTION);
                                 // console.log('currentQuiz_ID: ' + currentQuiz_ID);
@@ -52,8 +51,9 @@ router.get('/getQuizzes', function(req, res){
                                     currentQuiz_ID = detail.QUIZ_ID
                                     quiz_question.push({quiz_question:quiz_details[i-1].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option})
                                     quiz_option = [];
-                                    count = 1;
+                                    count = 0;
                                 }
+                                count = count + 1;
                                 quiz_option.push(detail.QUIZ_OPTION);
                             })
                             
