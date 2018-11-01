@@ -6,6 +6,7 @@ var uploads = require('./routes/image.js');
 var location = require('./routes/geolocation.js');
 var quiz = require('./routes/quiz.js');
 var instance = require('./routes/instance.js');
+var team = require('./routes/team.js');
 
 //declares the app
 var app = express();
@@ -15,6 +16,7 @@ app.use('/user', userRouter);
 app.use('/upload', uploads);
 app.use('/hotspot', location)
 app.use('/quiz', quiz);
+app.use('/team', team);
 app.use('/', instance);
 
 module.exports = app;
