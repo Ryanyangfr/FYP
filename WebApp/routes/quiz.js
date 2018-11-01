@@ -38,6 +38,7 @@ router.get('/getQuizzes', function(req, res){
                             //start with empty quiz option array
                             var quiz_option = [];
                             quiz_details.forEach(function(detail, i){
+                                console.log(detail.QUIZ_OPTION == detail.QUIZ_ANSWER);
                                 if(detail.QUIZ_OPTION == detail.QUIZ_ANSWER){
                                     answer_index = count;
                                 }
