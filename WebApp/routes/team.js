@@ -24,7 +24,7 @@ router.post('/updateScore', function(req,res){
             console.log('points: ' + points)
             queryUpdate = 'UPDATE TEAM SET TEAM_POINTS = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
 
-            conn.query(queryUpdate, [points, team_id, trail_instance_id], function(err, data){
+            conn.query(queryUpdate, [points, team_id, instance_id], function(err, data){
                 if (err){
                     console.log(err);
                 } else{
