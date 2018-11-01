@@ -28,21 +28,23 @@ router.get('/getQuizzes', function(req, res){
                     if (err){
                         console.log(err);
                     } else{
-                        var answer_index = 0;
-                        quiz_option = [];
-                        quiz_details.forEach(function(detail, i){
-                            if(detail.QUIZ_OPTION == detail.QUIZ_ANSWER){
-                                answer_index = i+1;
+                        if (quiz_details.length != 0){
+                            var answer_index = 0;
+                            quiz_option = [];
+                            quiz_details.forEach(function(detail, i){
+                                if(detail.QUIZ_OPTION == detail.QUIZ_ANSWER){
+                                    answer_index = i+1;
+                                }
+                                quiz_option.push(detail.QUIZ_OPTION);
+                            })
+                            
+                            response.push({hotspot: hotspot_name, quiz_question:quiz_details[0].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option});
+                            if (number == missions.length){
+                                res.end(JSON.stringify(response, null, 3));
                             }
-                            quiz_option.push(detail.QUIZ_OPTION);
-                        })
-
-                        response.push({hotspot: hotspot_name, quiz_question:quiz_details[0].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option});
-                        if (number == missions.length){
-                            res.end(JSON.stringify(response, null, 3));
+                            console.log('number: ' + number);
+                            console.log('mission length: ' + missions.length);
                         }
-                        console.log('number: ' + number);
-                        console.log('mission length: ' + missions.length);
                         number = number + 1;
                     }
                 })
