@@ -22,7 +22,7 @@ router.get('/getQuizzes', function(req, res){
                 var hotspot_name = missionRow.HOTSPOT_NAME;
                 console.log(mission);
                 console.log(hotspot_name);
-                mission_query = 'SELECT * FROM QUIZ,QUIZ_OPTION WHERE MISSION_ID = ? AND QUIZ.QUIZ_QUESTION = QUIZ_OPTION.QUIZ_QUESTION';
+                mission_query = 'SELECT QUIZ_QUESTION, QUIZ_ANSWER, QUIZ_OPTION FROM QUIZ,QUIZ_OPTION WHERE MISSION_ID = ? AND QUIZ.QUIZ_ID = QUIZ_OPTION.QUIZ_ID';
 
                 conn.query(mission_query, mission, function(err, quiz_details){
                     if (err){

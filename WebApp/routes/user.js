@@ -10,6 +10,7 @@ var conn = mysql.createConnection(databaseConfig);
 router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+let numUsersEntered = 0;
 // checks if user is valid
 // router.get('/loginCheck/', function(req,res){
 //     // console.log(req.query.password);
@@ -56,9 +57,10 @@ router.get('/retrieveAllUser', function(req,res){
 router.post('/register', function(req, res){
     //gets parameters from post request
     // console.log(req.body);
+    numUsersEntered = numUsersEntered;
     var username = req.body.username;
-    var user_id = req.body.user_id;
-    var team_id = req.body.team_id;
+    var user_id = numUsersEntered+1;
+    var team_id = numUsersEntered%3 + 1;
 
     console.log(username);
     console.log(user_id);
