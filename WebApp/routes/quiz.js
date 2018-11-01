@@ -20,7 +20,7 @@ router.get('/getQuizzes', function(req, res){
             missions.forEach(function(missionRow){
                 var mission = missionRow.MISSION_ID;
                 var hotspot_name = missionRow.HOTSPOT_NAME;
-                mission_query = 'SELECT QUIZ_QUESTION, QUIZ_ANSWER, QUIZ_OPTION FROM QUIZ,QUIZ_OPTION WHERE MISSION_ID = ? AND QUIZ.QUIZ_ID = QUIZ_OPTION.QUIZ_ID';
+                mission_query = 'SELECT QUIZ_ID, QUIZ_QUESTION, QUIZ_ANSWER, QUIZ_OPTION FROM QUIZ,QUIZ_OPTION WHERE MISSION_ID = ? AND QUIZ.QUIZ_ID = QUIZ_OPTION.QUIZ_ID';
 
                 conn.query(mission_query, mission, function(err, quiz_details){
                     console.log(mission);
@@ -30,16 +30,26 @@ router.get('/getQuizzes', function(req, res){
                         // number = number + 1;
                     } else{
                         if (quiz_details.length != 0){
+                            var currentQuiz_ID = quiz_details[0].QUIZ_ID;
                             var answer_index = 0;
-                            quiz_option = [];
+                            var quiz_question = [];
+                            // use to keep track of answer index
+                            var count = 1;
                             quiz_details.forEach(function(detail, i){
+                                var quiz_option = [];
                                 if(detail.QUIZ_OPTION == detail.QUIZ_ANSWER){
-                                    answer_index = i+1;
+                                    answer_index = count;;
+                                    count = 1;
                                 }
+                                count = count + 1;
                                 quiz_option.push(detail.QUIZ_OPTION);
+                                if (currentQuiz_ID != detail.QUIZ_ID){
+                                    currentQuiz_ID = detail.QUIZ_ID
+                                    quiz_question.push({quiz_question:quiz_details[i-1].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option})
+                                }
                             })
                             
-                            response.push({hotspot: hotspot_name, quiz_question:quiz_details[0].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option});
+                            response.push({hotspot: hotspot_name, quiz: quiz_question});
                             console.log('mission: ' + mission);
                             console.log('mission length: ' + missions.length);
                         }
