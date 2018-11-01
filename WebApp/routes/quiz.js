@@ -34,7 +34,7 @@ router.get('/getQuizzes', function(req, res){
                             var answer_index = 0;
                             var quiz_question = [];
                             // use to keep track of answer index
-                            var count = 1;
+                            var count = 0;
                             //start with empty quiz option array
                             var quiz_option = [];
                             quiz_details.forEach(function(detail, i){
