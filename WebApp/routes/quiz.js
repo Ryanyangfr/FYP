@@ -42,6 +42,11 @@ router.get('/getQuizzes', function(req, res){
                                     count = 1;
                                 }
                                 count = count + 1;
+
+                                console.log('option: ' + detail.QUIZ_OPTION);
+                                console.log('currentQuiz_ID: ' + currentQuiz_ID);
+                                console.log('quiz id: ' + detail.QUIZ_ID);
+
                                 quiz_option.push(detail.QUIZ_OPTION);
                                 if (currentQuiz_ID != detail.QUIZ_ID){
                                     currentQuiz_ID = detail.QUIZ_ID
