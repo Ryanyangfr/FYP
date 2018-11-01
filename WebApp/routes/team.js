@@ -5,8 +5,8 @@ var bodyParser = require('body-parser');
 
 var databaseConfig = require('../config/mysqlconf.js')
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
 var conn = mysql.createConnection(databaseConfig);
 
 router.post('/updateScore', function(req,res){
