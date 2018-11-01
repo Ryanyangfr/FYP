@@ -144,12 +144,12 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 (4, 'Locate the SMU Gym and take a wefie together with one qualified student fitness instructor!', 11),
 (5, 'Locate Living Analytics Research Centre (LARC) and take a wefie together with LARC’s logo!', 12),
 (6, 'Locate the SMU Hall and take a wefie outside of the Hall! (Hint: Basement)', 13),
-(7, 'Locate the Kwa Geok Choo Library and take a wefie next to the scenic elevator!', 14),
-(8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 5),
+(7, 'Locate the Kwa Geok Choo Library and take a wefie next to the scenic elevator!', 5),
+(8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 14),
 (9, 'Locate the Hive at the Learning Commons and take a wefie!', 16),
-(10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 17),
+(10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 6),
 (11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 18),
-(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 6);
+(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 17);
 
 INSERT INTO TRAIL VALUES
 (1,45);

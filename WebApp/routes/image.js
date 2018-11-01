@@ -10,7 +10,7 @@ var databaseConfig = require('../config/mysqlconf.js');
 
 // var multipartMiddleware = multipart();
 
-var conn = mysql.createConnection(databaseConfig);
+var conn = mysql.createConnection(databaseConfig, {charset : 'utf8'});
 var submissionDir = './images/submission';
 //get number of data in the database
 var submission_index = 0;
@@ -134,5 +134,19 @@ router.get('/getSubmission', function(req,res){
             })
         }
     });
+})
+
+router.get('/getSubmissionQuestion', function(req,res){
+    var instance_id = req.query.trail_instance_id;
+    var query = 'SELECT HOTSPOT_NAME, QUESTION FROM TRAIL_MISSION AS TM, MISSION AS M, SUBMISSION_QUESTION AS SQ WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TM.MISSION_ID = M.MISSION_ID AND TM.MISSION_ID = SQ.MISSION_ID';
+    var response = [];
+   
+    conn.query(query, instance_id, function(err, result){
+        result.forEach(function(row){
+            response.push({hotspot: row.HOTSPOT_NAME, question: row.QUESTION});
+        });
+        console.log(response);
+        res.send(response);
+    })
 })
 module.exports = router;
