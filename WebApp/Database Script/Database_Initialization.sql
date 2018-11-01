@@ -25,7 +25,19 @@ INSERT INTO MISSION VALUES
 (4, 'School of Information Systems'),
 (5, 'School of Law'),
 (6, 'Li Ka Shing Library'),
-(7, 'Administrative Building');
+(7, 'Administrative Building')
+(8, 'Lee Kong Chian School of Business'),
+(9, 'School of Accountancy'),
+(10, 'School of Economics/School of Social Sciences'),
+(11, 'School of Information Systems'),
+(12, 'School of Information Systems'),
+(13, 'School of Law'),
+(14, 'School of Law'),
+(15, 'School of Law'),
+(16, 'Li Ka Shing Library'),
+(17, 'Li Ka Shing Library'),
+(18, 'Li Ka Shing Library'),
+(19, 'Li Ka Shing Library');
 
 INSERT INTO QUIZ VALUES
 (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
@@ -128,18 +140,18 @@ INSERT INTO QUIZ_OPTION VALUES
 
 
 INSERT INTO SUBMISSION_QUESTION VALUES
-(1, 'Find the Mission Statement and take a wefie!', 1),
-(2, 'Find the Mission Statement and take a wefie!', 2),
-(3, 'Find Le Suantio Gallery and take a wefie!', 3),
-(4, 'Locate the SMU Gym and take a wefie together with one qualified student fitness instructor!', 4),
-(5, 'Locate Living Analytics Research Centre (LARC) and take a wefie together with LARC’s logo!', 4),
-(6, 'Locate the SMU Hall and take a wefie outside of the Hall! (Hint: Basement)', 5),
-(7, 'Locate the Kwa Geok Choo Library and take a wefie next to the scenic elevator!', 5),
-(8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 5),
-(9, 'Locate the Hive at the Learning Commons and take a wefie!', 6),
-(10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 6),
-(11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 6),
-(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 6);
+(1, 'Find the Mission Statement and take a wefie!', 8),
+(2, 'Find the Mission Statement and take a wefie!', 9),
+(3, 'Find Le Suantio Gallery and take a wefie!', 10),
+(4, 'Locate the SMU Gym and take a wefie together with one qualified student fitness instructor!', 11),
+(5, 'Locate Living Analytics Research Centre (LARC) and take a wefie together with LARC’s logo!', 12),
+(6, 'Locate the SMU Hall and take a wefie outside of the Hall! (Hint: Basement)', 13),
+(7, 'Locate the Kwa Geok Choo Library and take a wefie next to the scenic elevator!', 14),
+(8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 15),
+(9, 'Locate the Hive at the Learning Commons and take a wefie!', 16),
+(10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 17),
+(11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 18),
+(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 19);
 
 
 
