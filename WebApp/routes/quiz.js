@@ -35,6 +35,7 @@ router.get('/getQuizzes', function(req, res){
                             var quiz_question = [];
                             // use to keep track of answer index
                             var count = 1;
+                            //start with empty quiz option array
                             var quiz_option = [];
                             quiz_details.forEach(function(detail, i){
                                 if(detail.QUIZ_OPTION == detail.QUIZ_ANSWER){
@@ -47,6 +48,7 @@ router.get('/getQuizzes', function(req, res){
                                 // console.log('currentQuiz_ID: ' + currentQuiz_ID);
                                 // console.log('quiz id: ' + detail.QUIZ_ID);
 
+                                //add one segment to the json when the row hops to a new question
                                 if (currentQuiz_ID != detail.QUIZ_ID){
                                     currentQuiz_ID = detail.QUIZ_ID
                                     quiz_question.push({quiz_question:quiz_details[i-1].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option})

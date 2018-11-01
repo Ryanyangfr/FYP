@@ -45,7 +45,7 @@ router.get('/retrieveAllUser', function(req,res){
         }
 
         for(var i=0; i<result.length; i++){
-            respond_message.push({username: result[i].USERNAME})
+            respond_message.push({username: result[i].USERNAME, team: result[i].TEAM_ID});
         }
 
         console.log(respond_message);
