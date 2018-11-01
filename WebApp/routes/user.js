@@ -62,9 +62,10 @@ router.post('/register', function(req, res){
     var team_id = numUsersEntered%3 + 1;
     numUsersEntered = numUsersEntered+1;
 
-    console.log(username);
-    console.log(user_id);
-    console.log(team_id);
+    console.log('username: ' + username);
+    console.log('user_id: ' + user_id);
+    console.log('team: ' + team_id);
+    console.log('user entered: ' + numUsersEntered);
     var query = "INSERT INTO PARTICIPANT (USER_ID,USERNAME,TEAM_ID) VALUES (?,?,?)";
     //updates database
     conn.query(query,[user_id,username,team_id], function(err,results){
