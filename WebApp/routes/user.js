@@ -73,7 +73,7 @@ router.post('/register', function(req, res){
             console.log(err);
             res.send('failed to update, check parameters');
         } else{
-            res.send('updated successfully')
+            res.send({team_id: team_id});
         }
     })
 })
