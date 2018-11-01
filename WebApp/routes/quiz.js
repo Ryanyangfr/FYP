@@ -60,7 +60,7 @@ router.get('/getQuizzes', function(req, res){
                                 count = count + 1;
                                 quiz_option.push(detail.QUIZ_OPTION);
                             })
-                            quiz_question.push({quiz_question:quiz_details[quiz_details.length].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option})
+                            quiz_question.push({quiz_question:quiz_details[quiz_details.length-1].QUIZ_QUESTION,  quiz_answer: answer_index, quiz_options: quiz_option})
                             
                             response.push({hotspot: hotspot_name, quiz: quiz_question});
                             console.log('mission: ' + mission);
