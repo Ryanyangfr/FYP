@@ -154,6 +154,9 @@ router.get('/getAllSubmissionURL', function(req,res){
     var team = res.query.team;
     var instance_id = res.query.trail_instance_id;
     var response = [];
+    
+    console.log('team: ' + team);
+    console.log('instance_id: ' + instance_id);
 
     var query = 'SELECT SUBMISSION_IMAGE_URL FROM SUBMISSION WHERE TEAM = ? AND TRAIL_INSTANCE_ID = ?';
 
