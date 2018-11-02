@@ -41,7 +41,7 @@ router.post('/updateScore', function(req,res){
 
 router.get('/startingHotspot',function(req,res){
     var instance_id = req.query.trail_instance_id;
-    var query = 'SELECT HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?)';
+    var query = 'SELECT TH.HOTSPOT_NAME, LATITUDE, LONGTITUDE, N.NARRATIVE FROM TRAIL_HOTSPOT AS TH, HOTSPOT AS H, NARRATIVE AS N WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND H.HOTSPOT_NAME = TH.HOTSPOT_NAME AND H.NARRATIVE_ID = N.NARRATIVE_ID';
     var response = [];
 
     conn.query(query, instance_id, function(err, row){
@@ -53,7 +53,7 @@ router.get('/startingHotspot',function(req,res){
                 var numTeams = row_count[0].COUNT;
                 console.log(numTeams);
                 for(var i=0; i<numTeams; i++){
-                    response.push({team: i+1, startingHotspot: row[i].HOTSPOT_NAME});
+                    response.push({team: i+1, startingHotspot: row[i].HOTSPOT_NAME, coordinates: [row[i].LATITUDE,row[i].LONGTITUDE], narrative: row[i].NARRATIVE});
                 }
 
                 res.send(response);
