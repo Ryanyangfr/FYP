@@ -50,7 +50,7 @@ router.get('/startingHotspot',function(req,res){
         } else{
             console.log(row[0]);
             conn.query('SELECT COUNT(*) as COUNT FROM TEAM WHERE TRAIL_INSTANCE_ID = ?', instance_id, function(err, row_count){
-                var numTeams = row_count.COUNT;
+                var numTeams = row_count[0].COUNT;
                 console.log(numTeams);
                 for(var i=0; i<numTeams; i++){
                     response.push({team: i+1, startingHotspot: row[i].HOTSPOT_NAME});
