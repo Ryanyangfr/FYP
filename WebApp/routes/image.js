@@ -151,8 +151,8 @@ router.get('/getSubmissionQuestion', function(req,res){
 })
 
 router.get('/getAllSubmissionURL', function(req,res){
-    var team = res.query.team;
-    var instance_id = res.query.trail_instance_id;
+    var team = req.query.team;
+    var instance_id = req.query.trail_instance_id;
     var response = [];
     
     console.log('team: ' + team);
