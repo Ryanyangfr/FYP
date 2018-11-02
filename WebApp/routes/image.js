@@ -158,13 +158,17 @@ router.get('/getAllSubmissionURL', function(req,res){
     console.log('team: ' + team);
     console.log('instance_id: ' + instance_id);
 
-    var query = 'SELECT SUBMISSION_IMAGE_URL FROM SUBMISSION WHERE TEAM = ? AND TRAIL_INSTANCE_ID = ?';
+    var query = 'SELECT SUBMISSION_IMAGE_URL FROM SUBMISSION WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
 
     conn.query(query, [team, instance_id], function(err, rows){
-        rows.forEach(function(row){
-            response.push({SubmissionURL: row.SUBMISSION_IMAGE_URL});
-        })
-        res.send(response)
+        if (err){
+            console.log(err);
+        }else{
+            rows.forEach(function(row){
+                response.push({SubmissionURL: row.SUBMISSION_IMAGE_URL});
+            });
+            res.send(response)
+        }
     })
 })
 
