@@ -170,6 +170,12 @@ router.get('/getAllSubmissionURL', function(req,res){
             res.send(response)
         }
     })
+});
+
+router.get('/getSubmission', function(req,res){
+    var image_url = req.query.url;
+    var parentDir = path.normalize(__dirname + "/..");
+    res.sendFile(path.normalize(parentDir + '/' + image_url));
 })
 
 module.exports = router;
