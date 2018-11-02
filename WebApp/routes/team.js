@@ -41,7 +41,7 @@ router.post('/updateScore', function(req,res){
 
 router.get('/startingHotspot',function(req,res){
     var instance_id = req.query.trail_instance_id;
-    var query = 'SELECT HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?)';
+    var query = 'SELECT HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = 1';
     var response = [];
 
     conn.query(query, instance_id, function(err, row){
