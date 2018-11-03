@@ -86,6 +86,7 @@ router.get('/hotspotStatus', function(req,res){
             rows.forEach(function(row){
                 response.push({team: row.TEAM_ID, hotspots_completed: row.COUNT});
             })
+            res.send(JSON.stringify(response));
         }
     })
 })
