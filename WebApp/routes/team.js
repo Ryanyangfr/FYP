@@ -78,6 +78,7 @@ router.get('/hotspotStatus', function(req,res){
 
     query = 'SELECT TEAM.TEAM_ID, COUNT(ISCOMPLETED) AS COUNT FROM TEAM LEFT OUTER JOIN TEAM_HOTSPOT_STATUS ON TEAM.TRAIL_INSTANCE_ID = TEAM_HOTSPOT_STATUS.TRAIL_INSTANCE_ID AND TEAM.TEAM_ID = TEAM_HOTSPOT_STATUS.TEAM_ID AND ISCOMPLETED=1 WHERE TEAM.TRAIL_INSTANCE_ID = ? GROUP BY TEAM_ID';
 
+    console.log('instance id: ' + instance_id);
     conn.query(query, instance_id, function(err, rows){
         if (err){
             console.log(err);
