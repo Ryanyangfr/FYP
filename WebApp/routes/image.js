@@ -47,6 +47,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
     var team_id = req.body.team_id;
     var trail_instance_id = req.body.trail_instance_id;
     var question = req.body.question;
+    var hotspot = req.body.hotspot;
     console.log('question: ' + question);
 
     conn.query('SELECT QUESTION_ID FROM SUBMISSION_QUESTION WHERE QUESTION = ?', question, function(err, data){
@@ -88,6 +89,15 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                     console.log(err);
                 } else{
                     console.log('submission successfully loaded');
+                    queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1 WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
+
+                    conn.query(queryUpdate_hotspot, [team_id, trail_instance_id, hotspot], function(err, row){
+                        if (err){
+                            console.log(err);
+                        }else {
+                            console.log('updated hotspot status');
+                        }
+                    });
                 }
             })
         })
