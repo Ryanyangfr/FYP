@@ -185,9 +185,10 @@ router.get('/getAllSubmissionURL', function(req,res){
                 }else {
                     response.push({size: count_row.COUNT});
                 }
+                console.log(response);
+                res.send(JSON.stringify(response))
             })
-            console.log(response);
-            res.send(JSON.stringify(response))
+            
         }
     })
 });
