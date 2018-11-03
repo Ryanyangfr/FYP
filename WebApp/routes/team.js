@@ -18,6 +18,7 @@ router.post('/updateScore', function(req,res){
     console.log('team_id: ' + team_id);
     console.log('instance_id: ' + instance_id);
     console.log('score: ' + update);
+    console.log('hotspot: ' + hotspot);
 
     var query = 'SELECT TEAM_POINTS FROM TEAM WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
 
