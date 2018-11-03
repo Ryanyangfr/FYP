@@ -186,7 +186,7 @@ router.get('/getAllSubmissionURL', function(req,res){
                     response.push({size: count_row[0].COUNT});
                 }
                 console.log(response);
-                res.send(JSON.stringify(response))
+                res.send(JSON.stringify(response, null, 3))
             })
             
         }
