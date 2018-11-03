@@ -174,9 +174,18 @@ router.get('/getAllSubmissionURL', function(req,res){
         if (err){
             console.log(err);
         }else{
+            var num_submission_query = 'SELECT COUNT(*) AS COUNT FROM SUBMISSION WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
             rows.forEach(function(row){
                 response.push({SubmissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION});
             });
+
+            conn.query(num_submission_query, [team, instance_id], function(err, count_row){
+                if (err){
+                    console.log(err);
+                }else {
+                    response.push({size: count_row.COUNT});
+                }
+            })
             console.log(response);
             res.send(JSON.stringify(response))
         }
