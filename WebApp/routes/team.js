@@ -72,4 +72,21 @@ router.get('/startingHotspot',function(req,res){
     })
 })
 
+router.get('/hotspotStatus', function(req,res){
+    var instance_id = req.query.trail_instance_id;
+    var response = [];
+
+    query = 'SELECT TEAM.TEAM_ID, COUNT(ISCOMPLETED) AS COUNT FROM TEAM LEFT OUTER JOIN TEAM_HOTSPOT_STATUS ON TEAM.TRAIL_INSTANCE_ID = TEAM_HOTSPOT_STATUS.TRAIL_INSTANCE_ID AND TEAM.TEAM_ID = TEAM_HOTSPOT_STATUS.TEAM_ID AND ISCOMPLETED=1 WHERE TEAM.TRAIL_INSTANCE_ID = ? GROUP BY TEAM_ID';
+
+    conn.query(query, instance_id, function(err, rows){
+        if (err){
+            console.log(err);
+        } else{
+            rows.forEach(function(row){
+                response.push({team: row.TEAM_ID, hotspots_completed: row.COUNT});
+            })
+        }
+    })
+})
+
 module.exports = router;
