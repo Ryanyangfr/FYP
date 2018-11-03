@@ -13,6 +13,7 @@ router.post('/updateScore', function(req,res){
     var team_id = req.body.team_id;
     var instance_id = req.body.trail_instance_id;
     var update = parseInt(req.body.score);
+    var hotspot = req.body.hotspot
     
     console.log('team_id: ' + team_id);
     console.log('instance_id: ' + instance_id);
@@ -25,9 +26,17 @@ router.post('/updateScore', function(req,res){
             console.log(err)
         } else{
             var points = team[0].TEAM_POINTS + update;
-            console.log('points: ' + points)
+            console.log('points: ' + points);
             queryUpdate = 'UPDATE TEAM SET TEAM_POINTS = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
+            queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1 WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
 
+            conn.query(queryUpdate_hotspot, [team_id, instance_id, hotspot], function(err, row){
+                if (err){
+                    console.log(err);
+                }else {
+                    console.log('updated hotspot status');
+                }
+            })
             conn.query(queryUpdate, [points, team_id, instance_id], function(err, data){
                 if (err){
                     console.log(err);
