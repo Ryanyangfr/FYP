@@ -167,7 +167,8 @@ router.get('/getAllSubmissionURL', function(req,res){
             rows.forEach(function(row){
                 response.push({SubmissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION});
             });
-            res.send(response)
+            console.log(response);
+            res.send(JSON.stringify(response))
         }
     })
 });
