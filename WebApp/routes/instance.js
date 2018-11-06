@@ -28,6 +28,7 @@ router.get('/completedHotspots', function(req,res){
 
     conn.query(query, [team_id, instance_id], function(err, hotspot_statuses){
         hotspot_statuses.forEach(function(hotspot){
+            console.log('hotspot: ' + hotspot_statuses.HOTSPOT_NAME);
             response.push({hotspot: hotspot_statuses.HOTSPOT_NAME, iscompleted: hotspot_statuses.ISCOMPLETED});
         })
 
