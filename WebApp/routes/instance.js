@@ -26,7 +26,7 @@ router.get('/completedHotspots', function(req,res){
 
     query = 'SELECT HOTSPOT_NAME, ISCOMPLETED FROM TEAM_HOTSPOT_STATUS WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
 
-    conn.query(query, function(err, hotspot_statuses){
+    conn.query(query, [team_id, instance_id], function(err, hotspot_statuses){
         hotspot_statuses.forEach(function(hotspot){
             response.push({hotspot: hotspot_statuses.HOTSPOT_NAME, iscompleted: hotspot_statuses.ISCOMPLETED});
         })
