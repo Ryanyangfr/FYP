@@ -63,10 +63,10 @@ router.post('/register', function(req, res){
     var team_id = 1;
     numUsersEntered = numUsersEntered+1;
     
-    console.log('request: ' + req);
-    console.log('*****************************************************************')
-    console.log('body: ' + req.body)
-    console.log('*****************************************************************')
+    // console.log('request: ' + req);
+    // console.log('*****************************************************************')
+    // console.log('body: ' + req.body)
+    // console.log('*****************************************************************')
 
     console.log('username: ' + username);
     console.log('user_id: ' + user_id);
@@ -80,6 +80,20 @@ router.post('/register', function(req, res){
             res.send('failed to update, check parameters');
         } else{
             res.send({team_id: team_id});
+        }
+    })
+})
+
+router.get('/getPassword', function(req,res){
+    var username = req.query.username;
+
+    query = "SELECT PASSWORD FROM ADMIN WHERE USERNAME = ?";
+    
+    conn.query(query, username, function(err, row){
+        if (err){
+            console.log(err);
+        }else {
+            res.send("password: " + row[0].PASSWORD);
         }
     })
 })
