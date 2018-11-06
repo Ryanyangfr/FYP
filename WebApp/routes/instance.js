@@ -19,4 +19,20 @@ router.get('/getInstance', function(req,res){
     })
 });
 
+router.get('/completedHotspots', function(req,res){
+    var instance_id = req.query.trail_instance_id;
+    var team_id = req.query.team;
+    var response = [];
+
+    query = 'SELECT HOTSPOT_NAME, ISCOMPLETED FROM TEAM_HOTSPOT_STATUS WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
+
+    conn.query(query, function(err, hotspot_statuses){
+        hotspot_statuses.forEach(function(hotspot){
+            response.push({hotspot: hotspot_statuses.HOTSPOT_NAME, iscompleted: hotspot_statuses.ISCOMPLETED});
+        })
+
+        res.send(response);
+    })
+})
+
 module.exports = router;
