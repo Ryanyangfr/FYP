@@ -62,6 +62,11 @@ router.post('/register', function(req, res){
     // var team_id = numUsersEntered%3 + 1;
     var team_id = 1;
     numUsersEntered = numUsersEntered+1;
+    
+    console.log('request: ' + req);
+    console.log('*****************************************************************')
+    console.log('body: ' + req.body)
+    console.log('*****************************************************************')
 
     console.log('username: ' + username);
     console.log('user_id: ' + user_id);
