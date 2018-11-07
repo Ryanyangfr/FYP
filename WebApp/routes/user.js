@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var databaseConfig = require('../config/mysqlconf.js')
 
@@ -84,7 +85,7 @@ router.post('/register', function(req, res){
     })
 })
 
-router.get('/getPassword', function(req,res){
+router.get('/getPassword', cors(), function(req,res){
     var username = req.query.username;
 
     query = "SELECT PASSWORD FROM ADMIN WHERE USERNAME = ?";
