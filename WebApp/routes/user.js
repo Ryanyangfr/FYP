@@ -93,6 +93,7 @@ router.get('/getPassword', function(req,res){
         if (err){
             console.log(err);
         }else {
+            console.log("password sent");
             res.send({password: row[0].PASSWORD});
         }
     })
