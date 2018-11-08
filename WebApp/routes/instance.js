@@ -9,7 +9,7 @@ var conn = mysql.createConnection(databaseConfig);
 
 router.get('/getInstance', function(req,res){
     query = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
-    console('getInstance called');
+    console.log('getInstance called');
     conn.query(query, function(err,instance){
         if (err){
             console.log(err);
