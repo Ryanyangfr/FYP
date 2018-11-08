@@ -122,6 +122,7 @@ router.post('/changeAdminPassword', cors(), function(req, res){
 router.get('/retrieveAllUsers',function(req,res){
     query = 'SELECT USERNAME FROM PARTICIPANT';
     response = []
+    console.log('retrieveAllUsers called');
 
     conn.query(query, function(err, rows){
         rows.forEach(function(row){
