@@ -104,11 +104,13 @@ router.post('/changeAdminPassword', cors(), function(req, res){
     var username = req.body.username;
     var newPassword = req.body.password;
 
+    console.log('sent');
     query = 'UPDATE ADMIN SET USER_PASSWORD = ? WHERE USERNAME = ?';
 
     conn.query(query, [newPassword, username], function(err, rows){
         if (err){
             console.log(err);
+            res.send({'status': 'failed'})
         } else{
             console.log('password updated');
             res.send({'status': 'success'});
