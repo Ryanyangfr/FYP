@@ -88,7 +88,7 @@ router.post('/register', function(req, res){
 router.get('/getPassword', cors(), function(req,res){
     var username = req.query.username;
 
-    query = "SELECT PASSWORD FROM ADMIN WHERE USERNAME = ?";
+    query = "SELECT USER_PASSWORD FROM ADMIN WHERE USERNAME = ?";
     
     conn.query(query, username, function(err, row){
         if (err){
@@ -104,7 +104,7 @@ router.post('/changeAdminPassword', cors(), function(req, res){
     var username = req.body.username;
     var newPassword = req.body.password;
 
-    query = 'UPDATE ADMIN SET PASSWORD = ? WHERE USERNAME = ?';
+    query = 'UPDATE ADMIN SET USER_PASSWORD = ? WHERE USERNAME = ?';
 
     conn.query(query, [newPassword, username], function(err, rows){
         if (err){
