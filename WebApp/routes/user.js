@@ -119,4 +119,17 @@ router.post('/changeAdminPassword', cors(), function(req, res){
     })
 })
 
+router.get('/retrieveAllUsers',function(req,res){
+    query = 'SELECT USERNAME FROM PARTICIPANT';
+    response = []
+
+    conn.query(query, function(err, rows){
+        rows.forEach(function(row){
+            response.push({username: row.USERNAME});
+        })
+
+        res.send(JSON.stringify(response));
+    })
+})
+
 module.exports=router;
