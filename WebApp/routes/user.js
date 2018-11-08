@@ -100,7 +100,7 @@ router.get('/getPassword', cors(), function(req,res){
     })
 })
 
-router.post('changeAdminPassword', cors(), function(req, res){
+router.post('/changeAdminPassword', cors(), function(req, res){
     var username = req.body.username;
     var newPassword = req.body.password;
 
