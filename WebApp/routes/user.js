@@ -110,10 +110,10 @@ router.post('/changeAdminPassword', cors(), function(req, res){
     conn.query(query, [newPassword, username], function(err, rows){
         if (err){
             console.log(err);
-            res.send({'status': 'failed'})
+            res.send(JSON.stringify({'status': 'failed'}));
         } else{
             console.log('password updated');
-            res.send({'status': 'success'});
+            res.send(JSON.stringify({'status': 'success'}));
         }
     })
 })
