@@ -100,4 +100,20 @@ router.get('/getPassword', cors(), function(req,res){
     })
 })
 
+router.post('changeAdminPassword', cors(), function(req, res){
+    var username = req.body.username;
+    var newPassword = req.body.password;
+
+    query = 'UPDATE ADMIN SET PASSWORD = ? WHERE USERNAME = ?';
+
+    conn.query(query, [newPassword, username], function(err, rows){
+        if (err){
+            console.log(err);
+        } else{
+            console.log('password updated');
+            res.send({'status': 'success'});
+        }
+    })
+})
+
 module.exports=router;
