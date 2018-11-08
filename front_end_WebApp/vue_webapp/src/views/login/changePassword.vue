@@ -34,7 +34,7 @@ export default {
             axios.get('//54.255.245.23:3000/user/getPassword?username=' + this.user.username)
             .then(response => {
                 this.user.true_pass = response.data.password
-                if(this.user.password === this.user.true_pass){
+                if(this.user.currentPassword === this.user.true_pass){
                     axios.post('//54.255.245.23:3000/user/changeAdminPassword', {
                         username: this.user.username,
                         password: this.user.newPassword
