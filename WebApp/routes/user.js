@@ -125,10 +125,10 @@ router.get('/retrieveAllUsers',function(req,res){
 
     conn.query(query, function(err, rows){
         rows.forEach(function(row){
-            response.push({username: row.USERNAME});
+            response.push(row.USERNAME);
         })
 
-        res.send(JSON.stringify(response));
+        res.send(JSON.stringify({username: response}));
     })
 })
 
