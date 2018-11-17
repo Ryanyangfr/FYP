@@ -27,6 +27,12 @@ export default new Router({
       name: 'generateInstanceID',
       component: () => import('@/views/instance/instanceGenerator'),
       hidden: true
+    },
+    {
+      path: '/uploadMultimedia',
+      name: 'uploadMultimedia',
+      component: ()=> import('@/views/Multimedia/upload'),
+      hidden: true
     }
   ]
 })
