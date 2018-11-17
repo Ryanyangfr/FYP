@@ -22,7 +22,7 @@ export default{
             this.file = this.$refs.file.files[0];
         },
         onUpload() {
-            var url = '//localhost:3000/upload/uploadMultimedia'
+            var url = '//54.255.245.23:3000/upload/uploadMultimedia'
             const fd = new FormData();
             fd.append('image', this.file)
             axios.post(url, fd, {
