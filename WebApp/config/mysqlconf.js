@@ -2,7 +2,7 @@ var databaseConfig = {
     host: 'localhost',
     database: 'Engaging_U',
     user: 'root',
-    password: 'root',
+    password: '',
     port: '3306'
 };
 
