@@ -1,9 +1,11 @@
 <template>
     <div>
         Input
+        <br>
         <input type="file" id='file' ref='file' v-on:change="onFileUpload()"/>
+        <br>
+        <br>
         <button v-on:click="onUpload()">Upload</button>
-        {{this.file.name}}
     </div>
 </template>
 
