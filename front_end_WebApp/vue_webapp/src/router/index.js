@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
@@ -8,8 +7,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Login',
+      component: () => import('@/views/login/index')
     },
     {
       path: '/login',
@@ -21,6 +20,12 @@ export default new Router({
       path: '/passwordChange',
       name: 'ChangePassword',
       component: () => import('@/views/login/changePassword'),
+      hidden: true
+    },
+    {
+      path: '/generateInstanceID',
+      name: 'generateInstanceID',
+      component: () => import('@/views/instance/instanceGenerator'),
       hidden: true
     }
   ]

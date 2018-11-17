@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var databaseConfig = require('../config/mysqlconf.js');
 
@@ -35,6 +36,10 @@ router.get('/completedHotspots', function(req,res){
 
         res.send(response);
     })
+})
+
+router.post('/createTrailInstance', cors(), function(req,res){
+    
 })
 
 module.exports = router;

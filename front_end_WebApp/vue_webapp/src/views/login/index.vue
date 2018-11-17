@@ -38,7 +38,7 @@ export default {
             console.log(response)
               this.user.true_pass = response.data.password
               if(this.user.password === this.user.true_pass){
-                this.$router.push({ path: this.redirect || '/' })
+                this.$router.push({ path: this.redirect || '/generateInstanceID' })
               } else{
                 alert('Wrong Username or Password, please try again')
               }

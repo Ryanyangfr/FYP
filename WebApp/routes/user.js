@@ -124,6 +124,9 @@ router.get('/retrieveAllUsers',function(req,res){
     console.log('retrieveAllUsers called');
 
     conn.query(query, function(err, rows){
+        if (err){
+            console.log(error);
+        }
         rows.forEach(function(row){
             response.push(row.USERNAME);
         })
