@@ -70,6 +70,10 @@ router.post('/register', function(req, res){
     var user_id = numUsersEntered+1;
     var team_id = numUsersEntered%3 + 1;
     numUsersEntered = numUsersEntered+1;
+    var event = {
+        team_id: team_id,
+        id: crypto.randomBytes(16).toString('hex').substring(0,4)
+    };
     
     // console.log('request: ' + req);
     // console.log('*****************************************************************')
@@ -88,7 +92,7 @@ router.post('/register', function(req, res){
             res.send('failed to update, check parameters');
         } else{
             pusher.trigger(channel, 'created', event);
-            res.send({team_id: team_id});
+            res.send(event);
         }
     })
 })
