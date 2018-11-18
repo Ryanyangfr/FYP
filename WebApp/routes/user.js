@@ -14,9 +14,9 @@ router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 var pusher = new Pusher({
-    appId      : process.env.PUSHER_APP_ID,
-    key        : process.env.PUSHER_APP_KEY,
-    secret     : process.env.PUSHER_APP_SECRET,
+    appId      : "650737",
+    key        : "1721c662be60b9cbd43c",
+    secret     : "a14c63eaaa50c1a466ca",
     encrypted  : true,
 });
 
