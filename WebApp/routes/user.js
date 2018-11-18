@@ -20,6 +20,8 @@ var pusher = new Pusher({
     encrypted  : true,
 });
 
+var channel = 'events_to_be_shown';
+
 let numUsersEntered = 0;
 // checks if user is valid
 // router.get('/loginCheck/', function(req,res){
