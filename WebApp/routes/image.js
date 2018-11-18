@@ -14,6 +14,7 @@ var conn = mysql.createConnection(databaseConfig, {charset : 'utf8'});
 var submissionDir = './images/submission';
 //get number of data in the database
 var submission_index = 0;
+var multimedia_index = 0;
 conn.query('SELECT MAX(SUBMISSION_ID) as SUBMISSION_ID FROM SUBMISSION', function(err,data){
     if(err){
         console.log(err);
@@ -33,6 +34,24 @@ conn.query('SELECT MAX(SUBMISSION_ID) as SUBMISSION_ID FROM SUBMISSION', functio
         // console.log(data[0]);
         var index = data[0].SUBMISSION_ID + 1;
         submission_index = index;
+    }
+    
+
+})
+
+conn.query('SELECT MAX(MULTIMEDIA_ID) as MULTIMEDIA_ID FROM MULTIMEDIA', function(err,data){
+    if(err){
+        console.log(err);
+    }
+
+    // console.log(data[0].submission_id);
+
+    if(data[0].MULTIMEDIA_ID === undefined){
+            multimedia_index = 1;
+    } else{
+        // console.log(data[0]);
+        var index = data[0].MULTIMEDIA_ID + 1;
+        multimedia_index = index;
     }
     
 
@@ -110,6 +129,44 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
 
     
     
+})
+router.post('/uploadMultimedia', multipart({ uploadDir: submissionDir}), function(req,res){
+    // var isClue = req.body.isclue;
+    console.log(req);
+    var image_path = req.files.image.path
+    var new_image_path = path.normalize(submissionDir + '/'
+                        + req.files.image.name);
+    console.log("image path: " + new_image_path);
+
+    fs.readFile(req.files.image.path, function(err,data){
+        if (err){
+            console.log(err);
+        } else{
+            // console.log(req.files.image.path);
+            if(req.files){
+                res.send("Uploaded!!!");
+            }
+                console.log();
+                console.log(image_path);
+                // console.log(image_path.lastIndexOf('\\')+1);
+                // console.log(req.files.image.name);
+            fs.rename(image_path, new_image_path, function(err){
+                // res.send(err);
+                console.log(err);
+            });
+
+            var query = "INSERT INTO MULTIMEDIA(MULTIMEDIA_ID, MULTIMEDIA_URL) VALUES (?,?)";
+
+            conn.query(query, [multimedia_index, new_image_path], function(err,rows){
+                if (err){
+                    console.log(err);
+                }else{
+                    console.log("Multimedia successfully loaded");
+                    multimedia_index++;
+                }
+            })
+        }
+    })
 })
 
 // router.get('/getSubmission', function(req,res){
