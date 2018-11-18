@@ -17,6 +17,7 @@ var pusher = new Pusher({
     appId      : "650737",
     key        : "1721c662be60b9cbd43c",
     secret     : "a14c63eaaa50c1a466ca",
+    cluster: "ap1",
     encrypted  : true,
 });
 
