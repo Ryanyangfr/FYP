@@ -3,6 +3,7 @@ var router = express.Router();
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+var Pusher = require('pusher')
 
 var databaseConfig = require('../config/mysqlconf.js')
 
@@ -10,6 +11,13 @@ var conn = mysql.createConnection(databaseConfig);
 
 router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+var pusher = new Pusher({
+    appId      : process.env.PUSHER_APP_ID,
+    key        : process.env.PUSHER_APP_KEY,
+    secret     : process.env.PUSHER_APP_SECRET,
+    encrypted  : true,
+});
 
 let numUsersEntered = 0;
 // checks if user is valid
@@ -79,6 +87,7 @@ router.post('/register', function(req, res){
             console.log(err);
             res.send('failed to update, check parameters');
         } else{
+            pusher.trigger(channel, 'created', event);
             res.send({team_id: team_id});
         }
     })
