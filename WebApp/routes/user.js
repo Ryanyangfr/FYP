@@ -4,6 +4,7 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var Pusher = require('pusher')
+var crypto = require('crypto');
 
 var databaseConfig = require('../config/mysqlconf.js')
 
