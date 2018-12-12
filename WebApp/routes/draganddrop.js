@@ -11,6 +11,7 @@ router.get('/getDragAndDrop',function(req,res){
     var trail_instance_id = req.query.trail_instance_id;
     query = 'SELECT M.MISSION_ID, HOTSPOT_NAME FROM TRAIL_MISSION AS TM, MISSION AS M WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TM.MISSION_ID = M.MISSION_ID';
     var response = []
+    var count = 0;
 
     conn.query(query, trail_instance_id, function(err, missions){
         if (err){
@@ -18,6 +19,7 @@ router.get('/getDragAndDrop',function(req,res){
         }else{
             // console.log(missions);
             missions.forEach(function(missionRow){
+                count += 1;
                 var mission = missionRow.MISSION_ID;
                 var hotspot_name = missionRow.HOTSPOT_NAME;
                 // console.log(mission)
@@ -38,15 +40,18 @@ router.get('/getDragAndDrop',function(req,res){
                             })
                             // console.log(drag_and_drop_)
                             response.push({hotspot: hotspot_name, drag_and_drop: drag_and_drop_});
-                            // console.log('mission: ' + mission);
-                            // console.log('mission length: ' + missions.length);
+                            if(count == mission.length){
+                                res.send(JSON.stringify(response, null, 3));
+                            }
+                            console.log('count: ' + count);
+                            console.log('mission length: ' + missions.length);
                         }                        // number = number + 1;
                     }
                 })
             })
         }
         console.log(response)
-        res.send(JSON.stringify(response, null, 3));
+        
     })
 })
 
