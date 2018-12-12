@@ -38,15 +38,12 @@ router.get('/getDragAndDrop',function(req,res){
                             response.push({hotspot: hotspot_name, drag_and_drop: drag_and_drop});
                             console.log('mission: ' + mission);
                             console.log('mission length: ' + missions.length);
-                        }
-                        if (mission == missions.length){
-                            res.end(JSON.stringify(response, null, 3));
-                        }
-                        // number = number + 1;
+                        }                        // number = number + 1;
                     }
                 })
             })
         }
+        res.end(JSON.stringify(response, null, 3));
     })
 })
 
