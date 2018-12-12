@@ -35,7 +35,8 @@ INSERT INTO MISSION VALUES
 (14, 'School of Law'),
 (16, 'Li Ka Shing Library'),
 (17, 'Li Ka Shing Library'),
-(18, 'Li Ka Shing Library');
+(18, 'Li Ka Shing Library'),
+(19, 'Lee Kong Chian School of Business');
 
 INSERT INTO QUIZ VALUES
 (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
@@ -159,7 +160,7 @@ INSERT INTO TRAIL_INSTANCE VALUES
 ('175239', 1, 1, 0);
 
 INSERT INTO TRAIL_MISSION VALUES
-(1,1),
+(1,19),
 (1,2),
 (1,3),
 (1,4),
@@ -203,9 +204,9 @@ INSERT INTO TEAM_HOTSPOT_STATUS VALUES
 ('Li Ka Shing Library', '175239', 3, 0);
 
 INSERT INTO DRAG_AND_DROP VALUES
-(1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
-(2,'In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 1),
-(3,'In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 1);
+(1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 19),
+(2,'In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 19),
+(3,'In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 19);
 
 INSERT INTO ADMIN VALUES
 ('admin', 'password');
