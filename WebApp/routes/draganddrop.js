@@ -40,8 +40,8 @@ router.get('/getDragAndDrop',function(req,res){
                             })
                             // console.log(drag_and_drop_)
                             response.push({hotspot: hotspot_name, drag_and_drop: drag_and_drop_});
-                            console.log('count: ' + count);
-                            console.log('mission length: ' + missions.length);
+                            console.log('count: ' + type(count));
+                            console.log('mission length: ' + type(missions.length));
                             // console.log(count===mission.length)
                             if(parseInt(count) == parseInt(mission.length)){
                                 res.end(JSON.stringify(response, null, 3));
