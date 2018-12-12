@@ -16,10 +16,11 @@ router.get('/getDragAndDrop',function(req,res){
         if (err){
             console.log(err);
         }else{
-            console.log(missions);
+            // console.log(missions);
             missions.forEach(function(missionRow){
                 var mission = missionRow.MISSION_ID;
                 var hotspot_name = missionRow.HOTSPOT_NAME;
+                // console.log(mission)
                 mission_query = 'SELECT DRAGANDDROP_QUESTION, DRAGANDDROP_ANSWER FROM DRAG_AND_DROP WHERE MISSION_ID = ?';
 
                 conn.query(mission_query, mission, function(err, drag_and_drop_details){
@@ -29,6 +30,7 @@ router.get('/getDragAndDrop',function(req,res){
                         console.log(err);
                         // number = number + 1;
                     } else{
+                        console.log(drag_and_drop_details);
                         drag_and_drop = []
                         if (drag_and_drop_details.length != 0){
                             drag_and_drop_details.forEach(function(detail, i){
