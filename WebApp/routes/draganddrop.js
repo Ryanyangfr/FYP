@@ -36,7 +36,7 @@ router.get('/getDragAndDrop',function(req,res){
                             drag_and_drop_details.forEach(function(detail, i){
                                 drag_and_drop_.push({drag_and_drop_question:detail.DRAGANDDROP_QUESTION,  drag_and_drop_answer: detail.DRAGANDDROP_ANSWER})
                             })
-                            console.log(drag_and_drop)
+                            // console.log(drag_and_drop_)
                             response.push({hotspot: hotspot_name, drag_and_drop: drag_and_drop_});
                             // console.log('mission: ' + mission);
                             // console.log('mission length: ' + missions.length);
