@@ -8,7 +8,7 @@
     <Slide v-if="['Login'].indexOf($route.name) == -1">
       SideBar
         <router-link to="/generateInstanceID"><div id='sidebar'>Get Instance ID</div></router-link>
-        <router-link to="/generateInstanceID"><div id='sidebar'>Get Instance ID Again</div></router-link>
+        <router-link to="/leaderboard"><div id='sidebar'>Leaderboard</div></router-link>
     </Slide>
   </div>
 </template>

@@ -33,6 +33,18 @@ export default new Router({
       name: 'uploadMultimedia',
       component: ()=> import('@/views/Multimedia/upload'),
       hidden: true
+    },
+    {
+      path: '/leaderboard',
+      name: 'leaderboard',
+      component: ()=> import('@/views/leaderboard/index'),
+      hidden: true
+    },
+    {
+      path: '/viewSubmissions',
+      name: 'viewSubmissions',
+      component: ()=> import('@/views/Multimedia/view'),
+      hidden: true
     }
   ]
 })
