@@ -43,12 +43,14 @@ router.get('/getDragAndDrop',function(req,res){
                             res.end(JSON.stringify(response, null, 3));
                         }
                         // number = number + 1;
+                    }
+                })
+            })
         }
     })
-
-
 })
 
+module.exports = router;
 
 
 
