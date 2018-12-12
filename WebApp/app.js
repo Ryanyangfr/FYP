@@ -7,6 +7,7 @@ var location = require('./routes/geolocation.js');
 var quiz = require('./routes/quiz.js');
 var instance = require('./routes/instance.js');
 var team = require('./routes/team.js');
+var draganddrop = require('./routes/draganddrop.js');
 
 //declares the app
 var app = express();
@@ -28,5 +29,6 @@ app.use('/hotspot', location)
 app.use('/quiz', quiz);
 app.use('/team', team);
 app.use('/', instance);
+app.use('/draganddrop', draganddrop)
 
 module.exports = app;
