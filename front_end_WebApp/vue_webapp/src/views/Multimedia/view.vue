@@ -11,7 +11,7 @@
         <li v-for="(image,index) in this.images" :key="image">
             <span font-size="20">{{questions[index]}}</span>
             <pre>
-                <img :src="image" style="width:700px;height:800px;"/>
+                <img :src="image" style="width:300px;height:400px;"/>
             </pre>
         </li>
     </div>

@@ -202,6 +202,11 @@ INSERT INTO TEAM_HOTSPOT_STATUS VALUES
 ('Li Ka Shing Library', '175239', 2, 0),
 ('Li Ka Shing Library', '175239', 3, 0);
 
+INSERT INTO DRAG_AND_DROP VALUES
+(1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
+(2,'In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 1),
+(3,'In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 1);
+
 INSERT INTO ADMIN VALUES
 ('admin', 'password');
 
