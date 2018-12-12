@@ -20,7 +20,7 @@ router.get('/getDragAndDrop',function(req,res){
             missions.forEach(function(missionRow){
                 var mission = missionRow.MISSION_ID;
                 var hotspot_name = missionRow.HOTSPOT_NAME;
-                mission_query = 'SELECT DRAG_AND_DROP.QUIZ_ID, DRAGANDDROP_QUESTION, DRAGANDDROP_ANSWER FROM DRAG_AND_DROP WHERE MISSION_ID = ?';
+                mission_query = 'SELECT DRAGANDDROP_QUESTION, DRAGANDDROP_ANSWER FROM DRAG_AND_DROP WHERE MISSION_ID = ?';
 
                 conn.query(mission_query, mission, function(err, drag_and_drop_details){
                     console.log(mission);
