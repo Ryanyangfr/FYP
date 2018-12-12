@@ -30,13 +30,13 @@ router.get('/getDragAndDrop',function(req,res){
                         console.log(err);
                         // number = number + 1;
                     } else{
-                        console.log(drag_and_drop_details);
+                        // console.log(drag_and_drop_details);
                         drag_and_drop = []
                         if (drag_and_drop_details.length != 0){
                             drag_and_drop_details.forEach(function(detail, i){
                                 drag_and_drop.push({drag_and_drop_question:detail.DRAGANDDROP_QUESTION,  drag_and_drop_answer: detail.DRAGANDDROP_ANSWER})
                             })
-                            
+                            console.log(drag_and_drop)
                             response.push({hotspot: hotspot_name, drag_and_drop: drag_and_drop});
                             console.log('mission: ' + mission);
                             console.log('mission length: ' + missions.length);
