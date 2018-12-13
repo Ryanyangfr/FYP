@@ -8,6 +8,7 @@ var quiz = require('./routes/quiz.js');
 var instance = require('./routes/instance.js');
 var team = require('./routes/team.js');
 var draganddrop = require('./routes/draganddrop.js');
+var narrative = require('./routes/narrative.js');
 
 //declares the app
 var app = express();
@@ -30,5 +31,6 @@ app.use('/quiz', quiz);
 app.use('/team', team);
 app.use('/', instance);
 app.use('/draganddrop', draganddrop)
+app.use('/narrative', narrative)
 
 module.exports = app;

@@ -17,7 +17,9 @@
     "bootstrap-vue": "^2.0.0-rc.11",
     "vue": "^2.5.2",
     "vue-burger-menu": "^1.0.9",
-    "vue-router": "^3.0.1"
+    "vue-dropdowns": "^1.0.6",
+    "vue-router": "^3.0.1",
+    "vue-select": "^2.5.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

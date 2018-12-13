@@ -45,6 +45,12 @@ export default new Router({
       name: 'viewSubmissions',
       component: ()=> import('@/views/Multimedia/view'),
       hidden: true
+    },
+    {
+      path: '/addHotspot',
+      name: 'addHotspot',
+      component: ()=> import('@/views/hotspot/index'),
+      hidden: true
     }
   ]
 })
