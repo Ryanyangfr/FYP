@@ -7,16 +7,14 @@ INSERT INTO NARRATIVE VALUES
 (6,'Officially opened on 24 February 2006, the library was named after Hong Kong businessman Dr. Li Ka-Shing, Chairman of Cheung Kong (Holdings) Limited and Hutchison Whampoa Limited. The Li Ka Shing Foundation donated an endowment to the library for collections and to the University for scholarship. SMU Libraries offers a range of learning spaces, including open areas for individual and collaborative use, study carrels, project rooms equipped with LCD panels, learning labs, quiet areas, investment studio, graduate lounges, and Hive - an innovative space for collaborative learning.'),
 (7, 'Home to around 10,000 undergraduates and postgraduates, SMU comprises six schools which offer a wide range of bachelor’s, master’s and PhD degree programmes in the disciplinary areas associated with the six schools, as well as in inter- disciplinary combinations of these areas. At level three, there is a Multi-Purpose Sports Hall, commonly used for CCA training sessions, competition, camps, examination hall and many more.');
 
-INSERT INTO AR_GAME VALUES (1,'1');
-
 INSERT INTO HOTSPOT VALUES
-('Lee Kong Chian School of Business', '1.2953', '103.8506', 1, 1),
-('School of Accountancy', '1.2956', '103.8498', 2, 1),
-('School of Economics/School of Social Sciences', '1.2979', '103.8489', 3, 1),
-('School of Information Systems', '1.2974', '103.8495', 4, 1),
-('School of Law', '1.2949', '103.8495', 5, 1),
-('Li Ka Shing Library', '1.2962', '103.8501', 6, 1),
-('Administrative Building', '1.268', '103.8522', 7, 1);
+('Lee Kong Chian School of Business', '1.2953', '103.8506', 1),
+('School of Accountancy', '1.2956', '103.8498', 2),
+('School of Economics/School of Social Sciences', '1.2979', '103.8489', 3),
+('School of Information Systems', '1.2974', '103.8495', 4),
+('School of Law', '1.2949', '103.8495', 5),
+('Li Ka Shing Library', '1.2962', '103.8501', 6),
+('Administrative Building', '1.268', '103.8522', 7);
 
 INSERT INTO MISSION VALUES 
 (1, 'Lee Kong Chian School of Business'),
