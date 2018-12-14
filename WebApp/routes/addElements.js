@@ -24,5 +24,6 @@ router.post('/addHotspot', function(req,res){
     })
 })
 
+module.exports=router;
 
 
