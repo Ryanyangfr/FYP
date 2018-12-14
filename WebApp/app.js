@@ -30,7 +30,7 @@ app.use('/hotspot', location)
 app.use('/quiz', quiz);
 app.use('/team', team);
 app.use('/', instance);
-app.use('/draganddrop', draganddrop)
-app.use('/narrative', narrative)
+app.use('/draganddrop', draganddrop);
+app.use('/narrative', narrative);
 
 module.exports = app;
