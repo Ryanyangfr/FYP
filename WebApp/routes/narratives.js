@@ -21,6 +21,7 @@ router.get('/getNarratives', function(req,res){
 
                 response.push({narrative_title: title, narrative_id: id})
             })
+            console.log(response)
             res.end(JSON.stringify(response, null, 3))
         }
     })
