@@ -11,7 +11,7 @@ router.get('/getNarratives', function(req,res){
     var query = 'SELECT * FROM NARRATIVE';
     var response = [];
 
-    conn.query(query, function(narratives, err){
+    conn.query(query, function(err, narratives){
         if(err){
             console.log(err)
         } else{
@@ -22,10 +22,10 @@ router.get('/getNarratives', function(req,res){
                 response.push({narrative_title: title, narrative_id: id})
             })
             console.log(response)
-            res.end(JSON.stringify(response, null, 3))
+            res.send(JSON.stringify(response, null, 3))
         }
     })
-    res.send({nothing:"nothing"})
+    // res.send({nothing:"nothing"})
 })
 
 module.exports = router;
