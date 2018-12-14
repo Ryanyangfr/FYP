@@ -23,6 +23,7 @@ router.post('/addHotspot', function(req,res){
     conn.query(query,[hotspotName,latitude,longtitude,narrative_id], function(err, query){
         if(err){
             console.log(err);
+            res.send(JSON.stringify({success: "false"}))
         }else{
             res.send(JSON.stringify({success: "true"}));
         }
