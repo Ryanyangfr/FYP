@@ -21,7 +21,7 @@ router.get('/getNarratives', function(req,res){
 
                 response.push({narrative_title: title, narrative_id: id})
             })
-            res.send(response)
+            res.end(JSON.stringify(response, null, 3))
         }
     })
 })
