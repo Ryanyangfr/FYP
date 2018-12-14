@@ -8,6 +8,7 @@ var databaseConfig = require('../config/mysqlconf.js');
 var conn = mysql.createConnection(databaseConfig);
 
 router.post('/addHotspot', function(req,res){
+    console.log(req.body);
     var hotspotName = req.body.hotspot_name;
     var latitude = req.body.latitude;
     var longtitude = req.body.longtitude;
