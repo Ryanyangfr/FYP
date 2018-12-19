@@ -7,7 +7,12 @@ var databaseConfig = require('../config/mysqlconf.js');
 
 var conn = mysql.createConnection(databaseConfig);
 
+router.use(bodyParser.json()); // support json encoded bodies
+router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+
+
 router.post('/addHotspot', function(req,res){
+    console.log(req.body)
     var hotspotName = req.body.hotspot_name;
     var latitude = req.body.latitude;
     var longtitude = req.body.longtitude;
@@ -18,8 +23,9 @@ router.post('/addHotspot', function(req,res){
     conn.query(query,[hotspotName,latitude,longtitude,narrative_id], function(err, query){
         if(err){
             console.log(err);
+            res.send(JSON.stringify({success: "false"}))
         }else{
-            res.end({success: true});
+            res.send(JSON.stringify({success: "true"}));
         }
     })
 })
