@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <img class="logo" src="./assets/Engaging_U.png">
-    <br>
+    <!--<img class="logo" src="./assets/Engaging_U.png">-->
+    <!--<br>-->
     <Navigation class="Navigate" v-if="['Login'].indexOf($route.name) == -1"></Navigation>
     <!-- <SideBar v-if="['Login'].indexOf($route.name) == -1"></SideBar> -->
     <router-view/>
