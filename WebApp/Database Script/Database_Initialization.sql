@@ -34,7 +34,8 @@ INSERT INTO MISSION VALUES
 (16, 'Li Ka Shing Library'),
 (17, 'Li Ka Shing Library'),
 (18, 'Li Ka Shing Library'),
-(19, 'Lee Kong Chian School of Business');
+(19, 'Lee Kong Chian School of Business'),
+(20, 'School of Law');
 
 INSERT INTO QUIZ VALUES
 (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
@@ -207,6 +208,9 @@ INSERT INTO DRAG_AND_DROP VALUES
 (3,'In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 19),
 (4,'In the CIRCLE values, what does the fourth alphabet \'C\' represent?', 'Collegiality', 19),
 (5,'In the CIRCLE values, what does the alphabet \'L\' represent?', 'Leadership', 19);
+
+INSERT INTO ANAGRAM VALUES
+(1,'RYDERTHEFAGGOT', 20);
 
 INSERT INTO ADMIN VALUES
 ('admin', 'password');
