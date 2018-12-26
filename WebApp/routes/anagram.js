@@ -34,3 +34,5 @@ router.get('/getAnagrams', function(req,res){
         }
     })
 })
+
+module.exports=router;

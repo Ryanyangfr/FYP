@@ -10,6 +10,7 @@ var team = require('./routes/team.js');
 var draganddrop = require('./routes/draganddrop.js');
 var narrative = require('./routes/narratives.js');
 var add = require('./routes/addElements.js');
+var anagram = require('./routes/anagram.js');
 
 //declares the app
 var app = express();
@@ -34,5 +35,6 @@ app.use('/', instance);
 app.use('/draganddrop', draganddrop);
 app.use('/narrative', narrative);
 app.use('/add', add);
+app.use('/anagram', anagram);
 
 module.exports = app;
