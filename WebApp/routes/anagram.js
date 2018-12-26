@@ -41,8 +41,8 @@ router.get('/getAnagrams', function(req,res){
                         // console.log(count);
                         count += 1;
                         console.log('count: ' + count);
-                        console.log('row.length: ' + row.length);
-                        if(count == row.length){
+                        console.log('row.length: ' + rows.length);
+                        if(count == rows.length){
                             res.send(response);
                         }
                     }
