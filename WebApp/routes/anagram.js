@@ -31,7 +31,7 @@ router.get('/getAnagrams', function(req,res){
                     }else{
                         // console.log(anagram.ANAGRAM_WORD);
                         console.log(anagram[0]);
-                        var word = anagram.ANAGRAM_WORD;
+                        var word = anagram.ANAGRAM_ID;
                         response.push({hotspot: hotspot, anagram:word});
                         console.log(word);
                         // console.log(count);
