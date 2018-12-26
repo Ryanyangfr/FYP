@@ -32,7 +32,7 @@ router.get('/getAnagrams', function(req,res){
                         // console.log(anagram.ANAGRAM_WORD);
                         // console.log('word: ' + anagram[0]);
                         if(anagram[0] != undefined){
-                            var word = anagram.ANAGRAM_WORD;
+                            var word = anagram[0].ANAGRAM_WORD;
                             response.push({hotspot: hotspot, anagram:word});
                             console.log('word: ' + word);
                         }
