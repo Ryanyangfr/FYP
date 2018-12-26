@@ -26,14 +26,16 @@ router.get('/getAnagrams', function(req,res){
                 conn.query(mission_query, mission, function(err, anagram){
                     var word = anagram.ANAGRAM_WORD;
                     response.push({hotspot: hotspot, anagram:word});
+                    console.log(word);
+                    console.log(count);
                     count += 1;
                 })
                 // console.log(count);
                 // console.log(rows.length)
             })
             while(count != rows.length){
-                console.log('count: ' + count);
-                console.log('length: ' + rows.length);
+                // console.log('count: ' + count);
+                // console.log('length: ' + rows.length);
             }
             res.send(response);
         }
