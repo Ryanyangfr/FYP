@@ -28,10 +28,11 @@ router.get('/getAnagrams', function(req,res){
                     response.push({hotspot: hotspot, anagram:word});
                     count += 1;
                 })
-                if(count == rows.length){
-                    res.send(response);
-                }
+                // console.log(count);
+                // console.log(rows.length)
             })
+            while(count != rows.length){}
+            res.send(response);
         }
     })
 })
