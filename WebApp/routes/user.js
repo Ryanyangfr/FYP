@@ -58,7 +58,7 @@ router.get('/retrieveAllUser', function(req,res){
         }
 
         for(var i=0; i<result.length; i++){
-            respond_message.push({username: result[i].USERNAME, team: result[i].TEAM_ID});
+            respond_message.push({username: result[i].USERNAME, team: result[i].TEAM_ID, isLeader: result[i].isLeader});
         }
 
         console.log(respond_message);
@@ -75,7 +75,7 @@ router.post('/register', function(req, res){
     var team_id = numUsersEntered%3 + 1;
     numUsersEntered = numUsersEntered+1;
     var isLeader = 0;
-    if(user_id < 3){
+    if(user_id <= 3){
         isLeader = 1;
     }
     var event = {
