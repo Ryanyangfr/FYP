@@ -25,6 +25,7 @@ router.get('/getAnagrams', function(req,res){
 
                 console.log(mission);
                 conn.query(mission_query, mission, function(err, anagram){
+                    console.log('test')
                     if(err){
                         console.log('error: ' + err);
                         count += 1;
