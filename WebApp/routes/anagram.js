@@ -24,11 +24,15 @@ router.get('/getAnagrams', function(req,res){
                 mission_query = 'SELECT ANAGRAM.ANAGRAM_WORD FROM ANAGRAM WHERE MISSION_ID = ?';
 
                 conn.query(mission_query, mission, function(err, anagram){
-                    var word = anagram.ANAGRAM_WORD;
-                    response.push({hotspot: hotspot, anagram:word});
-                    console.log(word);
-                    console.log(count);
-                    count += 1;
+                    if(err){
+                        count += 1;
+                    }else{
+                        var word = anagram.ANAGRAM_WORD;
+                        response.push({hotspot: hotspot, anagram:word});
+                        console.log(word);
+                        console.log(count);
+                        count += 1;
+                    }
                 })
                 // console.log(count);
                 // console.log(rows.length)
