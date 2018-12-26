@@ -54,7 +54,7 @@ router.get('/getAnagrams', function(req,res){
             //     // console.log('count: ' + count);
             //     // console.log('length: ' + rows.length);
             // }
-            res.send(response);
+            // res.send(response);
         }
     })
 })
