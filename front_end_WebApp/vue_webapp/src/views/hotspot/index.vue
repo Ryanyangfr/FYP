@@ -9,7 +9,7 @@
             <input name="longtitude" type="text" placeholder="longtitude" v-model="longtitude">
             <v-select :options="dropDownList" v-model='narrative' placeholder='Please select a narrative title' style="width:200px;"></v-select> 
         </form>
-        {{narrative}}
+        <!-- {{narrative}} -->
     </div>
 </template>
 
@@ -33,11 +33,10 @@ export default {
     },
     methods: {
         onSubmit(){
-
+            axios.get()
         }
     },
     mounted(){
-
         axios.get('http://54.255.245.23:3000/narrative/getNarratives')
         .then(response => {
             let data = response.data;

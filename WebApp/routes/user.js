@@ -74,6 +74,10 @@ router.post('/register', function(req, res){
     var user_id = numUsersEntered+1;
     var team_id = numUsersEntered%3 + 1;
     numUsersEntered = numUsersEntered+1;
+    var isLeader = 0;
+    if(user_id < 3){
+        isLeader = 1;
+    }
     var event = {
         team_id: team_id,
         id: crypto.randomBytes(16).toString('hex').substring(0,4)
@@ -88,9 +92,9 @@ router.post('/register', function(req, res){
     console.log('user_id: ' + user_id);
     console.log('team: ' + team_id);
     console.log('user entered: ' + numUsersEntered);
-    var query = "INSERT INTO PARTICIPANT (USER_ID,USERNAME,TEAM_ID) VALUES (?,?,?)";
+    var query = "INSERT INTO PARTICIPANT (USER_ID,USERNAME,TEAM_ID, isLeader) VALUES (?,?,?,?)";
     //updates database
-    conn.query(query,[user_id,username,team_id], function(err,results){
+    conn.query(query,[user_id,username,team_id, isLeader], function(err,results){
         if(err){
             console.log(err);
             res.send('failed to update, check parameters');
