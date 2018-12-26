@@ -30,10 +30,13 @@ router.get('/getAnagrams', function(req,res){
                         count += 1;
                     }else{
                         // console.log(anagram.ANAGRAM_WORD);
-                        console.log('word: ' + anagram[0]);
-                        var word = anagram.ANAGRAM_WORD;
-                        response.push({hotspot: hotspot, anagram:word});
-                        console.log(word);
+                        // console.log('word: ' + anagram[0]);
+                        if(anagram[0] != undefined){
+                            var word = anagram.ANAGRAM_WORD;
+                            response.push({hotspot: hotspot, anagram:word});
+                        }
+                        
+                        // console.log(word);
                         // console.log(count);
                         count += 1;
                         if(count == row.length){
