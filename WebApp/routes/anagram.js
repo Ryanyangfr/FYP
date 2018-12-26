@@ -21,8 +21,9 @@ router.get('/getAnagrams', function(req,res){
                 var mission = row.MISSION_ID;
                 var hotspot = row.HOTSPOT_NAME;
 
-                mission_query = 'SELECT ANAGRAM.ANAGRAM_WORD FROM ANAGRAM WHERE MISSION_ID = ?';
+                mission_query = 'SELECT ANAGRAM_WORD FROM ANAGRAM WHERE MISSION_ID = ?';
 
+                console.log(mission);
                 conn.query(mission_query, mission, function(err, anagram){
                     if(err){
                         console.log('error: ' + err);
