@@ -38,7 +38,7 @@ router.post('/addNarrative', function(req,res){
     var getNumNarrative = 'SELECT COUNT(*) as count from NARRATIVE';
 
     conn.query(getNumNarrative, function(err, data){
-        console.log('data: ' + data);
+        console.log('data: ' + data.count);
         var count = parseInt(data.count);
         var id = count + 1;
 
