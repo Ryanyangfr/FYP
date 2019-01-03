@@ -39,7 +39,7 @@ router.post('/addNarrative', function(req,res){
 
     conn.query(getNumNarrative, function(err, data){
         console.log('data: ' + data);
-        var count = data.count;
+        var count = parseInt(data.count);
         var id = count + 1;
 
         var query = 'INSERT INTO NARRATIVE VALUES (?,?,?)';
