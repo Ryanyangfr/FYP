@@ -30,6 +30,29 @@ router.post('/addHotspot', function(req,res){
     })
 })
 
+router.post('/addNarrative', function(req,res){
+    console.log(req.body);
+    var narrative = req.narrative;
+    var title = req.title;
+
+    var getNumNarrative = 'SELECT COUNT(*) as count from NARRATIVE';
+
+    conn.query(getNumNarrative, function(err, data){
+        var count = data.count;
+        var id = count + 1;
+
+        var query = 'INSERT INTO NARRATIVE VALUES (?,?,?)';
+
+        conn.query(query, [id, title, narrative], function(err, reply){
+            if(err){
+                console.log(err);
+                res.send(JSON.stringify({success: "false"}))
+            }else{
+                res.send(JSON.stringify({success: "true"}));
+            }
+        })
+    })
+})
 module.exports=router;
 
 
