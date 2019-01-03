@@ -32,8 +32,8 @@ router.post('/addHotspot', function(req,res){
 
 router.post('/addNarrative', function(req,res){
     console.log(req.body);
-    var narrative = req.narrative;
-    var title = req.title;
+    var narrative = req.body.narrative;
+    var title = req.body.title;
 
     var getNumNarrative = 'SELECT COUNT(*) as count from NARRATIVE';
 
