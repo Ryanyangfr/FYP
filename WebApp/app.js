@@ -11,6 +11,8 @@ var draganddrop = require('./routes/draganddrop.js');
 var narrative = require('./routes/narratives.js');
 var add = require('./routes/addElements.js');
 var anagram = require('./routes/anagram.js');
+var hotspot = require('./routes/hotspot.js');
+var del = require('./routes/deleteElements.js');
 
 //declares the app
 var app = express();
@@ -36,5 +38,7 @@ app.use('/draganddrop', draganddrop);
 app.use('/narrative', narrative);
 app.use('/add', add);
 app.use('/anagram', anagram);
+app.use('/hotspot', hotspot);
+app.use('/delete', del);
 
 module.exports = app;

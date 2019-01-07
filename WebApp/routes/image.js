@@ -67,6 +67,8 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
     var trail_instance_id = req.body.trail_instance_id;
     var question = req.body.question;
     var hotspot = req.body.hotspot;
+    console.log(req);
+    console.log(req.body);
     console.log('question: ' + question);
 
     conn.query('SELECT QUESTION_ID FROM SUBMISSION_QUESTION WHERE QUESTION = ?', question, function(err, data){
@@ -81,7 +83,9 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                 } else{
                     // console.log(req.files.image.path);
                     if(req.files){
-                        res.send("Uploaded!!!");
+                        res.send(JSON.stringify({success: "true"}))
+                    }else{
+                        res.send(JSON.stringify({success: "false"}));
                     }
                     var image_path = req.files.image.path
                     var new_image_path = path.normalize(submissionDir + '/' + image_path.substring(
