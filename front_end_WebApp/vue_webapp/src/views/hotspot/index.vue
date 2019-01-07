@@ -7,7 +7,8 @@
             <input name="latitude" type="text" placeholder="latitude" v-model="latitude">
             Longtitude:
             <input name="longtitude" type="text" placeholder="longtitude" v-model="longtitude">
-            <v-select :options="dropDownList" v-model='narrative' placeholder='Please select a narrative title' style="width:200px;"></v-select> 
+            <v-select :options="dropDownList" v-model='narrative' placeholder='Please select a narrative title' style="width:200px;"></v-select>
+            <button type="submit">submit</button>
         </form>
         <!-- {{narrative}} -->
     </div>
@@ -33,7 +34,17 @@ export default {
     },
     methods: {
         onSubmit(){
-            axios.get()
+            var postBody = {
+                "hotspot_name": this.hotspot,
+                "latitude": this.latitude,
+                "longtitude": this.longtitude,
+                "narrative_id": this.narrative.value
+            }
+            axios.post('http://54.255.245.23:3000/add/addHotspot', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+            })
         }
     },
     mounted(){

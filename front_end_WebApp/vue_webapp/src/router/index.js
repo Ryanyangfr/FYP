@@ -51,6 +51,12 @@ export default new Router({
       name: 'addHotspot',
       component: ()=> import('@/views/hotspot/index'),
       hidden: true
+    },
+    {
+      path: '/addNarrative',
+      name: 'addNarrative',
+      component: ()=> import('@/views/narrative/index'),
+      hidden: true
     }
   ]
 })
