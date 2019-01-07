@@ -16,9 +16,9 @@ router.get('/getHotspots', function(req,res){
             console.log(err)
         } else{
             hotspots.forEach(function(hotspot){
-                var hotspot = narrative.HOTSPOT_NAME;
+                var hspot = hotspot.HOTSPOT_NAME;
 
-                response.push({hotspot: hotspot})
+                response.push({hotspot: hspot})
             })
             console.log(response)
             res.send(JSON.stringify(response, null, 3))
