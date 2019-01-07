@@ -77,7 +77,7 @@ export default {
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css?family=Lato|Poppins');
+  @import url("https://fonts.googleapis.com/css?family=Karla|Lato|Pontano+Sans|Poppins|Staatliches");
 
   input{
     font-family: 'Poppins', sans-serif
@@ -119,7 +119,7 @@ export default {
   text-transform: uppercase;
   font-weight: 600;
   margin-bottom: 7px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Karla', sans-serif;
 }
 
 .login-form-head p {
