@@ -2,10 +2,12 @@
     <Slide>
         <router-link to="/generateInstanceID">Get Instance ID</router-link>
     </Slide>
+   
 </template>
 
 <script>
 import { Slide } from 'vue-burger-menu'
+
 export default {
     name: SideBar,
     components: {
@@ -13,3 +15,12 @@ export default {
     }
 }
 </script>
+
+<style>
+    
+ .bm-burger-bars {
+      background-color: white;
+      font-weight: 1px;
+}
+</style>
+

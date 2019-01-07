@@ -4,10 +4,6 @@
             <div class="logo"> 
                 <a href="login"><img src="@/assets/titlelogo.png"></a>
             </div>
-
-            <div class ="header-left-area">
-                
-            </div>
         </div>
     </div>
 </template>
@@ -22,21 +18,20 @@ export default{
     .container-horizontal{
         min-height: 50px;
         z-index:99;
-        /*display: flex;
-        flex-direction: row;*/
-        /*position: fixed;*/
     }
 
     .logo{
+        min-height:50px;
         width:20%;
         background-color: #645cdd;
+        display: flex;
         align-items: center;
     }
 
     .logo img{
-         max-width: 80%;
-         max-height: 80%
-         
+        position: relative;
+        width: 100%;
+        height: 100%
     }
 
 
