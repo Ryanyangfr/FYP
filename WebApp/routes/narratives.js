@@ -25,7 +25,7 @@ router.get('/getNarratives', function(req,res){
             res.send(JSON.stringify(response, null, 3))
         }
     })
-    res.send({nothing:"nothing"});
+    // res.send({nothing:"nothing"});
 })
 
 module.exports = router;
