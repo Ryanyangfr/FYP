@@ -67,7 +67,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
     var trail_instance_id = req.body.trail_instance_id;
     var question = req.body.question;
     var hotspot = req.body.hotspot;
-    console.log('request: ' + req);
+    console.log(req);
     console.log('body: ' + body);
     console.log('question: ' + question);
 
