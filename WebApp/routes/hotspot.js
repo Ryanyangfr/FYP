@@ -18,7 +18,7 @@ router.get('/getHotspots', function(req,res){
             hotspots.forEach(function(hotspot){
                 var hspot = hotspot.HOTSPOT_NAME;
 
-                response.push({hotspot: hspot})
+                response.push(hspot)
             })
             console.log(response)
             res.send(JSON.stringify(response, null, 3))
