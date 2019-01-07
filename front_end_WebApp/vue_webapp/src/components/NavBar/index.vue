@@ -1,9 +1,11 @@
 <template>
-    <div>
+    <div class="horizontal-menu">
         <nav>
-            <router-link to="/generateInstanceID">Generate Instance ID</router-link>
-            <router-link to="/leaderboard">Leaderboard</router-link>
-            <router-link to='/viewSubmissions'>Submissions</router-link>
+            <ul>
+                <li><router-link to="/generateInstanceID">Generate Instance ID</router-link></li>
+                <li><router-link to="/leaderboard">Leaderboard</router-link></li>
+                <li><router-link to='/viewSubmissions'>Submissions</router-link></li>
+            </ul>
         </nav>
     </div>
 </template>
@@ -15,12 +17,32 @@ export default{
 </script>
 
 <style>
-    nav {
-        border-top: 1px solid #191970;
-        border-bottom: 1px solid #191f70;
-        margin: 0 10%;
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+
+    .horizontal-menu nav {
         text-align: left;
-        font-size: 150%;
+        /*position: relative;*/
     }
+
+    .horizontal-menu ul li{
+        list-style-type: none;
+        margin:0;
+        display: inline-block;
+        /*position: relative;*/
+    }
+
+    .horizontal-menu a{
+        text-decoration: none!important;
+        font-size: 15px;
+        padding: 10px 20px;
+        display: block;
+        color:#536479;
+        font-family: 'Roboto Condensed', sans-serif
+    }
+
+    .horizontal-menu a:hover{
+        color: #007BFF;
+    }
+
 </style>
 
