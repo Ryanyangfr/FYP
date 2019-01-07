@@ -81,7 +81,9 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                 } else{
                     // console.log(req.files.image.path);
                     if(req.files){
-                        res.send("Uploaded!!!");
+                        res.send(JSON.stringify({success: "true"}))
+                    }else{
+                        res.send(JSON.stringify({success: "false"}));
                     }
                     var image_path = req.files.image.path
                     var new_image_path = path.normalize(submissionDir + '/' + image_path.substring(
