@@ -68,7 +68,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
     var question = req.body.question;
     var hotspot = req.body.hotspot;
     console.log(req);
-    console.log('body: ' + body);
+    // console.log('body: ' + body);
     console.log('question: ' + question);
 
     conn.query('SELECT QUESTION_ID FROM SUBMISSION_QUESTION WHERE QUESTION = ?', question, function(err, data){
