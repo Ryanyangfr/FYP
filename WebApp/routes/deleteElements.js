@@ -13,10 +13,10 @@ router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 router.post('/deleteHotspot', function(req,res){
     var hotspotName = req.body.hotspot_name
     
-    console.log('hotspot name: ' + hotspotName);
+    console.log('hotspot name: ' + hotspotName[0]);
     var query = 'DELETE FROM HOTSPOT WHERE HOTSPOT_NAME = ?'
 
-    conn.query(query, hotspotName, function(err, data){
+    conn.query(query, hotspotName[0], function(err, data){
         if(err){
             console.log(err);
             res.send(JSON.stringify({success: "false"}))
