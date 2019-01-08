@@ -13,6 +13,7 @@ var add = require('./routes/addElements.js');
 var anagram = require('./routes/anagram.js');
 var hotspot = require('./routes/hotspot.js');
 var del = require('./routes/deleteElements.js');
+var edit = require('./routes/editElements.js');
 
 //declares the app
 var app = express();
@@ -40,5 +41,6 @@ app.use('/add', add);
 app.use('/anagram', anagram);
 app.use('/hotspot', hotspot);
 app.use('/delete', del);
+app.use('/edit', edit);
 
 module.exports = app;
