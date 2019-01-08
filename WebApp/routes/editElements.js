@@ -19,8 +19,8 @@ router.post('/editHotspot', function(req,res){
     console.log(req.body);
     var query = 'UPDATE HOTSPOT SET LATITUDE = ?, LONGTITUDE = ?, NARRATIVE_ID = ? WHERE HOTSPOT_NAME = ?';
 
-    conn.query(query,[latitude,longtitude,narrative_id,hotspotName], function(err, query){
-        console.log(query)
+    conn.query(query,[latitude,longtitude,narrative_id,hotspotName], function(err, data){
+        console.log(data.query)
         if(err){
             console.log(err);
             res.send(JSON.stringify({success: "false"}))
