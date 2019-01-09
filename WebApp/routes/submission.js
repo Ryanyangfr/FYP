@@ -329,7 +329,7 @@ router.get('/getAllSubmissionURL', function(req,res){
             })
         }
     });
-}
+})
 
 router.get('/getSubmission', function(req,res){
     var image_url = req.query.url;
