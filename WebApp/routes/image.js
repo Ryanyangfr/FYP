@@ -75,7 +75,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
         if(err){
             console.log(err);
         }
-        else if(data[0].QUESTION_ID == undefined){
+        else if(data[0] == undefined){
             conn.query('SELECT QUESTION_ID FROM DRAWING_QUESTION WHERE QUESTION = ?', question, function(err, data){
                 if(err){
                     console.log(err);
