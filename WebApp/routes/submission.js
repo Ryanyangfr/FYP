@@ -329,15 +329,15 @@ router.get('/getAllSubmissionURL', function(req,res){
                         response.push({SubmissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION});
                     });
 
-                    conn.query(num_submission_query, [team, instance_id], function(err, count_row){
-                        if (err){
-                            console.log(err);
-                        }else {
-                            response.push({size: count_row[0].COUNT});
-                        }
-                        console.log(response);
-                        res.send(JSON.stringify(response, null, 3))
-                    })
+                    // conn.query(num_submission_query, [team, instance_id], function(err, count_row){
+                    //     if (err){
+                    //         console.log(err);
+                    //     }else {
+                    //         response.push({size: count_row[0].COUNT});
+                    //     }
+                    console.log(response);
+                    res.send(JSON.stringify(response, null, 3))
+                    // })
                 }
             })
         }
