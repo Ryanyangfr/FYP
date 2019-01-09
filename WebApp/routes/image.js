@@ -130,7 +130,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                         }
                     })
                 }
-            }
+            })
 
         } else{
             var question_id = data[0].QUESTION_ID;
