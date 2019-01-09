@@ -67,6 +67,11 @@ export default {
                 let data = response.data
                 console.log(data)
             })
+            this.hotspot = "";
+            this.latitude = "";
+            this.longtitude = "";
+            this.narrative = "";
+            location.reload();
         },
         onSubmitToEdit(){
             var postBody = {
@@ -80,6 +85,12 @@ export default {
                 let data = response.data
                 console.log(data)
             })
+            this.hotspotToBeEdited = "";
+            this.latitude = "";
+            this.longtitude = "";
+            this.narrative = "";
+            location.reload();
+
         },
         onSubmitToDelete(){
             var postBody = {
@@ -90,6 +101,8 @@ export default {
                 let data = response.data
                 console.log(data)
             })
+            this.hotspotToBeDeleted = "";
+            location.reload();
         }
     },
     mounted(){
