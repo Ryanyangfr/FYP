@@ -2,7 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 
 var userRouter = require('./routes/user.js');
-var uploads = require('./routes/image.js');
+var uploads = require('./routes/submission.js');
 var location = require('./routes/geolocation.js');
 var quiz = require('./routes/quiz.js');
 var instance = require('./routes/instance.js');
