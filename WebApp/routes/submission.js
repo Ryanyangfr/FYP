@@ -286,6 +286,20 @@ router.get('/getSubmissionQuestion', function(req,res){
     })
 })
 
+router.get('/getDrawingQuestion', function(req,res){
+    var instance_id = req.query.trail_instance_id;
+    var query = 'SELECT HOTSPOT_NAME, QUESTION FROM TRAIL_MISSION AS TM, MISSION AS M, DRAWING_QUESTION AS DQ WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TM.MISSION_ID = M.MISSION_ID AND TM.MISSION_ID = DQ.MISSION_ID';
+    var response = [];
+   
+    conn.query(query, instance_id, function(err, result){
+        result.forEach(function(row){
+            response.push({hotspot: row.HOTSPOT_NAME, question: row.QUESTION});
+        });
+        console.log(response);
+        res.send(response);
+    })
+})
+
 router.get('/getAllSubmissionURL', function(req,res){
     var team = req.query.team;
     var instance_id = req.query.trail_instance_id;
