@@ -326,9 +326,10 @@ router.get('/getAllSubmissionURL', function(req,res){
                         res.send(JSON.stringify(response, null, 3))
                     })
                 }
-        })
-    }
-});
+            })
+        }
+    });
+}
 
 router.get('/getSubmission', function(req,res){
     var image_url = req.query.url;
