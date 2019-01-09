@@ -35,7 +35,8 @@ INSERT INTO MISSION VALUES
 (17, 'Li Ka Shing Library'),
 (18, 'Li Ka Shing Library'),
 (19, 'Lee Kong Chian School of Business'),
-(20, 'School of Law');
+(20, 'School of Law'),
+(21, 'School of Law');
 
 INSERT INTO QUIZ VALUES
 (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
@@ -151,6 +152,9 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 (11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 18),
 (12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 17);
 
+INSERT INTO DRAWING_QUESTION VALUES
+(1, 'Draw Something Retarded', 21);
+
 INSERT INTO TRAIL VALUES
 (1,45);
 
@@ -163,7 +167,7 @@ INSERT INTO TRAIL_MISSION VALUES
 (1,2),
 (1,3),
 (1,4),
-(1,20),
+(1,21),
 (1,6);
 
 INSERT INTO TRAIL_HOTSPOT VALUES
