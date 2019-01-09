@@ -75,6 +75,7 @@ export default{
                     console.log(error)
                 })
             }
+            this.images = [];
         }
     }
 }
