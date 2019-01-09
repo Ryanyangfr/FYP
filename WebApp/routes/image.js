@@ -73,7 +73,65 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
 
     conn.query('SELECT QUESTION_ID FROM SUBMISSION_QUESTION WHERE QUESTION = ?', question, function(err, data){
         if(err){
-            console.log(err);
+            conn.query('SELECT QUESTION_ID FROM DRAWING_QUESTION WHERE QUESTION = ?', question, function(err, data){
+                if(err){
+                    console.log(err);
+                }else {
+                    var question_id = data[0].QUESTION_ID;
+
+                    fs.readFile(req.files.image.path, function(err,data){
+                        if (err){
+                            console.log(err);
+                        } else{
+                            // console.log(req.files.image.path);
+                            if(req.files){
+                                res.send(JSON.stringify({success: "true"}))
+                            }else{
+                                res.send(JSON.stringify({success: "false"}));
+                            }
+                            var image_path = req.files.image.path
+                            var new_image_path = path.normalize(submissionDir + '/' + image_path.substring(
+                                                0,image_path.lastIndexOf('\\')+1)
+                                                + req.files.image.name);
+                                console.log();
+                                console.log(image_path);
+                                // console.log(image_path.lastIndexOf('\\')+1);
+                                // console.log(req.files.image.name);
+                            fs.rename(image_path, new_image_path, function(err){
+                                // res.send(err);
+                                console.log(err);
+                            });
+                    
+                            var query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID) VALUES (?,?,?,?,?,?)'
+                    
+                            console.log("submission: " + submission_id);
+                            console.log("image url: " + new_image_path);
+                            console.log("team id: " + team_id);
+                            console.log("trail instance id: " + trail_instance_id);
+                            console.log("question id: " + question_id);
+                            
+                        
+                            conn.query(query,[submission_id, new_image_path, team_id, trail_instance_id, null, question_id],function(err,data){
+                                if (err){
+                                    console.log(err);
+                                } else{
+                                    console.log('submission successfully loaded');
+                                    queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1 WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
+
+                                    conn.query(queryUpdate_hotspot, [team_id, trail_instance_id, hotspot], function(err, row){
+                                        if (err){
+                                            console.log(err);
+                                        }else {
+                                            console.log('updated hotspot status');
+                                        }
+                                    });
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+
         } else{
             var question_id = data[0].QUESTION_ID;
 
@@ -100,7 +158,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                         console.log(err);
                     });
             
-                    var query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, QUESTION_ID) VALUES (?,?,?,?,?)'
+                    var query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID) VALUES (?,?,?,?,?,?)'
             
                     console.log("submission: " + submission_id);
                     console.log("image url: " + new_image_path);
@@ -109,7 +167,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                     console.log("question id: " + question_id);
                     
                 
-                    conn.query(query,[submission_id, new_image_path, team_id, trail_instance_id, question_id],function(err,data){
+                    conn.query(query,[submission_id, new_image_path, team_id, trail_instance_id, question_id, null],function(err,data){
                         if (err){
                             console.log(err);
                         } else{
