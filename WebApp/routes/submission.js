@@ -306,12 +306,12 @@ router.get('/getAllSubmissionURL', function(req,res){
 
             var drawing_query = 'SELECT SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME FROM SUBMISSION AS S, DRAWING_QUESTION AS DQ, MISSION AS M WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.DRAWING_QUESTION_ID = DQ.QUESTION_ID AND M.MISSION_ID = DQ.MISSION_ID';
 
-            conn.query(drawing_query, [team, instance_id], function(err, rows){
+            conn.query(drawing_query, [team, instance_id], function(err, data){
                 if (err){
                     console.log(err);
                 }else{
                     var num_submission_query = 'SELECT COUNT(*) AS COUNT FROM SUBMISSION WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
-                    rows.forEach(function(row){
+                    data.forEach(function(row){
                         response.push({SubmissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION});
                     });
 
