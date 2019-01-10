@@ -14,8 +14,8 @@
                 <img :src="image" style="width:300px;height:400px;"/>
             </pre>
         </li>
-        <!-- {{this.paths}}
-        {{this.questions}} -->
+        {{this.paths}}
+        {{this.questions}}
     </div>
 </template>
 
@@ -48,7 +48,7 @@ export default{
                     }
                     let temp = data[i]
                     console.log(temp)
-                    this.paths.push(temp.SubmissionURL)
+                    this.paths.push(temp.submissionURL)
                     this.questions.push(temp.question)
                 }
                 // console.log(this.questions)
@@ -64,6 +64,7 @@ export default{
                 // console.log(this.paths[path])
                 let url = this.paths[index]
                 // let qn = this.question[index]
+                console.log(url)
                 axios.get('//54.255.245.23:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
                 .then(response=>{
                     // this.result = 'entered here'
