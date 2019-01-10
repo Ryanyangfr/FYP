@@ -7,7 +7,7 @@
             <input name="title" type="text" placeholder="title" v-model="title">
             Narrative:
             <input name="narrative" type="text" placeholder="narrative" v-model="narrative">
-            <button type="submit">submit</button>
+            <button type="submit">Add</button>
         </form>
 
         <form @submit.prevent="onSubmitToEdit" v-if="func == functionsAvailable[1]">
@@ -15,12 +15,12 @@
             <v-select :options="dropDownList" v-model='narrativeToBeEdited' placeholder='Please select a narrative title' style="width:200px;"></v-select>
             Narrative:
             <input name="narrative" type="text" placeholder="narrative" v-model="narrative">
-            <button type="submit">submit</button>
+            <button type="submit">Edit</button>
         </form>
 
         <form @submit.prevent="onSubmitToDelete" v-if="func == functionsAvailable[2]">
             <v-select :options="dropDownList" v-model="narrativeToBeDeleted" placeholder="Please select a narrative" style="width:200px;"></v-select>
-             <button type="submit">submit</button>
+             <button type="submit">Delete</button>
         </form>
         <!-- {{this.title}}
         {{this.narrative}} -->
@@ -41,7 +41,7 @@ export default {
             narrative: "",
             narrativeToBeEdited: "",
             dropDownList: [],
-            narrativeToBeDeleted
+            narrativeToBeDeleted: ""
         }
     },
     components:{
@@ -74,7 +74,7 @@ export default {
 
         onSubmitToDelete(){
              var postBody = {
-                "narrative_id": this.narrativeToBeEdited.value,
+                "narrative_id": this.narrativeToBeDeleted.value,
             }
             axios.post('http://54.255.245.23:3000/delete/deleteNarrative', postBody)
             .then(response => {
