@@ -26,7 +26,7 @@
               </div>              
             </div>
             <div class="submit-btn-area">
-              <button type="submit">Login</i></button>
+              <button type="submit">Login<i class="ti-arrow-right"></i></button>
             </div>
           </div>
         </form>
@@ -78,6 +78,7 @@ export default {
 
 <style>
   @import url("https://fonts.googleapis.com/css?family=Karla|Lato|Pontano+Sans|Poppins|Staatliches");
+  @import '../../assets/themify-icons.css';
 
   input{
     font-family: 'Poppins', sans-serif
@@ -157,10 +158,25 @@ export default {
 }
 
 .login-form-input input:focus ~ label,
-.login-form-input input:valid ~ label{
+.login-form-input input:valid ~ label,
+.login-form-input input:-webkit-autofill + label{
     top: -20px;
     font-size: 12px;
     color: #7e74ff;
+}
+
+.login-form-input input:placeholder-shown{
+    top: -20px;
+    font-size: 12px;
+    color: #7e74ff;
+}
+
+/*remove the autofill yellow background*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important; 
 }
 
 .login-form-input input {
@@ -196,12 +212,13 @@ export default {
 }
 
 .submit-btn-area{
-  text-align: center;
+  /*text-align: center;*/
+  align-items: center;
   margin-top: 90px
 }
 
 .submit-btn-area button{
-  width: 100%;
+    width: 100%;
     height: 50px;
     border: none;
     background: #ede7f6;
@@ -214,6 +231,16 @@ export default {
     box-shadow: 0 0 22px rgba(0, 0, 0, 0.07);
     -webkit-transition: all 0.3s ease 0s;
     transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+.submit-btn-area i{
+  margin-left: 15px;-webkit-transition: margin-left 0.3s ease 0s;
+    transition: margin-left 0.3s ease 0s;
+}
+
+.submit-btn-area button:hover i {
+    margin-left: 20px;
 }
 
 .submit-btn-area button:hover {
