@@ -137,7 +137,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
 
         } else{
             var question_id = data[0].QUESTION_ID;
-
+            console.log(req.files.image.path);
             fs.readFile(req.files.image.path, function(err,data){
                 if (err){
                     console.log(err);

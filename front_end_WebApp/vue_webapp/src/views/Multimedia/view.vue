@@ -14,6 +14,8 @@
                 <img :src="image" style="width:300px;height:400px;"/>
             </pre>
         </li>
+        {{this.paths}}
+        {{this.questions}}
     </div>
 </template>
 
@@ -42,13 +44,14 @@ export default{
                     if(i == 0 && this.paths.length != 0){
                         this.paths = []
                         this.images = []
+                        this.questions = []
                     }
                     let temp = data[i]
                     console.log(temp)
-                    this.paths.push(temp.SubmissionURL)
+                    this.paths.push(temp.submissionURL)
                     this.questions.push(temp.question)
                 }
-                console.log(this.questions)
+                // console.log(this.questions)
                 // console.log(response.data[0]['SubmissionURL'])
             })
         },
@@ -61,21 +64,24 @@ export default{
                 // console.log(this.paths[path])
                 let url = this.paths[index]
                 // let qn = this.question[index]
+                console.log(url)
                 axios.get('//54.255.245.23:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
                 .then(response=>{
                     // this.result = 'entered here'
                     // this.result = response.data
                     let reader = new FileReader();
+                        // this.images = [];
                         reader.readAsDataURL(response.data); 
                         reader.onload = () => {
                         this.images.push(reader.result);
                         }
+                    // console.log(this.images)
                 })
                 .catch(error =>{
                     console.log(error)
                 })
             }
-            this.images = [];
+            // vm.$forceUpdate()
         }
     }
 }

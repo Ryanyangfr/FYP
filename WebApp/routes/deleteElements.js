@@ -26,5 +26,21 @@ router.post('/deleteHotspot', function(req,res){
     })
 })
 
+router.post('/deleteNarrative', function(req,res){
+    var narrative_id = req.body.narrative_id
+    
+    console.log(narrative_id);
+    var query = 'DELETE FROM NARRATIVE WHERE NARRATIVE_ID = ?'
+
+    conn.query(query, narrative_id, function(err, data){
+        if(err){
+            console.log(err);
+            res.send(JSON.stringify({success: "false"}))
+        }else{
+            res.send(JSON.stringify({success: "true"}));
+        }
+    })
+})
+
 module.exports = router;
 
