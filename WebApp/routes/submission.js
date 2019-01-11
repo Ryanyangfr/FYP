@@ -347,6 +347,7 @@ router.get('/getAllSubmissionURL', function(req,res){
 router.get('/getSubmission', function(req,res){
     var image_url = req.query.url;
     var parentDir = path.normalize(__dirname + "/..");
+    console.log('image_url: ' + image_url)
     res.sendFile(path.normalize(parentDir + '/' + image_url));
 })
 
