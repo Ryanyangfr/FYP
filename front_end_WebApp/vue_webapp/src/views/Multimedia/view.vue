@@ -14,8 +14,11 @@
                 <img :src="image" style="width:300px;height:400px;"/>
             </pre>
         </li>
+        team:
+        {{this.team}}
         {{this.paths}}
         {{this.questions}}
+        {{this.images.length}}
     </div>
 </template>
 
@@ -28,7 +31,7 @@ export default{
             trail: '',
             team: '',
             paths: [],
-            images: {},
+            images: [],
             questions: []
         }
     }
@@ -39,8 +42,9 @@ export default{
             .then(response =>{
                 let data = response.data
                 let size = Object.keys(data).length
+                // this.path = [];
                 for(var i=0; i<size-1; i++){
-                    console.log(this.paths.length)
+                    console.log('path length: ' + this.paths.length)
                     if(i == 0 && this.paths.length != 0){
                         this.paths = []
                         this.images = []
@@ -59,23 +63,29 @@ export default{
             // this.paths = []
             // this.images = []
             this.retrieveAllUrl();
-            // console.log(this.paths)
+            console.log(this.paths)
+            this.question = [];
             for(var index in this.paths){
                 // console.log(this.paths[path])
                 let url = this.paths[index]
                 // let qn = this.question[index]
-                console.log(url)
+                // console.log(url)
                 axios.get('//54.255.245.23:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
                 .then(response=>{
                     // this.result = 'entered here'
                     // this.result = response.data
-                    let reader = new FileReader();
-                        // this.images = [];
-                        reader.readAsDataURL(response.data); 
-                        reader.onload = () => {
+                    var reader = new FileReader();
+                        // this.images = []; 
+                    this.images = [];
+                    reader.onload = () => {
+                        // console.log(reader.result);
                         this.images.push(reader.result);
-                        }
-                    // console.log(this.images)
+                        // console.log(this.images.length)
+                    }
+                    reader.readAsDataURL(response.data);
+                    this.paths = []
+                    // this.questions = []
+                    // this.images = []
                 })
                 .catch(error =>{
                     console.log(error)
