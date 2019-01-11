@@ -2,16 +2,15 @@
   <div id="app">
     <div class="main-horizontal-wrapper">
       <div class="main-header-top">
-        <MainHeader class="mainHeader" v-if="['Login'].indexOf($route.name) == -1"></MainHeader>
+        <MainHeader v-if="['Login'].indexOf($route.name) == -1"></MainHeader>
         <!--<Slide v-if="['Login'].indexOf($route.name) == -1">
             SideBar
             <router-link to="/generateInstanceID"><div id='sidebar'>Get Instance ID</div></router-link>
             <router-link to="/leaderboard"><div id='sidebar'>Leaderboard</div></router-link>
         </Slide>-->
-         
       </div>
       <div class= "main-header-btm">
-          <Navigation class="Navigate" v-if="['Login'].indexOf($route.name) == -1"></Navigation>
+          <!--<Navigation class="Navigate" v-if="['Login'].indexOf($route.name) == -1"></Navigation>-->
           <!--<SideBar class="SideBar" v-if="['Login'].indexOf($route.name) == -1"></SideBar> -->
           <router-view/>
       </div>
@@ -52,12 +51,8 @@ export default {
 
 .main-header-top{
   display: block;
+  margin:auto;
 }
-
- /*.bm-burger-bars {
-      background-color: white;
-      font-weight: 1px;
-}*/
 
 .main-horizontal-wrapper .mainHeader,
 .main-horizontal-wrapper .main-header-btm{
@@ -67,19 +62,12 @@ export default {
 }
 
 .main-horizontal-wrapper{
-  min-height: 100vh;
-}
-
-.mainHeader{
-    margin: 0px;
-    max-height: 75px;
-    overflow: hidden;
-    background: #5a52c4;
-    /*width:100%*/
+  min-height: 65px
 }
 
 .main-header-btm{
   margin: auto;
+  height:100%
 }
 
 .Navigate{
