@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   name: 'Login',
@@ -59,8 +59,14 @@ export default {
         axios.get(baseURI)
           .then(response => {
             console.log(response)
-              this.user.true_pass = response.data.password
+              this.user.true_pass = response.data.password;
+              console.log(this.user.true_pass);
+              // var token = response.data.token;
               if(this.user.password === this.user.true_pass){
+                console.log("token: ");
+                // console.log(response.data.token)
+                this.$session.start()
+                this.$session.set('jwt', response.data.token)
                 this.$router.push({ path: this.redirect || '/generateInstanceID' })
               } else{
                 alert('Wrong Username or Password, please try again')

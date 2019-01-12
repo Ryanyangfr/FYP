@@ -41,6 +41,13 @@ export default {
             this.generate_id = true
             this.makeID()
         }
+    },
+    mounted(){
+        console.log(this.$session.exists());
+            if (!this.$session.exists()) {
+            console.log("check")
+            this.$router.push('/')
+        }
     }
 }
 </script>

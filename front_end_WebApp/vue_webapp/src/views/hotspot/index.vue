@@ -106,6 +106,12 @@ export default {
         }
     },
     mounted(){
+        console.log(this.$session.exists());
+         if (!this.$session.exists()) {
+            console.log("check")
+            this.$router.push('/')
+        }
+
         axios.get('http://54.255.245.23:3000/narrative/getNarratives')
         .then(response => {
             let data = response.data;

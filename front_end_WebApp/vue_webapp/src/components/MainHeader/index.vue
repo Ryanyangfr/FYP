@@ -8,6 +8,7 @@
                 <div class = hamburger-menu> 
                     <a href='#' @click = "showOrHide()"><font-awesome-icon class = "hamburger-icon" icon="bars"  size="2x"/></a>
                 </div> 
+                <button @click='logout'>Logout</button>
             </div>
         </div>
         
@@ -40,6 +41,10 @@ export default{
             } else{
                 this.show = true;
             }
+        },
+        logout(){
+            this.$session.destroy();
+            this.$router.push("/");
         }
     }
   

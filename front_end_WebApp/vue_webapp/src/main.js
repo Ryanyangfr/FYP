@@ -12,12 +12,15 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import VueSession from 'vue-session';
+
 library.add(faBars)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);
+Vue.use(VueSession);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

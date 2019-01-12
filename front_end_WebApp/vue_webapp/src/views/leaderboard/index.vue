@@ -38,6 +38,12 @@ export default {
                 this.items = response.data;
             })
         }
+    },
+    mounted(){
+        if (!this.$session.exists()) {
+            console.log("check")
+            this.$router.push('/')
+        }
     }
 }
 </script>

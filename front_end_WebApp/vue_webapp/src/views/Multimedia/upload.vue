@@ -42,6 +42,12 @@ export default{
                     console.log(error);
                 })
         }
+    },
+    mounted(){
+        if (!this.$session.exists()) {
+            console.log("check")
+            this.$router.push('/')
+        }
     }
 }
     
