@@ -101,7 +101,8 @@ router.post('/addQuiz', function(req,res){
             var qz_query = 'INSERT INTO QUIZ VALUES (?,?,?,?)';
             var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
 
-            for (var index, row in quiz){
+            for (var index in quiz){
+                row = quiz[index]
                 console.log(row);
                 var question = row.question;
                 var option1 = row.option1;
