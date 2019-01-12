@@ -98,10 +98,12 @@ router.post('/addQuiz', function(req,res){
             res.send(JSON.stringify({success: "false"}));
             console.log(err);
         } else{
+            count = 0;
             var qz_query = 'INSERT INTO QUIZ VALUES (?,?,?,?)';
             var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
 
             for (var index in quiz){
+                count += 1;
                 row = quiz[index]
                 console.log(row);
                 var question = row.question;
@@ -159,10 +161,11 @@ router.post('/addQuiz', function(req,res){
                             res.send(JSON.stringify({success: "true"}));
                         }
                         quiz_option_id += 1;
+                        quiz_id += 1;
                     }
                 });
-                quiz_id += 1;
             }
+            if(count == quiz.length)
             mission_id += 1;
         }
     });
