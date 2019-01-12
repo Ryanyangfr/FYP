@@ -157,16 +157,15 @@ router.post('/addQuiz', function(req,res){
                             }
                         });
 
-                        if (counter == 4){
-                            res.send(JSON.stringify({success: "true"}));
-                        }
                         quiz_option_id += 1;
                         quiz_id += 1;
                     }
                 });
             }
-            if(count == quiz.length)
-            mission_id += 1;
+            if(count == quiz.length){
+                mission_id += 1;
+                res.send(JSON.stringify({success: "true"}));
+            } 
         }
     });
 });
