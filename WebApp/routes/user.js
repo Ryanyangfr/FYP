@@ -13,6 +13,9 @@ var conn = mysql.createConnection(databaseConfig);
 router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+const TokenGenerator = require('uuid-token-generator');
+const tokenGen = new TokenGenerator();
+
 var pusher = new Pusher({
     appId      : "650737",
     key        : "1721c662be60b9cbd43c",
@@ -82,6 +85,8 @@ router.post('/register', function(req, res){
         team_id: team_id,
         id: crypto.randomBytes(16).toString('hex').substring(0,4)
     };
+
+
     
     // console.log('request: ' + req);
     // console.log('*****************************************************************')
@@ -109,6 +114,10 @@ router.get('/getPassword', cors(), function(req,res){
     var username = req.query.username;
 
     query = "SELECT USER_PASSWORD FROM ADMIN WHERE USERNAME = ?";
+
+    var token = tokenGen.generate();
+
+    console.log(token);
     
     conn.query(query, username, function(err, row){
         if (err){
