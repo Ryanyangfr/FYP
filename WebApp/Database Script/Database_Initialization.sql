@@ -147,13 +147,13 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 (6, 'Locate the SMU Hall and take a wefie outside of the Hall! (Hint: Basement)', 13),
 (7, 'Locate the Kwa Geok Choo Library and take a wefie next to the scenic elevator!', 5),
 (8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 14),
-(9, 'Locate the Hive at the Learning Commons and take a wefie!', 16),
+(9, 'Locate the Hive at the Learning Commons and take a wefie!', 15),
 (10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 6),
-(11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 18),
-(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 17);
+(11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 17),
+(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 18);
 
 INSERT INTO DRAWING_QUESTION VALUES
-(1, 'Draw Something Retarded', 21);
+(1, 'Draw Something Retarded', 20);
 
 INSERT INTO TRAIL VALUES
 (1,45);
@@ -207,14 +207,14 @@ INSERT INTO TEAM_HOTSPOT_STATUS VALUES
 ('Li Ka Shing Library', '175239', 3, 0);
 
 INSERT INTO DRAG_AND_DROP VALUES
-(1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 19),
-(2,'In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 19),
-(3,'In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 19),
-(4,'In the CIRCLE values, what does the fourth alphabet \'C\' represent?', 'Collegiality', 19),
-(5,'In the CIRCLE values, what does the alphabet \'L\' represent?', 'Leadership', 19);
+(1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 18),
+(2,'In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 18),
+(3,'In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 18),
+(4,'In the CIRCLE values, what does the fourth alphabet \'C\' represent?', 'Collegiality', 18),
+(5,'In the CIRCLE values, what does the alphabet \'L\' represent?', 'Leadership', 18);
 
 INSERT INTO ANAGRAM VALUES
-(1,'RYDERTHEFAGGOT', 20);
+(1,'RYDERTHEFAGGOT', 19);
 
 INSERT INTO ADMIN VALUES
 ('admin', 'password');
