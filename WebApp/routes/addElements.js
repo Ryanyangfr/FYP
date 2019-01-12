@@ -88,6 +88,7 @@ router.post('/addNarrative', function(req,res){
 })
 
 router.post('/addQuiz', function(req,res){
+    console.log(req.body)
     var hotspot = req.body.hotspot;
     var quiz = req.body.quiz;
     var ms_query = 'INSERT INTO MISSION VALUES (?,?)';
