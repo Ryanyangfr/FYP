@@ -78,7 +78,7 @@ export default{
                         // this.images = []; 
                     this.images = [];
                     reader.onload = () => {
-                        // console.log(reader.result);
+                        console.log(reader.result);
                         this.images.push(reader.result);
                         // console.log(this.images.length)
                     }
@@ -92,6 +92,12 @@ export default{
                 })
             }
             // vm.$forceUpdate()
+        }
+    },
+    mounted(){
+        if (!this.$session.exists()) {
+            console.log("check")
+            this.$router.push('/')
         }
     }
 }
