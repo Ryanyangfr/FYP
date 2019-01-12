@@ -124,7 +124,7 @@ router.get('/getPassword', cors(), function(req,res){
             console.log(err);
         }else {
             console.log("password sent");
-            res.send({password: row[0].USER_PASSWORD});
+            res.send({password: row[0].USER_PASSWORD, token: token});
         }
     })
 })
