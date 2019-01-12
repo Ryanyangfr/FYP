@@ -31,12 +31,12 @@ INSERT INTO MISSION VALUES
 (12, 'School of Information Systems'),
 (13, 'School of Law'),
 (14, 'School of Law'),
+(15, 'Li Ka Shing Library'),
 (16, 'Li Ka Shing Library'),
 (17, 'Li Ka Shing Library'),
-(18, 'Li Ka Shing Library'),
-(19, 'Lee Kong Chian School of Business'),
-(20, 'School of Law'),
-(21, 'School of Economics/School of Social Sciences');
+(18, 'Lee Kong Chian School of Business'),
+(19, 'School of Law'),
+(20, 'School of Economics/School of Social Sciences');
 
 INSERT INTO QUIZ VALUES
 (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
@@ -163,11 +163,11 @@ INSERT INTO TRAIL_INSTANCE VALUES
 ('175239', 1, 1, 0);
 
 INSERT INTO TRAIL_MISSION VALUES
-(1,19),
+(1,18),
 (1,2),
-(1,21),
-(1,4),
 (1,20),
+(1,4),
+(1,19),
 (1,6);
 
 INSERT INTO TRAIL_HOTSPOT VALUES

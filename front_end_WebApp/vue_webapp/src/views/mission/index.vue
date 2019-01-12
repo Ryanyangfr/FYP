@@ -4,9 +4,9 @@
         <v-select :options="missionTypes" v-model="mission" placeholder="Choose your mission" style="width:200px;"></v-select>
         <br>
         <div v-if="mission == missionTypes[0]">
-            <form @submit.prevent="onSubmitToAdd" v-if="func == functionsAvailable[0]">
+            <form @submit.prevent="quizOnSubmitToAdd" v-if="func == functionsAvailable[0]">
                 Hotspot Name:
-                <v-select :options="hotspotList" v-model="hotspotToBeEdited" placeholder="Please select a hotspot" style="width:200px;"></v-select>             
+                <v-select :options="hotspotList" v-model="hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>             
                 <ul>
                     <li v-for="(input, index) in quiz">
                         Quiz Question:
@@ -21,8 +21,8 @@
                         <button @click="deleteRow(index)">Delete</button>
                     </li>
                 </ul>
-                 <button @click="addRow">Add row</button>
-                 <button type="submit">submit</button>
+                 <button type="button" @click="addRow">Add row</button>
+                 <button type="submit">submit</button> 
             </form>
             <!-- {{this.quiz}} -->
             <!-- <form @submit.prevent="onSubmitToEdit" v-if="func == functionsAvailable[1]">
@@ -57,7 +57,8 @@ export default {
             mission: "",
             missionTypes: ["Quiz", "Drag-N-Drop", "Selfie", "Drawing"],
             hotspotList: [],
-            quiz: []
+            quiz: [],
+            hotspot: ""
         }
     }, 
     components:{
@@ -76,21 +77,17 @@ export default {
         },
         quizOnSubmitToAdd(){
             var postBody = {
-                "hotspot_name": this.hotspot,
-                "latitude": this.latitude,
-                "longtitude": this.longtitude,
-                "narrative_id": this.narrative.value
+                "hotspot": this.hotspot.value,
+                "quiz": this.quiz
             }
-            axios.post('http://54.255.245.23:3000/add/addHotspot', postBody)
+            axios.post('http://54.255.245.23:3000/add/addQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
             })
-            this.hotspot = "";
-            this.latitude = "";
-            this.longtitude = "";
-            this.narrative = "";
-            location.reload();
+            // this.hotspot = "";
+            // this.quiz = [];
+            // location.reload();
         },
         onSubmitToEdit(){
             var postBody = {
