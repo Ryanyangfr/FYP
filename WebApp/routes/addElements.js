@@ -101,14 +101,14 @@ router.post('/addQuiz', function(req,res){
             var qz_query = 'INSERT INTO QUIZ VALUES (?,?,?,?)';
             var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
 
-            for (var index in quiz){
-                console.log(index);
-                var question = index.question;
-                var option1 = index.option1;
-                var option2 = index.option2;
-                var option3 = index.option3;
-                var option4 = index.option4;
-                var answer = index.answer;
+            for (var index, row in quiz){
+                console.log(row);
+                var question = row.question;
+                var option1 = row.option1;
+                var option2 = row.option2;
+                var option3 = row.option3;
+                var option4 = row.option4;
+                var answer = row.answer;
                 conn.query(qz_query, [quiz_id, question, answer, mission_id], function(err, response){
                     if (err){
                         res.send(JSON.stringify({success: "false"}));
