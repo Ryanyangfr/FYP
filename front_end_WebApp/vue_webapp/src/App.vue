@@ -9,8 +9,8 @@
             <router-link to="/leaderboard"><div id='sidebar'>Leaderboard</div></router-link>
         </Slide>-->
       </div>
-      <div class= "main-header-btm">
-          <!--<Navigation class="Navigate" v-if="['Login'].indexOf($route.name) == -1"></Navigation>-->
+      <div class= "main">
+          <Navigation class="Navigate" v-if="['Login'].indexOf($route.name) == -1"></Navigation>
           <!--<SideBar class="SideBar" v-if="['Login'].indexOf($route.name) == -1"></SideBar> -->
           <router-view/>
       </div>
@@ -22,7 +22,7 @@
 import Navigation from './components/NavBar/index'
 import MainHeader from './components/MainHeader/index'
 // import SideBar from './components/SideBar/index'
-import {Slide} from 'vue-burger-menu'
+// import {Slide} from 'vue-burger-menu'
 
 export default {
   name: 'App',
@@ -42,7 +42,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  /*background-color: #F2F5F7;*/
+}
+
+.main{
+  background-color: #F2F5F7;
 }
 
 #sidebar{ 
@@ -62,7 +65,7 @@ export default {
 }
 
 .main-horizontal-wrapper{
-  min-height: 65px
+  min-height: 80px
 }
 
 .main-header-btm{
@@ -79,4 +82,5 @@ export default {
 a{
   text-decoration-line: none;
 }
+
 </style>

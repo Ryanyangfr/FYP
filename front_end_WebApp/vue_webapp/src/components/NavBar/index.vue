@@ -1,11 +1,7 @@
 <template>
     <div class="horizontal-menu">
         <nav>
-            <ul>
-                <li><router-link to="/generateInstanceID">Generate Instance ID</router-link></li>
-                <li><router-link to="/leaderboard">Leaderboard</router-link></li>
-                <li><router-link to='/viewSubmissions'>Submissions</router-link></li>
-            </ul>
+            Getting Started
         </nav>
     </div>
 </template>
@@ -17,11 +13,18 @@ export default{
 </script>
 
 <style>
-    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
 
     .horizontal-menu nav {
         text-align: left;
-        /*position: relative;*/
+        font-size: 18px;
+        padding-left: 25px;
+        padding-top: 5px;
+        display: flex;
+        height: 65px;
+        color:black;
+        font-family: 'Roboto', sans-serif;
+        vertical-align: middle
     }
 
     .horizontal-menu ul li{

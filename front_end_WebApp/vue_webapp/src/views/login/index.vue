@@ -82,7 +82,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   @import url("https://fonts.googleapis.com/css?family=Karla|Lato|Pontano+Sans|Poppins|Staatliches");
   @import '../../assets/themify-icons.css';
 
@@ -94,11 +94,14 @@ export default {
     font-family: 'lato', sans-serif
   }
 
-  body {
+  .Login{
     background-image: url('../../assets/background.jpg');
     background-size: cover;
     position: relative;
-    background-position: center center
+    background-position: center center;
+    position: fixed;
+    height: 100%;
+    width: 100%
   }
 
   .ptb--100 {
@@ -257,5 +260,6 @@ input:-webkit-autofill:active  {
 span{
   color: white
 }
-
 </style>
+
+

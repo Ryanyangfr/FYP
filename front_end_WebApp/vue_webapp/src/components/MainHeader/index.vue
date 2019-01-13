@@ -7,8 +7,10 @@
             <div class="header-left">
                 <div class = hamburger-menu> 
                     <a href='#' @click = "showOrHide()"><font-awesome-icon class = "hamburger-icon" icon="bars"  size="2x"/></a>
-                </div> 
-                <button @click='logout'>Logout</button>
+                </div>
+                <div class = "logout-area">
+                    <button @click='logout'>Logout<i class="ti-shift-right"></i></button>
+                </div>
             </div>
         </div>
         
@@ -52,7 +54,8 @@ export default{
 </script>
 
 <style>
-    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Poppins");
+    @import '../../assets/themify-icons.css';
 
     .sideBar{
         position: absolute;
@@ -94,7 +97,6 @@ export default{
         /*position: relative;*/
     }
 
-
     .container-horizontal{
         max-height: 65px;
         z-index:99;
@@ -112,15 +114,46 @@ export default{
         align-items: center;
     }
 
+    .logout-area{
+        display: flex;
+        width: 15%;
+        height: 100%;
+        align-items: center;
+    }
+
+    .logout-area button{
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        border: none;
+        font-family: 'Poppins', sans-serif;
+        background-color: #645cdd;
+        color: white;
+        cursor: pointer;
+    }
+
+    .logout-area button:hover{
+        background-color: #4d44bf;
+        border-left: 2px solid #443daa;
+        border-bottom: 2px solid #443daa;
+    }
+
+    .logout-area i{
+        margin-left: 15px;
+    }
+
     .logo img{
         position: relative;
         width: 90%;
         height: 90%
     }
+
     .header-left{
         min-width:80%;
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 
     .hamburger-menu{
@@ -131,7 +164,8 @@ export default{
     .hamburger-menu a:hover, .hamburger-menu a{
         color:white
     }
-
+    
+    
 
 </style>
 
