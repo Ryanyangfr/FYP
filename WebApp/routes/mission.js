@@ -11,7 +11,6 @@ router.get('/getMission', function(req,res){
     var response = [];
     var hotspot = req.query.hotspot;
     var query = 'SELECT * FROM MISSION WHERE HOTSPOT_NAME = ?';
-
     conn.query(query, hotspot, function(err, data){
         if(err){
             console.log(err);

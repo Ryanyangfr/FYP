@@ -78,6 +78,24 @@ router.get('/getQuizzes', function(req, res){
             // res.send(JSON.stringify(response));
         }
     })
+});
+
+router.get('/getQuizQuestion', function(req,res){
+    var response = [];
+    var missionID = req.query.mission;
+    console.log('missionID: ' + missionID);
+    var query = 'SELECT QUIZ_QUESTION FROM QUIZ WHERE MISSION_ID = ?';
+
+    conn.query(query, missionID, function(err, questions){
+        if (err){
+            console.log(err);
+        } else{
+            for(var index in questions){
+                response.push({question: questions[index].QUIZ_QUESTION});
+            }
+            res.send(response);
+        }
+    })
 })
 
 module.exports = router;
