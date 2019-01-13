@@ -14,6 +14,7 @@ var anagram = require('./routes/anagram.js');
 var hotspot = require('./routes/hotspot.js');
 var del = require('./routes/deleteElements.js');
 var edit = require('./routes/editElements.js');
+var mission = require('./routes/mission.js');
 
 //declares the app
 var app = express();
@@ -42,5 +43,6 @@ app.use('/anagram', anagram);
 app.use('/hotspot', hotspot);
 app.use('/delete', del);
 app.use('/edit', edit);
+app.use('/mission', mission);
 
 module.exports = app;
