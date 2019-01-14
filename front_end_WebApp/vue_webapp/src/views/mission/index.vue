@@ -161,12 +161,13 @@ export default {
         },
         quizOnSubmitToEdit(){
             var postBody = {
-                "hotspot_name": this.hotspotToBeEdited,
-                "latitude": this.latitude,
-                "longtitude": this.longtitude,
-                "narrative_id": this.narrative.value
+                question: this.questionToBeEdited,
+                option1: {option: this.editedOptions.option1, id: this.editedOptions.option1ID},
+                option2: {option: this.editedOptions.option2, id: this.editedOptions.option2ID},
+                option3: {option: this.editedOptions.option3, id: this.editedOptions.option3ID},
+                option4: {option: this.editedOptions.option4, id: this.editedOptions.option4ID}
             }
-            axios.post('http://54.255.245.23:3000/edit/editHotspot', postBody)
+            axios.post('http://54.255.245.23:3000/edit/editQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
