@@ -9,7 +9,7 @@
             <router-link to="/leaderboard"><div id='sidebar'>Leaderboard</div></router-link>
         </Slide>-->
       </div>
-      <div class= "main">
+      <div class= "main" v-bind:style="'{margin-left: sidebar}'">
           <Navigation class="Navigate" v-if="['Login'].indexOf($route.name) == -1"></Navigation>
           <!--<SideBar class="SideBar" v-if="['Login'].indexOf($route.name) == -1"></SideBar> -->
           <router-view/>
@@ -44,7 +44,7 @@ export default {
   color: #2c3e50;
 }
 
-.main{
+body{
   background-color: #F2F5F7;
 }
 

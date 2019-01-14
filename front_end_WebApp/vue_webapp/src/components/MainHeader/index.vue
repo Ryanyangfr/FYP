@@ -20,6 +20,10 @@
                     <li><router-link to="/generateInstanceID">Generate Instance ID</router-link></li>
                     <li><router-link to="/leaderboard">Leaderboard</router-link></li>
                     <li><router-link to='/viewSubmissions'>Submissions</router-link></li>
+                    <li><router-link to='/addMission'>Missions</router-link></li>
+                    <li><router-link to='/addNarrative'>Narrative</router-link></li>
+                    <li><router-link to='/addHotspot'>Hotspot</router-link></li>
+
                 </ul>
             </div>
         </transition>
@@ -40,8 +44,10 @@ export default{
         showOrHide(){
             if(this.show){
                 this.show = false;
+                this.$sidebar = '0px';
             } else{
                 this.show = true;
+                this.$sidebar = '250px';
             }
         },
         logout(){
@@ -92,8 +98,7 @@ export default{
 
     .sideBar ul li{
         list-style-type: none;
-        margin:5px;
-        
+        margin:15px;
         /*position: relative;*/
     }
 
