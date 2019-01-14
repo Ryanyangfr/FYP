@@ -25,18 +25,34 @@
                  <button type="submit">submit</button> 
             </form>
             <!-- {{this.quiz}} -->
-            <!-- <form @submit.prevent="onSubmitToEdit" v-if="func == functionsAvailable[1]">
+            <form @submit.prevent="quizOnSubmitToEdit" v-if="func == functionsAvailable[1]">
                 Hotspot Name:
-                <v-select :options="hotspotList" v-model="hotspotToBeEdited" placeholder="Please select a hotspot" style="width:200px;"></v-select>
-                Latitude:
-                <input name="latitude" type="text" placeholder="latitude" v-model="latitude">
-                Longtitude:
-                <input name="longtitude" type="text" placeholder="longtitude" v-model="longtitude">
-                <v-select :options="dropDownList" v-model='narrative' placeholder='Please select a narrative title' style="width:200px;"></v-select>
-                <button type="submit">submit</button>
+                <v-select :options="hotspotList" v-model="hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>
+                <button type="button" @click="fetchMissions">Fetch Missions</button>
+
+                Mission ID:
+                <v-select :options="missionList" v-model="missionToEdit" placeholder="Please select a mission" style="width:200px;"></v-select>
+                <button type="button" @click="fetchQuestions">Fetch Questions</button>
+
+                Question:
+                <v-select :options="questionList" v-model='questionToBeEdited' placeholder='Please select a question' style="width:400px;"></v-select>
+                <button type="button" @click="fetchOptions">Fetch Quiz Options</button>
+
+                <div v-if="editedOptions.option1 != ''">
+                    Question:
+                    <input name="question" type="text" placeholder="question" v-model="questionToBeEdited.label" :style="{width: '800px'}">
+                    <br>
+                    Options:
+                    <input name="option1" type="text" placeholder="option1" v-model="editedOptions.option1">
+                    <input name="option2" type="text" placeholder="option2" v-model="editedOptions.option2">
+                    <input name="option3" type="text" placeholder="option3" v-model="editedOptions.option3">
+                    <input name="option4" type="text" placeholder="option4" v-model="editedOptions.option4">
+                
+                    <button type="submit">submit</button>
+                </div>
             </form>
 
-            <form @submit.prevent="onSubmitToDelete" v-if="func == functionsAvailable[2]">
+            <!-- <form @submit.prevent="onSubmitToDelete" v-if="func == functionsAvailable[2]">
                 <v-select :options="hotspotList" v-model="hotspotToBeDeleted" placeholder="Please select a hotspot" style="width:200px;"></v-select>
                 <button type="submit">submit</button>
             </form> -->
@@ -58,7 +74,21 @@ export default {
             missionTypes: ["Quiz", "Drag-N-Drop", "Selfie", "Drawing"],
             hotspotList: [],
             quiz: [],
-            hotspot: ""
+            hotspot: "",
+            missionList: [],
+            missionToEdit: "",
+            questionList: [],
+            questionToBeEdited: "",
+            editedOptions: {
+                option1: "",
+                option2: "",
+                option3: "",
+                option4: "",
+                option1ID: "",
+                option2ID: "",
+                option3ID: "",
+                option4ID: ""
+            }
         }
     }, 
     components:{
@@ -75,6 +105,46 @@ export default {
                 answer: ""
             })
         },
+        fetchMissions(){
+            // console.log('entered')
+            this.missionList = [];
+            axios.get('http://54.255.245.23:3000/mission/getMission?hotspot=' + this.hotspot.value)
+            .then(response =>{
+                var data = response.data;
+                // console.log(data)
+                for(var index in data){
+                    // console.log(index)
+                    this.missionList.push({label: data[index].mission, value: data[index].mission});
+                }
+            })
+        },
+        fetchQuestions(){
+            this.questionList = [];
+            axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + this.missionToEdit.value)
+            .then(response =>{
+                var data = response.data;
+                console.log(data)
+                for(var index in data){
+                    this.questionList.push({label: data[index].question, value: data[index].quiz_id});
+                }
+            })
+        },
+        fetchOptions(){
+            console.log(this.questionToBeEdited.value);
+            axios.get('http://54.255.245.23:3000/quiz/getQuizOptions?quizID=' + this.questionToBeEdited.value)
+            .then(response =>{
+                var data = response.data;
+                console.log(data)
+                this.editedOptions.option1 = data[0].option
+                this.editedOptions.option2 = data[1].option
+                this.editedOptions.option3 = data[2].option
+                this.editedOptions.option4 = data[3].option
+                this.editedOptions.option1ID = data[0].option_id
+                this.editedOptions.option2ID = data[1].option_id
+                this.editedOptions.option3ID = data[2].option_id
+                this.editedOptions.option4ID = data[3].option_id
+            })
+        },
         quizOnSubmitToAdd(){
             var postBody = {
                 "hotspot": this.hotspot.value,
@@ -89,7 +159,7 @@ export default {
             // this.quiz = [];
             // location.reload();
         },
-        onSubmitToEdit(){
+        quizOnSubmitToEdit(){
             var postBody = {
                 "hotspot_name": this.hotspotToBeEdited,
                 "latitude": this.latitude,
