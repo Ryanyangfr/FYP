@@ -1,5 +1,19 @@
 <template>
-    <div>
+    <div class="Narrative">
+        <div class="card">
+            <div class="card-title">
+                <h5>Narrative List</h5>
+            </div>
+            <table>
+                <tr>
+                    <td>Narrative Title</td>
+                    <td>Narrative Description</td>
+                </tr>
+            </table>
+        </div>
+        
+        </br>
+
         <v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
 
         <form @submit.prevent="onSubmitToAdd" v-if="func == functionsAvailable[0]">
@@ -99,6 +113,30 @@ export default {
     }
 }
 </script>
+
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+    .card{
+        padding: 18px;
+        margin: 18px;
+        font-family: 'Roboto Condensed', sans-serif; 
+        font-size: 20px;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .card .card-title{
+        display: flex;
+        float: left;
+    }
+
+    .card table{
+        margin: 18px;
+        align-items: center;
+        font-size: 14px;
+    }
+</style>
+
 
 
 
