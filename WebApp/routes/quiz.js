@@ -102,6 +102,7 @@ router.get('/getQuizOptions', function(req,res){
     var response = [];
     var quizID = req.query.quizID;
     // console.log('missionID: ' + missionID);
+    console.log('quiz id: ' + quizID);
     var query = 'SELECT QUIZ_OPTION, QUIZ_OPTION_ID FROM QUIZ_OPTION WHERE QUIZ_ID = ?';
 
     conn.query(query, quizID, function(err, options){
