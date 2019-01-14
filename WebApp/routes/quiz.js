@@ -109,7 +109,7 @@ router.get('/getQuizOptions', function(req,res){
             console.log(err);
         } else{
             for(var index in options){
-                response.push({option: options[index].QUIZ_OPTION, option_id: questions[index].QUIZ_OPTION_ID});
+                response.push({option: options[index].QUIZ_OPTION, option_id: options[index].QUIZ_OPTION_ID});
             }
             res.send(response);
         }
