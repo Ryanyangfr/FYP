@@ -96,6 +96,24 @@ router.get('/getQuizQuestion', function(req,res){
             res.send(response);
         }
     })
-})
+});
+
+router.get('/getQuizOptions', function(req,res){
+    var response = [];
+    var quizID = req.query.quizID;
+    // console.log('missionID: ' + missionID);
+    var query = 'SELECT QUIZ_OPTION, QUIZ_OPTION_ID FROM QUIZ_OPTION WHERE QUIZ_ID = ?';
+
+    conn.query(query, quizID, function(err, options){
+        if (err){
+            console.log(err);
+        } else{
+            for(var index in options){
+                response.push({option: options[index].QUIZ_OPTION, option_id: questions[index].QUIZ_OPTION_ID});
+            }
+            res.send(response);
+        }
+    })
+});
 
 module.exports = router;
