@@ -452,7 +452,7 @@ INSERT INTO DRAG_AND_DROP VALUES
 (5,'In the CIRCLE values, what does the alphabet \'L\' represent?', 'Leadership', 18);
 
 INSERT INTO ANAGRAM VALUES
-(1,'RYDERTHEFAGGOT', 19);
+(1,'kwageokchoo', 19);
 
 INSERT INTO ADMIN VALUES
 ('admin', 'password');
