@@ -12,9 +12,9 @@
       <div class= "main" v-bind:style="'{margin-left: sidebar}'">
           <Navigation class="Navigate" v-if="['Login'].indexOf($route.name) == -1"></Navigation>
           <!--<SideBar class="SideBar" v-if="['Login'].indexOf($route.name) == -1"></SideBar> -->
-          <router-view/>
       </div>
     </div>
+    <router-view/>
   </div>
 </template>
 
@@ -42,6 +42,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin-top:126px;
 }
 
 body{
@@ -65,7 +66,12 @@ body{
 }
 
 .main-horizontal-wrapper{
-  min-height: 80px
+  min-height: 80px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index:999;
 }
 
 .main-header-btm{

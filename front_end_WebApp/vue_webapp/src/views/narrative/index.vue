@@ -3,12 +3,23 @@
         <div class="card">
             <div class="card-title">
                 <h5>Narrative List</h5>
+                <button class="create-narrative-btn"><i class="ti-plus"></i>ADD NEW</button>
             </div>
             <table>
-                <tr>
-                    <td>Narrative Title</td>
+                <tr class="narrative-table-header">
+                    <td class="narrative-title-header">Narrative Title</td>
                     <td>Narrative Description</td>
+                    <td></td>
+                    <td></td>
                 </tr>
+
+                <tr class = "narrative-data" v-for="narrative in narrativeTableList" :key="narrative.id">
+                    <td>{{narrative.title}}</td>
+                    <td>{{narrative.narrative}}</td>
+                    <td><button><i class="ti-pencil-alt"></i></button></td>
+                    <td><button><i class="ti-trash"></i></button></td>
+                </tr>
+                
             </table>
         </div>
         
@@ -55,7 +66,8 @@ export default {
             narrative: "",
             narrativeToBeEdited: "",
             dropDownList: [],
-            narrativeToBeDeleted: ""
+            narrativeToBeDeleted: "",
+            narrativeTableList: []
         }
     },
     components:{
@@ -105,9 +117,12 @@ export default {
         axios.get('http://54.255.245.23:3000/narrative/getNarratives')
         .then(response => {
             let data = response.data;
+            // console.log(data)
             for(var row in data){
                 console.log(data[row])
                 this.dropDownList.push({label: data[row].narrative_title, value: data[row].narrative_id})
+                this.narrativeTableList.push({title: data[row].narrative_title, id: data[row].narrative_id, narrative: data[row].narrative})
+                // console.log(data[row].narrative);
             }
         })
     }
@@ -115,25 +130,100 @@ export default {
 </script>
 
 <style>
-    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed");
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
+    @import '../../assets/themify-icons.css';
+
     .card{
         padding: 18px;
         margin: 18px;
-        font-family: 'Roboto Condensed', sans-serif; 
-        font-size: 20px;
         border-radius: 5px;
         border: none;
+        font-family: 'Roboto Condensed', sans-serif; 
     }
 
     .card .card-title{
+        /*display: flex;*/
+        /*float: left;*/
+        font-size: 20px;
+    }
+
+    .card-title h5{
         display: flex;
         float: left;
     }
 
+    .create-narrative-btn{
+        background-color: #645cdd;;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size:15px;
+        display: flex;
+        float: right;
+        padding:12px;
+        margin-right: 12px;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 600;
+        align-items: center;
+    }
+
+    .create-narrative-btn:hover{
+        background-color: #6200EE;
+    }
+
+    .create-narrative-btn i{
+        font-size: 13px;
+        margin-right: 5px;
+    }
+
     .card table{
         margin: 18px;
-        align-items: center;
         font-size: 14px;
+        font-family: "Roboto", sans-serif;
+       
+    }
+
+    .card table td{
+        text-align: left;
+    }
+
+    
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+        border-top: 1px solid #DEE2E6;
+        border-bottom: 1px solid #DEE2E6;
+    }
+
+    .narrative-data td{
+        text-overflow: ellipsis;
+        max-height: 10px;
+        padding: 15px;
+    }
+
+    .narrative-data button{
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .narrative-data i{
+        font-size: 20px
+    }
+
+    .narrative-table-header td{
+        font-size: 15px;
+        padding: 10px;
+        min-height: 100px;
+        font-weight: 600;
+        border-top: 1px solid #DEE2E6;
+        border-bottom: 2px solid #DEE2E6;
+    }
+
+    .narrative-title-header{
+        min-width: 200px;
+       
+        
     }
 </style>
 
