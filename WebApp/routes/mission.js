@@ -16,7 +16,7 @@ router.get('/getMission', function(req,res){
             console.log(err);
         }else {
             for(var index in data){
-                response.push({mission: data[index].MISSION_ID});
+                response.push({mission: data[index].MISSION_ID, title: data[index].MISSION_TITLE});
             }
             res.send(response);
         }
