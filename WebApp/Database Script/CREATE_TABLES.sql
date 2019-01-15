@@ -109,6 +109,7 @@ REFERENCES HOTSPOT(HOTSPOT_NAME)
 CREATE TABLE MISSION
 (
 MISSION_ID INT NOT NULL,
+MISSION_TITLE VARCHAR(100) NOT NULL,
 HOTSPOT_NAME VARCHAR(50) NOT NULL,
 CONSTRAINT MISSION_PK PRIMARY KEY (MISSION_ID),
 CONSTRAINT MISSION_FK1 FOREIGN KEY (HOTSPOT_NAME)
@@ -254,26 +255,26 @@ INSERT INTO HOTSPOT VALUES
 ('Administrative Building', '1.268', '103.8522', 7);
 
 INSERT INTO MISSION VALUES 
-(1, 'Lee Kong Chian School of Business'),
-(2, 'School of Accountancy'),
-(3, 'School of Economics/School of Social Sciences'),
-(4, 'School of Information Systems'),
-(5, 'School of Law'),
-(6, 'Li Ka Shing Library'),
-(7, 'Administrative Building'),
-(8, 'Lee Kong Chian School of Business'),
-(9, 'School of Accountancy'),
-(10, 'School of Economics/School of Social Sciences'),
-(11, 'School of Information Systems'),
-(12, 'School of Information Systems'),
-(13, 'School of Law'),
-(14, 'School of Law'),
-(15, 'Li Ka Shing Library'),
-(16, 'Li Ka Shing Library'),
-(17, 'Li Ka Shing Library'),
-(18, 'Lee Kong Chian School of Business'),
-(19, 'School of Law'),
-(20, 'School of Economics/School of Social Sciences');
+(1, 'title 1', 'Lee Kong Chian School of Business'),
+(2, 'title 2','School of Accountancy'),
+(3, 'title 3','School of Economics/School of Social Sciences'),
+(4, 'title 4','School of Information Systems'),
+(5, 'title 5','School of Law'),
+(6, 'title 6','Li Ka Shing Library'),
+(7, 'title 7','Administrative Building'),
+(8, 'title 8','Lee Kong Chian School of Business'),
+(9, 'title 9','School of Accountancy'),
+(10, 'title 10','School of Economics/School of Social Sciences'),
+(11, 'title 11','School of Information Systems'),
+(12, 'title 12','School of Information Systems'),
+(13, 'title 13','School of Law'),
+(14, 'title 14','School of Law'),
+(15, 'title 15','Li Ka Shing Library'),
+(16, 'title 16','Li Ka Shing Library'),
+(17, 'title 17','Li Ka Shing Library'),
+(18, 'title 18','Lee Kong Chian School of Business'),
+(19, 'title 19','School of Law'),
+(20, 'title 20','School of Economics/School of Social Sciences');
 
 INSERT INTO QUIZ VALUES
 (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
