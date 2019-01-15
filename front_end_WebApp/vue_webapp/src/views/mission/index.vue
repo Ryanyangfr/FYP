@@ -52,10 +52,15 @@
                 </div>
             </form>
 
-            <!-- <form @submit.prevent="onSubmitToDelete" v-if="func == functionsAvailable[2]">
-                <v-select :options="hotspotList" v-model="hotspotToBeDeleted" placeholder="Please select a hotspot" style="width:200px;"></v-select>
+            <form @submit.prevent="quizOnSubmitToDelete" v-if="func == functionsAvailable[2]">
+                Hotspot Name:
+                <v-select :options="hotspotList" v-model="hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>
+                <button type="button" @click="fetchMissions">Fetch Missions</button>
+
+                Mission:
+                <v-select :options="missionList" v-model="missionToEdit" placeholder="Please select a mission to delete" style="width:200px;"></v-select>
                 <button type="submit">submit</button>
-            </form> -->
+            </form>
         </div>
         <!-- {{narrative}} -->
     </div>
@@ -114,7 +119,7 @@ export default {
                 // console.log(data)
                 for(var index in data){
                     // console.log(index)
-                    this.missionList.push({label: data[index].mission, value: data[index].mission});
+                    this.missionList.push({label: data[index].title, value: data[index].mission});
                 }
             })
         },
@@ -179,11 +184,11 @@ export default {
             location.reload();
 
         },
-        onSubmitToDelete(){
+        quizOnSubmitToDelete(){
             var postBody = {
                 "hotspot_name": this.hotspotToBeDeleted,
             }
-            axios.post('http://54.255.245.23:3000/delete/deleteHotspot', postBody)
+            axios.post('http://54.255.245.23:3000/delete/deleteQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
