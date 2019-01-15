@@ -18,8 +18,9 @@ router.get('/getNarratives', function(req,res){
             narratives.forEach(function(narrative){
                 var title = narrative.NARRATIVE_TITLE;
                 var id = narrative.NARRATIVE_ID;
+                var narrative = narrative.NARRATIVE;
 
-                response.push({narrative_title: title, narrative_id: id})
+                response.push({narrative_title: title, narrative_id: id, narrative: narrative})
             })
             console.log(response)
             res.send(JSON.stringify(response, null, 3))
