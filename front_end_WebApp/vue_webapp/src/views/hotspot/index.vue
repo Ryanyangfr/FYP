@@ -89,7 +89,7 @@ export default {
             this.latitude = "";
             this.longtitude = "";
             this.narrative = "";
-            location.reload();
+            // location.reload();
 
         },
         onSubmitToDelete(){
@@ -102,7 +102,7 @@ export default {
                 console.log(data)
             })
             this.hotspotToBeDeleted = "";
-            location.reload();
+            // location.reload();
         }
     },
     mounted(){

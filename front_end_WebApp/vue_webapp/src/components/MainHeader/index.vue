@@ -6,7 +6,7 @@
             </div>
             <div class="header-left">
                 <div class = hamburger-menu> 
-                    <a href='#' @click = "showOrHide()"><font-awesome-icon class = "hamburger-icon" icon="bars"  size="2x"/></a>
+                    <button @click = "showOrHide()"><font-awesome-icon class = "hamburger-icon" icon="bars"  size="2x"/></button>
                 </div>
                 <div class = "logout-area">
                     <button @click='logout'>Logout<i class="ti-shift-right"></i></button>
@@ -163,11 +163,13 @@ export default{
 
     .hamburger-menu{
         margin: 30px;
-        color: white;
     }
 
-    .hamburger-menu a:hover, .hamburger-menu a{
-        color:white
+    .hamburger-menu button{
+        background:none;
+        border: none;
+        color: white;
+        cursor: pointer;
     }
     
     
