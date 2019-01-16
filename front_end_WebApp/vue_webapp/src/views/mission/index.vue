@@ -6,7 +6,9 @@
         <div v-if="mission == missionTypes[0]">
             <form @submit.prevent="quizOnSubmitToAdd" v-if="func == functionsAvailable[0]">
                 Hotspot Name:
-                <v-select :options="hotspotList" v-model="hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>             
+                <v-select :options="hotspotList" v-model="hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>
+                Quiz Title:
+                <input name="title" type="text" placeholder="title" v-model="title">            
                 <ul>
                     <li v-for="(input, index) in quiz">
                         Quiz Question:
@@ -84,6 +86,7 @@ export default {
             missionToEdit: "",
             questionList: [],
             questionToBeEdited: "",
+            title: "",
             editedOptions: {
                 option1: "",
                 option2: "",
@@ -103,6 +106,7 @@ export default {
         addRow(){
             this.quiz.push({
                 question: "",
+                title: "",
                 option1: "",
                 option2: "",
                 option3: "",
@@ -153,6 +157,7 @@ export default {
         quizOnSubmitToAdd(){
             var postBody = {
                 "hotspot": this.hotspot.value,
+                "title": this.title,
                 "quiz": this.quiz
             }
             axios.post('http://54.255.245.23:3000/add/addQuiz', postBody)

@@ -90,10 +90,11 @@ router.post('/addNarrative', function(req,res){
 router.post('/addQuiz', function(req,res){
     console.log(req.body)
     var hotspot = req.body.hotspot;
+    var title = req.body.title;
     var quiz = req.body.quiz;
-    var ms_query = 'INSERT INTO MISSION VALUES (?,?)';
+    var ms_query = 'INSERT INTO MISSION VALUES (?,?,?)';
 
-    conn.query(ms_query, [mission_id,hotspot], function(err, data){
+    conn.query(ms_query, [mission_id,title,hotspot], function(err, data){
         if (err){
             res.send(JSON.stringify({success: "false"}));
             console.log(err);
