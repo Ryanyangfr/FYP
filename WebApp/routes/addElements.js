@@ -160,9 +160,9 @@ router.post('/addQuiz', function(req,res){
                         });
                         console.log("quiz_id_again: " + quiz_id);
                         quiz_option_id = quiz_option_id + 1;
-                        quiz_id = quiz_id + 1;
                     }
                 });
+                quiz_id = quiz_id + 1;
                 var waitTill = new Date(new Date().getTime() + 1000);
                 while(waitTill > new Date()){}
             }
