@@ -102,6 +102,7 @@ router.post('/addQuiz', function(req,res){
             count = 0;
             var qz_query = 'INSERT INTO QUIZ VALUES (?,?,?,?)';
             var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
+            var counter = 0;
 
             for (var index in quiz){
                 count += 1;
@@ -118,7 +119,7 @@ router.post('/addQuiz', function(req,res){
                         res.send(JSON.stringify({success: "false"}));
                         console.log(err);
                     } else{
-                        var counter = 0;
+                        counter = 0;
                         conn.query(qz_opt_query, [quiz_id, quiz_option_id, option1], function(err, reply){
                             if (err){
                                 res.send(JSON.stringify({success: "false"}));
