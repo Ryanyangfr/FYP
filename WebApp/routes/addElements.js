@@ -103,8 +103,10 @@ router.post('/addQuiz', function(req,res){
             var qz_query = 'INSERT INTO QUIZ VALUES (?,?,?,?)';
             var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
             var counter = 0;
-
+            var done = true;
             for (var index in quiz){
+                while(!done){}
+                done = false;
                 count += 1;
                 row = quiz[index]
                 console.log(row);
@@ -162,6 +164,7 @@ router.post('/addQuiz', function(req,res){
                         quiz_option_id = quiz_option_id + 1;
                     }
                     quiz_id = quiz_id + 1;
+                    done = true;
                 });
             }
             if(count == quiz.length && counter == 4){
