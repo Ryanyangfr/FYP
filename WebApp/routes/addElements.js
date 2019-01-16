@@ -104,9 +104,6 @@ router.post('/addQuiz', function(req,res){
             var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
             var counter = 0;
             for (var index in quiz){
-                while(counter < 4){
-                    console.log(counter)
-                }
                 count += 1;
                 row = quiz[index]
                 console.log(row);
@@ -117,14 +114,12 @@ router.post('/addQuiz', function(req,res){
                 var option4 = row.option4;
                 var answer = row.answer;
                 conn.query(qz_query, [quiz_id, question, answer, mission_id], function(err, response){
-                    var quiz_id_in_instance = quiz_id
-                    var quiz_option_id_in_instance = quiz_option_id;
                     if (err){
                         res.send(JSON.stringify({success: "false"}));
                         console.log(err);
                     } else{
                         counter = 0;
-                        conn.query(qz_opt_query, [quiz_id_in_instance, quiz_option_id_in_instance, option1], function(err, reply){
+                        conn.query(qz_opt_query, [quiz_id, quiz_option_id, option1], function(err, reply){
                             if (err){
                                 res.send(JSON.stringify({success: "false"}));
                                 console.log(err);
@@ -133,8 +128,8 @@ router.post('/addQuiz', function(req,res){
                             }
                         });
 
-                        quiz_option_id_in_instance += 1;
-                        conn.query(qz_opt_query, [quiz_id_in_instance, quiz_option_id_in_instance, option2], function(err, reply){
+                        quiz_option_id += 1;
+                        conn.query(qz_opt_query, [quiz_id, quiz_option_id, option2], function(err, reply){
                             if (err){
                                 res.send(JSON.stringify({success: "false"}));
                                 console.log(err);
@@ -143,8 +138,8 @@ router.post('/addQuiz', function(req,res){
                             }
                         });
 
-                        quiz_option_id_in_instance += 1;
-                        conn.query(qz_opt_query, [quiz_id_in_instance, quiz_option_id_in_instance, option3], function(err, reply){
+                        quiz_option_id += 1;
+                        conn.query(qz_opt_query, [quiz_id, quiz_option_id, option3], function(err, reply){
                             if (err){
                                 res.send(JSON.stringify({success: "false"}));
                                 console.log(err);
@@ -153,8 +148,8 @@ router.post('/addQuiz', function(req,res){
                             }
                         });
 
-                        quiz_option_id_in_instance += 1;
-                        conn.query(qz_opt_query, [quiz_id_in_instance, quiz_option_id_in_instance, option4], function(err, reply){
+                        quiz_option_id += 1;
+                        conn.query(qz_opt_query, [quiz_id, quiz_option_id, option4], function(err, reply){
                             if (err){
                                 res.send(JSON.stringify({success: "false"}));
                                 console.log(err);
@@ -162,10 +157,12 @@ router.post('/addQuiz', function(req,res){
                                 counter += 1;
                             }
                         });
+
+                        quiz_option_id = quiz_option_id + 1;
                     }
+                    quiz_id = quiz_id + 1;
                 });
-                quiz_option_id = quiz_option_id + 4;
-                quiz_id = quiz_id + 1;
+                await sleep(1000)
             }
             if(count == quiz.length && counter == 4){
                 mission_id += 1;
