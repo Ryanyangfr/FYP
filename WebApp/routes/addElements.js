@@ -162,7 +162,8 @@ router.post('/addQuiz', function(req,res){
                     }
                     quiz_id = quiz_id + 1;
                 });
-                await sleep(1000)
+                var waitTill = new Date(new Date().getTime() + seconds * 1000);
+                while(waitTill > new Date()){}
             }
             if(count == quiz.length && counter == 4){
                 mission_id += 1;
