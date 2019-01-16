@@ -113,6 +113,7 @@ router.post('/addQuiz', function(req,res){
                 var option3 = row.option3;
                 var option4 = row.option4;
                 var answer = row.answer;
+                console.log("quiz: " + quiz_id);
                 conn.query(qz_query, [quiz_id, question, answer, mission_id], function(err, response){
                     if (err){
                         res.send(JSON.stringify({success: "false"}));
@@ -157,7 +158,7 @@ router.post('/addQuiz', function(req,res){
                                 counter += 1;
                             }
                         });
-
+                        console.log("quiz_id_again: " + quiz_id);
                         quiz_option_id = quiz_option_id + 1;
                         quiz_id = quiz_id + 1;
                     }
