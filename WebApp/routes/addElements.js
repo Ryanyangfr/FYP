@@ -161,8 +161,8 @@ router.post('/addQuiz', function(req,res){
 
                         quiz_option_id = quiz_option_id + 1;
                     }
+                    quiz_id = quiz_id + 1;
                 });
-                quiz_id = quiz_id + 1;
             }
             if(count == quiz.length && counter == 4){
                 mission_id += 1;
