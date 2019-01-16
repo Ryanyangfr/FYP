@@ -19,7 +19,7 @@ conn.query(quiz_query, function(err, data){
     if (err){
         console.log(err);
     }else{
-        quiz_id = data[0].count + 1;
+        quiz_id = data[0].count;
     }
 });
 
@@ -88,7 +88,7 @@ router.post('/addNarrative', function(req,res){
 })
 
 router.post('/addQuiz', function(req,res){
-    console.log(req.body)
+    // console.log(req.body)
     var hotspot = req.body.hotspot;
     var title = req.body.title;
     var quiz = req.body.quiz;
@@ -104,6 +104,7 @@ router.post('/addQuiz', function(req,res){
             var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
             var counter = 0;
             for (var index in quiz){
+                quiz_id = quiz_id + 1;
                 count += 1;
                 row = quiz[index]
                 console.log(row);
@@ -162,7 +163,6 @@ router.post('/addQuiz', function(req,res){
                         quiz_option_id = quiz_option_id + 1;
                     }
                 });
-                quiz_id = quiz_id + 1;
                 var waitTill = new Date(new Date().getTime() + 1000);
                 while(waitTill > new Date()){}
             }
