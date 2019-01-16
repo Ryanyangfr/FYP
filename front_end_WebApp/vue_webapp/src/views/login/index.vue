@@ -33,8 +33,8 @@
       </div>
     </div>
 
-    <span>Username: {{user.username}}</span>
-    <span>Password: {{user.password}}</span>
+    <!--<span>Username: {{user.username}}</span>
+    <span>Password: {{user.password}}</span>-->
   </div>
 </template>
 
@@ -82,7 +82,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   @import url("https://fonts.googleapis.com/css?family=Karla|Lato|Pontano+Sans|Poppins|Staatliches");
   @import '../../assets/themify-icons.css';
 
@@ -101,7 +101,7 @@ export default {
     background-position: center center;
     position: fixed;
     height: 100%;
-    width: 100%
+    width: 100%;
   }
 
   .ptb--100 {

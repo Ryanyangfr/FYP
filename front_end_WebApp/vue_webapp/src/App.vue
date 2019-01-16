@@ -9,12 +9,15 @@
             <router-link to="/leaderboard"><div id='sidebar'>Leaderboard</div></router-link>
         </Slide>-->
       </div>
-      <div class= "main" v-bind:style="'{margin-left: sidebar}'">
+      <div v-bind:style="'{margin-left: sidebar}'">
           <Navigation class="Navigate" v-if="['Login'].indexOf($route.name) == -1"></Navigation>
           <!--<SideBar class="SideBar" v-if="['Login'].indexOf($route.name) == -1"></SideBar> -->
       </div>
     </div>
-    <router-view/>
+    <div class="main">
+      <div class="main-margin-top" v-if="['Login'].indexOf($route.name) == -1"></div>
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -42,7 +45,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top:126px;
+  /*margin-top:126px;*/
 }
 
 body{
@@ -88,5 +91,10 @@ body{
 a{
   text-decoration-line: none;
 }
+
+.main-margin-top{
+  margin-top:126px;
+}
+
 
 </style>
