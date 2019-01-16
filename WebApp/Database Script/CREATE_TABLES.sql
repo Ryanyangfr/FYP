@@ -391,7 +391,7 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 (12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 18);
 
 INSERT INTO DRAWING_QUESTION VALUES
-(1, 'Draw Something Retarded', 20);
+(1, 'Draw Smoo Smoo', 20);
 
 INSERT INTO TRAIL VALUES
 (1,45);
