@@ -104,6 +104,7 @@ router.post('/addQuiz', function(req,res){
             var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
             var counter = 0;
             for (var index in quiz){
+                while(counter < 4){}
                 count += 1;
                 row = quiz[index]
                 console.log(row);
