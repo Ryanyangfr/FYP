@@ -113,7 +113,7 @@ router.post('/addQuiz', function(req,res){
                 var option3 = row.option3;
                 var option4 = row.option4;
                 var answer = row.answer;
-                conn.query(qz_query, [quiz_id_in_instance, question, answer, mission_id], function(err, response){
+                conn.query(qz_query, [quiz_id, question, answer, mission_id], function(err, response){
                     var quiz_id_in_instance = quiz_id
                     var quiz_option_id_in_instance = quiz_option_id;
                     if (err){
