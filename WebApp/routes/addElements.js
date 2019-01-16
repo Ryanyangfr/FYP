@@ -163,7 +163,7 @@ router.post('/addQuiz', function(req,res){
                     }
                 });
             }
-            if(count == quiz.length){
+            if(count == quiz.length && counter == 4){
                 mission_id += 1;
                 res.send(JSON.stringify({success: "true"}));
             } 
