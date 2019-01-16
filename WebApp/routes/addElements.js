@@ -126,6 +126,7 @@ router.post('/addQuiz', function(req,res){
                                 res.send(JSON.stringify({success: "false"}));
                                 console.log(err);
                             } else{
+                                console.log('1:')
                                 counter += 1;
                             }
                         });
@@ -136,6 +137,7 @@ router.post('/addQuiz', function(req,res){
                                 res.send(JSON.stringify({success: "false"}));
                                 console.log(err);
                             }else{
+                                console.log('2:')
                                 counter += 1;
                             }
                         });
@@ -146,6 +148,7 @@ router.post('/addQuiz', function(req,res){
                                 res.send(JSON.stringify({success: "false"}));
                                 console.log(err);
                             }else{
+                                console.log('3:')
                                 counter += 1;
                             }
                         });
@@ -156,6 +159,7 @@ router.post('/addQuiz', function(req,res){
                                 res.send(JSON.stringify({success: "false"}));
                                 console.log(err);
                             }else{
+                                console.log('4:')
                                 counter += 1;
                             }
                         });
@@ -163,8 +167,6 @@ router.post('/addQuiz', function(req,res){
                         quiz_option_id = quiz_option_id + 1;
                     }
                 });
-                var waitTill = new Date(new Date().getTime() + 1000);
-                while(waitTill > new Date()){}
             }
             if(count == quiz.length && counter == 4){
                 mission_id += 1;
