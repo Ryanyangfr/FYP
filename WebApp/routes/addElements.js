@@ -116,10 +116,6 @@ router.post('/addQuiz', function(req,res){
                                
                 var noErrors = update_quiz(count, quiz.length, quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res);
                  
-                console.log(noErrors);
-                if(!noErrors){
-                    return;
-                }
                 console.log("quiz_id_again: " + quiz_id);
                 quiz_id = quiz_id + 1
                 quiz_option_id = quiz_option_id + 4;
