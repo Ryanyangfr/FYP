@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-title">
                 <h5>Narrative List</h5>
-                <button class="create-narrative-btn"><i class="ti-plus"></i>ADD NEW</button>
+                <button class="create-narrative-btn" @click="addNarrative()"><i class="ti-plus"></i>ADD NEW</button>
             </div>
             <table>
                 <tr class="narrative-table-header">
@@ -16,13 +16,13 @@
                     <td>{{narrative.title}}</td>
                     <td>{{narrative.narrative}}</td>
                     <td><button @click="editNarrative(narrative.id, narrative.title, narrative.narrative)"><i class="ti-pencil-alt"></i></button></td>
-                    <td><button><i class="ti-trash"></i></button></td>
+                    <td><button @click="onSubmitToDelete(narrative.id)"><i class="ti-trash"></i></button></td>
                 </tr>
                 
             </table>
         </div>
         
-        <div class="black-blur-bg" v-if="show"> 
+        <div class="black-blur-bg" v-if="showEdit"> 
             <div class="edit-narrative-form">
                 <div class="edit-narrative-header">
                     <h5>Edit Narrative</h5>
@@ -41,6 +41,31 @@
                     </div>
                     <div>
                      <button type="submit" class="edit-narrative-submit">Submit</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+
+        <div class="black-blur-bg" v-if="showAdd"> 
+            <div class="add-narrative-form">
+                <div class="add-narrative-header">
+                    <h5>New Narrative</h5>
+                    <button class="close-add-narrative" @click="closeAdd()"><font-awesome-icon icon="times"/></button>
+                </div>
+                <hr>
+                
+                <form class="add-narrative-body" @submit.prevent="onSubmitToAdd">
+                    <div class="add-narrative-input">
+                        <input type="text" id="add-narrative-title-input" v-model="curr_narrative_title" required>
+                        <label for="add-narrative-title-input">Narrative Title</label>
+                    </div>
+                    <div class="add-narrative-input">
+                        <textarea id="add-narrative-input" rows="5" cols="65" v-model="curr_narrative" required></textarea>
+                        <label for="add-narrative-input">Enter Narrative</label>
+                    </div>
+                    <div>
+                     <button type="submit" class="add-narrative-submit">Submit</button>
                     </div>
                 </form>
                
@@ -83,7 +108,8 @@ export default {
     name: "narrative",
     data() {
         return{
-            show: false,
+            showEdit: false,
+            showAdd:false,
             func: "Add",
             functionsAvailable: ["Add", "Edit", "Delete"],
             title: "",
@@ -101,16 +127,36 @@ export default {
         vSelect
     },
     methods: {
+
+        addNarrative(){
+            if(this.showAdd){
+                this.showAdd = false;
+            } else{
+                this.showAdd = true;
+            }
+
+        },
+
+        closeAdd(){
+            if(this.showAdd){
+                this.showAdd = false;
+            } else{
+                this.showAdd = true;
+            }
+        },
+
         onSubmitToAdd() {
             var postBody = {
-                "narrative": this.narrative,
-	            "title": this.title
+                "narrative": this.curr_narrative,
+	            "title": this.curr_narrative_title
             }
             axios.post('http://54.255.245.23:3000/add/addNarrative', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
             })
+
+            location.reload();
         },
 
         onSubmitToEdit() {
@@ -124,20 +170,20 @@ export default {
                 console.log(data)
             })
 
-            if(this.show){
-                this.show = false;
+            if(this.showEdit){
+                this.showEdit = false;
             } else{
-                this.show = true;
+                this.showEdit = true;
             }
 
             location.reload();
         },
 
         editNarrative(narrative_id, narrative_title, narrative){
-            if(this.show){
-                this.show = false;
+            if(this.showEdit){
+                this.showEdit = false;
             } else{
-                this.show = true;
+                this.showEdit = true;
             }
 
             this.curr_narrative = narrative;
@@ -147,22 +193,29 @@ export default {
         },
 
         closeEdit(){
-            if(this.show){
-                this.show = false;
+            if(this.showEdit){
+                this.showEdit = false;
             } else{
-                this.show = true;
+                this.showEdit = true;
             }
         },
 
-        onSubmitToDelete(){
+        deleteNarrative(narrative_id){
+            
+        },
+
+        onSubmitToDelete(narrative_id){
              var postBody = {
-                "narrative_id": this.narrativeToBeDeleted.value,
+                // "narrative_id": this.narrativeToBeDeleted.value,
+                "narrative_id":narrative_id
             }
             axios.post('http://54.255.245.23:3000/delete/deleteNarrative', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
             })
+
+            location.reload();
         }
     },
     mounted(){
@@ -298,7 +351,7 @@ export default {
         justify-content: center;
     }
 
-    .edit-narrative-form{
+    .edit-narrative-form, .add-narrative-form{
         width:40%;
         height:65%;
         background:white;
@@ -310,17 +363,17 @@ export default {
         
     }
 
-    .edit-narrative-header{
+    .edit-narrative-header, .add-narrative-header{
         max-width: 100%;
         padding:18px;
     }
 
-    .edit-narrative-form h5{
+    .edit-narrative-form h5, .add-narrative-form h5{
         display: flex;
         float: left;
     }
 
-    .close-edit-narrative{
+    .close-edit-narrative, .close-add-narrative{
         background: none;
         border: none;
         color: #868686;
@@ -329,7 +382,7 @@ export default {
         font-size: 18px;
     }
 
-    .edit-narrative-input{
+    .edit-narrative-input, .add-narrative-input{
         float: left;
         display: flex;
         margin-left: 18px;
@@ -338,14 +391,14 @@ export default {
         position: relative;
     }
 
-    .edit-narrative-body{
+    .edit-narrative-body, .add-narrative-body{
         padding-top: 25px;
         display: flex;
         flex-direction: column;
         width:100%;
     }
 
-    .edit-narrative-input label{
+    .edit-narrative-input label, .add-narrative-input label{
         top: -25px;
         position: absolute;
         font-size: 13px;
@@ -355,17 +408,14 @@ export default {
 
     .edit-narrative-input input:focus ~ label,
     .edit-narrative-input input:valid ~ label,
-    .edit-narrative-input input:-webkit-autofill + label{
+    .edit-narrative-input input:-webkit-autofill + label,
+    .add-narrative-input input:focus ~ label,
+    .add-narrative-input input:valid ~ label,
+    .add-narrative-input input:-webkit-autofill + label{
         font-size: 14px
     }
 
-    .edit-narrative-input textarea:focus ~ label,
-    .edit-narrative-input textarea:valid ~ label,
-    .edit-narrative-input textarea:-webkit-autofill + label{
-        font-size: 14px
-    }
-
-    .edit-narrative-input input{
+    .edit-narrative-input input, .add-narrative-input input{
         margin-left: 5px;
         height: 40px;
         outline: none;
@@ -376,19 +426,19 @@ export default {
         width:90%
     }
 
-    .edit-narrative-input input:focus{
+    .edit-narrative-input input:focus, .add-narrative-input input:focus{
         outline: none !important;
         border:1px solid #6200EE;
         box-shadow: 0 0 2px #645cdd;
     }
 
-    .edit-narrative-input textarea:focus{
+    .edit-narrative-input textarea:focus, .add-narrative-input textarea:focus{
         outline: none !important;
         border:1px solid #6200EE;
         box-shadow: 0 0 2px #645cdd;
     }
 
-    .edit-narrative-input textarea{
+    .edit-narrative-input textarea, .add-narrative-input textarea{
         resize: none;
         margin-left: 5px;
         outline: none;
@@ -399,7 +449,7 @@ export default {
         width:90%;
     }
 
-    .edit-narrative-submit{
+    .edit-narrative-submit, .add-narrative-submit{
         background-color: #6200EE;
         border: none;
         border-radius: 4px;
