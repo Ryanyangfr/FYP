@@ -93,6 +93,8 @@ router.post('/addQuiz', function(req,res){
     var title = req.body.title;
     var quiz = req.body.quiz;
     var ms_query = 'INSERT INTO MISSION VALUES (?,?,?)';
+    var quiz_to_add = [];
+    var quiz_option_to_add = [];
 
     conn.query(ms_query, [mission_id,title,hotspot], function(err, data){
         if (err){
@@ -100,8 +102,6 @@ router.post('/addQuiz', function(req,res){
             console.log(err);
         } else{
             count = 0;
-            var qz_query = 'INSERT INTO QUIZ VALUES (?,?,?,?)';
-            var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
             var counter = 0;
             for (var index in quiz){
                 quiz_id = quiz_id + 1;
@@ -114,59 +114,17 @@ router.post('/addQuiz', function(req,res){
                 var option3 = row.option3;
                 var option4 = row.option4;
                 var answer = row.answer;
-                console.log("quiz: " + quiz_id);
-                conn.query(qz_query, [quiz_id, question, answer, mission_id], function(err, response){
-                    if (err){
-                        res.send(JSON.stringify({success: "false"}));
-                        console.log(err);
-                    } else{
-                        counter = 0;
-                        conn.query(qz_opt_query, [quiz_id, quiz_option_id, option1], function(err, reply){
-                            if (err){
-                                res.send(JSON.stringify({success: "false"}));
-                                console.log(err);
-                            } else{
-                                console.log('1:')
-                                counter += 1;
-                            }
-                        });
-
-                        quiz_option_id += 1;
-                        conn.query(qz_opt_query, [quiz_id, quiz_option_id, option2], function(err, reply){
-                            if (err){
-                                res.send(JSON.stringify({success: "false"}));
-                                console.log(err);
-                            }else{
-                                console.log('2:')
-                                counter += 1;
-                            }
-                        });
-
-                        quiz_option_id += 1;
-                        conn.query(qz_opt_query, [quiz_id, quiz_option_id, option3], function(err, reply){
-                            if (err){
-                                res.send(JSON.stringify({success: "false"}));
-                                console.log(err);
-                            }else{
-                                console.log('3:')
-                                counter += 1;
-                            }
-                        });
-
-                        quiz_option_id += 1;
-                        conn.query(qz_opt_query, [quiz_id, quiz_option_id, option4], function(err, reply){
-                            if (err){
-                                res.send(JSON.stringify({success: "false"}));
-                                console.log(err);
-                            }else{
-                                console.log('4:')
-                                counter += 1;
-                            }
-                        });
-                        console.log("quiz_id_again: " + quiz_id);
-                        quiz_option_id = quiz_option_id + 1;
-                    }
-                });
+                // console.log("quiz: " + quiz_id);
+                               
+                var noErrors = update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res);
+                
+                if(!noErrors){
+                    return;
+                }
+                console.log("quiz_id_again: " + quiz_id);
+                quiz_id = quiz_id + 1
+                quiz_option_id = quiz_option_id + 4;
+                    
             }
             if(count == quiz.length && counter == 4){
                 mission_id += 1;
@@ -175,6 +133,57 @@ router.post('/addQuiz', function(req,res){
         }
     });
 });
+
+async function update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res){
+    var qz_query = 'INSERT INTO QUIZ VALUES (?,?,?,?)';
+    var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
+    conn.query(qz_query, [quiz_id, question, answer, mission_id], function(err, response){
+        if (err){
+            res.send(JSON.stringify({success: "false"}));
+            console.log(err);
+            return false;
+        } else{
+            counter = 0;
+            conn.query(qz_opt_query, [quiz_id, quiz_option_id, option1], function(err, reply){
+                if (err){
+                    res.send(JSON.stringify({success: "false"}));
+                    console.log(err);
+                    return false;
+                } else{
+                    console.log('1:')
+                }
+            });
+
+            quiz_option_id += 1;
+            conn.query(qz_opt_query, [quiz_id, quiz_option_id, option2], function(err, reply){
+                if (err){
+                    res.send(JSON.stringify({success: "false"}));
+                    console.log(err);
+                    return false;
+                }else{
+                    console.log('2:')                }
+            });
+
+            quiz_option_id += 1;
+            conn.query(qz_opt_query, [quiz_id, quiz_option_id, option3], function(err, reply){
+                if (err){
+                    res.send(JSON.stringify({success: "false"}));
+                    console.log(err);
+                    return false;
+                }else{
+                    console.log('3:')                }
+            });
+
+            quiz_option_id += 1;
+            conn.query(qz_opt_query, [quiz_id, quiz_option_id, option4], function(err, reply){
+                if (err){
+                    res.send(JSON.stringify({success: "false"}));
+                    console.log(err);
+                    return false;
+                }else{
+                    console.log('4:')                }
+            });
+}
 module.exports=router;
 
 
