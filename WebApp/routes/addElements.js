@@ -124,11 +124,12 @@ router.post('/addQuiz', function(req,res){
                 quiz_option_id = quiz_option_id + 4;
                     
             }
+            mission_id += 1;
         }
     });
 });
 
-function update_quiz(count, final_count, quiz_id, question, answer, quiz_option_id, option1, option2, option3, option4, res){
+function update_quiz(count, final_count, quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res){
     var qz_query = 'INSERT INTO QUIZ VALUES (?,?,?,?)';
     var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
     var counter = 0;
