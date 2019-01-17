@@ -19,7 +19,7 @@ conn.query(quiz_query, function(err, data){
     if (err){
         console.log(err);
     }else{
-        quiz_id = data[0].count;
+        quiz_id = data[0].count + 1;
     }
 });
 
@@ -93,8 +93,6 @@ router.post('/addQuiz', function(req,res){
     var title = req.body.title;
     var quiz = req.body.quiz;
     var ms_query = 'INSERT INTO MISSION VALUES (?,?,?)';
-    var quiz_to_add = [];
-    var quiz_option_to_add = [];
 
     conn.query(ms_query, [mission_id,title,hotspot], function(err, data){
         if (err){
@@ -103,6 +101,7 @@ router.post('/addQuiz', function(req,res){
         } else{
             count = 0;
             for (var index in quiz){
+                console.log("quiz_id_again: " + quiz_id);
                 count += 1;
                 row = quiz[index]
                 console.log(row);
@@ -113,30 +112,27 @@ router.post('/addQuiz', function(req,res){
                 var option4 = row.option4;
                 var answer = row.answer;
                 // console.log("quiz: " + quiz_id);
-                               
-                update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res)
-                .then(noErrors => {
-                    if(count == quiz.length && noErrors){
-                        mission_id += 1;
-                        res.send(JSON.stringify({success: "true"}));
-                    } 
-                })
-                console.log(noErrors);
-                if(!noErrors){
-                    return;
-                }
-                console.log("quiz_id_again: " + quiz_id);
+                // console.log(count);
+                // console.log(quiz.length)
+                var noErrors = update_quiz(count, quiz.length, quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res);
+                
+                // console.log(noErrors);
+                // if(!noErrors){
+                //     return;
+                // }
                 quiz_id = quiz_id + 1
                 quiz_option_id = quiz_option_id + 4;
                     
             }
+            mission_id += 1;
         }
     });
 });
 
-async function update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res){
+function update_quiz(count, final_count, quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res){
     var qz_query = 'INSERT INTO QUIZ VALUES (?,?,?,?)';
     var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
+    var counter = 0;
     conn.query(qz_query, [quiz_id, question, answer, mission_id], function(err, response){
         if (err){
             res.send(JSON.stringify({success: "false"}));
@@ -150,7 +146,13 @@ async function update_quiz(quiz_id, question, answer, mission_id, quiz_option_id
                     console.log(err);
                     return false;
                 } else{
-                    console.log('1:')
+                    counter += 1;
+                    console.log('counter: ' + counter);
+                    if(counter == 4 && count == final_count){
+                        res.send(JSON.stringify({success: "true"}));
+                        mission_id += 1;
+                        return true;
+                    }
                 }
             });
 
@@ -161,7 +163,15 @@ async function update_quiz(quiz_id, question, answer, mission_id, quiz_option_id
                     console.log(err);
                     return false;
                 }else{
-                    console.log('2:')                }
+                    console.log('2:')   
+                    counter += 1;
+                    console.log('counter: ' + counter);
+                    if(counter == 4 && count == final_count){
+                        res.send(JSON.stringify({success: "true"}));
+                        mission_id += 1;
+                        return true;
+                    }
+                }
             });
 
             quiz_option_id += 1;
@@ -171,7 +181,15 @@ async function update_quiz(quiz_id, question, answer, mission_id, quiz_option_id
                     console.log(err);
                     return false;
                 }else{
-                    console.log('3:')                }
+                    console.log('3:') 
+                    counter += 1;
+                    console.log('counter: ' + counter);
+                    if(counter == 4 && count == final_count){
+                        res.send(JSON.stringify({success: "true"}));
+                        mission_id += 1;
+                        return true;
+                    }
+                }
             });
 
             quiz_option_id += 1;
@@ -181,11 +199,18 @@ async function update_quiz(quiz_id, question, answer, mission_id, quiz_option_id
                     console.log(err);
                     return false;
                 }else{
-                    console.log('4:')                }
+                    console.log('4:') 
+                    counter += 1;   
+                    console.log('counter: ' + counter);
+                    if(counter == 4 && count == final_count){
+                        res.send(JSON.stringify({success: "true"}));
+                        mission_id += 1;
+                        return true;
+                    }
+                }
             });
         }
     });
-    return true;
 };
 module.exports=router;
 
