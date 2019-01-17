@@ -22,7 +22,7 @@ router.get('/getNarratives', function(req,res){
 
                 response.push({narrative_title: title, narrative_id: id, narrative: narrative})
             })
-            console.log(response)
+            // console.log(response)
             res.send(JSON.stringify(response, null, 3))
         }
     })
