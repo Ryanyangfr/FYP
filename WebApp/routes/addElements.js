@@ -102,9 +102,7 @@ router.post('/addQuiz', function(req,res){
             console.log(err);
         } else{
             count = 0;
-            var counter = 0;
             for (var index in quiz){
-                quiz_id = quiz_id + 1;
                 count += 1;
                 row = quiz[index]
                 console.log(row);
@@ -126,7 +124,7 @@ router.post('/addQuiz', function(req,res){
                 quiz_option_id = quiz_option_id + 4;
                     
             }
-            if(count == quiz.length && counter == 4){
+            if(count == quiz.length && noErrors){
                 mission_id += 1;
                 res.send(JSON.stringify({success: "true"}));
             } 
