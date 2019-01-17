@@ -151,6 +151,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                         res.send(JSON.stringify({success: "true"}))
                         return true;
                     }
+                    if(counter == 4){
+                        return true;
+                    }
                 }
             });
 
@@ -166,6 +169,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                     // console.log('counter: ' + counter);
                     if(counter == 4 && count == final_count){
                         res.send(JSON.stringify({success: "true"}))
+                        return true;
+                    }
+                    if(counter == 4){
                         return true;
                     }
                 }
@@ -185,6 +191,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                         res.send(JSON.stringify({success: "true"}))
                         return true;
                     }
+                    if(counter == 4){
+                        return true;
+                    }
                 }
             });
 
@@ -200,6 +209,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                     // console.log('counter: ' + counter);
                     if(counter == 4 && count == final_count){
                         res.send(JSON.stringify({success: "true"}))
+                        return true;
+                    }
+                    if(counter == 4){
                         return true;
                     }
                 }
