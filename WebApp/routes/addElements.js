@@ -93,8 +93,6 @@ router.post('/addQuiz', function(req,res){
     var title = req.body.title;
     var quiz = req.body.quiz;
     var ms_query = 'INSERT INTO MISSION VALUES (?,?,?)';
-    var quiz_to_add = [];
-    var quiz_option_to_add = [];
 
     conn.query(ms_query, [mission_id,title,hotspot], function(err, data){
         if (err){
@@ -116,7 +114,10 @@ router.post('/addQuiz', function(req,res){
                 console.log(count);
                 console.log(quiz.length)
                 var noErrors = update_quiz(count, quiz.length, quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res);
-                 
+                
+                if(!noErrors){
+                    return
+                }
                 console.log("quiz_id_again: " + quiz_id);
                 quiz_id = quiz_id + 1
                 quiz_option_id = quiz_option_id + 4;
@@ -144,8 +145,8 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                     return false;
                 } else{
                     counter += 1;
-                    console.log('counter: ' + counter);
-                    if(counter == 4 && count == final_count){
+                    // console.log('counter: ' + counter);
+                    // if(counter == 4 && count == final_count){
                         res.send(JSON.stringify({success: "true"}))
                         return true;
                     }
@@ -159,9 +160,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                     console.log(err);
                     return false;
                 }else{
-                    console.log('2:')   
+                    // console.log('2:')   
                     counter += 1;
-                    console.log('counter: ' + counter);
+                    // console.log('counter: ' + counter);
                     if(counter == 4 && count == final_count){
                         res.send(JSON.stringify({success: "true"}))
                         return true;
@@ -176,9 +177,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                     console.log(err);
                     return false;
                 }else{
-                    console.log('3:') 
+                    // console.log('3:') 
                     counter += 1;
-                    console.log('counter: ' + counter);
+                    // console.log('counter: ' + counter);
                     if(counter == 4 && count == final_count){
                         res.send(JSON.stringify({success: "true"}))
                         return true;
@@ -193,9 +194,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                     console.log(err);
                     return false;
                 }else{
-                    console.log('4:') 
+                    // console.log('4:') 
                     counter += 1;   
-                    console.log('counter: ' + counter);
+                    // console.log('counter: ' + counter);
                     if(counter == 4 && count == final_count){
                         res.send(JSON.stringify({success: "true"}))
                         return true;
