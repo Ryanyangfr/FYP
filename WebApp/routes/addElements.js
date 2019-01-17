@@ -114,13 +114,11 @@ router.post('/addQuiz', function(req,res){
                 var answer = row.answer;
                 // console.log("quiz: " + quiz_id);
                                
-                update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res)
-                .then(noErrors => {
-                    if(count == quiz.length && noErrors){
-                        mission_id += 1;
-                        res.send(JSON.stringify({success: "true"}));
-                    } 
-                })
+                var noErrors = update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res);
+                if(count == quiz.length && noErrors){
+                    mission_id += 1;
+                    res.send(JSON.stringify({success: "true"}));
+                } 
                 console.log(noErrors);
                 if(!noErrors){
                     return;
@@ -134,7 +132,7 @@ router.post('/addQuiz', function(req,res){
     });
 });
 
-async function update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res){
+function update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res){
     var qz_query = 'INSERT INTO QUIZ VALUES (?,?,?,?)';
     var qz_opt_query = 'INSERT INTO QUIZ_OPTION VALUES (?,?,?)';
     conn.query(qz_query, [quiz_id, question, answer, mission_id], function(err, response){
