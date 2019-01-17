@@ -19,7 +19,7 @@ conn.query(quiz_query, function(err, data){
     if (err){
         console.log(err);
     }else{
-        quiz_id = data[0].count;
+        quiz_id = data[0].count + 1;
     }
 });
 
