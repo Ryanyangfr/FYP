@@ -183,6 +183,7 @@ async function update_quiz(quiz_id, question, answer, mission_id, quiz_option_id
             });
         }
     });
+    return true;
 };
 module.exports=router;
 
