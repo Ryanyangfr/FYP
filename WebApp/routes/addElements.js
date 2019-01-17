@@ -101,6 +101,7 @@ router.post('/addQuiz', function(req,res){
         } else{
             count = 0;
             for (var index in quiz){
+                console.log("quiz_id_again: " + quiz_id);
                 count += 1;
                 row = quiz[index]
                 console.log(row);
@@ -119,7 +120,6 @@ router.post('/addQuiz', function(req,res){
                 // if(!noErrors){
                 //     return;
                 // }
-                console.log("quiz_id_again: " + quiz_id);
                 quiz_id = quiz_id + 1
                 quiz_option_id = quiz_option_id + 4;
                     
