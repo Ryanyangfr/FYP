@@ -146,7 +146,7 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                     return false;
                 } else{
                     counter += 1;
-                    // console.log('counter: ' + counter);
+                    console.log('counter: ' + counter);
                     if(counter == 4 && count == final_count){
                         res.send(JSON.stringify({success: "true"}))
                         return true;
@@ -164,9 +164,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                     console.log(err);
                     return false;
                 }else{
-                    // console.log('2:')   
+                    console.log('2:')   
                     counter += 1;
-                    // console.log('counter: ' + counter);
+                    console.log('counter: ' + counter);
                     if(counter == 4 && count == final_count){
                         res.send(JSON.stringify({success: "true"}))
                         return true;
@@ -184,9 +184,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                     console.log(err);
                     return false;
                 }else{
-                    // console.log('3:') 
+                    console.log('3:') 
                     counter += 1;
-                    // console.log('counter: ' + counter);
+                    console.log('counter: ' + counter);
                     if(counter == 4 && count == final_count){
                         res.send(JSON.stringify({success: "true"}))
                         return true;
@@ -204,9 +204,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                     console.log(err);
                     return false;
                 }else{
-                    // console.log('4:') 
+                    console.log('4:') 
                     counter += 1;   
-                    // console.log('counter: ' + counter);
+                    console.log('counter: ' + counter);
                     if(counter == 4 && count == final_count){
                         res.send(JSON.stringify({success: "true"}))
                         return true;
