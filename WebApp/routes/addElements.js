@@ -114,8 +114,7 @@ router.post('/addQuiz', function(req,res){
                 var answer = row.answer;
                 // console.log("quiz: " + quiz_id);
                                
-                var noErrors = update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res);
-                
+                var noErrors = await update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res);
                 if(!noErrors){
                     return;
                 }
