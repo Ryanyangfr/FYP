@@ -152,6 +152,7 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                         return true;
                     }
                     if(counter == 4){
+                        console.log('returned');
                         return true;
                     }
                 }
@@ -172,6 +173,7 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                         return true;
                     }
                     if(counter == 4){
+                        console.log('returned');
                         return true;
                     }
                 }
@@ -192,6 +194,7 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                         return true;
                     }
                     if(counter == 4){
+                        console.log('returned');
                         return true;
                     }
                 }
@@ -212,6 +215,7 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
                         return true;
                     }
                     if(counter == 4){
+                        console.log('returned');
                         return true;
                     }
                 }
