@@ -115,7 +115,7 @@ router.post('/addQuiz', function(req,res){
                 // console.log("quiz: " + quiz_id);
                                
                 update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res)
-                .then(() => {
+                .then(noErrors => {
                     if(count == quiz.length && noErrors){
                         mission_id += 1;
                         res.send(JSON.stringify({success: "true"}));
