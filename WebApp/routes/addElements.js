@@ -114,7 +114,13 @@ router.post('/addQuiz', function(req,res){
                 var answer = row.answer;
                 // console.log("quiz: " + quiz_id);
                                
-                var noErrors = update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res);
+                update_quiz(quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res)
+                .then(() => {
+                    if(count == quiz.length && noErrors){
+                        mission_id += 1;
+                        res.send(JSON.stringify({success: "true"}));
+                    } 
+                })
                 console.log(noErrors);
                 if(!noErrors){
                     return;
@@ -124,10 +130,6 @@ router.post('/addQuiz', function(req,res){
                 quiz_option_id = quiz_option_id + 4;
                     
             }
-            if(count == quiz.length && noErrors){
-                mission_id += 1;
-                res.send(JSON.stringify({success: "true"}));
-            } 
         }
     });
 });
