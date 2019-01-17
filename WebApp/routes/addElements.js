@@ -183,7 +183,9 @@ async function update_quiz(quiz_id, question, answer, mission_id, quiz_option_id
                 }else{
                     console.log('4:')                }
             });
-}
+        }
+    });
+};
 module.exports=router;
 
 
