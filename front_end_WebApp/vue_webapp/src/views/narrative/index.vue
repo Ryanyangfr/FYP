@@ -16,10 +16,11 @@
                     <td>{{narrative.title}}</td>
                     <td>{{narrative.narrative}}</td>
                     <td><button @click="editNarrative(narrative.id, narrative.title, narrative.narrative)"><i class="ti-pencil-alt"></i></button></td>
-                    <td><button @click="onSubmitToDelete(narrative.id)"><i class="ti-trash"></i></button></td>
+                    <td><button @click="deleteNarrative(narrative.id,narrative.title)"><i class="ti-trash"></i></button></td>
                 </tr>
                 
             </table>
+            {{this.curr_narrative_id}}
         </div>
         
         <div class="black-blur-bg" v-if="showEdit"> 
@@ -72,6 +73,27 @@
             </div>
         </div>
 
+        <!--delete narrative popup -->
+        <div class="black-blur-bg" v-if="showDelete"> 
+            <div class="delete-narrative-popup">
+                <div class="delete-narrative-header">
+                    <h5>Delete</h5>
+                    <button class="close-delete-narrative" @click="closeDelete()"><font-awesome-icon icon="times"/></button>
+                </div>
+                <hr>
+                
+                <form class="delete-narrative-body" @submit.prevent="onSubmitToDelete">
+                    <div><h6>Are you sure you want to delete "{{this.curr_narrative_title}}"?</h6></div>
+                    <div><hr></div>
+                    <div class="delete-narrative-btm">
+                        <button class="cancel-delete" @click="closeDelete()">Cancel</button>
+                        <button type="submit" class="delete-narrative-btn">Delete</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+
         <!--<v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
 
         <form @submit.prevent="onSubmitToAdd" v-if="func == functionsAvailable[0]">
@@ -110,6 +132,7 @@ export default {
         return{
             showEdit: false,
             showAdd:false,
+            showDelete:false,
             func: "Add",
             functionsAvailable: ["Add", "Edit", "Delete"],
             title: "",
@@ -200,20 +223,41 @@ export default {
             }
         },
 
-        deleteNarrative(narrative_id){
-            
+        deleteNarrative(narrative_id, narrative_title){
+            this.curr_narrative_id = narrative_id;
+            this.curr_narrative_title = narrative_title;
+
+            if(this.showDelete){
+                this.showDelete = false;
+            } else{
+                this.showDelete = true;
+            }
         },
 
-        onSubmitToDelete(narrative_id){
+        closeDelete(){
+             if(this.showDelete){
+                this.showDelete = false;
+            } else{
+                this.showDelete = true;
+            }
+        },
+
+        onSubmitToDelete(){
              var postBody = {
                 // "narrative_id": this.narrativeToBeDeleted.value,
-                "narrative_id":narrative_id
+                "narrative_id": this.curr_narrative_id
             }
             axios.post('http://54.255.245.23:3000/delete/deleteNarrative', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
             })
+
+            if(this.showDelete){
+                this.showDelete = false;
+            } else{
+                this.showDelete = true;
+            }
 
             location.reload();
         }
@@ -349,10 +393,11 @@ export default {
         display:flex;
         align-items: center;
         justify-content: center;
+        overflow: hidden;
     }
 
     .edit-narrative-form, .add-narrative-form{
-        width:40%;
+        width:35%;
         height:65%;
         background:white;
         opacity: 100%;
@@ -363,17 +408,17 @@ export default {
         
     }
 
-    .edit-narrative-header, .add-narrative-header{
+    .edit-narrative-header, .add-narrative-header, .delete-narrative-header{
         max-width: 100%;
         padding:18px;
     }
 
-    .edit-narrative-form h5, .add-narrative-form h5{
+    .edit-narrative-form h5, .add-narrative-form h5, .delete-narrative-popup h5{
         display: flex;
         float: left;
     }
 
-    .close-edit-narrative, .close-add-narrative{
+    .close-edit-narrative, .close-add-narrative, .close-delete-narrative{
         background: none;
         border: none;
         color: #868686;
@@ -464,10 +509,85 @@ export default {
         cursor: pointer;
         align-items: center;
         position: relative;
+        font-family: "Roboto", sans-serif
         
     }
 
  /*overlay for edit ends*/
+
+    .delete-narrative-popup{
+        min-width: 30%;
+        min-height: 33%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+    }
+    
+    .delete-narrative-body{
+        width:100%;
+        height: 130px;
+        overflow: hidden;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+    }
+
+    .delete-narrative-body h6{
+        display: flex;
+        float: left;
+        height: 100%;
+        width: 100%;
+        font-size: 15px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .delete-narrative-btm{
+        margin-bottom: 10px;
+        margin-top: 10px;
+    
+    }
+
+    .cancel-delete{
+        background: none;
+        border: 1px solid #C6C4BC;
+        border-radius: 4px;
+        display: flex;
+        float: left;
+        padding:8px 15px 8px 15px;
+        margin-left: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        position: relative;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: #666666;
+    }
+
+    .delete-narrative-btn{
+        background: none;
+        border: none;
+        background-color: #F15E5E;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        position: relative;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+    }
+
     
 </style>
 
