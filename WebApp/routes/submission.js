@@ -67,6 +67,8 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
     var trail_instance_id = req.body.trail_instance_id;
     var question = req.body.question;
     var hotspot = req.body.hotspot;
+
+    var io = req.app.get('socketio');
     console.log(req);
     console.log(req.body);
     console.log('question: ' + question);
@@ -125,6 +127,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                                         if (err){
                                             console.log(err);
                                         }else {
+                                            io.emit('submissionUpdate', {team_id: team_id, trail_instance_id: trail_instance_id});
                                             console.log('updated hotspot status');
                                         }
                                     });
@@ -181,6 +184,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                                 if (err){
                                     console.log(err);
                                 }else {
+                                    io.emit('submissionUpdate', {team_id: team_id, trail_instance_id: trail_instance_id});
                                     console.log('updated hotspot status');
                                 }
                             });
