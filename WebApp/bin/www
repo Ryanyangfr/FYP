@@ -23,8 +23,8 @@ var io = require('socket.io').listen(server)
 
 io.on('connection', function(socket){
   // socket.emit('connect', {test:'trolololol'});
-  io.emit('connect', {test:'trolololol'});
-  io.emit('connect', {test:'again'});
+  // io.emit('connect', {test:'trolololol'});
+  // io.emit('connect', {test:'again'});
   console.log('User Connected');
 });
 
