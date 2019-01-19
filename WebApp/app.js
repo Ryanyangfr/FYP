@@ -1,10 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
-<<<<<<< HEAD
 // var server = require('http').createServer(app);
 // var io = require('socket.io')(server);
-=======
->>>>>>> parent of c2799c7... Updated to implement preliminary version of socket connection
 
 var userRouter = require('./routes/user.js');
 var uploads = require('./routes/submission.js');
@@ -21,7 +18,6 @@ var del = require('./routes/deleteElements.js');
 var edit = require('./routes/editElements.js');
 var mission = require('./routes/mission.js');
 
-<<<<<<< HEAD
 
 // io.on('connection', function(socket){
 //     console.log('user connected');
@@ -31,8 +27,6 @@ var mission = require('./routes/mission.js');
   
 // });
 
-=======
->>>>>>> parent of c2799c7... Updated to implement preliminary version of socket connection
 //declares the app
 var app = express();
 
