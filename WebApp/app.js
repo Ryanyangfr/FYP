@@ -26,7 +26,6 @@ io.on('connection', function(socket){
     io.on('disconnection', function(){
         console.log('user disconnected')
     })
-  
 });
 
 //declares the app
