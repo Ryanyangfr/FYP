@@ -12,11 +12,11 @@ router.get('/getInstance', function(req,res){
     var io = req.app.get('socketio');
     query = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
     console.log('getInstance called');
+    io.emit('test', {test: 'test test'});
     conn.query(query, function(err,instance){
         if (err){
             console.log(err);
         } else{
-            io.emit('test', {test: 'test test'});
             var instance_id = instance[0].TRAIL_INSTANCE_ID;
             res.end(JSON.stringify({trail_instance_id: instance_id}));
         }
