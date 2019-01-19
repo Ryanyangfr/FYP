@@ -28,7 +28,7 @@ io.on('connection', function(socket){
   console.log('User Connected');
 });
 
-io.on('connect', function(data){
+io.on('test', function(data){
   console.log("data: ");
   console.log(data);
 })

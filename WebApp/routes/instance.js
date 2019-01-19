@@ -16,7 +16,7 @@ router.get('/getInstance', function(req,res){
         if (err){
             console.log(err);
         } else{
-            io.emit('connect', {test: 'test test'});
+            io.emit('test', {test: 'test test'});
             var instance_id = instance[0].TRAIL_INSTANCE_ID;
             res.end(JSON.stringify({trail_instance_id: instance_id}));
         }
