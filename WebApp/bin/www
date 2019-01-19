@@ -28,7 +28,8 @@ io.on('connection', function(socket){
 });
 
 io.on('connect', function(data){
-  console.log(data.test);
+  console.log("data: ");
+  console.log(data);
 })
 app.set('socketio', io);
 /**
