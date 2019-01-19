@@ -25,9 +25,13 @@ io.sockets.on('connection', function(socket){
   // socket.emit('connect', {test:'trolololol'});
   // io.emit('connect', {test:'trolololol'});
   // io.emit('connect', {test:'again'});
-  console.log(socket);
+  // console.log(socket);
+  socket.on('error', function(err){
+    console.log(err);
+  })
   console.log('User Connected');
 });
+
 
 app.set('socketio', io);
 
