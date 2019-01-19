@@ -22,11 +22,8 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server)
 
 io.sockets.on('connection', function(socket){
-  io.sockets.emit('connect', 'trolololol');
+  io.sockets.emit('connect', {test:'trolololol'});
   console.log('User Connected');
-  socket.on('connect', function(data){
-    console.log(data);
-  });
 });
 
 app.set('socketio', io);
