@@ -1,7 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
-var server = require('http').createServer(app);
-var io = require('socket.io')(server);
+// var server = require('http').createServer(app);
+// var io = require('socket.io')(server);
 
 var userRouter = require('./routes/user.js');
 var uploads = require('./routes/submission.js');
@@ -19,13 +19,13 @@ var edit = require('./routes/editElements.js');
 var mission = require('./routes/mission.js');
 
 
-io.on('connection', function(socket){
-    console.log('user connected');
-    io.on('disconnection', function(){
-        console.log('user disconnected')
-    })
+// io.on('connection', function(socket){
+//     console.log('user connected');
+//     io.on('disconnection', function(){
+//         console.log('user disconnected')
+//     })
   
-});
+// });
 
 //declares the app
 var app = express();
