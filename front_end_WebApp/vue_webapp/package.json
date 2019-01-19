@@ -25,8 +25,7 @@
     "vue-material": "^1.0.0-beta-10.2",
     "vue-router": "^3.0.1",
     "vue-select": "^2.5.1",
-    "vue-session": "^1.0.0",
-    "vue2-scrollbar": "0.0.3"
+    "vue-session": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
