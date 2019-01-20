@@ -14,15 +14,15 @@
                     <td colspan="2">Actions</td>
                 </tr>
 
-                <tr class = "hotspot-data" v-for="hotspot in hotspotList" :key="hotspot.label">
-                    <td>{{hotspot.label}}</td>
+                <tr class = "hotspot-data" v-for="hotspot in hotspotList" :key="hotspot.hotspot_name">
+                    <td>{{hotspot.hotspot_name}}</td>
                     <td>{{hotspot.latitude}}</td>
                     <td>{{hotspot.longtitude}}</td>
                     <td>{{hotspot.narrative}}</td>
                     <td><button @click="editHotspot(narrative.label)"><i class="ti-pencil-alt"></i></button></td>
                     <td><button @click="deleteHotspot(narrative.label)"><i class="ti-trash"></i></button></td>
                 </tr>
-                
+                <!-- {{this.hotspotList}} -->
             </table>
         </div>
 
@@ -176,7 +176,7 @@ export default {
             let data = response.data;
             for(var row in data){
                 console.log(data[row])
-                this.hotspotList.push({label: data[row], value: data[row]})
+                this.hotspotList.push({hotspot_name: data[row].hotspot_name, longtitude: data[row].longtitude, latitude: data[row].latitude, narrative: data[row].narrative});
             }
         })
     }
