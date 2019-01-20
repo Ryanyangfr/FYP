@@ -19,7 +19,7 @@ router.post('/deleteHotspot', function(req,res){
     conn.query(query, hotspotName, function(err, data){
         if(err){
             console.log(err);
-            res.send(JSON.stringify({success: "false"}))
+            res.send(JSON.stringify({success: "false"}));
         }else{
             res.send(JSON.stringify({success: "true"}));
         }

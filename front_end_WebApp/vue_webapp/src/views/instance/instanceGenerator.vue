@@ -47,7 +47,7 @@ export default {
             if (!this.$session.exists()) {
             console.log("check")
             this.$router.push('/')
-        }
+        } 
     }
 }
 </script>
