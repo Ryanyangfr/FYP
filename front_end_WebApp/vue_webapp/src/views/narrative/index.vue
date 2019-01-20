@@ -20,7 +20,6 @@
                 </tr>
                 
             </table>
-            {{this.curr_narrative_id}}
         </div>
         
         <div class="black-blur-bg" v-if="showEdit"> 
@@ -166,6 +165,10 @@ export default {
             } else{
                 this.showAdd = true;
             }
+
+            this.curr_narrative = "";
+            this.curr_narrative_title = "";
+            this.curr_narrative_id = "";
         },
 
         onSubmitToAdd() {
@@ -221,6 +224,10 @@ export default {
             } else{
                 this.showEdit = true;
             }
+
+            this.curr_narrative = "";
+            this.curr_narrative_title = "";
+            this.curr_narrative_id = "";
         },
 
         deleteNarrative(narrative_id, narrative_title){
@@ -240,6 +247,10 @@ export default {
             } else{
                 this.showDelete = true;
             }
+
+            this.curr_narrative = "";
+            this.curr_narrative_title = "";
+            this.curr_narrative_id = "";
         },
 
         onSubmitToDelete(){
@@ -468,7 +479,8 @@ export default {
         border-radius: 4px;
         padding: 10px;
         font-size: 14px;
-        width:90%
+        width:90%;
+        font-family: 'Roboto', sans-serif;
     }
 
     .edit-narrative-input input:focus, .add-narrative-input input:focus{
