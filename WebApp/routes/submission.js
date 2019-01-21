@@ -8,6 +8,7 @@ var path = require('path');
 
 var databaseConfig = require('../config/mysqlconf.js');
 
+// var utility = require('../utility.js');
 // var multipartMiddleware = multipart();
 
 var conn = mysql.createConnection(databaseConfig, {charset : 'utf8'});
@@ -68,6 +69,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
     var question = req.body.question;
     var hotspot = req.body.hotspot;
 
+    // var time = utility.getDateTime();
     var io = req.app.get('socketio');
     console.log(req);
     console.log(req.body);
@@ -127,7 +129,8 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                                         if (err){
                                             console.log(err);
                                         }else {
-                                            io.emit('submissionUpdate', {team_id: team_id, trail_instance_id: trail_instance_id});
+                                            // io.emit('submissionUpdate', {team_id: team_id, trail_instance_id: trail_instance_id});
+                                            io.emit('activityFeed', {time: '12345678sadasd2312312', team: team_id, hotspot: hotspot});
                                             console.log('updated hotspot status');
                                         }
                                     });
@@ -184,7 +187,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                                 if (err){
                                     console.log(err);
                                 }else {
-                                    io.emit('submissionUpdate', {team_id: team_id, trail_instance_id: trail_instance_id});
+                                    io.emit('activityFeed', {time: 'dasfjoasjfoahofhdoasj', team: team_id, hotspot: hotspot});
                                     console.log('updated hotspot status');
                                 }
                             });
