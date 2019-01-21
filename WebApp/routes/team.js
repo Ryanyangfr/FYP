@@ -16,6 +16,7 @@ router.post('/updateScore', function(req,res){
     var hotspot = req.body.hotspot
     var io = req.app.get('socketio');
     
+    console.log(io);
     console.log('team_id: ' + team_id);
     console.log('instance_id: ' + instance_id);
     console.log('score: ' + update);
