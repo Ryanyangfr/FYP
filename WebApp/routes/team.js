@@ -18,6 +18,7 @@ router.post('/updateScore', function(req,res){
     var time = utility.getDateTime();
     
     // console.log(io);
+    console.log('time: ' + time);
     console.log('team_id: ' + team_id);
     console.log('instance_id: ' + instance_id);
     console.log('score: ' + update);
