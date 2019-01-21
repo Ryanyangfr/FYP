@@ -97,4 +97,8 @@ router.get('/hotspotStatus', function(req,res){
     })
 })
 
+io.sockets.on('test', function(data){
+    console.log("data: ");
+    console.log(data);
+});
 module.exports = router;
