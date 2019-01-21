@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 
 var databaseConfig = require('../config/mysqlconf.js')
-
+var utility = require('../utility.js');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 var conn = mysql.createConnection(databaseConfig);
@@ -15,6 +15,7 @@ router.post('/updateScore', function(req,res){
     var update = parseInt(req.body.score);
     var hotspot = req.body.hotspot
     var io = req.app.get('socketio');
+    var time = utility.getDateTime();
     
     // console.log(io);
     console.log('team_id: ' + team_id);
@@ -45,7 +46,7 @@ router.post('/updateScore', function(req,res){
                 if (err){
                     console.log(err);
                 } else{
-                    io.emit('activityFeed', {hotspot: hotspot});
+                    io.emit('activityFeed', {time: time, team: team_id, hotspot: hotspot});
                     res.send('update successful');
                 }
             });
@@ -97,5 +98,6 @@ router.get('/hotspotStatus', function(req,res){
         }
     })
 })
+
 
 module.exports = router;
