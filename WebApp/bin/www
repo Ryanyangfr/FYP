@@ -36,14 +36,14 @@ io.sockets.on('connection', function(socket){
   io.emit('test', {test:'again'});
   // console.log(socket);
 
-  io.sockets.on('test', function(data){
+  socket.on('test', function(data){
     console.log("data: ");
     console.log(data);
   });
   
   socket.on('error', function(err){
     console.log(err);
-  })
+  });
   console.log('User Connected');
 });
 
