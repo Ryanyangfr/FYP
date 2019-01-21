@@ -22,11 +22,6 @@ router.post('/updateScore', function(req,res){
     console.log('score: ' + update);
     console.log('hotspot: ' + hotspot);
 
-    var query = 'SELECT TEAM_POINTS FROM TEAM WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
-    io.sockets.on('test', function(data){
-        console.log("data: ");
-        console.log(data);
-    });
     conn.query(query, [team_id, instance_id], function(err, team){
         if (err){
             console.log(err)
@@ -41,6 +36,7 @@ router.post('/updateScore', function(req,res){
                     console.log(err);
                 }else {
                     console.log('updated hotspot status');
+                    io.emit('test', {test: 'test update hotspot status'});
                 }
             });
             conn.query(queryUpdate, [points, team_id, instance_id], function(err, data){
