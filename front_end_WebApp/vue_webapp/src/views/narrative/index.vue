@@ -156,7 +156,6 @@ export default {
             } else{
                 this.showAdd = true;
             }
-
         },
 
         closeAdd(){
@@ -408,8 +407,8 @@ export default {
     }
 
     .edit-narrative-form, .add-narrative-form{
-        width:35%;
-        height:65%;
+        width:40%;
+        height:70%;
         background:white;
         opacity: 100%;
         z-index: 500;
@@ -441,7 +440,7 @@ export default {
     .edit-narrative-input, .add-narrative-input{
         float: left;
         display: flex;
-        margin-left: 18px;
+        margin-left: 25px;
         margin-bottom: 45px;
         font-family: 'Lato', sans-serif;
         position: relative;
