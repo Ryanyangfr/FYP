@@ -14,6 +14,7 @@ router.post('/updateScore', function(req,res){
     var instance_id = req.body.trail_instance_id;
     var update = parseInt(req.body.score);
     var hotspot = req.body.hotspot
+    var io = req.app.get('socketio');
     
     console.log('team_id: ' + team_id);
     console.log('instance_id: ' + instance_id);
@@ -37,14 +38,15 @@ router.post('/updateScore', function(req,res){
                 }else {
                     console.log('updated hotspot status');
                 }
-            })
+            });
             conn.query(queryUpdate, [points, team_id, instance_id], function(err, data){
                 if (err){
                     console.log(err);
                 } else{
+                    io.emit('test', {test: 'test update score'});
                     res.send('update successful');
                 }
-            })
+            });
         }
     })
 })
@@ -53,6 +55,7 @@ router.get('/startingHotspot',function(req,res){
     var instance_id = req.query.trail_instance_id;
     var query = 'SELECT TH.HOTSPOT_NAME, LATITUDE, LONGTITUDE, N.NARRATIVE FROM TRAIL_HOTSPOT AS TH, HOTSPOT AS H, NARRATIVE AS N WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND H.HOTSPOT_NAME = TH.HOTSPOT_NAME AND H.NARRATIVE_ID = N.NARRATIVE_ID';
     var response = [];
+    var io = req.app.get('socketio');
 
     conn.query(query, instance_id, function(err, row){
         if (err){
@@ -65,7 +68,7 @@ router.get('/startingHotspot',function(req,res){
                 for(var i=0; i<numTeams; i++){
                     response.push({team: i+1, startingHotspot: row[i].HOTSPOT_NAME, coordinates: [row[i].LATITUDE,row[i].LONGTITUDE], narrative: row[i].NARRATIVE});
                 }
-
+                io.emit('test', {test: 'test starting hotspot'});
                 res.send(response);
             })
         }
@@ -75,6 +78,7 @@ router.get('/startingHotspot',function(req,res){
 router.get('/hotspotStatus', function(req,res){
     var instance_id = req.query.trail_instance_id;
     var response = [];
+    var io = req.app.get('socketio');
 
     query = 'SELECT TEAM.TEAM_ID, COUNT(ISCOMPLETED) AS COUNT FROM TEAM LEFT OUTER JOIN TEAM_HOTSPOT_STATUS ON TEAM.TRAIL_INSTANCE_ID = TEAM_HOTSPOT_STATUS.TRAIL_INSTANCE_ID AND TEAM.TEAM_ID = TEAM_HOTSPOT_STATUS.TEAM_ID AND ISCOMPLETED=1 WHERE TEAM.TRAIL_INSTANCE_ID = ? GROUP BY TEAM_ID ORDER BY COUNT DESC';
 
@@ -85,7 +89,8 @@ router.get('/hotspotStatus', function(req,res){
         } else{
             rows.forEach(function(row){
                 response.push({team: row.TEAM_ID, hotspots_completed: row.COUNT});
-            })
+            });
+            io.emit('test', {test: 'test hotspot status'});
             res.send(JSON.stringify(response, null, 3));
         }
     })

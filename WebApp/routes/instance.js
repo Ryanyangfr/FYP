@@ -9,7 +9,7 @@ var databaseConfig = require('../config/mysqlconf.js');
 var conn = mysql.createConnection(databaseConfig);
 
 router.get('/getInstance', function(req,res){
-    console.log(req.app.get('socketio'));
+    // console.log(req.app.get('socketio'));
     // var io = req.app.get('socketio');   
     query = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
     console.log('getInstance called');
