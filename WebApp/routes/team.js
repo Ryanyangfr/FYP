@@ -45,7 +45,7 @@ router.post('/updateScore', function(req,res){
                 if (err){
                     console.log(err);
                 } else{
-                    io.emit('test', {test: 'test update score'});
+                    io.emit('activityFeed', {hotspot: hotspot});
                     res.send('update successful');
                 }
             });

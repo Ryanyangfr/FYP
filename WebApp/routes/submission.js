@@ -128,6 +128,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir}), functio
                                             console.log(err);
                                         }else {
                                             io.emit('submissionUpdate', {team_id: team_id, trail_instance_id: trail_instance_id});
+                                            io.emit('activityFeed', {hotspot: hotspot});
                                             console.log('updated hotspot status');
                                         }
                                     });
