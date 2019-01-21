@@ -35,10 +35,10 @@ io.sockets.on('connection', function(socket){
 
 app.set('socketio', io);
 
-// io.sockets.on('test', function(data){
-//   console.log("data: ");
-//   console.log(data);
-// });
+io.sockets.on('test', function(data){
+  console.log("data: ");
+  console.log(data);
+});
 /**
  * Listen on provided port, on all network interfaces.
  */
