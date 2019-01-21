@@ -33,7 +33,7 @@ var io = require('socket.io').listen(server)
 io.sockets.on('connection', function(socket){
   // socket.emit('connect', {test:'trolololol'});
   // io.emit('connect', {test:'trolololol'});
-  io.emit('test', {test:'again'});
+  // io.emit('test', {test:'again'});
   // console.log(socket);
 
   socket.on('test', function(data){
