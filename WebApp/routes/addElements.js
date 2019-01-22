@@ -248,8 +248,9 @@ router.post('/addWefieQuestion', function(req,res){
                 }
             });
         }
+    });
 
-})
+});
 module.exports=router;
 
 
