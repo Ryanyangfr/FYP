@@ -9,6 +9,20 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 var conn = mysql.createConnection(databaseConfig);
 
+router.get('/getAllTeams', function(req, res){
+    var trail_instance_id = req.query.trail_instance_id
+    var query = 'SELECT * FROM TEAM WHERE TRAIL_INSTANCE_ID = ?';
+    response = [];
+
+    conn.query(query, trail_instance_id, function(err, teams){
+        teams.forEach(function(team){
+            response.push(JSON.stringify({team_id: team.TEAM_ID}));
+        });
+        res.send(response)
+    })
+
+});
+
 router.post('/updateScore', function(req,res){
     var team_id = req.body.team_id;
     var instance_id = req.body.trail_instance_id;
