@@ -11,7 +11,7 @@ router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 router.post('/deleteHotspot', function(req,res){
-    var hotspotName = req.body.hotspot_name.value
+    var hotspotName = req.body.hotspot_name
     
     console.log(hotspotName);
     var query = 'DELETE FROM HOTSPOT WHERE HOTSPOT_NAME = ?'
