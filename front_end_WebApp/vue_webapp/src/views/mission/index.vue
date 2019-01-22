@@ -64,6 +64,19 @@
                 <button type="submit">submit</button>
             </form>
         </div>
+
+        <div v-if="mission == missionTypes[1]">
+            <form @submit.prevent="wefieOnSubmitToAdd" v-if="func == functionsAvailable[0]">
+                Hotspot Name:
+                <v-select :options="hotspotList" v-model="hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>
+                Title:
+                <input name="title" type="text" placeholder="title" v-model="title">
+                <br>
+                Wefie Question:
+                <input name="wefie" type="text" placeholder="wefie_question" v-model="wefie_question">
+                <button type="submit">submit</button>
+            </form>
+        </div>
         <!-- {{narrative}} -->
     </div>
 </template>
@@ -78,7 +91,7 @@ export default {
             func: "Add",
             functionsAvailable: ["Add", "Edit", "Delete"],
             mission: "",
-            missionTypes: ["Quiz", "Drag-N-Drop", "Selfie", "Drawing"],
+            missionTypes: ["Quiz", "Welfie", "Drawing"],
             hotspotList: [],
             quiz: [],
             hotspot: "",
@@ -96,7 +109,8 @@ export default {
                 option2ID: "",
                 option3ID: "",
                 option4ID: ""
-            }
+            },
+            weifie_question: ""
         }
     }, 
     components:{
@@ -200,6 +214,21 @@ export default {
             })
             this.hotspotToBeDeleted = "";
             location.reload();
+        },
+        wefieOnSubmitToAdd(){
+            var postBody = {
+                "hotspot": this.hotspot.value,
+                "title": this.title,
+                "question": this.wefie_question
+            }
+            axios.post('http://54.255.245.23:3000/add/addWefieQuestion', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+            })
+            // this.hotspot = "";
+            // this.quiz = [];
+            // location.reload();
         }
     },
     mounted(){
@@ -221,7 +250,7 @@ export default {
             let data = response.data;
             for(var row in data){
                 console.log(data[row])
-                this.hotspotList.push({label: data[row], value: data[row]})
+                this.hotspotList.push({label: data[row].hotspot_name, value: data[row].hotspot_name})
             }
         })
     }
