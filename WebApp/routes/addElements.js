@@ -10,6 +10,7 @@ var conn = mysql.createConnection(databaseConfig);
 router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+//getting the current quiz ids and quiz option ids
 var quiz_id = 0;
 var quiz_option_id = 0
 var quiz_query = 'SELECT COUNT(*) as count FROM QUIZ';
@@ -31,6 +32,19 @@ conn.query(quiz_option_query, function(err, data){
     }
 });
 
+//getting the current wefie question id
+var wefie_id = 0;
+var wefie_query = 'SELECT COUNT(*) as count from SUBMISSION_QUESTION';
+
+conn.query(wefie_query, function(err, data){
+    if (err){
+        console.log(err);
+    } else{
+        wefie_id = data[0].count + 1;
+    }
+})
+
+//getting the current mission id
 var mission_id = 0;
 var mission_query = 'SELECT COUNT(*) as count from MISSION';
 
@@ -212,6 +226,32 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
         }
     });
 };
+
+router.post('/addWefieQuestion', function(req,res){
+    var question = req.body.question;
+    var title = req.body.title
+    var hotspot = req.body.hotspot;
+
+    var ms_query = 'INSERT INTO MISSION VALUES (?,?,?)';
+
+    conn.query(ms_query, [mission_id,title,hotspot], function(err, data){
+        if (err){
+            res.send(JSON.stringify({success: "false"}));
+            console.log(err);
+        } else{
+            var add_query = 'INSERT INTO SUBMISSION_QUESTION VALUES (?,?,?)';
+            conn.query(add_query, [wefie_id, question, mission_id], function(err, data){
+                if (err){
+                    res.send(JSON.stringify({success: "false"}));
+                    console.log(err);
+                } else{
+                    res.send(JSON.stringify({success: "true"}));
+                }
+            });
+        }
+    });
+
+});
 module.exports=router;
 
 
