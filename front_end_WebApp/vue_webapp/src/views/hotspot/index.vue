@@ -53,6 +53,7 @@
                                  {{narrative.label}}
                              </option> 
                         </select>
+                        <!-- {{curr_narrative}} -->
                         <label for="narrative-droplist-input">Narrative</label>  
                     </div>
                     <div>
@@ -87,7 +88,7 @@
                     <div class="narrative-droplist">
                         <select placeholder='Select narrative for hotspot' id="narrative-droplist-input" v-model='curr_narrative'>
                              <option v-for="narrative in dropDownList" :key="narrative.value">
-                                 {{narrative.label}}
+                                 {{narrative.label}}r
                              </option> 
                         </select>
                         <label for="narrative-droplist-input">Narrative</label>  
@@ -144,17 +145,14 @@ export default {
             func: "Add",
             functionsAvailable: ["Add", "Edit", "Delete"],
             dropDownList: [],
-            hotspot: null,
             hotspotList: [],
             hotspotToBeDeleted: "",
             hotspotToBeEdited: "",
-            latitude: null,
-            longtitude: null,
-            narrative: 'narrative',
             curr_hotspot_name: "",
             curr_lat: "",
             curr_long: "",
-            curr_narrative:'curr_narrative',
+            curr_narrative:"curr_narrative",
+            narrative_dictionary: {}
         }
     }, 
     components:{
@@ -163,11 +161,13 @@ export default {
     methods: {
         onSubmitToAdd(){
             var postBody = {
-                "hotspot_name": this.hotspot,
-                "latitude": this.latitude,
-                "longtitude": this.longtitude,
-                "narrative_id": this.narrative.value
+                "hotspot_name": this.curr_hotspot_name,
+                "latitude": this.curr_lat,
+                "longtitude": this.curr_long,
+                "narrative_id": this.narrative_dictionary[this.curr_narrative] 
             }
+            // console.log("post body: ");
+            // console.log(postBody)
             axios.post('http://54.255.245.23:3000/add/addHotspot', postBody)
             .then(response => {
                 let data = response.data
@@ -274,7 +274,10 @@ export default {
             for(var row in data){
                 console.log(data[row])
                 this.dropDownList.push({label: data[row].narrative_title, value: data[row].narrative_id})
+                this.narrative_dictionary[data[row].narrative_title] = data[row].narrative_id;
             }
+            console.log("dictionary: ");
+            console.log(this.narrative_dictionary);
         })
 
         axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
