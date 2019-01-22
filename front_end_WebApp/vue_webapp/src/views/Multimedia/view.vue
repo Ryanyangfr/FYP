@@ -41,12 +41,14 @@ export default{
     ,
     methods:{
         retrieveAllUrl(){
+            // console.log('54.255.245.23:3000/upload/getAllSubmissionURL?team='+this.team+'&trail_instance_id='+this.trail)
             axios.get('//54.255.245.23:3000/upload/getAllSubmissionURL?team='+this.team+'&trail_instance_id='+this.trail)
             .then(response =>{
                 let data = response.data
                 let size = Object.keys(data).length
+                console.log(response.data)
                 // this.path = [];
-                for(var i=0; i<size-1; i++){
+                for(var i=0; i<size; i++){
                     console.log('path length: ' + this.paths.length)
                     if(i == 0 && this.paths.length != 0){
                         this.paths = []
@@ -79,7 +81,7 @@ export default{
                     // this.result = response.data
                     var reader = new FileReader();
                         // this.images = []; 
-                    this.images = [];
+                    // this.images = [];
                     reader.onload = () => {
                         console.log(reader.result);
                         this.images.push(reader.result);

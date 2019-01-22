@@ -11,12 +11,18 @@ router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 router.post('/editHotspot', function(req,res){
-    var hotspotName = req.body.hotspot_name.value;
+    var hotspotName = req.body.hotspot_name;
     var latitude = req.body.latitude;
     var longtitude = req.body.longtitude;
     var narrative_id = req.body.narrative_id;
 
-    console.log(req.body);
+    // console.log(req.body);
+
+    console.log(hotspotName);
+    console.log(latitude);
+    console.log(longtitude);
+    console.log(narrative_id);
+
     var query = 'UPDATE HOTSPOT SET LATITUDE = ?, LONGTITUDE = ?, NARRATIVE_ID = ? WHERE HOTSPOT_NAME = ?';
 
     conn.query(query,[latitude,longtitude,narrative_id,hotspotName], function(err, data){
