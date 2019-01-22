@@ -140,8 +140,8 @@ export default{
 
     .logout-area button:hover{
         background-color: #4d44bf;
-        border-left: 1px solid #443daa;
-        border-bottom: 1px solid #443daa;
+        /*border-left: 1px solid #443daa;
+        border-bottom: 1px solid #443daa;*/
     }
 
     .logout-area i{

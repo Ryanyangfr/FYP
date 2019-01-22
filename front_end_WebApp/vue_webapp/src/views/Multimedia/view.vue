@@ -1,5 +1,8 @@
 <template>
-    <div>
+    <div class="Submissions"> 
+        <!--<div class="submission-card">
+            Hello
+        </div>-->
         <form @submit.prevent="load">
             Enter team:
             <input name="team" type="text" placeholder="team id" v-model="team">
@@ -102,3 +105,18 @@ export default{
     }
 }
 </script>
+
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
+    @import '../../assets/themify-icons.css';
+    
+    .submission-card{
+        padding: 18px;
+        margin: 18px;
+        border-radius: 3px;
+        border: none;
+        font-family: 'Roboto Condensed', sans-serif; 
+        background-color: white;
+    }
+</style>
+

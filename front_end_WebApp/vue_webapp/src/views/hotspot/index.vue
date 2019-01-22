@@ -20,12 +20,13 @@
                     <td>{{hotspot.longtitude}}</td>
                     <td>{{hotspot.narrative}}</td>
                     <td><button @click="editHotspot(hotspot.hotspot_name,hotspot.latitude,hotspot.longtitude,hotspot.narrative)"><i class="ti-pencil-alt"></i></button></td>
-                    <td><button @click="deleteHotspot(hotspot.hotspot_name,hotspot.latitude,hotspot.longtitude,hotspot.narrative)"><i class="ti-trash"></i></button></td>
+                    <td><button @click="deleteHotspot(hotspot.hotspot_name)"><i class="ti-trash"></i></button></td>
                 </tr>
                 <!-- {{this.hotspotList}} -->
             </table>
         </div>
 
+        <!--add hotspot begins-->
         <div class="black-blur-bg" v-if="showAdd"> 
             <div class="add-hotspot-form">
                 <div class="add-hotspot-header">
@@ -63,7 +64,9 @@
                
             </div>
         </div>
+        <!--add hotspot ends-->
         
+        <!--edit hotspot begins-->
         <div class="black-blur-bg" v-if="showEdit"> 
             <div class="edit-hotspot-form">
                 <div class="edit-hotspot-header">
@@ -72,7 +75,7 @@
                 </div>
                 <hr>
                 
-                <form class="edit-hotspot-body" @submit.prevent="onSubmitToAdd">
+                <form class="edit-hotspot-body" @submit.prevent="onSubmitToEdit">
                     <div class="edit-hotspot-input">
                         <input type="text" id="edit-hotspot-name-input" v-model="curr_hotspot_name" required>
                         <label for="edit-hotspot-name-input">Hotspot Name</label>
@@ -88,7 +91,7 @@
                     <div class="narrative-droplist">
                         <select placeholder='Select narrative for hotspot' id="narrative-droplist-input" v-model='curr_narrative'>
                              <option v-for="narrative in dropDownList" :key="narrative.value">
-                                 {{narrative.label}}r
+                                 {{narrative.label}}
                              </option> 
                         </select>
                         <label for="narrative-droplist-input">Narrative</label>  
@@ -100,6 +103,29 @@
                
             </div>
         </div>
+        <!--edit hotspot ends-->
+
+        <!--delete hotspot begins-->
+        <div class="black-blur-bg" v-if="showDelete"> 
+            <div class="delete-hotspot-popup">
+                <div class="delete-hotspot-header">
+                    <h5>Delete</h5>
+                    <button class="close-delete-hotspot" @click="closeDelete()"><font-awesome-icon icon="times"/></button>
+                </div>
+                <hr>
+                
+                <form class="delete-hotspot-body" @submit.prevent="onSubmitToDelete">
+                    <div><h6>Are you sure you want to delete "{{this.curr_hotspot_name}}"?</h6></div>
+                    <div><hr></div>
+                    <div class="delete-hotspot-btm">
+                        <button class="cancel-delete" @click="closeDelete()">Cancel</button>
+                        <button type="submit" class="delete-hotspot-btn">Delete</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+        <!--delete hotspot ends-->
 
         <!--<v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
         <br>
@@ -142,6 +168,7 @@ export default {
         return{
             showEdit: false,
             showAdd: false,
+            showDelete: false,
             func: "Add",
             functionsAvailable: ["Add", "Edit", "Delete"],
             dropDownList: [],
@@ -204,26 +231,49 @@ export default {
 
         onSubmitToEdit(){
             var postBody = {
-                "hotspot_name": this.hotspotToBeEdited,
-                "latitude": this.latitude,
-                "longtitude": this.longtitude,
-                "narrative_id": this.narrative.value
+                "hotspot_name": this.curr_hotspot_name,
+                "latitude": this.curr_lat,
+                "longtitude": this.curr_long,
+                "narrative_id": this.narrative_dictionary[this.curr_narrative]
             }
+            console.log("post body: ");
+            console.log(postBody)
+
+            // var hsName = this.curr_hotspot_name;
+            // var lat = this.curr_lat;
+            // var long = this.curr_long;
+            // var narrative = this.curr_narrative;
+            // console.log(this.curr_hotspot_name);
+
             axios.post('http://54.255.245.23:3000/edit/editHotspot', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
+                
+                // if(data.success = "true"){
+                //     this.hotspotList.forEach(function(hotspot){
+                //         console.log("hotspot: ");
+                //         // console.log(hsName)
+                //         if(hotspot.hotspot_name == hsName){
+                //             console.log(hotspot.hotspot_name);
+                //             hotspot.latitude = lat;
+                //             hotspot.longtitude = long;
+                //             hotspot.narrative = narrative;
+                //         }
+                //     })
+                // }
             })
-            this.hotspotToBeEdited = "";
-            this.latitude = "";
-            this.longtitude = "";
-            this.narrative = "";
-            // location.reload();
+
+            location.reload();
+            // this.hotspotToBeEdited = "";
+            // this.latitude = "";
+            // this.longtitude = "";
+            // this.narrative = "";
 
         },
 
         editHotspot(hotspot_name, lat, long, narrative){
-             if(this.showEdit){
+            if(this.showEdit){
                 this.showEdit = false;
             } else{
                 this.showEdit = true;
@@ -250,16 +300,38 @@ export default {
 
         onSubmitToDelete(){
             var postBody = {
-                "hotspot_name": this.hotspotToBeDeleted,
+                "hotspot_name": this.curr_hotspot_name,
             }
+            console.log("post body: ");
+            console.log(postBody)
+
             axios.post('http://54.255.245.23:3000/delete/deleteHotspot', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
             })
-            this.hotspotToBeDeleted = "";
-            // location.reload();
-        }
+            location.reload();
+        },
+
+        deleteHotspot(hotspot_name){
+            if(this.showDelete){
+                this.showDelete = false;
+            } else{
+                this.showDelete = true;
+            }
+
+            this.curr_hotspot_name = hotspot_name;
+        },
+
+        closeDelete(){
+            if(this.showDelete){
+                this.showDelete = false;
+            } else{
+                this.showDelete = true;
+            }
+
+            this.curr_hotspot_name = "";
+        },
     },
     mounted(){
         console.log(this.$session.exists());
@@ -413,17 +485,17 @@ export default {
         
     }
 
-    .edit-hotspot-header, .add-hotspot-header, .delete-narrative-header{
+    .edit-hotspot-header, .add-hotspot-header, .delete-hotspot-header{
         max-width: 100%;
         padding:18px;
     }
 
-    .edit-hotspot-form h5, .add-hotspot-form h5, .delete-narrative-popup h5{
+    .edit-hotspot-form h5, .add-hotspot-form h5, .delete-hotspot-popup h5{
         display: flex;
         float: left;
     }
 
-    .close-edit-hotspot, .close-add-hotspot, .close-delete-narrative{
+    .close-edit-hotspot, .close-add-hotspot, .close-delete-hotspot{
         background: none;
         border: none;
         color: #868686;
@@ -529,6 +601,79 @@ export default {
         position: relative;
         font-family: "Roboto", sans-serif
         
+    }
+
+    .delete-hotspot-popup{
+        min-width: 30%;
+        min-height: 35%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+    }
+    
+    .delete-hotspot-body{
+        width:100%;
+        /*height: 130px;*/
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+    }
+
+    .delete-hotspot-body h6{
+        display: flex;
+        float: left;
+        height: 100%;
+        width: 100%;
+        font-size: 15px;
+        margin-left: 25px;
+        margin-right: 25px;
+        margin-bottom: 10px;
+    }
+
+    .delete-hotspot-btm{
+        margin-bottom: 10px;
+        margin-top: 10px;
+    
+    }
+
+    .cancel-delete{
+        background: none;
+        border: 1px solid #C6C4BC;
+        border-radius: 4px;
+        display: flex;
+        float: left;
+        padding:8px 15px 8px 15px;
+        margin-left: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        position: relative;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: #666666;
+    }
+
+    .delete-hotspot-btn{
+        background: none;
+        border: none;
+        background-color: #F15E5E;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        position: relative;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
     }
     
 </style>
