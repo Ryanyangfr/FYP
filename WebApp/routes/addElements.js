@@ -229,6 +229,7 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
 
 router.post('/addWefieQuestion', function(req,res){
     var question = req.body.question;
+    var title = req.body.title
     var hotspot = req.body.hotspot;
 
     var ms_query = 'INSERT INTO MISSION VALUES (?,?,?)';
