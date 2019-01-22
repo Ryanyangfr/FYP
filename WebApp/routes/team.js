@@ -16,7 +16,7 @@ router.get('/getAllTeams', function(req, res){
 
     conn.query(query, trail_instance_id, function(err, teams){
         teams.forEach(function(team){
-            response.push(JSON.stringify({team_id: team.TEAM_ID}));
+            response.push({team_id: team.TEAM_ID});
         });
         res.send(response)
     })
