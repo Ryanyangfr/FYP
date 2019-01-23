@@ -352,10 +352,10 @@ router.get('/getSubmission', (req, res) => {
 });
 
 router.get('/getAllSubmissionQuestion', (req, res) => {
-  let response = [];
+  const response = [];
   const query = 'SELECT * FROM SUBMISSION_QUESTION';
 
-  conn.get(query, (err, questions) => {
+  conn.query(query, (err, questions) => {
     if (err) {
       console.log(err);
     } else {
