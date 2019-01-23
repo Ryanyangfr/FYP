@@ -10,7 +10,7 @@ const conn = mysql.createConnection(databaseConfig);
 router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-router.post('/editHotspot', (req,res) => {
+router.post('/editHotspot', (req, res) => {
   const hotspotName = req.body.hotspot_name;
   const latitude = req.body.latitude;
   const longtitude = req.body.longtitude;
@@ -25,7 +25,7 @@ router.post('/editHotspot', (req,res) => {
 
   const query = 'UPDATE HOTSPOT SET LATITUDE = ?, LONGTITUDE = ?, NARRATIVE_ID = ? WHERE HOTSPOT_NAME = ?';
 
-  conn.query(query,[latitude,longtitude,narrative_id,hotspotName], (err, data) => {
+  conn.query(query, [latitude, longtitude, narrative_id, hotspotName], (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
@@ -35,14 +35,14 @@ router.post('/editHotspot', (req,res) => {
   });
 });
 
-router.post('/editNarrative', (req,res) => {
+router.post('/editNarrative', (req, res) => {
   const narrative_id = req.body.narrative_id;
   const narrative = req.body.narrative;
 
   console.log(req.body);
   const query = 'UPDATE NARRATIVE SET NARRATIVE = ? WHERE NARRATIVE_ID = ?';
 
-  conn.query(query,[narrative, narrative_id], (err, data) => {
+  conn.query(query, [narrative, narrative_id], (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
@@ -52,7 +52,7 @@ router.post('/editNarrative', (req,res) => {
   });
 });
 
-router.post('/editQuiz', (req,res) => {
+router.post('/editQuiz', (req, res) => {
   const quizID = req.body.question.value;
   const question = req.body.question.label;
 
@@ -73,7 +73,7 @@ router.post('/editQuiz', (req,res) => {
   let count = 0;
   let anyErr = false;
 
-  conn.query(updateQnQuery, [question,quizID], (err,result) => {
+  conn.query(updateQnQuery, [question, quizID], (err, result) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
@@ -81,7 +81,7 @@ router.post('/editQuiz', (req,res) => {
     } else {
       const updateOptionQuery = 'UPDATE QUIZ_OPTION SET QUIZ_OPTION = ? WHERE QUIZ_OPTION_ID = ? AND QUIZ_ID = ?'
             
-      conn.query(updateOptionQuery, [option1,option1ID,quizID], (err, data) => {
+      conn.query(updateOptionQuery, [option1, option1ID, quizID], (err, data) => {
         if (err) {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
@@ -95,7 +95,7 @@ router.post('/editQuiz', (req,res) => {
         }
       });
 
-      conn.query(updateOptionQuery, [option2,option2ID,quizID], (err, data) => {
+      conn.query(updateOptionQuery, [option2, option2ID, quizID], (err, data) => {
         if (err) {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
@@ -109,7 +109,7 @@ router.post('/editQuiz', (req,res) => {
         }
       });
 
-      conn.query(updateOptionQuery, [option3,option3ID,quizID], (err, data) => {
+      conn.query(updateOptionQuery, [option3, option3ID, quizID], (err, data) => {
         if (err) {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
@@ -123,7 +123,7 @@ router.post('/editQuiz', (req,res) => {
         }
       });
 
-      conn.query(updateOptionQuery, [option4,option4ID,quizID], (err, data) => {
+      conn.query(updateOptionQuery, [option4, option4ID, quizID], (err, data) => {
         if (err) {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
@@ -136,6 +136,22 @@ router.post('/editQuiz', (req,res) => {
           }
         }
       });
+    }
+  });
+});
+
+router.post('/editWefie', (req, res) => {
+  const questionID = req.body.id;
+  const question = req.body.question;
+
+  const query = 'UPDATE SUBMISSION_QUESTION SET QUESTION = ? WHERE QUESTION_ID = ?';
+
+  conn.query(query, [question, questionID], (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      res.send(JSON.stringify({ success: 'true' }));
     }
   });
 });
