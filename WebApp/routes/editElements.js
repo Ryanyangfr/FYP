@@ -140,7 +140,7 @@ router.post('/editQuiz', (req, res) => {
   });
 });
 
-router.post('/editWefie', (req, res) => {
+router.post('/editWefieQuestion', (req, res) => {
   const questionID = req.body.id;
   const question = req.body.question;
 
