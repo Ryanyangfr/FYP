@@ -132,6 +132,7 @@ router.get('/getAllTeamsWithMembers', (req, res) => {
         teamID = team.TEAM_ID;
       }
     });
+    res.push(temp);
     res.send(response);
   });
 });
