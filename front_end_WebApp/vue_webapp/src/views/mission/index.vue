@@ -76,6 +76,22 @@
                 <input name="wefie" type="text" placeholder="wefie_question" v-model="wefie_question">
                 <button type="submit">submit</button>
             </form>
+
+            <form @submit.prevent="wefieOnSubmitToEdit" v-if="func == functionsAvailable[1]">
+                Wefie Question:
+                <v-select :options="wefieQuestionList" v-model="wefieID" placeholder="Please select a wefie question" style="width:500px;"></v-select>
+                <button type="button" @click="updateCurrWefieQn">Edit</button>
+                <br>
+                Wefie Question:
+                <input name="wefie" type="text" v-model="wefie_question">
+                <button type="submit">submit</button>
+            </form>
+
+            <form @submit.prevent="wefieOnSubmitToEdit" v-if="func == functionsAvailable[2]">
+                Wefie Question:
+                <v-select :options="wefieQuestionList" v-model="wefieID" placeholder="Please select a wefie question" style="width:500px;"></v-select>
+                <button type="submit">delete</button>
+            </form>
         </div>
         <!-- {{narrative}} -->
     </div>
@@ -110,7 +126,9 @@ export default {
                 option3ID: "",
                 option4ID: ""
             },
-            weifie_question: ""
+            wefie_question: "",
+            wefieQuestionList: [],
+            wefieID: ""
         }
     }, 
     components:{
@@ -127,6 +145,9 @@ export default {
                 option4: "",
                 answer: ""
             })
+        },
+        updateCurrWefieQn(){
+            this.wefie_question = this.wefieID.label
         },
         fetchMissions(){
             // console.log('entered')
@@ -223,9 +244,38 @@ export default {
             }
             axios.post('http://54.255.245.23:3000/add/addWefieQuestion', postBody)
             .then(response => {
-                let data = response.data
-                console.log(data)
+                let data = response.data;
+                console.log(data);
+            });
+            // this.hotspot = "";
+            // this.quiz = [];
+            location.reload();
+        },
+        wefieOnSubmitToEdit(){
+            var postBody = {
+                "id": this.wefieID.value,
+                "question": this.wefie_question
+            }
+            axios.post('http://54.255.245.23:3000/edit/editWefieQuestion', postBody)
+            .then(response => {
+                let data = response.data;
+                console.log(data);
             })
+            location.reload();
+            // this.hotspot = "";
+            // this.quiz = [];
+            // location.reload();
+        },
+        wefieOnSubmitToDelete(){
+            var postBody = {
+                "id": this.wefieID.value
+            }
+            axios.post('http://54.255.245.23:3000/delete/deleteWefieQuestion', postBody)
+            .then(response => {
+                let data = response.data;
+                console.log(data);
+            })
+            location.reload();
             // this.hotspot = "";
             // this.quiz = [];
             // location.reload();
@@ -251,6 +301,15 @@ export default {
             for(var row in data){
                 console.log(data[row])
                 this.hotspotList.push({label: data[row].hotspot_name, value: data[row].hotspot_name})
+            }
+        })
+
+        axios.get('http://54.255.245.23:3000/upload/getAllSubmissionQuestion')
+        .then(response => {
+            let data = response.data;
+            for(var row in data){
+                console.log(data[row])
+                this.wefieQuestionList.push({label: data[row].question, value: data[row].id})
             }
         })
     }
