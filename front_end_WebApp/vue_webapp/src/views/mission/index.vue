@@ -276,9 +276,6 @@ export default {
                 console.log(data);
             })
             location.reload();
-            // this.hotspot = "";
-            // this.quiz = [];
-            // location.reload();
         }
     },
     mounted(){
