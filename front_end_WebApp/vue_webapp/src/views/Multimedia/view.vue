@@ -1,8 +1,13 @@
 <template>
     <div class="Submissions"> 
-        <!--<div class="submission-card">
-            Hello
-        </div>-->
+        <div class="submissions-row">
+            <div class= "container" v-for="team in teamList" :key="team.team_id">
+                <button class="submission-card">
+                    Team {{team.team_id}}
+                </button>
+            </div>
+        </div>
+     
         <form @submit.prevent="load">
             Enter team:
             <input name="team" type="text" placeholder="team id" v-model="team">
@@ -35,7 +40,8 @@ export default{
             team: '',
             paths: [],
             images: [],
-            questions: []
+            questions: [],
+            teamList: [],
         }
     }
     ,
@@ -104,6 +110,15 @@ export default{
             console.log("check")
             this.$router.push('/')
         }
+        
+        axios.get('http://54.255.245.23:3000/team/getAllTeams?trail_instance_id=175239')
+        .then(response => {
+            let data = response.data;
+            for(var row in data){
+                console.log(data[row])
+                this.teamList.push({team_id: data[row].team_id});
+            }
+        })
     }
 }
 </script>
@@ -111,14 +126,32 @@ export default{
 <style>
     @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
     @import '../../assets/themify-icons.css';
-    
+    .submissions-row{
+        display: flex;
+        flex-direction: row;
+        /*background-color: pink;*/
+    }
+
+    .container{
+        padding: 5px;
+        /*background-color: pink;*/
+        background: none;
+        margin:5px;
+        flex:1;
+        overflow: hidden;
+        height: 250px;
+        
+    }
+
     .submission-card{
-        padding: 18px;
-        margin: 18px;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
         border-radius: 3px;
-        border: none;
+        border: 1px solid #ededed;
         font-family: 'Roboto Condensed', sans-serif; 
         background-color: white;
     }
+
 </style>
 
