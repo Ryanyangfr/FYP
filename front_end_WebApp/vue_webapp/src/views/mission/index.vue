@@ -87,7 +87,7 @@
                 <button type="submit">submit</button>
             </form>
 
-            <form @submit.prevent="wefieOnSubmitToEdit" v-if="func == functionsAvailable[2]">
+            <form @submit.prevent="wefieOnSubmitToDelete" v-if="func == functionsAvailable[2]">
                 Wefie Question:
                 <v-select :options="wefieQuestionList" v-model="wefieID" placeholder="Please select a wefie question" style="width:500px;"></v-select>
                 <button type="submit">delete</button>
