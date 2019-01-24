@@ -283,14 +283,6 @@ export default {
             console.log("check")
             this.$router.push('/')
         }
-        // axios.get('http://54.255.245.23:3000/narrative/getNarratives')
-        // .then(response => {
-        //     let data = response.data;
-        //     for(var row in data){
-        //         console.log(data[row])
-        //         this.dropDownList.push({label: data[row].narrative_title, value: data[row].narrative_id})
-        //     }
-        // })
 
         axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
         .then(response => {
