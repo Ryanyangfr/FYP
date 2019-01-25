@@ -1,24 +1,25 @@
-var createError = require('http-errors');
-var express = require('express');
+// const createError = require('http-errors');
+const express = require('express');
 
 // var server = require('http').createServer(app);
 // var io = require('socket.io')(3000);
 
 
-var userRouter = require('./routes/user.js');
-var uploads = require('./routes/submission.js');
-var location = require('./routes/geolocation.js');
-var quiz = require('./routes/quiz.js');
-var instance = require('./routes/instance.js');
-var team = require('./routes/team.js');
-var draganddrop = require('./routes/draganddrop.js');
-var narrative = require('./routes/narratives.js');
-var add = require('./routes/addElements.js');
-var anagram = require('./routes/anagram.js');
-var hotspot = require('./routes/hotspot.js');
-var del = require('./routes/deleteElements.js');
-var edit = require('./routes/editElements.js');
-var mission = require('./routes/mission.js');
+const userRouter = require('./routes/user.js');
+const uploads = require('./routes/submission.js');
+const location = require('./routes/geolocation.js');
+const quiz = require('./routes/quiz.js');
+const instance = require('./routes/instance.js');
+const team = require('./routes/team.js');
+const draganddrop = require('./routes/draganddrop.js');
+const narrative = require('./routes/narratives.js');
+const add = require('./routes/addElements.js');
+const anagram = require('./routes/anagram.js');
+const hotspot = require('./routes/hotspot.js');
+const del = require('./routes/deleteElements.js');
+const edit = require('./routes/editElements.js');
+const mission = require('./routes/mission.js');
+const wordSearch = require('./routes/wordSearch.js');
 
 
 // io.on('connection', function(socket){
@@ -28,20 +29,20 @@ var mission = require('./routes/mission.js');
 //     })
 // });
 
-//declares the app
-var app = express();
+// declares the app
+const app = express();
 
 // app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
 });
 
-//declares the routes available
+// declares the routes available
 app.use('/user', userRouter);
 app.use('/upload', uploads);
 app.use('/hotspot', location)
@@ -56,5 +57,6 @@ app.use('/hotspot', hotspot);
 app.use('/delete', del);
 app.use('/edit', edit);
 app.use('/mission', mission);
+app.use('/wordsearch', wordSearch);
 
 module.exports = app;
