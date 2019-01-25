@@ -107,7 +107,7 @@ export default {
             func: "Add",
             functionsAvailable: ["Add", "Edit", "Delete"],
             mission: "",
-            missionTypes: ["Quiz", "Welfie", "Drawing"],
+            missionTypes: ["Quiz", "Wefie", "Drawing"],
             hotspotList: [],
             quiz: [],
             hotspot: "",
