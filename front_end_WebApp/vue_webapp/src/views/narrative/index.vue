@@ -194,14 +194,13 @@ export default {
                 let data = response.data
                 console.log(data)
 
-                if(this.showEdit){
-                    this.showEdit = false;
-                } else{
-                    this.showEdit = true;
-                }
-
                 this.$router.go();
             })
+            if(this.showEdit){
+                this.showEdit = false;
+            } else{
+                this.showEdit = true;
+            }
 
         },
 
