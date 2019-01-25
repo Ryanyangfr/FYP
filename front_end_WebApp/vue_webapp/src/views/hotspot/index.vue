@@ -199,12 +199,12 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
+                this.$router.go();
             })
             this.hotspot = "";
             this.latitude = "";
             this.longtitude = "";
             this.narrative = "";
-            this.$router.go();
             
         },
 
@@ -249,7 +249,7 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
-                
+                this.$router.go();
                 // if(data.success = "true"){
                 //     this.hotspotList.forEach(function(hotspot){
                 //         console.log("hotspot: ");
@@ -263,7 +263,6 @@ export default {
                 //     })
                 // }
             })
-
             // this.$router.go();
             // this.hotspotToBeEdited = "";
             // this.latitude = "";
@@ -309,8 +308,8 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
+                this.$router.go();
             })
-            this.$router.go();
         },
 
         deleteHotspot(hotspot_name){
