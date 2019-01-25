@@ -145,7 +145,9 @@ router.post('/editQuiz', (req, res) => {
 router.post('/editWefieQuestion', (req, res) => {
   const questionID = req.body.id;
   const question = req.body.question;
+  console.log('edit wefie called');
 
+  console.log(req.body)
   const query = 'UPDATE SUBMISSION_QUESTION SET QUESTION = ? WHERE QUESTION_ID = ?';
 
   conn.query(query, [question, questionID], (err, data) => {
