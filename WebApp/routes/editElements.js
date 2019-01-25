@@ -11,6 +11,7 @@ router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 router.post('/editHotspot', (req, res) => {
+  console.log('edit hotspot called');
   const hotspotName = req.body.hotspot_name;
   const latitude = req.body.latitude;
   const longtitude = req.body.longtitude;
@@ -36,6 +37,7 @@ router.post('/editHotspot', (req, res) => {
 });
 
 router.post('/editNarrative', (req, res) => {
+  console.log('edit narrative called');
   const narrative_id = req.body.narrative_id;
   const narrative = req.body.narrative;
 
