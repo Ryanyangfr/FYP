@@ -103,6 +103,7 @@ router.post('/addNarrative', (req,res) => {
 });
 
 router.post('/addQuiz', (req,res) => {
+  console.log('quiz: ');
   console.log(req.body)
   const hotspot = req.body.hotspot;
   const title = req.body.title;
@@ -121,7 +122,7 @@ router.post('/addQuiz', (req,res) => {
         row = quiz[index];
         console.log(row);
         const question = row.question;
-        const option1 = row.option1;
+        const option1 = row.option1;  
         const option2 = row.option2;
         const option3 = row.option3;
         const option4 = row.option4;
@@ -228,7 +229,8 @@ router.post('/addWefieQuestion', (req,res) => {
   const hotspot = req.body.hotspot;
 
   const ms_query = 'INSERT INTO MISSION VALUES (?,?,?)';
-
+  console.log('add wefie question called');
+  console.log(req.body);
   conn.query(ms_query, [mission_id,title,hotspot], (err, data) => {
     if (err) {
       res.send(JSON.stringify({ success: 'false' }));
