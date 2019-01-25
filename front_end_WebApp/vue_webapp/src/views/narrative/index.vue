@@ -179,9 +179,9 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
+                this.$router.go();
             })
 
-            location.reload();
         },
 
         onSubmitToEdit() {
@@ -193,15 +193,16 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
+
+                if(this.showEdit){
+                    this.showEdit = false;
+                } else{
+                    this.showEdit = true;
+                }
+
+                this.$router.go();
             })
 
-            if(this.showEdit){
-                this.showEdit = false;
-            } else{
-                this.showEdit = true;
-            }
-
-            location.reload();
         },
 
         editNarrative(narrative_id, narrative_title, narrative){
