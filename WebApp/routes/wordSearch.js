@@ -21,7 +21,7 @@ router.get('/getWordSearchWords', (req, res) => {
         let mission = missionRow.MISSION_ID;
         // let hotspot_name = missionRow.HOTSPOT_NAME;
 
-        const wordSearchQuery = 'SELECT WORDSEARCH.WORDSEARCH_TITLE, WORD FROM WORDSEARCH, WORDSEARCH_WORD WHERE MISSION_ID = ? AND WORDSEARCH.WORDSEARCH_TITLE = WORD.WORDSEARCH_TITLE';
+        const wordSearchQuery = 'SELECT WORDSEARCH.WORDSEARCH_TITLE, WORD FROM WORDSEARCH, WORDSEARCH_WORD WHERE MISSION_ID = ? AND WORDSEARCH.WORDSEARCH_TITLE = WORDSEARCH_WORD.WORDSEARCH_TITLE';
 
         conn.query(wordSearchQuery, mission, (err, data) => {
           if (err) {
