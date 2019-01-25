@@ -244,7 +244,8 @@ router.post('/addWefieQuestion', (req,res) => {
           console.log(err);
         } else {
           res.send(JSON.stringify({ success: 'true' }));
-          mission_id+=1;
+          mission_id += 1;
+          wefie_id += 1;
         }
       });
     }
