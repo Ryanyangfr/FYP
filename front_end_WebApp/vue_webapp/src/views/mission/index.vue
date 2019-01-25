@@ -202,11 +202,12 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
+                this.$router.go();
             })
             // this.hotspot = "";
             // this.quiz = [];
             // location.reload();
-            this.$router.go();
+            // this.$router.go();
         },
         quizOnSubmitToEdit(){
             var postBody = {
@@ -220,13 +221,8 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
+                this.$router.go();
             })
-            this.hotspotToBeEdited = "";
-            this.latitude = "";
-            this.longtitude = "";
-            this.narrative = "";
-            this.$router.go();
-
         },
         quizOnSubmitToDelete(){
             var postBody = {
@@ -236,9 +232,9 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
+                this.$router.go();
             })
             this.hotspotToBeDeleted = "";
-            this.$router.go();
         },
         wefieOnSubmitToAdd(){
             var postBody = {
@@ -250,10 +246,10 @@ export default {
             .then(response => {
                 let data = response.data;
                 console.log(data);
+                this.$router.go();
             });
             // this.hotspot = "";
             // this.quiz = [];
-            this.$router.go();
         },
         wefieOnSubmitToEdit(){
             var postBody = {
@@ -264,8 +260,8 @@ export default {
             .then(response => {
                 let data = response.data;
                 console.log(data);
+                this.$router.go();
             })
-            this.$router.go();
             // this.hotspot = "";
             // this.quiz = [];
             // location.reload();
@@ -278,8 +274,8 @@ export default {
             .then(response => {
                 let data = response.data;
                 console.log(data);
+                this.$router.go();
             })
-            this.$router.go();
         }
     },
     mounted(){
