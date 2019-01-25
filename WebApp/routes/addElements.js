@@ -114,6 +114,7 @@ router.post('/addQuiz', (req,res) => {
       res.send(JSON.stringify({ success: 'false' }));
       console.log(err);
     } else {
+      let count = 0;
       for (const index in quiz) {
         console.log(`quiz_id_again: ${quiz_id}`);
         count += 1;
