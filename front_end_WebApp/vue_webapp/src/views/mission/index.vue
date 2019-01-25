@@ -202,7 +202,7 @@ export default {
             })
             // this.hotspot = "";
             // this.quiz = [];
-            // location.reload();
+            location.reload();
         },
         quizOnSubmitToEdit(){
             var postBody = {
