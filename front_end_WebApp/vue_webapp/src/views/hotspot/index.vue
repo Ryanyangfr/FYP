@@ -264,7 +264,7 @@ export default {
                 // }
             })
 
-            this.$router.go();
+            // this.$router.go();
             // this.hotspotToBeEdited = "";
             // this.latitude = "";
             // this.longtitude = "";
