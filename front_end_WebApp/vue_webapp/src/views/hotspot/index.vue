@@ -204,7 +204,7 @@ export default {
             this.latitude = "";
             this.longtitude = "";
             this.narrative = "";
-            location.reload();
+            this.$router.go();
             
         },
 
@@ -264,7 +264,7 @@ export default {
                 // }
             })
 
-            location.reload();
+            this.$router.go();
             // this.hotspotToBeEdited = "";
             // this.latitude = "";
             // this.longtitude = "";
@@ -310,7 +310,7 @@ export default {
                 let data = response.data
                 console.log(data)
             })
-            location.reload();
+            this.$router.go();
         },
 
         deleteHotspot(hotspot_name){
