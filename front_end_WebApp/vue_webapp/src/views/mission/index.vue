@@ -225,7 +225,7 @@ export default {
             this.latitude = "";
             this.longtitude = "";
             this.narrative = "";
-            location.reload();
+            this.$router.go();
 
         },
         quizOnSubmitToDelete(){
@@ -238,7 +238,7 @@ export default {
                 console.log(data)
             })
             this.hotspotToBeDeleted = "";
-            location.reload();
+            this.$router.go();
         },
         wefieOnSubmitToAdd(){
             var postBody = {
@@ -253,7 +253,7 @@ export default {
             });
             // this.hotspot = "";
             // this.quiz = [];
-            location.reload();
+            this.$router.go();
         },
         wefieOnSubmitToEdit(){
             var postBody = {
@@ -265,7 +265,7 @@ export default {
                 let data = response.data;
                 console.log(data);
             })
-            location.reload();
+            this.$router.go();
             // this.hotspot = "";
             // this.quiz = [];
             // location.reload();
@@ -279,7 +279,7 @@ export default {
                 let data = response.data;
                 console.log(data);
             })
-            location.reload();
+            this.$router.go();
         }
     },
     mounted(){
