@@ -236,6 +236,24 @@ CONSTRAINT ANAGRAM_FK1 FOREIGN KEY (MISSION_ID)
 REFERENCES MISSION(MISSION_ID)
 );
 
+CREATE TABLE WORDSEARCH
+(
+WORDSEARCH_TITLE VARCHAR(100) NOT NULL,
+MISSION_ID INT NOT NULL,
+CONSTRAINT WORDSEARCH_PK PRIMARY KEY (WORDSEARCH_TITLE),
+CONSTRAINT WORDSEARCH_FK1 FOREIGN KEY (MISSION_ID)
+REFERENCES MISSION(MISSION_ID)
+);
+
+CREATE TABLE WORDSEARCH_WORD
+(
+WORDSEARCH_TITLE VARCHAR(100) NOT NULL,
+WORD VARCHAR(100) NOT NULL,
+CONSTRAINT WORDSEARCH_WORD_PK PRIMARY KEY (WORDSEARCH_TITLE,WORD),
+CONSTRAINT WORDSEARCH_WORD_FK1 FOREIGN KEY (WORDSEARCH_TITLE)
+REFERENCES WORDSEARCH(WORDSEARCH_TITLE)
+);
+
 INSERT INTO NARRATIVE VALUES
 (1, 'SOB NARRATIVE','In 2000, SMU commenced its curriculum with the School of Business, welcoming its first batch of cohort in August. The SMU School of Business and university-wide scholars programme was named in perpetuity after Dr Lee Kong Chian in recognition of the Lee Foundation generous contribution of S$50 million to SMU in 2004. Dr Lee Kong Chain is a well-known Southeast Asia businessmen, philanthropist and community leader. SMU school of business is therefore known as LKCSB (Lee Kong Chian School of Business)'),
 (2, 'SOA NARRATIVE','School of Accountancy (SOA) is the second largest school in SMU, with its humble beginnings going way back to 2000. The first Dean then was Professor Pang Yang Hoong, who was also part of the planning team at SMU. A lecture hall lies within SOA, being the only school to have a lecture hall. It was set up by the Chinese immigrants in the late 19th century, naming it after the charitable foundation Ngee Ann Kongsi - Ngee Ann Kongsi Auditorium.'),
@@ -274,7 +292,8 @@ INSERT INTO MISSION VALUES
 (17, 'title 17','Li Ka Shing Library'),
 (18, 'title 18','Lee Kong Chian School of Business'),
 (19, 'title 19','School of Law'),
-(20, 'title 20','School of Economics/School of Social Sciences');
+(20, 'title 20','School of Economics/School of Social Sciences'),
+(21, 'title 21','School of Accountancy');
 
 INSERT INTO QUIZ VALUES
 (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
@@ -402,7 +421,7 @@ INSERT INTO TRAIL_INSTANCE VALUES
 
 INSERT INTO TRAIL_MISSION VALUES
 (1,18),
-(1,2),
+(1,21),
 (1,20),
 (1,4),
 (1,19),
@@ -453,6 +472,16 @@ INSERT INTO DRAG_AND_DROP VALUES
 
 INSERT INTO ANAGRAM VALUES
 (1,'kwageokchoo', 19);
+
+INSERT INTO WORDSEARCH VALUES
+('Accountancy Word Search', 21);
+
+INSERT INTO WORDSEARCH_WORD VALUES
+('Accountancy Word Search', 'account'),
+('Accountancy Word Search', 'study'),
+('Accountancy Word Search', 'money'),
+('Accountancy Word Search', 'loss'),
+('Accountancy Word Search', 'profit');
 
 INSERT INTO ADMIN VALUES
 ('admin', 'password');

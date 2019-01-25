@@ -87,7 +87,7 @@
                 <button type="submit">submit</button>
             </form>
 
-            <form @submit.prevent="wefieOnSubmitToEdit" v-if="func == functionsAvailable[2]">
+            <form @submit.prevent="wefieOnSubmitToDelete" v-if="func == functionsAvailable[2]">
                 Wefie Question:
                 <v-select :options="wefieQuestionList" v-model="wefieID" placeholder="Please select a wefie question" style="width:500px;"></v-select>
                 <button type="submit">delete</button>
@@ -276,9 +276,6 @@ export default {
                 console.log(data);
             })
             location.reload();
-            // this.hotspot = "";
-            // this.quiz = [];
-            // location.reload();
         }
     },
     mounted(){
@@ -286,14 +283,6 @@ export default {
             console.log("check")
             this.$router.push('/')
         }
-        // axios.get('http://54.255.245.23:3000/narrative/getNarratives')
-        // .then(response => {
-        //     let data = response.data;
-        //     for(var row in data){
-        //         console.log(data[row])
-        //         this.dropDownList.push({label: data[row].narrative_title, value: data[row].narrative_id})
-        //     }
-        // })
 
         axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
         .then(response => {
