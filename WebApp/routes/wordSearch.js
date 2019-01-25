@@ -19,7 +19,7 @@ router.get('/getWordSearchWords', (req, res) => {
     } else {
       missions.forEach((missionRow) => {
         let mission = missionRow.MISSION_ID;
-        // let hotspot_name = missionRow.HOTSPOT_NAME;
+        let hotspot_name = missionRow.HOTSPOT_NAME;
 
         const wordSearchQuery = 'SELECT WORDSEARCH.WORDSEARCH_TITLE, WORD FROM WORDSEARCH, WORDSEARCH_WORD WHERE MISSION_ID = ? AND WORDSEARCH.WORDSEARCH_TITLE = WORDSEARCH_WORD.WORDSEARCH_TITLE';
 
@@ -29,7 +29,7 @@ router.get('/getWordSearchWords', (req, res) => {
           } else {
             let temp = [];
             let currentTitle = data[0].WORDSEARCH_TITLE;
-            temp.push({ title: currentTitle });
+            temp.push({ hotspot: hotspot_name });
             let tempWords = [];
             data.forEach((wordSearch) => {
               console.log(wordSearch);
