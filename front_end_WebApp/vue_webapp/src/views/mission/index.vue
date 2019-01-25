@@ -206,7 +206,7 @@ export default {
             // this.hotspot = "";
             // this.quiz = [];
             // location.reload();
-            this.$router.go
+            this.$router.go();
         },
         quizOnSubmitToEdit(){
             var postBody = {
