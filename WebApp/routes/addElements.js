@@ -103,7 +103,7 @@ router.post('/addNarrative', (req,res) => {
 });
 
 router.post('/addQuiz', (req,res) => {
-  // console.log(req.body)
+  console.log(req.body)
   const hotspot = req.body.hotspot;
   const title = req.body.title;
   const quiz = req.body.quiz;
