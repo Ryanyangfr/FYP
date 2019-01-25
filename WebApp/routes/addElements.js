@@ -54,6 +54,7 @@ conn.query(mission_query, (err, data) => {
     console.log(err);
   } else {
     mission_id = data[0].count + 1;
+    console.log(mission_id);
   }
 });
 
@@ -243,6 +244,7 @@ router.post('/addWefieQuestion', (req,res) => {
           console.log(err);
         } else {
           res.send(JSON.stringify({ success: 'true' }));
+          mission_id+=1;
         }
       });
     }
