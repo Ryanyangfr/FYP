@@ -47,5 +47,6 @@ router.get('/getWordSearchWords', (req, res) => {
       });
     }
   });
-
 });
+
+module.exports = router;
