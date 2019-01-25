@@ -30,16 +30,22 @@ router.get('/getWordSearchWords', (req, res) => {
             let temp = [];
             let currentTitle = data[0].WORDSEARCH_TITLE;
             temp.push({ title: currentTitle });
+            let tempWords = [];
             data.forEach((wordSearch) => {
+              console.log(wordSearch);
               if (currentTitle === wordSearch.WORDSEARCH_TITLE) {
-                temp.push(wordSearch.WORD);
+                tempWords.push(wordSearch.WORD);
               } else {
-                response.push({ words: temp });
+                temp.push({ words: tempWords });
+                response.push(temp);
                 temp = [];
+                tempWords = [];
                 currentTitle = wordSearch.WORDSEARCH_TITLE;
                 temp.push({ title: currentTitle });
               }
             });
+            temp.push({ words: tempWords });
+            response.push(temp);
             console.log(response);
             res.send(response);
           }
