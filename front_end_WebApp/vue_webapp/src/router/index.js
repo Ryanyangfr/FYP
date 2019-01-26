@@ -63,6 +63,12 @@ export default new Router({
       name: 'addMission',
       component: ()=> import('@/views/mission/index'),
       hidden: true
+    },
+    {
+      path: '/participant',
+      name: 'participant',
+      component: ()=> import('@/views/participant/index'),
+      hidden: true
     }
   ]
 })
