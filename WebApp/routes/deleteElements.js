@@ -98,4 +98,18 @@ router.post('/deleteWefieQuestion', (req, res) => {
   });
 });
 
+router.post('/deleteParticipant', (req,res) => {
+  const userID = req.body.userID;
+  const query = 'DELETE FROM PARTICIPANT WHERE USER_ID = ?';
+
+  conn.query(query, userID, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      res.send(JSON.stringify({ success: 'true' }));
+    }
+  });
+});
+
 module.exports = router;

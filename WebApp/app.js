@@ -20,6 +20,7 @@ const del = require('./routes/deleteElements.js');
 const edit = require('./routes/editElements.js');
 const mission = require('./routes/mission.js');
 const wordSearch = require('./routes/wordSearch.js');
+const trail = require('./routes/trail.js');
 
 
 // io.on('connection', function(socket){
@@ -58,5 +59,6 @@ app.use('/delete', del);
 app.use('/edit', edit);
 app.use('/mission', mission);
 app.use('/wordsearch', wordSearch);
+app.use('/trail', trail);
 
 module.exports = app;
