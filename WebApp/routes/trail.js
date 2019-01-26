@@ -22,6 +22,7 @@ conn.query('SELECT COUNT(*) AS COUNT FROM TRAIL', (err, num) => {
 
 router.post('/addTrail', (req,res) => {
   trailID += 1;
+  const trailTitle = req.body.title;
   const totalTime = req.body.totalTime;
   const numTeams = req.body.numTeams;
   const hotspots = req.body.hotspot;
@@ -29,7 +30,7 @@ router.post('/addTrail', (req,res) => {
 
   const trailCreationQuery = 'INSERT INTO TRAIL VALUES (?,?,?)';
 
-  conn.query(trailCreationQuery, [trailID, totalTime, numTeams], (err, data) => {
+  conn.query(trailCreationQuery, [trailID, trailTitle, totalTime, numTeams], (err, data) => {
     if (err) {
       console.log(err);
     } else {
