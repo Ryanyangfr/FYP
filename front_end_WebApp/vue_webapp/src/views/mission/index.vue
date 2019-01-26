@@ -152,7 +152,7 @@ export default {
         fetchMissions(){
             // console.log('entered')
             this.missionList = [];
-            axios.get('http://54.255.245.23:3000/mission/getMission?hotspot=' + this.hotspot.value)
+            axios.get('http://54.255.245.23:3000/mission/getMissionQuiz?hotspot=' + this.hotspot.value)
             .then(response =>{
                 var data = response.data;
                 // console.log(data)
