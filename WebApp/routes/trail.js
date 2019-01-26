@@ -27,6 +27,8 @@ router.post('/addTrail', (req,res) => {
   const hotspots = req.body.hotspots;
   const missions = req.body.missions;
 
+  let hotspotCount = 0;
+  let missionCount = 0;
   console.log(req.body);
 
   const trailCreationQuery = 'INSERT INTO TRAIL VALUES (?,?,?)';
@@ -43,7 +45,12 @@ router.post('/addTrail', (req,res) => {
             res.send(JSON.stringify({ success: 'false' }));
             console.log(err);
           } else {
-            res.send(JSON.stringify({ success: 'true' }));
+            if (missionCount === missions.length && hotspotCount === hotspots.length) {
+              res.send(JSON.stringify({ success: 'true' }));
+            } else {
+              hotspotCount += 1;
+            }
+            // res.send(JSON.stringify({ success: 'true' }));
           }
         });
       });
@@ -56,7 +63,12 @@ router.post('/addTrail', (req,res) => {
             res.send(JSON.stringify({ success: 'false' }));
             console.log(err);
           } else {
-            res.send(JSON.stringify({ success: 'true' }));
+            if (missionCount === missions.length && hotspotCount === hotspots.length) {
+              res.send(JSON.stringify({ success: 'true' }));
+            } else {
+              missionCount += 1;
+            }
+            // res.send(JSON.stringify({ success: 'true' }));
           }
         })
       });
