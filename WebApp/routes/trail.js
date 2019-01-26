@@ -38,6 +38,7 @@ router.get('/getAllTrails', (req,res) => {
         } else {
           response.push({ trailID: currTrailID, title: currTrailTitle, totalTime: currTrailTotalTime, hotspotsAndMissions: temp });
           temp = [];
+          temp.push({hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID})
           currTrailID = row.TRAIL_ID;
           currTrailTitle = row.TITLE;
           currTrailTotalTime = row.TOTAL_TIME;
