@@ -23,6 +23,7 @@
             <v-select :options="allTeams" v-model="newTeam" placeholder="Please select a new team" style="width:300px;"></v-select>
             <br>
             <button type="button" @click="switchTeam">Switch</button>
+            <br>
             <button type="button" @click="deleteParticipant">Remove Participant</button>
             <button type="button" @click="back">Back</button>
         </div>
@@ -47,22 +48,33 @@ export default {
       vSelect
   },
   methods : {
-      back(){
-          this.currTeamMember = "";
-      },
-      
-      switchTeam(){
-            var postBody = {
-                "userID": this.currTeamMember.id,
-                "newTeam": this.newTeam
-            }
-            axios.post('http://54.255.245.23:3000/edit/switchTeams', postBody)
-            .then(response => {
-                let data = response.data;
-                console.log(data);
-                this.$router.go();
-          });
-      }
+    back(){
+        this.currTeamMember = "";
+    },
+
+    switchTeam(){
+        var postBody = {
+            "userID": this.currTeamMember.id,
+            "newTeam": this.newTeam
+        }
+        axios.post('http://54.255.245.23:3000/edit/switchTeams', postBody)
+        .then(response => {
+            let data = response.data;
+            console.log(data);
+            this.$router.go();
+        });
+    },
+    deleteParticipant(){
+        var postBody = {
+            "userID": this.currTeamMember.id,
+        }
+        axios.post('http://54.255.245.23:3000/delete/deleteParticipant', postBody)
+        .then(response => {
+            let data = response.data;
+            console.log(data);
+            this.$router.go();
+        });
+    }
   },
   mounted() {
     axios.get('http://54.255.245.23:3000/team/getAllTeamsWithMembers')
