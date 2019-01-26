@@ -159,4 +159,20 @@ router.post('/editWefieQuestion', (req, res) => {
     }
   });
 });
+
+router.post('/switchTeams', (req,res) => {
+  const userID = req.body.userID;
+  const newTeam = req.body.newTeam;
+
+  const query = 'UPDATE PARTICIPANT SET TEAM_ID = ? WHERE USER_ID = ?';
+
+  conn.query(query, [newTeam, userID], (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      res.send(JSON.stringify({ success: 'true' }));
+    }
+  })
+})
 module.exports = router;
