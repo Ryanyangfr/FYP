@@ -69,6 +69,12 @@ export default new Router({
       name: 'participant',
       component: ()=> import('@/views/participant/index'),
       hidden: true
+    },
+    {
+      path: '/trail',
+      name: 'trail',
+      component: ()=> import('@/views/trail/index'),
+      hidden: true
     }
   ]
 })
