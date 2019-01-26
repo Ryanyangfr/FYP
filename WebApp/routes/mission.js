@@ -7,7 +7,7 @@ var databaseConfig = require('../config/mysqlconf.js');
 
 var conn = mysql.createConnection(databaseConfig);
 
-router.get('/getMission', function(req,res){
+router.get('/getMissionQuiz', function(req,res){
     var response = [];
     var hotspot = req.query.hotspot;
     var query = 'SELECT * FROM MISSION WHERE HOTSPOT_NAME = ? AND MISSION.MISSION_ID IN (SELECT MISSION_ID FROM QUIZ)';
@@ -21,7 +21,22 @@ router.get('/getMission', function(req,res){
             res.send(response);
         }
     });
+});
 
+router.get('/getMissionWefie', function(req,res){
+    var response = [];
+    var hotspot = req.query.hotspot;
+    var query = 'SELECT * FROM MISSION WHERE HOTSPOT_NAME = ? AND MISSION.MISSION_ID IN (SELECT MISSION_ID FROM SUBMISSION_QUESTION)';
+    conn.query(query, hotspot, function(err, data){
+        if(err){
+            console.log(err);
+        }else {
+            for(var index in data){
+                response.push({mission: data[index].MISSION_ID, title: data[index].MISSION_TITLE});
+            }
+            res.send(response);
+        }
+    });
 });
 
 module.exports = router;
