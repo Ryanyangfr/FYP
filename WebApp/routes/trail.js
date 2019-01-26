@@ -20,6 +20,35 @@ conn.query('SELECT COUNT(*) AS COUNT FROM TRAIL', (err, num) => {
   }
 });
 
+router.get('/getAllTrails', (req,res) => {
+  let response = [];
+  const query = 'SELECT TRAIL.TRAIL_ID, HOTSPOT_NAME, TITLE, TOTAL_TIME, TRAIL_MISSION.MISSION_ID FROM TRAIL_MISSION, TRAIL, MISSION WHERE TRAIL_MISSION.TRAIL_ID = TRAIL.TRAIL_ID AND MISSION.MISSION_ID = TRAIL_MISSION.MISSION_ID ORDER BY TRAIL.TRAIL_ID';
+
+  conn.query(query, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let temp = [];
+      let currTrailID = data[0].TRAIL_ID;
+      let currTrailTitle = data[0].TITLE
+      let currTrailTotalTime = data[0].TOTAL_TIME;
+      data.forEach((row) => {
+        if (row.TRAIL_ID === currTrailID) {
+          temp.push({hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID})
+        } else {
+          response.push({ trailID: currTrailID, title: currTrailTitle, totalTime: currTrailTotalTime, hotspotsAndMissions: temp });
+          temp = [];
+          currTrailID = row.TRAIL_ID;
+          currTrailTitle = row.TITLE;
+          currTrailTotalTime = row.TOTAL_TIME;
+        }
+      });
+      response.push({ trailID: currTrailID, title: currTrailTitle, totalTime: currTrailTotalTime, hotspotsAndMissions: temp });
+      res.send(response);
+    }
+  });
+})
+
 router.post('/addTrail', (req,res) => {
   trailID += 1;
   const trailTitle = req.body.title;
