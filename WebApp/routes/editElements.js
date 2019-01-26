@@ -163,7 +163,8 @@ router.post('/editWefieQuestion', (req, res) => {
 router.post('/switchTeams', (req,res) => {
   const userID = req.body.userID;
   const newTeam = req.body.newTeam;
-
+  console.log(req.body);
+  
   const query = 'UPDATE PARTICIPANT SET TEAM_ID = ? WHERE USER_ID = ?';
 
   conn.query(query, [newTeam, userID], (err, data) => {
