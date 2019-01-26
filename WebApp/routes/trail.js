@@ -27,6 +27,8 @@ router.post('/addTrail', (req,res) => {
   const hotspots = req.body.hotspots;
   const missions = req.body.missions;
 
+  console.log(req.body);
+
   const trailCreationQuery = 'INSERT INTO TRAIL VALUES (?,?,?)';
 
   conn.query(trailCreationQuery, [trailID, trailTitle, totalTime], (err, data) => {
