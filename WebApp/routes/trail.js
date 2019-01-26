@@ -24,13 +24,12 @@ router.post('/addTrail', (req,res) => {
   trailID += 1;
   const trailTitle = req.body.title;
   const totalTime = req.body.totalTime;
-  const numTeams = req.body.numTeams;
   const hotspots = req.body.hotspots;
   const missions = req.body.missions;
 
   const trailCreationQuery = 'INSERT INTO TRAIL VALUES (?,?,?)';
 
-  conn.query(trailCreationQuery, [trailID, trailTitle, totalTime, numTeams], (err, data) => {
+  conn.query(trailCreationQuery, [trailID, trailTitle, totalTime], (err, data) => {
     if (err) {
       console.log(err);
     } else {
