@@ -35,20 +35,36 @@
 
 export default{ 
     name: 'MainHeader',
+
     data() {
-        return{
-            show: false
+        return {
+            show: false,
         }
     },
+
+    computed: {
+        showSidebar(){
+            return this.$store.state.showSidebar;
+            console.log($store.state.showSidebar);
+        }
+    },        
+    
     methods:{
         showOrHide(){
-            if(this.show){
-                this.show = false;
+            if(this.$store.state.showSidebar){
+                // this.$store.state.showSidebar = false;
+                
+                this.show= false;
                 this.$sidebar = '0px';
             } else{
+                // this.$store.state.showSidebar = true;
                 this.show = true;
                 this.$sidebar = '250px';
             }
+
+            this.$store.commit('changeSideBarState')
+            console.log(this.$store.state.showSidebar);
+
         },
         logout(){
             this.$session.destroy();

@@ -14,10 +14,11 @@
           <!--<SideBar class="SideBar" v-if="['Login'].indexOf($route.name) == -1"></SideBar> -->
       </div>
     </div>
-    <div class="main">
-      <div class="main-margin-top" v-if="['Login'].indexOf($route.name) == -1"></div>
-      <router-view/>
-    </div>
+    
+      <div v-bind:class="{ main: this.$store.state.showSidebar }">
+        <div class="main-margin-top" v-if="['Login'].indexOf($route.name) == -1"></div>
+        <router-view/>
+      </div>
   </div>
 </template>
 
@@ -29,12 +30,22 @@ import MainHeader from './components/MainHeader/index'
 
 export default {
   name: 'App',
+  computed: {
+    showSidebar(){
+      return this.$store.state.showSidebar;
+      console.log(this.$store.state.showSidebar);
+
+    }
+  },   
+
   components: {
     'Navigation': Navigation,
     'MainHeader': MainHeader,
     // Slide
     // 'SideBar': SideBar
-  }
+  },
+
+ 
 }
 </script>
 
@@ -96,5 +107,25 @@ a{
   margin-top:126px;
 }
 
+.main{
+  margin-left: 268px;
+  animation-name: pushRight;
+  animation-duration: 0.5s;
+  animation-direction: normal;
+  animation-delay: 0s;
+  transition: 0.5s ease-in-out;
+}
+
+/*@keyframes pushRight{
+  0%{
+    margin: 0px;
+  }
+
+  100%{
+    margin-left: 268px;
+  }
+
+  
+}*/
 
 </style>

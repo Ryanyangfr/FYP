@@ -32,7 +32,7 @@
                 
                 <form class="edit-narrative-body" @submit.prevent="onSubmitToEdit">
                     <div class="edit-narrative-input">
-                        <input type="text" id="edit-narrative-title-input" required v-model="curr_narrative_title">
+                        <input type="text" id="edit-narrative-title-input" required v-model="curr_narrative_title" readonly>
                         <label for="edit-narrative-title-input">Narrative Title</label>
                     </div>
                     <div class="edit-narrative-input">
@@ -461,16 +461,20 @@ export default {
         transition: all 0.3s ease 0s;
     }
 
-    .edit-narrative-input input:focus ~ label,
+    /*.edit-narrative-input input:focus ~ label,
     .edit-narrative-input input:valid ~ label,
-    .edit-narrative-input input:-webkit-autofill + label,
+    .edit-narrative-input input:-webkit-autofill + label,*/
+    .edit-narrative-input textarea:focus ~ label,
+    .edit-narrative-input textarea:active ~ label,
+    .edit-narrative-input textarea:-webkit-autofill + label,
     .add-narrative-input input:focus ~ label,
     .add-narrative-input input:valid ~ label,
     .add-narrative-input input:-webkit-autofill + label{
         font-size: 14px
     }
 
-    .edit-narrative-input input, .add-narrative-input input{
+    .edit-narrative-input input, 
+    .add-narrative-input input{
         margin-left: 5px;
         height: 40px;
         outline: none;
@@ -482,7 +486,8 @@ export default {
         font-family: 'Roboto', sans-serif;
     }
 
-    .edit-narrative-input input:focus, .add-narrative-input input:focus{
+    /*.edit-narrative-input input:focus, */
+    .add-narrative-input input:focus{
         outline: none !important;
         border:1px solid #6200EE;
         box-shadow: 0 0 2px #645cdd;

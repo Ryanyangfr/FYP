@@ -77,7 +77,7 @@
                 
                 <form class="edit-hotspot-body" @submit.prevent="onSubmitToEdit">
                     <div class="edit-hotspot-input">
-                        <input type="text" id="edit-hotspot-name-input" v-model="curr_hotspot_name" required>
+                        <input type="text" id="edit-hotspot-name-input" v-model="curr_hotspot_name" readonly>
                         <label for="edit-hotspot-name-input">Hotspot Name</label>
                     </div>
                     <div class="edit-hotspot-input">

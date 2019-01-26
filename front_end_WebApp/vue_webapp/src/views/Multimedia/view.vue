@@ -285,6 +285,7 @@ export default{
         animation-name: grow;
         animation-duration: 0.3s;
         animation-direction: normal;
+        animation-delay: 0s;
         transform-origin: top left;
     }
 
