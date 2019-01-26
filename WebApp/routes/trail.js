@@ -62,3 +62,4 @@ router.post('/addTrail', (req,res) => {
   })
 });
 
+module.exports = router;
