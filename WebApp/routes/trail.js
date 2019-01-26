@@ -46,7 +46,7 @@ router.post('/addTrail', (req,res) => {
             console.log(err);
             return;
           } else {
-            if (missionCount === missions.length && hotspotCount === hotspots.length) {
+            if (missionCount === missions.length && hotspotCount === hotspots.length - 1) {
               res.send(JSON.stringify({ success: 'true' }));
             } else {
               hotspotCount += 1;
@@ -65,7 +65,7 @@ router.post('/addTrail', (req,res) => {
             console.log(err);
              return;
           } else {
-            if (missionCount === missions.length && hotspotCount === hotspots.length) {
+            if (missionCount === missions.length - 1 && hotspotCount === hotspots.length) {
               res.send(JSON.stringify({ success: 'true' }));
             } else {
               missionCount += 1;
