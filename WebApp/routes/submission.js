@@ -274,7 +274,7 @@ router.post('/uploadMultimedia', multipart({ uploadDir: submissionDir }), (req, 
 
 router.get('/getSubmissionQuestion', (req, res) => {
   const instance_id = req.query.trail_instance_id;
-  const query = 'SELECT HOTSPOT_NAME, QUESTION FROM TRAIL_MISSION AS TM, MISSION AS M, SUBMISSION_QUESTION AS SQ WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TM.MISSION_ID = M.MISSION_ID AND TM.MISSION_ID = SQ.MISSION_ID';
+  const query = 'SELECT HOTSPOT_NAME, QUESTION FROM TRAIL_HOTSPOT AS TH, MISSION AS M, SUBMISSION_QUESTION AS SQ WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TH.MISSION_ID = M.MISSION_ID AND TH.MISSION_ID = SQ.MISSION_ID';
   const response = [];
 
   conn.query(query, instance_id, (err, result) => {
