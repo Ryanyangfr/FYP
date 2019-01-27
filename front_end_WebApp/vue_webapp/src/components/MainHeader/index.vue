@@ -20,7 +20,7 @@
                     <li><router-link to="/generateInstanceID">Generate Instance ID</router-link></li>
                     <li><router-link to="/leaderboard">Leaderboard</router-link></li>
                     <li><router-link to='/viewSubmissions'>Submissions</router-link></li>
-                    <li><router-link to='/addMission'>Missions</router-link></li>
+                    <li><router-link to='/mission'>Missions</router-link></li>
                     <li><router-link to='/addNarrative'>Narrative</router-link></li>
                     <li><router-link to='/addHotspot'>Hotspot</router-link></li>
 

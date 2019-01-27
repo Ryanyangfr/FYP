@@ -77,7 +77,7 @@
                 
                 <form class="edit-hotspot-body" @submit.prevent="onSubmitToEdit">
                     <div class="edit-hotspot-input">
-                        <input type="text" id="edit-hotspot-name-input" v-model="curr_hotspot_name" readonly>
+                        <input type="text" id="edit-hotspot-name-input" v-model="curr_hotspot_name" required>
                         <label for="edit-hotspot-name-input">Hotspot Name</label>
                     </div>
                     <div class="edit-hotspot-input">
@@ -364,6 +364,9 @@ export default {
 </script>
 
 <style scoped>
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
+    @import '../../assets/themify-icons.css';
+
     label{
         font-family: 'lato', sans-serif
     }

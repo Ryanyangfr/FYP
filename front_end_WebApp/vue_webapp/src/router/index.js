@@ -59,9 +59,15 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/mission',
+      name: 'mission',
+      component: ()=> import('@/views/mission/index'),
+      hidden: true
+    },
+    {
       path: '/addMission',
       name: 'addMission',
-      component: ()=> import('@/views/mission/index'),
+      component: ()=> import('@/views/mission/add'),
       hidden: true
     },
     {

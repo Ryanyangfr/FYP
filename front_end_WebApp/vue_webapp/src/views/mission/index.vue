@@ -1,5 +1,44 @@
 <template>
-    <div>
+    <div class="Missions">
+        <div class="card">
+            <div class="card-title">
+                <h5>Missions List</h5>
+                <button class="create-mission-btn"><i class="ti-plus"></i><router-link to='/addMission'>ADD NEW</router-link></button>
+            </div>
+            <table>
+                <tr class="mission-table-header">
+                    <td class="mission-title-header">Quiz Title</td>
+                    <td>Details</td>
+                    <td>Actions</td>
+                </tr>
+                
+            </table>
+            <br>
+            <table>
+                <tr class="mission-table-header">
+                    <td class="mission-title-header">Wefie Title</td>
+                    <td>Wefie Question</td>
+                    <td colspan="2">Actions</td>
+                </tr>
+                <tr class = "wefie-data" v-for="wefie in wefieQuestionList" :key="wefie.value">
+                    <td>{{wefie.value}}</td>
+                    <td>{{wefie.label}}</td>
+                    <td><button @click="editHotspot(hotspot.hotspot_name,hotspot.latitude,hotspot.longtitude,hotspot.narrative)"><i class="ti-pencil-alt"></i></button></td>
+                    <td><button @click="deleteHotspot(hotspot.hotspot_name)"><i class="ti-trash"></i></button></td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <tr class="mission-table-header">
+                    <td class="mission-title-header">Drawing Title</td>
+                    <td>Hotspot</td>
+                    <td>Drawing Question</td>
+                </tr>
+            </table>
+        </div>
+
+
+
         <v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
         <v-select :options="missionTypes" v-model="mission" placeholder="Choose your mission" style="width:200px;"></v-select>
         <br>
@@ -101,7 +140,7 @@
 import vSelect from 'vue-select'
 import axios from 'axios'
 export default {
-    name: "hotspot",
+    name: "mission",
     data() {
         return{
             func: "Add",
@@ -116,6 +155,7 @@ export default {
             questionList: [],
             questionToBeEdited: "",
             title: "",
+            missionDictionary:{},
             editedOptions: {
                 option1: "",
                 option2: "",
@@ -170,6 +210,7 @@ export default {
                 console.log(data)
                 for(var index in data){
                     this.questionList.push({label: data[index].question, value: data[index].quiz_id});
+                    this.missionDictionary[data[index].quiz_id] = data[index].question;
                 }
             })
         },
@@ -304,3 +345,109 @@ export default {
     }
 }
 </script>
+
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
+    @import '../../assets/themify-icons.css';
+
+    label{
+        font-family: 'lato', sans-serif
+    }
+    .Missions .card{
+        padding: 18px;
+        margin: 18px;
+        border-radius: 3px;
+        border: none;
+        font-family: 'Roboto Condensed', sans-serif; 
+    }
+
+    .card .card-title{
+        /*display: flex;*/
+        /*float: left;*/
+        font-size: 20px;
+    }
+
+    .card-title h5{
+        display: flex;
+        float: left;
+    }
+
+    .create-mission-btn{
+        background-color: #645cdd;;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size:15px;
+        display: flex;
+        float: right;
+        padding:12px;
+        margin-right: 12px;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 600;
+        align-items: center;
+    }
+
+    .create-mission-btn:hover{
+        background-color: #6200EE;
+    }
+
+    .create-mission-btn i{
+        font-size: 13px;
+        margin-right: 5px;
+    }
+
+    .create-mission-btn a {
+        text-decoration: none!important;
+        font-size: 15px;
+        color:white;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
+    .card table{
+        margin: 18px;
+        font-size: 14px;
+        font-family: "Roboto", sans-serif;
+       
+    }
+
+    .card table td{
+        text-align: left;
+    }
+
+    
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+        border-top: 1px solid #DEE2E6;
+        border-bottom: 1px solid #DEE2E6;
+    }
+
+    .wefie-data td{
+        text-overflow: ellipsis;
+        max-height: 10px;
+        padding: 15px;
+    }
+
+    .wefie-data button{
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .wefie-data i{
+        font-size: 20px
+    }
+
+    .mission-table-header td{
+        font-size: 15px;
+        padding: 10px;
+        min-height: 100px;
+        font-weight: 600;
+        border-top: 1px solid #DEE2E6;
+        border-bottom: 2px solid #DEE2E6;
+    }
+
+    .mission-title-header{
+        min-width: 200px;
+    }
+</style>
