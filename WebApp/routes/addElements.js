@@ -90,6 +90,7 @@ router.post('/addNarrative', (req,res) => {
     const count = parseInt(data[0].count);
     const id = count + 1;
 
+    console.log(test)
     const query = 'INSERT INTO NARRATIVE VALUES (?,?,?)';
 
     conn.query(query, [id, title, narrative], (err, reply) => {
