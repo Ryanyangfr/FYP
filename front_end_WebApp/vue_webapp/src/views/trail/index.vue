@@ -50,7 +50,7 @@ export default {
         numTeams: 0,
         missions: [],
         hotspots: [],
-        hotspotsAndMissions: [{hotspot: "", mission: "", missionList:[]}],
+        hotspotsAndMissions: [{hotspot: "", mission: "", missionList:[],  missionType: "Quiz"}],
       }
   }, 
   components:{
@@ -84,16 +84,15 @@ export default {
         })
     },
     trailOnSubmitToAdd(){
-      this.hotspotsAndMissions.forEach((row) => {
-        this.hotspots.push(row.hotspot.label);
-        this.missions.push(row.mission.value);
-      });
+      // this.hotspotsAndMissions.forEach((row) => {
+      //   this.hotspots.push(row.hotspot.label);
+      //   this.missions.push(row.mission.value);
+      // });
       var postBody = {
         title: this.title,
         totalTime: this.duration,
         numTeams: this.numTeams,
-        hotspots: this.hotspots,
-        missions: this.missions
+        hotspotsAndMissions: this.hotspotsAndMissions
       }
       console.log(postBody);
       axios.post('http://54.255.245.23:3000/trail/addTrail', postBody)

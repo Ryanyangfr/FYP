@@ -105,7 +105,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
                 console.log(err);
               });
 
-              const query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID) VALUES (?,?,?,?,?,?)'
+              const query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID) VALUES (?,?,?,?,?,?)';
 
               console.log(`submission: ${submission_id}`);
               console.log(`image url: ${new_image_path}`);
@@ -274,7 +274,7 @@ router.post('/uploadMultimedia', multipart({ uploadDir: submissionDir }), (req, 
 
 router.get('/getSubmissionQuestion', (req, res) => {
   const instance_id = req.query.trail_instance_id;
-  const query = 'SELECT HOTSPOT_NAME, QUESTION FROM TRAIL_MISSION AS TM, MISSION AS M, SUBMISSION_QUESTION AS SQ WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TM.MISSION_ID = M.MISSION_ID AND TM.MISSION_ID = SQ.MISSION_ID';
+  const query = 'SELECT HOTSPOT_NAME, QUESTION FROM TRAIL_HOTSPOT AS TH, MISSION AS M, SUBMISSION_QUESTION AS SQ WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TH.MISSION_ID = M.MISSION_ID AND TH.MISSION_ID = SQ.MISSION_ID';
   const response = [];
 
   conn.query(query, instance_id, (err, result) => {
@@ -288,8 +288,8 @@ router.get('/getSubmissionQuestion', (req, res) => {
 
 router.get('/getDrawingQuestion', (req, res) => {
   const instance_id = req.query.trail_instance_id;
-  const query = 'SELECT HOTSPOT_NAME, QUESTION FROM TRAIL_MISSION AS TM, MISSION AS M, DRAWING_QUESTION AS DQ WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TM.MISSION_ID = M.MISSION_ID AND TM.MISSION_ID = DQ.MISSION_ID';
-  const response = [];
+  const query = 'SELECT HOTSPOT_NAME, QUESTION FROM TRAIL_HOTSPOT AS TH, MISSION AS M, DRAWING_QUESTION AS DQ WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TH.MISSION_ID = M.MISSION_ID AND TH.MISSION_ID = DQ.MISSION_ID';
+  const response = []
 
   conn.query(query, instance_id, (err, result) => {
     result.forEach((row) => {

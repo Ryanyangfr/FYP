@@ -63,11 +63,11 @@ router.post('/addHotspot', (req,res) => {
   const hotspotName = req.body.hotspot_name;
   const latitude = req.body.latitude;
   const longtitude = req.body.longtitude;
-  const narrative_id = req.body.narrative_id;
+  // const narrative_id = req.body.narrative_id;
 
-  const query = 'INSERT INTO HOTSPOT VALUES (?,?,?,?)';
+  const query = 'INSERT INTO HOTSPOT VALUES (?,?,?)';
 
-  conn.query(query,[hotspotName,latitude,longtitude,narrative_id], (err, query) => {
+  conn.query(query,[hotspotName,latitude,longtitude], (err, query) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
@@ -105,7 +105,7 @@ router.post('/addNarrative', (req,res) => {
 
 router.post('/addQuiz', (req,res) => {
   console.log('quiz: ');
-  console.log(req.body)
+  console.log(req.body);
   const hotspot = req.body.hotspot;
   const title = req.body.title;
   const quiz = req.body.quiz;

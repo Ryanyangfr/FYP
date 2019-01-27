@@ -9,7 +9,7 @@ var conn = mysql.createConnection(databaseConfig);
 
 router.get('/getAnagrams', function(req,res){
     var trail_instance_id = req.query.trail_instance_id
-    var query = 'SELECT M.MISSION_ID, HOTSPOT_NAME FROM TRAIL_MISSION AS TM, MISSION AS M WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TM.MISSION_ID = M.MISSION_ID';
+    var query = 'SELECT MISSION_ID, HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ? ORDER BY MISSION_ID)';
     var response = [];
 
     conn.query(query, trail_instance_id, function(err, rows){

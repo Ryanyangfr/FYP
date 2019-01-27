@@ -90,43 +90,45 @@ CREATE TABLE HOTSPOT
 HOTSPOT_NAME VARCHAR(50) NOT NULL,
 LATITUDE VARCHAR(20) NOT NULL,
 LONGTITUDE VARCHAR(20) NOT NULL,
-NARRATIVE_ID INT NOT NULL,
-CONSTRAINT HOTSPOT_PK PRIMARY KEY (HOTSPOT_NAME),
-CONSTRAINT HOTSPOT_FK2 FOREIGN KEY (NARRATIVE_ID)
-REFERENCES NARRATIVE(NARRATIVE_ID)
-);
-
-CREATE TABLE TRAIL_HOTSPOT
-(
-TRAIL_ID INT NOT NULL,
-HOTSPOT_NAME VARCHAR(50) NOT NULL,
-CONSTRAINT TRAIL_HOTSPOT_PK PRIMARY KEY (TRAIL_ID, HOTSPOT_NAME),
-CONSTRAINT TRAIL_HOTSPOT_FK1 FOREIGN KEY (TRAIL_ID)
-REFERENCES TRAIL(TRAIL_ID),
-CONSTRAINT TRAIL_HOTSPOT_FK2 FOREIGN KEY (HOTSPOT_NAME)
-REFERENCES HOTSPOT(HOTSPOT_NAME)
+CONSTRAINT HOTSPOT_PK PRIMARY KEY (HOTSPOT_NAME)
 );
 
 CREATE TABLE MISSION
 (
 MISSION_ID INT NOT NULL,
 MISSION_TITLE VARCHAR(100) NOT NULL,
-HOTSPOT_NAME VARCHAR(50) NOT NULL,
-CONSTRAINT MISSION_PK PRIMARY KEY (MISSION_ID),
-CONSTRAINT MISSION_FK1 FOREIGN KEY (HOTSPOT_NAME)
-REFERENCES HOTSPOT(HOTSPOT_NAME)
+CONSTRAINT MISSION_PK PRIMARY KEY (MISSION_ID)
 );
 
-CREATE TABLE TRAIL_MISSION
+CREATE TABLE TRAIL_HOTSPOT
 (
 TRAIL_ID INT NOT NULL,
+HOTSPOT_NAME VARCHAR(50) NOT NULL,
+NARRATIVE_ID INT NOT NULL,
 MISSION_ID INT NOT NULL,
-CONSTRAINT TRAIL_MISSION_PK PRIMARY KEY (TRAIL_ID,MISSION_ID),
-CONSTRAINT TRAIL_MISSION_FK1 FOREIGN KEY (TRAIL_ID)
+CONSTRAINT TRAIL_HOTSPOT_PK PRIMARY KEY (TRAIL_ID, HOTSPOT_NAME),
+CONSTRAINT TRAIL_HOTSPOT_FK1 FOREIGN KEY (TRAIL_ID)
 REFERENCES TRAIL(TRAIL_ID),
-CONSTRAINT TRAIL_MISSION_FK2 FOREIGN KEY (MISSION_ID)
+CONSTRAINT TRAIL_HOTSPOT_FK2 FOREIGN KEY (HOTSPOT_NAME)
+REFERENCES HOTSPOT(HOTSPOT_NAME),
+CONSTRAINT TRAIL_HOTSPOT_FK3 FOREIGN KEY (NARRATIVE_ID)
+REFERENCES NARRATIVE(NARRATIVE_ID),
+CONSTRAINT TRAIL_HOTSPOT_FK4 FOREIGN KEY (MISSION_ID)
 REFERENCES MISSION(MISSION_ID)
 );
+-- CREATE TABLE TRAIL_MISSION
+-- (
+-- TRAIL_ID INT NOT NULL,
+-- MISSION_ID INT NOT NULL,
+-- HOTSPOT_NAME VARCHAR(50) NOT NULL,
+-- CONSTRAINT TRAIL_MISSION_PK PRIMARY KEY (TRAIL_ID,MISSION_ID),
+-- CONSTRAINT TRAIL_MISSION_FK1 FOREIGN KEY (TRAIL_ID)
+-- REFERENCES TRAIL(TRAIL_ID),
+-- CONSTRAINT TRAIL_MISSION_FK2 FOREIGN KEY (MISSION_ID)
+-- REFERENCES MISSION(MISSION_ID),
+-- CONSTRAINT TRAIL_MISSION_FK3 FOREIGN KEY (HOTSPOT_NAME)
+-- REFERENCES HOTSPOT(HOTSPOT_NAME)
+-- );
 
 CREATE TABLE QUIZ
 (
@@ -265,36 +267,36 @@ INSERT INTO NARRATIVE VALUES
 (7, 'Admin NARRATIVE','Home to around 10,000 undergraduates and postgraduates, SMU comprises six schools which offer a wide range of bachelor’s, master’s and PhD degree programmes in the disciplinary areas associated with the six schools, as well as in inter- disciplinary combinations of these areas. At level three, there is a Multi-Purpose Sports Hall, commonly used for CCA training sessions, competition, camps, examination hall and many more.');
 
 INSERT INTO HOTSPOT VALUES
-('Lee Kong Chian School of Business', '1.2953', '103.8506', 1),
-('School of Accountancy', '1.2956', '103.8498', 2),
-('School of Economics/School of Social Sciences', '1.2979', '103.8489', 3),
-('School of Information Systems', '1.2974', '103.8495', 4),
-('School of Law', '1.2949', '103.8495', 5),
-('Li Ka Shing Library', '1.2962', '103.8501', 6),
-('Administrative Building', '1.268', '103.8522', 7);
+('Lee Kong Chian School of Business', '1.2953', '103.8506'),
+('School of Accountancy', '1.2956', '103.8498'),
+('School of Economics/School of Social Sciences', '1.2979', '103.8489'),
+('School of Information Systems', '1.2974', '103.8495'),
+('School of Law', '1.2949', '103.8495'),
+('Li Ka Shing Library', '1.2962', '103.8501'),
+('Administrative Building', '1.268', '103.8522');
 
 INSERT INTO MISSION VALUES 
-(1, 'title 1', 'Lee Kong Chian School of Business'),
-(2, 'title 2','School of Accountancy'),
-(3, 'title 3','School of Economics/School of Social Sciences'),
-(4, 'title 4','School of Information Systems'),
-(5, 'title 5','School of Law'),
-(6, 'title 6','Li Ka Shing Library'),
-(7, 'title 7','Administrative Building'),
-(8, 'title 8','Lee Kong Chian School of Business'),
-(9, 'title 9','School of Accountancy'),
-(10, 'title 10','School of Economics/School of Social Sciences'),
-(11, 'title 11','School of Information Systems'),
-(12, 'title 12','School of Information Systems'),
-(13, 'title 13','School of Law'),
-(14, 'title 14','School of Law'),
-(15, 'title 15','Li Ka Shing Library'),
-(16, 'title 16','Li Ka Shing Library'),
-(17, 'title 17','Li Ka Shing Library'),
-(18, 'title 18','Lee Kong Chian School of Business'),
-(19, 'title 19','School of Law'),
-(20, 'title 20','School of Economics/School of Social Sciences'),
-(21, 'title 21','School of Accountancy');
+(1, 'title 1'),
+(2, 'title 2'),
+(3, 'title 3'),
+(4, 'title 4'),
+(5, 'title 5'),
+(6, 'title 6'),
+(7, 'title 7'),
+(8, 'title 8'),
+(9, 'title 9'),
+(10, 'title 10'),
+(11, 'title 11'),
+(12, 'title 12'),
+(13, 'title 13'),
+(14, 'title 14'),
+(15, 'title 15'),
+(16, 'title 16'),
+(17, 'title 17'),
+(18, 'title 18'),
+(19, 'title 19'),
+(20, 'title 20'),
+(21, 'title 21');
 
 INSERT INTO QUIZ VALUES
 (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
@@ -420,21 +422,21 @@ INSERT INTO TRAIL_INSTANCE VALUES
 (1,1,0,0),
 ('175239', 1, 1, 0);
 
-INSERT INTO TRAIL_MISSION VALUES
-(1,18),
-(1,21),
-(1,20),
-(1,4),
-(1,19),
-(1,6);
+-- INSERT INTO TRAIL_MISSION VALUES
+-- (1,18, 'Lee Kong Chian School of Business'),
+-- (1,21, 'School of Accountancy'),
+-- (1,20, 'School of Economics/School of Social Sciences'),
+-- (1,4, 'School of Information Systems'),
+-- (1,19, 'School of Law'),
+-- (1,6, 'Li Ka Shing Library');
 
 INSERT INTO TRAIL_HOTSPOT VALUES
-(1, 'Lee Kong Chian School of Business'),
-(1, 'School of Accountancy'),
-(1, 'School of Economics/School of Social Sciences'),
-(1, 'School of Information Systems'),
-(1, 'School of Law'),
-(1, 'Li Ka Shing Library');
+(1, 'Lee Kong Chian School of Business', 1, 18),
+(1, 'School of Accountancy', 2, 21),
+(1, 'School of Economics/School of Social Sciences', 3, 20),
+(1, 'School of Information Systems', 4, 4),
+(1, 'School of Law', 5, 19),
+(1, 'Li Ka Shing Library', 6, 6);
 
 INSERT INTO TEAM VALUES
 (1,0,1),

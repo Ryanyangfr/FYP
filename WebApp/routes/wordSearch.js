@@ -11,7 +11,7 @@ router.get('/getWordSearchWords', (req, res) => {
   const trailInstanceID = req.query.trail_instance_id;
   const response = [];
 
-  const query = 'SELECT M.MISSION_ID, HOTSPOT_NAME FROM TRAIL_MISSION AS TM, MISSION AS M, WORDSEARCH AS WS WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TM.MISSION_ID = M.MISSION_ID AND TM.MISSION_ID = WS.MISSION_ID';
+  const query = 'SELECT TH.MISSION_ID, HOTSPOT_NAME FROM TRAIL_HOTSPOT AS TH, WORDSEARCH AS WS WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TH.MISSION_ID = WS.MISSION_ID';
 
   conn.query(query, trailInstanceID, (err, missions) => {
     if (err) {
