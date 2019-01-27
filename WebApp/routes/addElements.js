@@ -90,7 +90,7 @@ router.post('/addNarrative', (req,res) => {
     const count = parseInt(data[0].count);
     const id = count + 1;
 
-    console.log(test)
+    console.log('test');
     const query = 'INSERT INTO NARRATIVE VALUES (?,?,?)';
 
     conn.query(query, [id, title, narrative], (err, reply) => {
@@ -106,7 +106,7 @@ router.post('/addNarrative', (req,res) => {
 
 router.post('/addQuiz', (req,res) => {
   console.log('quiz: ');
-  console.log(req.body)
+  console.log(req.body);
   const hotspot = req.body.hotspot;
   const title = req.body.title;
   const quiz = req.body.quiz;
