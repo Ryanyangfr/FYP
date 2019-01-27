@@ -54,7 +54,7 @@ router.post('/addTrail', (req,res) => {
   trailID += 1;
   const trailTitle = req.body.title;
   const totalTime = req.body.totalTime;
-  const hotspotsAndMissions = req.body.hotspots;
+  const hotspotsAndMissions = req.body.hotspotsAndMissions;
   // const missions = req.body.missions;
   const narrativeID = req.body.narrativeID;
 
@@ -71,7 +71,7 @@ router.post('/addTrail', (req,res) => {
       const trailHotspotsCreationQuery = 'INSERT INTO TRAIL_HOTSPOT VALUES (?,?,?,?)';
       
       hotspotsAndMissions.forEach((hotspotAndMission) => {
-        conn.query(trailHotspotsCreationQuery, [trailID,hotspotAndMission.hotspot,narrativeID,hotspotAndMission.mission], (err, result) => {
+        conn.query(trailHotspotsCreationQuery, [trailID,hotspotAndMission.hotspot.label,narrativeID,hotspotAndMission.mission.label], (err, result) => {
           if (err) {
             res.send(JSON.stringify({ success: 'false' }));
             console.log(err);

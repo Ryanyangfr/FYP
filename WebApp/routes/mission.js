@@ -9,9 +9,9 @@ var conn = mysql.createConnection(databaseConfig);
 
 router.get('/getMissionQuiz', function(req,res){
     var response = [];
-    var hotspot = req.query.hotspot;
+    // var hotspot = req.query.hotspot;
     var query = 'SELECT * FROM MISSION WHERE MISSION.MISSION_ID IN (SELECT MISSION_ID FROM QUIZ)';
-    conn.query(query, hotspot, function(err, data){
+    conn.query(query, function(err, data){
         if(err){
             console.log(err);
         }else {
@@ -25,9 +25,9 @@ router.get('/getMissionQuiz', function(req,res){
 
 router.get('/getMissionWefie', function(req,res){
     var response = [];
-    var hotspot = req.query.hotspot;
+    // var hotspot = req.query.hotspot;
     var query = 'SELECT * FROM MISSION WHERE MISSION.MISSION_ID IN (SELECT MISSION_ID FROM SUBMISSION_QUESTION)';
-    conn.query(query, hotspot, function(err, data){
+    conn.query(query, function(err, data){
         if(err){
             console.log(err);
         }else {
