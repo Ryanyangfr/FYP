@@ -422,21 +422,21 @@ INSERT INTO TRAIL_INSTANCE VALUES
 (1,1,0,0),
 ('175239', 1, 1, 0);
 
-INSERT INTO TRAIL_MISSION VALUES
-(1,18, 'Lee Kong Chian School of Business'),
-(1,21, 'School of Accountancy'),
-(1,20, 'School of Economics/School of Social Sciences'),
-(1,4, 'School of Information Systems'),
-(1,19, 'School of Law'),
-(1,6, 'Li Ka Shing Library');
+-- INSERT INTO TRAIL_MISSION VALUES
+-- (1,18, 'Lee Kong Chian School of Business'),
+-- (1,21, 'School of Accountancy'),
+-- (1,20, 'School of Economics/School of Social Sciences'),
+-- (1,4, 'School of Information Systems'),
+-- (1,19, 'School of Law'),
+-- (1,6, 'Li Ka Shing Library');
 
 INSERT INTO TRAIL_HOTSPOT VALUES
-(1, 'Lee Kong Chian School of Business',1),
-(1, 'School of Accountancy',2),
-(1, 'School of Economics/School of Social Sciences',3),
-(1, 'School of Information Systems',4),
-(1, 'School of Law',5),
-(1, 'Li Ka Shing Library',6);
+(1, 'Lee Kong Chian School of Business', 1, 18),
+(1, 'School of Accountancy', 2, 21),
+(1, 'School of Economics/School of Social Sciences', 3, 20),
+(1, 'School of Information Systems', 4, 4),
+(1, 'School of Law', 5, 19),
+(1, 'Li Ka Shing Library', 6, 6);
 
 INSERT INTO TEAM VALUES
 (1,0,1),
