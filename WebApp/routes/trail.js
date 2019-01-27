@@ -22,7 +22,7 @@ conn.query('SELECT COUNT(*) AS COUNT FROM TRAIL', (err, num) => {
 
 router.get('/getAllTrails', (req,res) => {
   let response = [];
-  const query = 'SELECT TRAIL.TRAIL_ID, HOTSPOT_NAME, TITLE, TOTAL_TIME, TRAIL_MISSION.MISSION_ID FROM TRAIL_MISSION, TRAIL, MISSION WHERE TRAIL_MISSION.TRAIL_ID = TRAIL.TRAIL_ID AND MISSION.MISSION_ID = TRAIL_MISSION.MISSION_ID ORDER BY TRAIL.TRAIL_ID';
+  const query = 'SELECT TRAIL.TRAIL_ID, HOTSPOT_NAME, TITLE, TOTAL_TIME, TRAIL_HOTSPOT.MISSION_ID FROM TRAIL_HOTSPOT, TRAIL, MISSION WHERE TRAIL_HOTSPOT.TRAIL_ID = TRAIL.TRAIL_ID AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID ORDER BY TRAIL.TRAIL_ID';
 
   conn.query(query, (err, data) => {
     if (err) {
@@ -54,8 +54,9 @@ router.post('/addTrail', (req,res) => {
   trailID += 1;
   const trailTitle = req.body.title;
   const totalTime = req.body.totalTime;
-  const hotspots = req.body.hotspots;
-  const missions = req.body.missions;
+  const hotspotsAndMissions = req.body.hotspots;
+  // const missions = req.body.missions;
+  const narrativeID = req.body.narrativeID;
 
   let hotspotCount = 0;
   let missionCount = 0;
@@ -67,16 +68,16 @@ router.post('/addTrail', (req,res) => {
     if (err) {
       console.log(err);
     } else {
-      const trailHotspotsCreationQuery = 'INSERT INTO TRAIL_HOTSPOT VALUES (?,?)';
+      const trailHotspotsCreationQuery = 'INSERT INTO TRAIL_HOTSPOT VALUES (?,?,?,?)';
       
-      hotspots.forEach((hotspot) => {
-        conn.query(trailHotspotsCreationQuery, [trailID,hotspot], (err, result) => {
+      hotspotsAndMissions.forEach((hotspotAndMission) => {
+        conn.query(trailHotspotsCreationQuery, [trailID,hotspotAndMission.hotspot,narrativeID,hotspotAndMission.mission], (err, result) => {
           if (err) {
             res.send(JSON.stringify({ success: 'false' }));
             console.log(err);
             return;
           } else {
-            if (missionCount === missions.length && hotspotCount === hotspots.length - 1) {
+            if (hotspotCount === hotspots.length - 1) {
               res.send(JSON.stringify({ success: 'true' }));
             } else {
               hotspotCount += 1;
@@ -86,23 +87,23 @@ router.post('/addTrail', (req,res) => {
         });
       });
 
-      const trailMissionsCreationQuery = 'INSERT INTO TRAIL_MISSION VALUES (?,?)';
+      // const trailMissionsCreationQuery = 'INSERT INTO TRAIL_MISSION VALUES (?,?)';
 
-      missions.forEach((mission) => {
-        conn.query(trailMissionsCreationQuery, [trailID, mission], (err, result) => {
-          if (err) {
-            res.send(JSON.stringify({ success: 'false' }));
-            console.log(err);
-             return;
-          } else {
-            if (missionCount === missions.length - 1 && hotspotCount === hotspots.length) {
-              res.send(JSON.stringify({ success: 'true' }));
-            } else {
-              missionCount += 1;
-            }
-            // res.send(JSON.stringify({ success: 'true' }));
-          }
-        })
+      // missions.forEach((mission) => {
+      //   conn.query(trailMissionsCreationQuery, [trailID, mission], (err, result) => {
+      //     if (err) {
+      //       res.send(JSON.stringify({ success: 'false' }));
+      //       console.log(err);
+      //        return;
+      //     } else {
+      //       if (missionCount === missions.length - 1 && hotspotCount === hotspots.length) {
+      //         res.send(JSON.stringify({ success: 'true' }));
+      //       } else {
+      //         missionCount += 1;
+      //       }
+      //       // res.send(JSON.stringify({ success: 'true' }));
+      //     }
+      //   })
       });
     }
   })

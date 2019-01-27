@@ -9,7 +9,7 @@ var conn = mysql.createConnection(databaseConfig);
 
 router.get('/getQuizzes', function(req, res){
     var trail_instance_id = req.query.trail_instance_id;
-    query = 'SELECT M.MISSION_ID, HOTSPOT_NAME FROM TRAIL_MISSION AS TM, MISSION AS M WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TM.MISSION_ID = M.MISSION_ID';
+    query = 'SELECT MISSION_ID, HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ? ORDER BY MISSION_ID)';
     var response = [];
     var number = 1;
     conn.query(query, trail_instance_id, function(err, missions){

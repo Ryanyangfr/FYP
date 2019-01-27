@@ -43,6 +43,6 @@ router.get('/completedHotspots', function(req,res){
 
 router.post('/createTrailInstance', cors(), function(req,res){
     
-})
+});
 
 module.exports = router;
