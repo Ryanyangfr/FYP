@@ -1,4 +1,4 @@
--- DROP DATABASE Engaging_U_TEST;
+DROP DATABASE Engaging_U_TEST;
 CREATE DATABASE IF NOT EXISTS Engaging_U_TEST;
 USE Engaging_U_TEST;
 
@@ -265,13 +265,13 @@ INSERT INTO NARRATIVE VALUES
 (7, 'Admin NARRATIVE','Home to around 10,000 undergraduates and postgraduates, SMU comprises six schools which offer a wide range of bachelor’s, master’s and PhD degree programmes in the disciplinary areas associated with the six schools, as well as in inter- disciplinary combinations of these areas. At level three, there is a Multi-Purpose Sports Hall, commonly used for CCA training sessions, competition, camps, examination hall and many more.');
 
 INSERT INTO HOTSPOT VALUES
-('Lee Kong Chian School of Business', '1.2953', '103.8506', 1),
-('School of Accountancy', '1.2956', '103.8498', 2),
-('School of Economics/School of Social Sciences', '1.2979', '103.8489', 3),
-('School of Information Systems', '1.2974', '103.8495', 4),
-('School of Law', '1.2949', '103.8495', 5),
-('Li Ka Shing Library', '1.2962', '103.8501', 6),
-('Administrative Building', '1.268', '103.8522', 7);
+('Lee Kong Chian School of Business', '1.2953', '103.8506'),
+('School of Accountancy', '1.2956', '103.8498'),
+('School of Economics/School of Social Sciences', '1.2979', '103.8489'),
+('School of Information Systems', '1.2974', '103.8495'),
+('School of Law', '1.2949', '103.8495'),
+('Li Ka Shing Library', '1.2962', '103.8501'),
+('Administrative Building', '1.268', '103.8522');
 
 INSERT INTO MISSION VALUES 
 (1, 'title 1'),
