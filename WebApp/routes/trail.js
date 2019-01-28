@@ -34,7 +34,7 @@ router.get('/getAllTrails', (req,res) => {
       let currTrailTotalTime = data[0].TOTAL_TIME;
       data.forEach((row) => {
         if (row.TRAIL_ID === currTrailID) {
-          temp.push({ hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID, narrativeTitle: row.NARRATIVE_TITLE, narrativeID: row.NARRATIVE_ID, missionType: '', missionList: [] });
+          temp.push({ hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID, missionTitle: row.MISSION_TITLE, narrativeTitle: row.NARRATIVE_TITLE, narrativeID: row.NARRATIVE_ID, missionType: '', missionList: [] });
         } else {
           response.push({ trailID: currTrailID, title: currTrailTitle, totalTime: currTrailTotalTime, hotspotsAndMissions: temp });
           temp = [];
