@@ -20,7 +20,7 @@ conn.query('SELECT COUNT(*) AS COUNT FROM TRAIL', (err, num) => {
   }
 });
 
-router.get('/getAllTrails', (req,res) => {
+router.get('/getAllTrails', (req, res) => {
   let response = [];
   const query = 'SELECT TRAIL.TRAIL_ID, TRAIL_HOTSPOT.NARRATIVE_ID, NARRATIVE_TITLE, HOTSPOT_NAME, TITLE, TOTAL_TIME, MISSION_TITLE, TRAIL_HOTSPOT.MISSION_ID FROM TRAIL_HOTSPOT, TRAIL, MISSION, NARRATIVE WHERE TRAIL_HOTSPOT.TRAIL_ID = TRAIL.TRAIL_ID AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND NARRATIVE.NARRATIVE_ID = TRAIL_HOTSPOT.NARRATIVE_ID ORDER BY TRAIL.TRAIL_ID';
 
@@ -50,7 +50,7 @@ router.get('/getAllTrails', (req,res) => {
   });
 })
 
-router.post('/addTrail', (req,res) => {
+router.post('/addTrail', (req, res) => {
   trailID += 1;
   const trailTitle = req.body.title;
   const totalTime = req.body.totalTime;
@@ -72,7 +72,7 @@ router.post('/addTrail', (req,res) => {
       
       hotspotsAndMissions.forEach((hotspotAndMission) => {
         console.log(hotspotAndMission)
-        conn.query(trailHotspotsCreationQuery, [trailID,hotspotAndMission.hotspot.label,hotspotAndMission.narrative.value,hotspotAndMission.mission.value], (err, result) => {
+        conn.query(trailHotspotsCreationQuery, [trailID, hotspotAndMission.hotspot.label, hotspotAndMission.narrative.value, hotspotAndMission.mission.value], (err, result) => {
           if (err) {
             res.send(JSON.stringify({ success: 'false' }));
             console.log(err);
@@ -109,7 +109,7 @@ router.post('/addTrail', (req,res) => {
   });
 });
 
-router.post('/editTrail', (req,res) => {
+router.post('/editTrail', (req, res) => {
   const trailID = req.body.trailID;
   const trailTitle = req.body.title;
   const totalTime = req.body.totalTime;
@@ -118,7 +118,7 @@ router.post('/editTrail', (req,res) => {
   let rowCount = 0;
   const updateTrailQuery = 'UPDATE TRAIL SET TITLE = ?, TOTAL_TIME = ? WHERE TRAIL_ID = ?';
 
-  conn.query(updateTrailQuery, [trailTitle,totalTime, trailID], (err, data) => {
+  conn.query(updateTrailQuery, [trailTitle, totalTime, trailID], (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
@@ -129,10 +129,10 @@ router.post('/editTrail', (req,res) => {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          const trailHotspotCreationQuery = 'INSERT INTO TRAIL_HOTSPOT VALUES (?,?,?,?)';
+          const trailHotspotsCreationQuery = 'INSERT INTO TRAIL_HOTSPOT VALUES (?,?,?,?)';
           hotspotsAndMissions.forEach((hotspotAndMission) => {
             console.log(hotspotAndMission)
-            conn.query(trailHotspotsCreationQuery, [trailID,hotspotAndMission.hotspot,hotspotAndMission.narrative,hotspotAndMission.mission], (err, result) => {
+            conn.query(trailHotspotsCreationQuery, [trailID, hotspotAndMission.hotspot, hotspotAndMission.narrative, hotspotAndMission.mission], (err, result) => {
               if (err) {
                 res.send(JSON.stringify({ success: 'false' }));
                 console.log(err);
@@ -149,6 +149,7 @@ router.post('/editTrail', (req,res) => {
         }
       });
     }
+  });
 });
 
 module.exports = router;
