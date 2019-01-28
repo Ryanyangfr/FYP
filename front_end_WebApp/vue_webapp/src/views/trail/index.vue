@@ -9,12 +9,19 @@
         Trail Duration:
         <input name="duration" type="text" placeholder="duration" v-model="duration">
         <br>
+        <!-- {{this.narrativeList}}
+        {{this.hotspotsAndMissions}} -->
         Trail Hotspots:
          <ul>
             <li v-for="(input, index) in hotspotsAndMissions">
               Hotspot:
               <v-select :options="hotspotList" v-model="input.hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>
               
+              <br>
+              Narrative:
+              <v-select :options="narrativeList" v-model="input.narrative" placeholder="Please select a narrative" style="width:200px;"></v-select>
+              <br>
+              <!-- {{input.narrative }} -->
               Mission Type:
               <v-select :options="missionTypesAvailable" v-model="input.missionType" style="width:200px;"></v-select>
               <button type="button" @click="fetchMissions(input.hotspot, input.missionList, input.missionType)">Get Available Missions</button>
@@ -45,12 +52,13 @@ export default {
         func: "Add",
         missionTypesAvailable: ["Quiz", "Wefie"],
         hotspotList: [],
+        narrativeList: [],
         title: "",
         duration: 0,
         numTeams: 0,
         missions: [],
         hotspots: [],
-        hotspotsAndMissions: [{hotspot: "", mission: "", missionList:[],  missionType: "Quiz"}],
+        hotspotsAndMissions: [{hotspot: "", mission: "", missionList:[],  missionType: "Quiz", narrative: ""}],
       }
   }, 
   components:{
@@ -62,7 +70,8 @@ export default {
            hotspot: "",
            mission: "",
            missionType: this.missionTypesAvailable[0],
-           missionList: []
+           missionList: [],
+           narrative: ""
         })
     },
     deleteRow(index){
@@ -71,7 +80,7 @@ export default {
     fetchMissions(hotspot,missionList, missionType){
         console.log('entered')
         console.log(hotspot)
-        axios.get('http://54.255.245.23:3000/mission/getMission' + missionType + '?hotspot=' + hotspot.value)
+        axios.get('http://54.255.245.23:3000/mission/getMission' + missionType)
         .then(response =>{
             var data = response.data;
             // console.log(data)
@@ -117,6 +126,18 @@ export default {
             this.hotspotList.push({label: data[row].hotspot_name, value: data[row].hotspot_name})
         }
     });
+
+    axios.get('http://54.255.245.23:3000/narrative/getNarratives')
+    .then(response => {
+        let data = response.data;
+        for(var row in data){
+            console.log(data[row])
+            this.narrativeList.push({label: data[row].narrative_title, value: data[row].narrative_id})
+            // this.narrative_dictionary[data[row].narrative_title] = data[row].narrative_id;
+        }
+        // console.log("dictionary: ");
+        // console.log(this.narrative_dictionary);
+    })
 
   }
 }
