@@ -72,7 +72,7 @@ router.post('/addTrail', (req,res) => {
       
       hotspotsAndMissions.forEach((hotspotAndMission) => {
         console.log(hotspotAndMission)
-        conn.query(trailHotspotsCreationQuery, [trailID,hotspotAndMission.hotspot.label,hotspotAndMission.narrative.value,hotspotAndMission.mission.label], (err, result) => {
+        conn.query(trailHotspotsCreationQuery, [trailID,hotspotAndMission.hotspot.label,hotspotAndMission.narrative.value,hotspotAndMission.mission.value], (err, result) => {
           if (err) {
             res.send(JSON.stringify({ success: 'false' }));
             console.log(err);
