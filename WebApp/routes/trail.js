@@ -22,7 +22,7 @@ conn.query('SELECT COUNT(*) AS COUNT FROM TRAIL', (err, num) => {
 
 router.get('/getAllTrails', (req,res) => {
   let response = [];
-  const query = 'SELECT TRAIL.TRAIL_ID, HOTSPOT_NAME, TITLE, TOTAL_TIME, MISSION_TITLE, TRAIL_HOTSPOT.MISSION_ID FROM TRAIL_HOTSPOT, TRAIL, MISSION WHERE TRAIL_HOTSPOT.TRAIL_ID = TRAIL.TRAIL_ID AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID ORDER BY TRAIL.TRAIL_ID';
+  const query = 'SELECT TRAIL.TRAIL_ID, NARRATIVE_ID, NARRATIVE_TITLE, HOTSPOT_NAME, TITLE, TOTAL_TIME, MISSION_TITLE, TRAIL_HOTSPOT.MISSION_ID FROM TRAIL_HOTSPOT, TRAIL, MISSION WHERE TRAIL_HOTSPOT.TRAIL_ID = TRAIL.TRAIL_ID AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID ORDER BY TRAIL.TRAIL_ID';
 
   conn.query(query, (err, data) => {
     if (err) {
@@ -34,11 +34,11 @@ router.get('/getAllTrails', (req,res) => {
       let currTrailTotalTime = data[0].TOTAL_TIME;
       data.forEach((row) => {
         if (row.TRAIL_ID === currTrailID) {
-          temp.push({hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID})
+          temp.push({ hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID, narrativeTitle: row.NARRATIVE_TITLE, narrativeID: row.NARRATIVE_ID });
         } else {
           response.push({ trailID: currTrailID, title: currTrailTitle, totalTime: currTrailTotalTime, hotspotsAndMissions: temp });
           temp = [];
-          temp.push({hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID})
+          temp.push({ hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID })
           currTrailID = row.TRAIL_ID;
           currTrailTitle = row.TITLE;
           currTrailTotalTime = row.TOTAL_TIME;
@@ -76,7 +76,6 @@ router.post('/addTrail', (req,res) => {
           if (err) {
             res.send(JSON.stringify({ success: 'false' }));
             console.log(err);
-            return;
           } else {
             if (hotspotCount === hotspotsAndMissions.length - 1) {
               res.send(JSON.stringify({ success: 'true' }));
