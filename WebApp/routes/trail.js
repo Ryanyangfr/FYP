@@ -143,11 +143,12 @@ router.post('/editTrail', (req,res) => {
                   rowCount += 1;
                 }
                 // res.send(JSON.stringify({ success: 'true' }));
-            }
+              }
+            });
           });
+        }
       });
     }
-  });
 });
 
 module.exports = router;
