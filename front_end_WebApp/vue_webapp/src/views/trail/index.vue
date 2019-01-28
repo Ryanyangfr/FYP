@@ -24,7 +24,8 @@
               <!-- {{input.narrative }} -->
               Mission Type:
               <v-select :options="missionTypesAvailable" v-model="input.missionType" style="width:200px;"></v-select>
-              <button type="button" @click="fetchMissions(input.hotspot, input.missionList, input.missionType)">Get Available Missions</button>
+              {{input.missionType}}
+              <button type="button" @click="fetchMissions(input.missionList, input.missionType)">Get Available Missions</button>
               <!-- {{input.missionList}} -->
               
               <div v-if="input.missionList.length > 0">
@@ -37,6 +38,48 @@
             <button type="button" @click="addRow">Add row</button>
             <button type="submit">submit</button>
         </ul>
+    </form>
+    <!-- {{allTrailsInfoList}} -->
+    <form @submit.prevent="trailOnSubmitToEdit" v-if="func == functionsAvailable[1]">
+        <v-select :options="trailsList" v-model="trailID" placeholder="Please select a trail" style="width:200px;"></v-select>
+        <button type="button" @click="populateCurrentTrailInfo">Edit Trail</button>
+        <!-- {{trailID}} -->
+        <div v-if="trailID != undefined">
+            <!-- {{allTrailsInfoList}} -->
+            <!-- {{currTrailTitle}} -->
+            <!-- {{currHotspotsAndMissions}} -->
+            Trail Title:
+            <input name="title" type="text" v-model="currTrailTitle">
+            {{currTrailTitle}}
+            <br>
+            Trail Duration:
+            <input name="duration" type="text" v-model="currTrailTotalTime">
+            <!-- {{currHotspotsAndMissions}} -->
+            <ul>
+                <li v-for="(input, index) in currHotspotsAndMissions">
+                {{input}}
+                Hotspot:
+                <v-select :options="hotspotList" v-model="input.hotspot" style="width:200px;"></v-select>
+                
+                <br>
+                Narrative:
+                <v-select :options="narrativeList" v-model="input.narrativeTitle" style="width:200px;"></v-select>
+                <br>
+                <!-- {{input.narrative }} -->
+                Mission Type:
+                <v-select :options="missionTypesAvailable" v-model="input.missionType" style="width:200px;"></v-select>
+                <button type="button" @click="fetchMissions(input.missionList, input.missionType)">Get Available Missions</button>
+                <!-- {{input.missionList}} -->
+                
+                <div v-if="input.missionList.length > 0">
+                    Mission:
+                    <v-select :options="input.missionList" v-model="input.missionTitle" placeholder="Select a mission" style="width:200px;"></v-select>
+                </div>
+                <button type="submit">submit</button>
+
+                </li>
+            </ul>
+        </div>
     </form>
   </div>
 </template>
@@ -53,12 +96,19 @@ export default {
         missionTypesAvailable: ["Quiz", "Wefie"],
         hotspotList: [],
         narrativeList: [],
+        trailsList: [],
         title: "",
         duration: 0,
         numTeams: 0,
         missions: [],
         hotspots: [],
         hotspotsAndMissions: [{hotspot: "", mission: "", missionList:[],  missionType: "Quiz", narrative: ""}],
+        trailID: 0,
+        allTrailsInfoList: [],
+        currTrailTitle: "",
+        currTrailTotalTime: 0,
+        currHotspotsAndMissions: [],
+        editedCurrHotspotsAndMissionsForUpdating: []
       }
   }, 
   components:{
@@ -77,20 +127,42 @@ export default {
     deleteRow(index){
       this.$delete(this.hotspotsAndMissions, index);
     },
-    fetchMissions(hotspot,missionList, missionType){
+    fetchMissions(missionList, missionType){
+        while (missionList.length > 0) {
+            missionList.pop();
+        }
+
         console.log('entered')
-        console.log(hotspot)
+        console.log(missionType)
+        // console.log(hotspot)
         axios.get('http://54.255.245.23:3000/mission/getMission' + missionType)
         .then(response =>{
             var data = response.data;
             // console.log(data)
-            // missionList = [];
             for(var index in data){
               // console.log(index)
               missionList.push({label: data[index].title, value: data[index].mission});
-              console.log(missionList);
+            //   console.log(missionList);
+            }
+        });
+        // console.log(missionList)
+    },
+    populateCurrentTrailInfo(){
+        console.log('test')
+        this.allTrailsInfoList.forEach((information) => {
+            // console.log(this.trailID);
+            console.log(information.id === this.trailID.value)
+            if(information.id === this.trailID.value){
+                console.log(information);
+                this.currTrailTitle = information.information.title;
+                this.currTrailTotalTime = information.information.totalTime;
+                this.currHotspotsAndMissions = information.information.hotspotsAndMissions;
             }
         })
+        // let information = this.allTrailsInfoList[this.trailID]
+        // this.currTrailTitle = information.title;
+        // this.currTrailTotalTime = information.totalTime;
+        // this.currHotspotsAndMissions = information.hotspotsAndMissions;
     },
     trailOnSubmitToAdd(){
       // this.hotspotsAndMissions.forEach((row) => {
@@ -109,6 +181,49 @@ export default {
           let data = response.data
           console.log(data)
           // this.$router.go();
+      })
+    },
+    trailOnSubmitToEdit(){
+      // this.hotspotsAndMissions.forEach((row) => {
+      //   this.hotspots.push(row.hotspot.label);
+      //   this.missions.push(row.mission.value);
+      // });
+      this.currHotspotsAndMissions.forEach((hotspotAndMission) => {
+          let hotspot = hotspotAndMission.hotspot;
+          let mission = hotspotAndMission.missionTitle;
+          let narrative = hotspotAndMission.narrativeTitle;
+
+          if (hotspot.label != undefined) {
+              hotspot = hotspot.label;
+          }
+
+          if (mission.label != undefined) {
+              mission = mission.value
+          } else {
+              mission = hotspotAndMission.mission;
+          }
+
+          if (narrative.label != undefined) {
+              narrative = narrative.value;
+          } else {
+              narrative = hotspotAndMission.narrativeID;
+          }
+
+          this.editedCurrHotspotsAndMissionsForUpdating.push({hotspot: hotspot, narrative: narrative, mission: mission })
+      })
+        console.log(this.currTrailTitle);
+        var postBody = {
+            trailID: this.trailID.value,
+            title: this.trailID.label,
+            totalTime: this.currTrailTotalTime,
+            hotspotsAndMissions: this.editedCurrHotspotsAndMissionsForUpdating
+        }
+        console.log(postBody);
+        axios.post('http://54.255.245.23:3000/trail/editTrail', postBody)
+        .then(response => {
+            let data = response.data
+            console.log(data)
+            // this.$router.go();
       })
     }
   },
@@ -137,6 +252,16 @@ export default {
         }
         // console.log("dictionary: ");
         // console.log(this.narrative_dictionary);
+    })
+
+    axios.get('http://54.255.245.23:3000/trail/getAllTrails')
+    .then(response => {
+        let data = response.data;
+        for(var row in data){
+            console.log(data[row]);
+            this.trailsList.push({label: data[row].title, value: data[row].trailID});
+            this.allTrailsInfoList.push({id: data[row].trailID, information: data[row]})
+        }
     })
 
   }
