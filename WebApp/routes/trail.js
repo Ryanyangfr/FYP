@@ -40,7 +40,7 @@ router.get('/getAllTrails', (req, res) => {
           console.log(temp);
           response.push({ trailID: currTrailID, title: currTrailTitle, totalTime: currTrailTotalTime, hotspotsAndMissions: temp });
           temp = [];
-          temp.push({ hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID })
+          temp.push({ hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID, missionTitle: row.MISSION_TITLE, narrativeTitle: row.NARRATIVE_TITLE, narrativeID: row.NARRATIVE_ID, missionType: '', missionList: [] });
           currTrailID = row.TRAIL_ID;
           currTrailTitle = row.TITLE;
           currTrailTotalTime = row.TOTAL_TIME;
