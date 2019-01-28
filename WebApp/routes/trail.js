@@ -33,9 +33,11 @@ router.get('/getAllTrails', (req, res) => {
       let currTrailTitle = data[0].TITLE
       let currTrailTotalTime = data[0].TOTAL_TIME;
       data.forEach((row) => {
+        console.log(row.TRAIL_ID === currTrailID);
         if (row.TRAIL_ID === currTrailID) {
           temp.push({ hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID, missionTitle: row.MISSION_TITLE, narrativeTitle: row.NARRATIVE_TITLE, narrativeID: row.NARRATIVE_ID, missionType: '', missionList: [] });
         } else {
+          console.log(temp);
           response.push({ trailID: currTrailID, title: currTrailTitle, totalTime: currTrailTotalTime, hotspotsAndMissions: temp });
           temp = [];
           temp.push({ hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID })
@@ -45,6 +47,7 @@ router.get('/getAllTrails', (req, res) => {
         }
       });
       response.push({ trailID: currTrailID, title: currTrailTitle, totalTime: currTrailTotalTime, hotspotsAndMissions: temp });
+      console.log(response);
       res.send(response);
     }
   });
