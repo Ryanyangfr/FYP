@@ -115,7 +115,7 @@ export default {
                 "title": this.title,
                 "quiz": this.quiz
             }
-            console.log(this.hotspot.value);
+            // console.log(this.hotspot.value);
             console.log(this.title);
             console.log(this.quiz);
             axios.post('http://54.255.245.23:3000/add/addQuiz', postBody)
