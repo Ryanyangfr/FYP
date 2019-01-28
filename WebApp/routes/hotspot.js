@@ -8,7 +8,7 @@ var databaseConfig = require('../config/mysqlconf.js');
 var conn = mysql.createConnection(databaseConfig);
 
 router.get('/getHotspots', function(req,res){
-    var query = 'SELECT HOTSPOT.HOTSPOT_NAME, LONGTITUDE, LATITUDE, NARRATIVE_TITLE FROM HOTSPOT, TRAIL_HOTSPOT, NARRATIVE WHERE TRAIL_HOTSPOT.NARRATIVE_ID = NARRATIVE.NARRATIVE_ID AND TRAIL_HOTSPOT.HOTSPOT_NAME = HOTSPOT.HOTSPOT_NAME';
+    var query = 'SELECT HOTSPOT.HOTSPOT_NAME, LONGTITUDE, LATITUDE FROM HOTSPOT, TRAIL_HOTSPOT, NARRATIVE WHERE TRAIL_HOTSPOT.NARRATIVE_ID = NARRATIVE.NARRATIVE_ID AND TRAIL_HOTSPOT.HOTSPOT_NAME = HOTSPOT.HOTSPOT_NAME';
     var response = [];
 
     conn.query(query, function(err, hotspots){
@@ -19,9 +19,9 @@ router.get('/getHotspots', function(req,res){
                 var hspot = hotspot.HOTSPOT_NAME;
                 var lat = hotspot.LATITUDE;
                 var long = hotspot.LONGTITUDE;
-                var narrative = hotspot.NARRATIVE_TITLE;
+                // var narrative = hotspot.NARRATIVE_TITLE;
                 
-                response.push({hotspot_name: hspot, latitude: lat, longtitude: long, narrative: narrative});
+                response.push({hotspot_name: hspot, latitude: lat, longtitude: long});
             })
             console.log(response)
             res.send(JSON.stringify(response, null, 3))

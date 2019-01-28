@@ -15,18 +15,18 @@ router.post('/editHotspot', (req, res) => {
   const hotspotName = req.body.hotspot_name;
   const latitude = req.body.latitude;
   const longtitude = req.body.longtitude;
-  const narrative_id = req.body.narrative_id;
+  // const narrative_id = req.body.narrative_id;
 
   // console.log(req.body);
 
   console.log(hotspotName);
   console.log(latitude);
   console.log(longtitude);
-  console.log(narrative_id);
+  // console.log(narrative_id);
 
-  const query = 'UPDATE HOTSPOT SET LATITUDE = ?, LONGTITUDE = ?, NARRATIVE_ID = ? WHERE HOTSPOT_NAME = ?';
+  const query = 'UPDATE HOTSPOT SET LATITUDE = ?, LONGTITUDE = ? WHERE HOTSPOT_NAME = ?';
 
-  conn.query(query, [latitude, longtitude, narrative_id, hotspotName], (err, data) => {
+  conn.query(query, [latitude, longtitude, hotspotName], (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
