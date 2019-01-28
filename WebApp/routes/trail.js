@@ -109,4 +109,45 @@ router.post('/addTrail', (req,res) => {
   });
 });
 
+router.post('/editTrail', (req,res) => {
+  const trailID = req.body.trailID;
+  const trailTitle = req.body.title;
+  const totalTime = req.body.totalTime;
+  const hotspotsAndMissions = req.body.hotspotsAndMissions;
+
+  let rowCount = 0;
+  const updateTrailQuery = 'UPDATE TRAIL SET TITLE = ?, TOTAL_TIME = ? WHERE TRAIL_ID = ?';
+
+  conn.query(updateTrailQuery, [trailTitle,totalTime, trailID], (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      const trailHotspotDeleteQuery = 'DELETE FROM HOTSPOT WHERE TRAIL_ID = ?';
+      conn.query(trailHotspotDeleteQuery, trailID, (err, reply) => {
+        if (err) {
+          console.log(err);
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          const trailHotspotCreationQuery = 'INSERT INTO TRAIL_HOTSPOT VALUES (?,?,?,?)';
+          hotspotsAndMissions.forEach((hotspotAndMission) => {
+            console.log(hotspotAndMission)
+            conn.query(trailHotspotsCreationQuery, [trailID,hotspotAndMission.hotspot,hotspotAndMission.narrative,hotspotAndMission.mission], (err, result) => {
+              if (err) {
+                res.send(JSON.stringify({ success: 'false' }));
+                console.log(err);
+              } else {
+                if (rowCount === hotspotsAndMissions.length - 1) {
+                  res.send(JSON.stringify({ success: 'true' }));
+                } else {
+                  rowCount += 1;
+                }
+                // res.send(JSON.stringify({ success: 'true' }));
+            }
+          });
+      });
+    }
+  });
+});
+
 module.exports = router;
