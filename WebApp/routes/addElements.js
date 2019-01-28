@@ -106,12 +106,12 @@ router.post('/addNarrative', (req,res) => {
 router.post('/addQuiz', (req,res) => {
   console.log('quiz: ');
   console.log(req.body);
-  const hotspot = req.body.hotspot;
+  // const hotspot = req.body.hotspot;
   const title = req.body.title;
   const quiz = req.body.quiz;
-  const ms_query = 'INSERT INTO MISSION VALUES (?,?,?)';
+  const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
 
-  conn.query(ms_query, [mission_id,title,hotspot], (err, data) => {
+  conn.query(ms_query, [mission_id,title], (err, data) => {
     if (err) {
       res.send(JSON.stringify({ success: 'false' }));
       console.log(err);
@@ -229,15 +229,15 @@ router.post('/addWefieQuestion', (req,res) => {
   const title = req.body.title;
   const hotspot = req.body.hotspot;
 
-  const ms_query = 'INSERT INTO MISSION VALUES (?,?,?)';
+  const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
   console.log('add wefie question called');
   console.log(req.body);
-  conn.query(ms_query, [mission_id,title,hotspot], (err, data) => {
+  conn.query(ms_query, [mission_id,title], (err, data) => {
     if (err) {
       res.send(JSON.stringify({ success: 'false' }));
       console.log(err);
     } else {
-      const add_query = 'INSERT INTO SUBMISSION_QUESTION VALUES (?,?,?)';
+      const add_query = 'INSERT INTO SUBMISSION_QUESTION VALUES (?,?)';
       conn.query(add_query, [wefie_id, question, mission_id], (err, data) => {
         if (err) {
           res.send(JSON.stringify({ success: 'false' }));
