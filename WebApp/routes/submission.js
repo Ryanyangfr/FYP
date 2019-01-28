@@ -318,7 +318,7 @@ router.get('/getAllSubmissionURL', (req, res) => {
         response.push({ submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
       });
 
-      const drawing_query = 'SELECT SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME FROM SUBMISSION AS S, DRAWING_QUESTION AS DQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.DRAWING_QUESTION_ID = DQ.QUESTION_ID AND SQ.MISSION_ID = TH.MISSION_ID';
+      const drawing_query = 'SELECT SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME FROM SUBMISSION AS S, DRAWING_QUESTION AS DQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.DRAWING_QUESTION_ID = DQ.QUESTION_ID AND DQ.MISSION_ID = TH.MISSION_ID';
 
       conn.query(drawing_query, [team, instance_id], (err, data) => {
         if (err) {
