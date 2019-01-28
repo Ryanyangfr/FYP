@@ -113,6 +113,7 @@ router.post('/addTrail', (req, res) => {
 });
 
 router.post('/editTrail', (req, res) => {
+  console.log(req.body)
   const trailID = req.body.trailID;
   const trailTitle = req.body.title;
   const totalTime = req.body.totalTime;
@@ -126,7 +127,7 @@ router.post('/editTrail', (req, res) => {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      const trailHotspotDeleteQuery = 'DELETE FROM HOTSPOT WHERE TRAIL_ID = ?';
+      const trailHotspotDeleteQuery = 'DELETE FROM TRAIL_HOTSPOT WHERE TRAIL_ID = ?';
       conn.query(trailHotspotDeleteQuery, trailID, (err, reply) => {
         if (err) {
           console.log(err);
