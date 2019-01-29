@@ -76,6 +76,9 @@ router.post('/editQuiz', (req, res) => {
   const doneArray = [];
   const query = 'UPDATE MISSION SET MISSION_TITLE = ? WHERE MISSION_ID = ?'
 
+  console.log(title);
+  console.log(missionID)
+
   conn.query(query, [title, missionID], (err, data) => {
     if (err) {
       console.log(err);
@@ -167,8 +170,8 @@ function updateQuiz(quizID, answer, question, options, res, doneArray, counter) 
               count += 1;
             } else {
               count += 1;
-              console.log('counta: ' + counter);
-              console.log(doneArray.length)
+              // console.log('counta: ' + counter);
+              // console.log(doneArray.length)
               doneArray.push("done")
               if (doneArray.length === counter) {
                 res.send(JSON.stringify({ success: 'true' }));
