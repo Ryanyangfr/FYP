@@ -84,14 +84,14 @@ router.get('/getQuizQuestion', function(req,res){
     var response = [];
     var missionID = req.query.mission;
     console.log('missionID: ' + missionID);
-    var query = 'SELECT QUIZ_ID, QUIZ_QUESTION FROM QUIZ WHERE MISSION_ID = ?';
+    var query = 'SELECT QUIZ_ID, QUIZ_QUESTION, QUIZ_ANSWER FROM QUIZ WHERE MISSION_ID = ?';
 
     conn.query(query, missionID, function(err, questions){
         if (err){
             console.log(err);
         } else{
             for(var index in questions){
-                response.push({question: questions[index].QUIZ_QUESTION, quiz_id: questions[index].QUIZ_ID});
+                response.push({question: questions[index].QUIZ_QUESTION, quiz_id: questions[index].QUIZ_ID, quiz_answer: questions[index].QUIZ_ANSWER});
             }
             res.send(response);
         }
