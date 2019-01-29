@@ -192,7 +192,7 @@ router.post('/initializeTrail', (req,res) => {
   });
 });
 
-router.post('startTrail', (req,res) => {
+router.post('/startTrail', (req,res) => {
   const trailID = req.body.trailID
   const trailInstanceID = req.body.trailInstanceID;
 
