@@ -75,6 +75,9 @@ router.post('/editQuiz', (req, res) => {
 
   console.log(quiz);
 
+  console.log('options:')
+  console.log(quiz.options)
+
   const updateQnQuery = 'UPDATE QUIZ SET QUIZ_QUESTION = ? WHERE QUIZ_ID = ?'
 
   let count = 0;
