@@ -8,8 +8,24 @@
             <table>
                 <tr class="mission-table-header">
                     <td class="mission-title-header">Quiz Title</td>
+                    <td>Questions</td>
                     <td>Details</td>
                     <td>Actions</td>
+                </tr>
+                <tr class="quiz-data" v-for="quiz in missionList" :key="quiz.mission_id">
+                    <td>{{quiz.mission_title}}</td>
+                    <td>
+                        <div v-for="(question,index) in quiz.questions" :key="question.quiz_id">
+                            {{index+1}}. 
+                            {{question.question}}
+                            
+                        </div>  
+                    </td>
+                    <td><button class="view-quiz-btn" @click="saveSelectedQuiz(quiz.mission_id, quiz.mission_title)"><router-link to='/viewQuiz'>View full details</router-link></button></td>
+                    <td>
+                        <button><i class="ti-pencil-alt"></i></button>
+                        <button><i class="ti-trash"></i></button>
+                    </td>
                 </tr>
                 
             </table>
@@ -141,6 +157,19 @@ import vSelect from 'vue-select'
 import axios from 'axios'
 export default {
     name: "mission",
+
+    computed: {
+        selectedQuizID(){
+            return this.$store.state.selectedQuizID;
+            // console.log(this.$store.state.selectedQuiz);
+        },
+
+        selectedQuizTitle(){
+            return this.$store.state.selectedQuizTitle;
+            // console.log(this.$store.state.selectedQuiz);
+        },
+
+    }, 
     data() {
         return{
             func: "Add",
@@ -175,6 +204,11 @@ export default {
         vSelect
     },
     methods: {
+        saveSelectedQuiz(missionid, missiontitle){
+            this.$store.commit('saveSelectedQuizID', missionid);
+            this.$store.commit('saveSelectedQuizTitle', missiontitle)
+        },
+
         addRow(){
             this.quiz.push({
                 question: "",
@@ -192,7 +226,7 @@ export default {
         fetchMissions(){
             // console.log('entered')
             this.missionList = [];
-            axios.get('http://54.255.245.23:3000/mission/getMissionQuiz?hotspot=' + this.hotspot.value)
+            axios.get('http://54.255.245.23:3000/mission/getMissionQuiz')
             .then(response =>{
                 var data = response.data;
                 // console.log(data)
@@ -210,7 +244,6 @@ export default {
                 console.log(data)
                 for(var index in data){
                     this.questionList.push({label: data[index].question, value: data[index].quiz_id});
-                    this.missionDictionary[data[index].quiz_id] = data[index].question;
                 }
             })
         },
@@ -317,6 +350,21 @@ export default {
                 console.log(data);
                 this.$router.go();
             })
+        },
+
+        getMissionQuizQuestions(missionid, mission){
+            axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + missionid)
+                .then(response =>{
+                    // console.log(data[index].mission);
+                    var data = response.data;
+                    console.log(data);
+                    // for(var index in data){
+                        // console.log(data[index])
+                    this.missionList.push({mission_id: missionid, mission_title: mission.title, questions: data});
+                    // }
+                })
+
+                console.log(this.missionList)
         }
     },
     mounted(){
@@ -325,14 +373,14 @@ export default {
             this.$router.push('/')
         }
 
-        axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
-        .then(response => {
-            let data = response.data;
-            for(var row in data){
-                console.log(data[row])
-                this.hotspotList.push({label: data[row].hotspot_name, value: data[row].hotspot_name})
-            }
-        })
+        // axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
+        // .then(response => {
+        //     let data = response.data;
+        //     for(var row in data){
+        //         console.log(data[row])
+        //         this.hotspotList.push({label: data[row].hotspot_name, value: data[row].hotspot_name})
+        //     }
+        // })
 
         axios.get('http://54.255.245.23:3000/upload/getAllSubmissionQuestion')
         .then(response => {
@@ -341,6 +389,17 @@ export default {
                 console.log(data[row])
                 this.wefieQuestionList.push({label: data[row].question, value: data[row].id})
             }
+        })
+
+        axios.get('http://54.255.245.23:3000/mission/getMissionQuiz')
+        .then(response =>{
+            let data = response.data;
+            // console.log(data);
+            for(var index in data){
+        
+                this.getMissionQuizQuestions(data[index].mission, data[index])
+               //this.missionList.push({label: data[index].title, value: data[index].mission});
+            }           
         })
     }
 }
@@ -422,16 +481,31 @@ export default {
         border-bottom: 1px solid #DEE2E6;
     }
 
-    .wefie-data td{
-        text-overflow: ellipsis;
-        max-height: 10px;
+    .wefie-data td, .quiz-data td{
+        /*max-height: 10px;*/
+        max-width: 700px;
         padding: 15px;
     }
 
-    .wefie-data button{
+    .quiz-data a{
+        text-decoration: none!important;
+        font-size: 14px;
+        font-family: "Roboto", sans-serif;
+    }
+
+    .wefie-data button, .quiz-data button{
         background: none;
         border: none;
         cursor: pointer;
+        font-size: 18px
+    }
+
+    .view-quiz-btn{
+        background:none;
+        border:none;
+        cursor: pointer;
+        display: flex;
+        float: left;
     }
 
     .wefie-data i{
