@@ -4,8 +4,8 @@
             <div class="card-title">
                 <h5>Edit Quiz</h5>
             </div>
-
-            <form>
+            {{quiz}}
+            <form @submit.prevent="quizOnSubmitToEdit">
                 <div>
                     <div class="view-mission-body">
                         <div class="view-mission-input">
@@ -53,6 +53,7 @@ export default {
         return{
             title: "",
             quiz: [],
+            quizID: 0
             
         }  
     },
@@ -72,7 +73,7 @@ export default {
 
     methods:{
 
-        getQuizOptions(quiz_question, quiz_id, quiz_answer){
+        getQuizOptions(quiz_question, quiz_id, quiz_answer) {
              axios.get('http://54.255.245.23:3000/quiz/getQuizOptions?quizID=' + quiz_id)
             .then(response =>{
                 var data = response.data;
@@ -80,7 +81,24 @@ export default {
                 console.log(this.quiz)
                 
             });
+        },
+
+        quizOnSubmitToEdit() {
+            var postBody = {
+                "quiz": this.quiz,
+                "missionID": this.missionID,
+                "title": this.title
+            }
+
+            // console.log(this.quiz);
+            axios.post('http://54.255.245.23:3000/edit/editQuiz', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                this.$router.go();
+            })
         }
+
     },
 
     mounted(){
@@ -99,6 +117,8 @@ export default {
         })
 
         this.title = this.$store.state.selectedQuizTitle;
+        this.quizID = this.$store.state.selectedQuizID;
+        console.log('Quiz ID: ' + this.quizID)
         console.log(this.selectedQuizTitle)
 
         

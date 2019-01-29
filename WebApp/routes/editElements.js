@@ -55,91 +55,49 @@ router.post('/editNarrative', (req, res) => {
 });
 
 router.post('/editQuiz', (req, res) => {
-  const quizID = req.body.question.value;
-  const question = req.body.question.label;
+  // const quizID = req.body.question.value;
+  // const question = req.body.question.label;
 
-  const option1 = req.body.option1.option;
-  const option1ID = req.body.option1.id;
+  // const option1 = req.body.option1.option;
+  // const option1ID = req.body.option1.id;
 
-  const option2 = req.body.option2.option;
-  const option2ID = req.body.option2.id;
+  // const option2 = req.body.option2.option;
+  // const option2ID = req.body.option2.id;
 
-  const option3 = req.body.option3.option;
-  const option3ID = req.body.option3.id;
+  // const option3 = req.body.option3.option;
+  // const option3ID = req.body.option3.id;
 
-  const option4 = req.body.option4.option;
-  const option4ID = req.body.option4.id;
+  // const option4 = req.body.option4.option;
+  // const option4ID = req.body.option4.id;
 
-  const updateQnQuery = 'UPDATE QUIZ SET QUIZ_QUESTION = ? WHERE QUIZ_ID = ?'
+  const quiz = req.body.quiz;
+  const missionID = req.body.missionID;
+  const title = req.body.title;
+  const doneArray = [];
 
-  let count = 0;
-  let anyErr = false;
+  const query = 'UPDATE MISSION SET MISSION_TITLE = ? WHERE MISSION_ID = ?'
 
-  conn.query(updateQnQuery, [question, quizID], (err, result) => {
+  conn.query(query, [title, missionID], (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
-      anyErr = true;
+      return;
     } else {
-      const updateOptionQuery = 'UPDATE QUIZ_OPTION SET QUIZ_OPTION = ? WHERE QUIZ_OPTION_ID = ? AND QUIZ_ID = ?'
-            
-      conn.query(updateOptionQuery, [option1, option1ID, quizID], (err, data) => {
-        if (err) {
-          console.log(err);
-          res.send(JSON.stringify({ success: 'false' }));
-          anyErr = true;
-          count += 1;
-        } else {
-          count += 1;
-          if (!anyErr && count === 4) {
-            res.send(JSON.stringify({ success: 'true' }));
-          }
-        }
-      });
-
-      conn.query(updateOptionQuery, [option2, option2ID, quizID], (err, data) => {
-        if (err) {
-          console.log(err);
-          res.send(JSON.stringify({ success: 'false' }));
-          anyErr = true;
-          count += 1;
-        } else {
-          count += 1;
-          if (!anyErr && count == 4) {
-            res.send(JSON.stringify({ success: 'true' }));
-          }
-        }
-      });
-
-      conn.query(updateOptionQuery, [option3, option3ID, quizID], (err, data) => {
-        if (err) {
-          console.log(err);
-          res.send(JSON.stringify({ success: 'false' }));
-          anyErr = true;
-          count += 1;
-        } else {
-          count += 1;
-          if (!anyErr && count == 4) {
-            res.send(JSON.stringify({ success: 'true' }));
-          }
-        }
-      });
-
-      conn.query(updateOptionQuery, [option4, option4ID, quizID], (err, data) => {
-        if (err) {
-          console.log(err);
-          res.send(JSON.stringify({ success: 'false' }));
-          anyErr = true;
-          count += 1;
-        } else {
-          count += 1;
-          if (!anyErr && count == 4) {
-            res.send(JSON.stringify({ success: 'true' }));
-          }
-        }
-      });
+      console.log('mission updated');
     }
-  });
+  })
+  // console.log(quiz);
+  // console.log('options:')
+  // console.log(quiz[0].options)
+
+  quiz.forEach((row) => {
+    let quizID = row.quiz_id;
+    let quiz_question = row.quiz_question;
+    let quiz_options = row.options;
+    let quiz_answer = row.quiz_answer;
+
+    updateQuiz(quizID, quiz_answer, quiz_question, quiz_options, res, doneArray, quiz.length);
+  })
 });
 
 router.post('/editWefieQuestion', (req, res) => {
@@ -177,4 +135,100 @@ router.post('/switchTeams', (req,res) => {
     }
   })
 })
+
+
+
+
+/****************************************************************************************************Utility Methods **************************************************************************************************************************/
+
+function updateQuiz(quizID, answer, question, options, res, doneArray, counter) {
+  const updateQnQuery = 'UPDATE QUIZ SET QUIZ_QUESTION = ?, QUIZ_ANSWER = ? WHERE QUIZ_ID = ?'
+
+  let count = 0;
+  let anyErr = false;
+  
+  conn.query(updateQnQuery, [question, answer, quizID], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+      anyErr = true;
+    } else {
+      const updateOptionQuery = 'UPDATE QUIZ_OPTION SET QUIZ_OPTION = ? WHERE QUIZ_OPTION_ID = ? AND QUIZ_ID = ?'
+      
+      options.forEach((option) => {
+        conn.query(updateOptionQuery, [option.option, option.option_id, quizID], (err, data) => {
+            if (err) {
+              console.log(err);
+              res.send(JSON.stringify({ success: 'false' }));
+              anyErr = true;
+              count += 1;
+            } else {
+              count += 1;
+              console.log('counta: ' + counter);
+              console.log(doneArray.length)
+              doneArray.push("done")
+              if (doneArray.length === counter*4) {
+                res.send(JSON.stringify({ success: 'true' }));
+              }
+            }
+          });
+      });
+      // conn.query(updateOptionQuery, [option1, option1ID, quizID], (err, data) => {
+      //   if (err) {
+      //     console.log(err);
+      //     res.send(JSON.stringify({ success: 'false' }));
+      //     anyErr = true;
+      //     count += 1;
+      //   } else {
+      //     count += 1;
+      //     if (!anyErr && count === 4) {
+      //       res.send(JSON.stringify({ success: 'true' }));
+      //     }
+      //   }
+      // });
+
+      // conn.query(updateOptionQuery, [option2, option2ID, quizID], (err, data) => {
+      //   if (err) {
+      //     console.log(err);
+      //     res.send(JSON.stringify({ success: 'false' }));
+      //     anyErr = true;
+      //     count += 1;
+      //   } else {
+      //     count += 1;
+      //     if (!anyErr && count == 4) {
+      //       res.send(JSON.stringify({ success: 'true' }));
+      //     }
+      //   }
+      // });
+
+      // conn.query(updateOptionQuery, [option3, option3ID, quizID], (err, data) => {
+      //   if (err) {
+      //     console.log(err);
+      //     res.send(JSON.stringify({ success: 'false' }));
+      //     anyErr = true;
+      //     count += 1;
+      //   } else {
+      //     count += 1;
+      //     if (!anyErr && count == 4) {
+      //       res.send(JSON.stringify({ success: 'true' }));
+      //     }
+      //   }
+      // });
+
+      // conn.query(updateOptionQuery, [option4, option4ID, quizID], (err, data) => {
+      //   if (err) {
+      //     console.log(err);
+      //     res.send(JSON.stringify({ success: 'false' }));
+      //     anyErr = true;
+      //     count += 1;
+      //   } else {
+      //     count += 1;
+      //     if (!anyErr && count == 4) {
+      //       res.send(JSON.stringify({ success: 'true' }));
+      //     }
+      //   }
+      // });
+    }
+  });
+}
 module.exports = router;

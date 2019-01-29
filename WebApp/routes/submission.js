@@ -353,14 +353,14 @@ router.get('/getSubmission', (req, res) => {
 
 router.get('/getAllSubmissionQuestion', (req, res) => {
   const response = [];
-  const query = 'SELECT * FROM SUBMISSION_QUESTION';
+  const query = 'SELECT * FROM SUBMISSION_QUESTION, MISSION WHERE MISSION.MISSION_ID = SUBMISSION_QUESTION.MISSION_ID';
 
   conn.query(query, (err, questions) => {
     if (err) {
       console.log(err);
     } else {
       questions.forEach((question) => {
-        response.push({ id: question.QUESTION_ID, question: question.QUESTION });
+        response.push({ id: question.QUESTION_ID, question: question.QUESTION, mission: question.MISSION_ID, title: question.MISSION_TITLE});
       });
       res.send(response);
     }
