@@ -479,7 +479,6 @@ INSERT INTO DRAG_AND_DROP VALUES
 (1,'Match the nonsense', 18);
 
 INSERT INTO DRAG_AND_DROP_OPTION VALUES
-(1,'C', 'Integrity'),
 (1,'I', 'Integrity'),
 (1,'R', 'Responsibility'),
 (1,'C', 'Collegiality'),
