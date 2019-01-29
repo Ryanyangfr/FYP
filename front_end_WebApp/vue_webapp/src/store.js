@@ -8,6 +8,10 @@ export const store = new Vuex.Store({
         showSidebar: false,
         selectedQuizID: 0,
         selectedQuizTitle: "",
+        selectedWefieTitle:"",
+        selectedWefieID:0,
+        selectedWefieQuestion:""
+
     },
     
     mutations: {
@@ -25,6 +29,18 @@ export const store = new Vuex.Store({
 
         saveSelectedQuizTitle(state, missiontitle){
             state.selectedQuizTitle = missiontitle;
+        },
+
+        saveSelectedWefieTitle(state, wefieTitle){
+            state.selectedWefieTitle = wefieTitle
+        },
+
+        saveSelectedWefieID(state, wefieID){
+            state.selectedWefieID = wefieID
+        },
+
+        saveSelectedWefieQuestion(state, wefieQuestion){
+            state.selectedWefieQuestion = wefieQuestion
         }
     }
 });

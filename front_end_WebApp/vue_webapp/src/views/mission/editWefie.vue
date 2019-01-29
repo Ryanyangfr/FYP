@@ -1,44 +1,25 @@
 <template>
-    <div class="EditQuiz">
+    <div class="EditWefie">
        <div class="card">
             <div class="card-title">
-                <h5>Edit Quiz</h5>
+                <h5>Edit Wefie</h5>
             </div>
             <!--{{quiz}}-->
-            <form @submit.prevent="quizOnSubmitToEdit">
-                <div>
-                    <div class="view-mission-body">
-                        <div class="view-mission-input">
-                            <label for="add-mission-title-input">Title</label>
-                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
-                        </div>
-                        <div v-for="question in quiz" :key="question.quiz_id" class="view-options-and-answers"> 
-                            <div class="view-mission-input">
-                                <label>Question</label>
-                                <input name="question" id="question-input" type="text" placeholder="Question" v-model="question.quiz_question">
-                            </div>
-
-                            <div class="add-quiz-options-body">
-                                <label>Question Options</label>
-                                <div class="add-quiz-options">
-                                    <div class="option" v-for="option in question.options" :key="option.option_id">
-                                        <input type="text" v-model="option.option">
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="view-mission-input">
-                                <label>Answer</label>
-                                <input class="answer" v-model="question.quiz_answer">
-                            </div>
-                        </div>  
-                        <div class="submit-btn-area">
-                            <button class="submit-btn" type="submit">Submit</button>
-                        </div>  
-                    </div>
+            <form @submit.prevent="wefieOnSubmitToEdit">
+                <div class="view-wefie-body">
+                    <!--<div class="view-wefie-input">
+                        <label for="edit-wefie-title-input">Title</label>
+                        <input name="edit-wefie-title-input" type="text" placeholder="Title" v-model="wefie_title"> 
+                    </div>  -->
+                    <div class="view-wefie-input">
+                        <label for="edit-wefie-title-input">Wefie Question</label>
+                        <input name="edit-wefie-title-input" type="text" placeholder="Question" v-model="wefie_question"> 
+                    </div>  
+                    <div class="submit-btn-area">
+                        <button class="submit-btn" type="submit">Submit</button>
+                    </div>  
                 </div>
-
-                
+  
             </form>
             
         </div>
@@ -48,50 +29,41 @@
 <script>  
 import axios from 'axios'
 export default {
-    name: "editQuiz",
+    name: "editWefie",
     data() {
         return{
-            title: "",
-            quiz: [],
-            quizID: 0
+            wefie_title: "",
+            wefie_question: "",
+            wefie_ID: 0
             
         }  
     },
 
     computed: {
-        selectedQuizID(){
-            return this.$store.state.selectedQuizID;
-            console.log(this.$store.state.selectedQuizID);
+         selectedWefieTitle(){
+            return this.$store.state.selectedWefieTitle
         },
 
-        selectedQuizTitle(){
-            return this.$store.state.selectedQuizTitle;
-            console.log(this.$store.state.selectedQuizTitle);
+        selectedWefieID(){
+            return this.$store.state.selectedWefieID
         },
+
+        selectedWefieQuestion(){
+            return this.$store.state.selectedWefieQuestion
+        }
 
     }, 
 
     methods:{
 
-        getQuizOptions(quiz_question, quiz_id, quiz_answer) {
-             axios.get('http://54.255.245.23:3000/quiz/getQuizOptions?quizID=' + quiz_id)
-            .then(response =>{
-                var data = response.data;
-                this.quiz.push({quiz_id:quiz_id, quiz_question:quiz_question, quiz_answer:quiz_answer, options: data})
-                console.log(this.quiz)
-                
-            });
-        },
-
-        quizOnSubmitToEdit() {
+        wefieOnSubmitToEdit() {
             var postBody = {
-                "quiz": this.quiz,
-                "missionID": this.missionID,
-                "title": this.title
+                "id": this.wefie_ID,
+                "question": this.wefie_question,
             }
 
             // console.log(this.quiz);
-            axios.post('http://54.255.245.23:3000/edit/editQuiz', postBody)
+            axios.post('http://54.255.245.23:3000/edit/editWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -107,20 +79,9 @@ export default {
             this.$router.push('/')
         }
 
-        axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + this.$store.state.selectedQuizID)
-        .then(response =>{
-            var data = response.data;
-            console.log(data)
-            for(var index in data){
-               this.getQuizOptions(data[index].question, data[index].quiz_id, data[index].quiz_answer);
-            }
-        })
-
-        this.title = this.$store.state.selectedQuizTitle;
-        this.quizID = this.$store.state.selectedQuizID;
-        console.log('Quiz ID: ' + this.quizID)
-        console.log(this.selectedQuizTitle)
-
+        this.wefie_title = this.$store.state.selectedWefieTitle;
+        this.wefie_ID = this.$store.state.selectedWefieID;
+        this.wefie_question = this.$store.state.selectedWefieQuestion;
         
     }           
 }
@@ -134,7 +95,7 @@ export default {
         font-family: 'lato', sans-serif
     }
 
-    .EditQuiz .card{
+    .EditWefie .card{
         padding: 18px;
         margin: 18px;
         border-radius: 3px;
@@ -159,7 +120,7 @@ export default {
         /*background-color: blue*/
     }
 
-   .view-mission-input label{
+   .view-wefie-input label{
         margin-right: 90px;
         font-size: 14px;
         font-weight: 600;
@@ -189,7 +150,7 @@ export default {
         min-width: 11%
     }
 
-    .view-mission-input{
+    .view-wefie-input{
         float: left;
         display: flex;
         margin-left: 30px;
@@ -198,7 +159,7 @@ export default {
         position: relative;
     }
 
-    .view-mission-input input{
+    .view-wefie-input input{
         /*margin-left: 100px;*/
         height: 40px;
         outline: none;
@@ -210,7 +171,7 @@ export default {
         font-family: 'Roboto', sans-serif;
     }
 
-    .view-mission-body{
+    .view-wefie-body{
         display: flex;
         flex-direction: column;
         width:100%;
@@ -257,7 +218,7 @@ export default {
         width: 100%;
     }
 
-    .EditQuiz .submit-btn{
+    .EditWefie .submit-btn{
         /*display: flex;*/
         float:right;
         background: none;
@@ -277,7 +238,7 @@ export default {
         margin-top: 50px;
     }
 
-     .EditQuiz .submit-btn:hover{
+     .EditWefie .submit-btn:hover{
         background-color: #5a52c4;
      }
 

@@ -58,6 +58,7 @@
                     </form>
                 </div>
 
+                <!--add wefie begins-->
                 <div v-if="missionType == allMissionTypes[1]">
                     <form @submit.prevent="wefieOnSubmitToAdd" class="add-mission-body">
                         <div class="add-mission-input">
@@ -66,7 +67,7 @@
                         </div> 
                         <div class="add-mission-input">
                             <label for="add-wefie-instruction-input">Instruction</label>
-                            <input name="add-wefie-instruction-input" type="text" placeholder="Wefie Instruction" v-model="title"> 
+                            <input name="add-wefie-instruction-input" type="text" placeholder="Wefie Instruction" v-model="wefie_instruction"> 
                         </div> 
                         <div class="submit-btn-area">
                             <button class="submit-btn" type="submit">Submit</button>
@@ -74,6 +75,7 @@
                     </form>
 
                 </div>
+                <!--add wefie ends-->
             </form>
             
         </div>
@@ -90,6 +92,7 @@ export default {
             missionType: "",
             title: "",
             quiz: [],
+            wefie_instruction: ""
         }  
     },
 
@@ -123,7 +126,27 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
-                this.$router.go();
+                this.$router.push({ path: this.redirect || '/mission' })
+            })
+            // this.hotspot = "";
+            // this.quiz = [];
+            // location.reload();
+            // this.$router.go();
+        },
+
+        wefieOnSubmitToAdd(){
+            var postBody = {
+                "question": this.wefie_instruction,
+                "title": this.title
+            }
+            // console.log(this.hotspot.value);
+            console.log(this.wefie_instruction);
+            console.log(this.title);
+            axios.post('http://54.255.245.23:3000/add/addWefieQuestion', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                this.$router.push({ path: this.redirect || '/mission' })
             })
             // this.hotspot = "";
             // this.quiz = [];

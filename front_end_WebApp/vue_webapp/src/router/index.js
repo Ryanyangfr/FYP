@@ -83,6 +83,12 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/editWefie',
+      name: 'editWefie',
+      component: ()=> import('@/views/mission/editWefie'),
+      hidden: true
+    },
+    {
       path: '/participant',
       name: 'participant',
       component: ()=> import('@/views/participant/index'),
