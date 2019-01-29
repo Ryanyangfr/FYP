@@ -141,7 +141,7 @@ router.post('/switchTeams', (req,res) => {
 
 /****************************************************************************************************Utility Methods **************************************************************************************************************************/
 
-function updateQuiz(quizID, answer, question, options, res, doneArray, count) {
+function updateQuiz(quizID, answer, question, options, res, doneArray, counter) {
   const updateQnQuery = 'UPDATE QUIZ SET QUIZ_QUESTION = ?, QUIZ_ANSWER = ? WHERE QUIZ_ID = ?'
 
   let count = 0;
@@ -165,9 +165,9 @@ function updateQuiz(quizID, answer, question, options, res, doneArray, count) {
             } else {
               count += 1;
               console.log('counta: ' + count);
-              console.log('opt length: ' + options.length && doneArray.length === count)
+              console.log('opt length: ' + options.length && doneArray.length === counter)
               doneArray.push("done")
-              if (!anyErr && count === options.length && doneArray.length === count) {
+              if (!anyErr && count === options.length && doneArray.length === counter) {
                 res.send(JSON.stringify({ success: 'true' }));
               }
             }
