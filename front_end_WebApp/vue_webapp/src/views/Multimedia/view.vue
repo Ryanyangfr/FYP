@@ -18,6 +18,7 @@
              <div class="container" v-for="(image,index) in images" :key="image">
                 <div class="submission-card">
                     <div class="image-area">
+                        <!-- {{index}} -->
                         <img :src="image"/>  
                     </div>
                     <div class="submission-details">
@@ -64,8 +65,8 @@ export default{
             images: [],
             questions: [],
             teamList: [],
-            numSubmissionsPerTeamDict: {},
-            button:{
+            currTeamID: '',
+            button: {
                 text: 'Click to view submissions'
             }
         }
@@ -121,55 +122,51 @@ export default{
         load(teamID){
             // this.paths = []
             // this.images = []
+            // console.log('team: ' + teamID)
             axios.get('//54.255.245.23:3000/upload/getAllSubmissionURL?team='+teamID+'&trail_instance_id='+this.trailID)
             .then(response=>{
                 let data = response.data
                 let size = Object.keys(data).length
                 // console.log(response.data)
                 // this.path = [];
+                if (size === 0) {
+                    this.paths = [];
+                    this.questions = [];
+                    this.images = [];
+                }
                 for(var i=0; i<size; i++){
-                    console.log('path length: ' + this.paths.length)
-                    if(i == 0 && this.paths.length != 0){
+                    // console.log('path length: ' + this.paths.length)
+                    // console.log(this.paths.length)
+                    // console.log('condition: ')
+                    // console.log(i === 0 && this.paths.length > 0)
+                    if(i == 0 && this.paths.length > 0){
+                        console.log('entered')
                         this.paths = []
                         this.questions = []
                     }
                     let temp = data[i]
-                    console.log(temp)
+                    // console.log(temp)
                     this.paths.push(temp.submissionURL)
                     this.questions.push(temp.question)
                 }
 
                 // this.retrieveAllUrl(teamID);
-                console.log('paths: ')
-                console.log(this.paths)
+                // console.log('paths: ')
+                // console.log(this.paths)
                 // this.question = [];
+                let updatedQn = [];
                 this.images = []
+                let count = 0;
                 for(var index in this.paths){
                     // console.log(this.paths[path])
+                    // console.log(index);
                     let url = this.paths[index]
-                    // let qn = this.question[index]
+                    let qn = this.questions[index]
                     // console.log(url)
-                    axios.get('//54.255.245.23:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
-                    .then(response=>{
-                        // this.result = 'entered here'
-                        // this.result = response.data
-                        var reader = new FileReader();
-                            // this.images = []; 
-                        // this.images = [];
-                        reader.onload = () => {
-                            // console.log(reader.result);
-                            this.images.push(reader.result);
-                            console.log('images length: ')
-                            console.log(this.images.length)
-                        }
-                        reader.readAsDataURL(response.data);
+                    this.getImage(url, updatedQn, qn);
                         // this.paths = []
                         // this.questions = []
-                        // this.images = []
-                    })
-                    .catch(error =>{
-                        console.log(error)
-                    })
+                        // this.images = [                    })
                 }
                     // console.log(this.questions)
                 // console.log(response.data[0]['SubmissionURL'])
@@ -205,15 +202,38 @@ export default{
             // }
             // vm.$forceUpdate()
         },
-
+        getImage(url, updatedQn, qn){
+             axios.get('//54.255.245.23:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
+                .then(response=>{
+                    // this.result = 'entered here'
+                    // this.result = response.data
+                    var reader = new FileReader();
+                        // this.images = []; 
+                    // this.images = [];
+                    reader.onload = () => {
+                        // console.log(qn)
+                        // console.log(reader.result);
+                        this.images.push(reader.result);
+                        updatedQn.push(qn);
+                        if (updatedQn.length == this.questions.length) {
+                            this.questions = updatedQn;
+                        }
+                        console.log('images length: ')
+                        console.log(this.images.length)
+                    }
+                    reader.readAsDataURL(response.data);
+                })
+                .catch(error =>{
+                    console.log(error)
+                })
+        },
         showSubmissions(teamID){
-            if(this.showSub){
+            if(this.showSub && this.currTeamID == teamID){
                 // this.showGrps = false;
                 this.showSub = false;
             } else{
-                // this.showGrps = true;
+                this.currTeamID = teamID
                 this.showSub = true;
-
             }
 
             this.load(teamID);
