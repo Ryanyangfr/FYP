@@ -14,7 +14,8 @@
             </div>
         </div>
         <div class="grp-submission-row" v-if="showSub">
-             <div class="container" v-for="(image,index) in this.images" :key="image">
+            <!-- {{images.length}} -->
+             <div class="container" v-for="(image,index) in images" :key="image">
                 <div class="submission-card">
                     <div class="image-area">
                         <img :src="image"/>  
@@ -103,11 +104,11 @@ export default{
                 // this.path = [];
                 for(var i=0; i<size; i++){
                     console.log('path length: ' + this.paths.length)
-                    if(i == 0 && this.paths.length != 0){
-                        this.paths = []
-                        this.images = []
-                        this.questions = []
-                    }
+                    // if(i == 0 && this.paths.length != 0){
+                    //     this.paths = []
+                    //     this.images = []
+                    //     this.questions = []
+                    // }
                     let temp = data[i]
                     console.log(temp)
                     this.paths.push(temp.submissionURL)
@@ -120,35 +121,88 @@ export default{
         load(teamID){
             // this.paths = []
             // this.images = []
-            this.retrieveAllUrl(teamID);
-            console.log(this.paths)
-            this.question = [];
-            for(var index in this.paths){
-                // console.log(this.paths[path])
-                let url = this.paths[index]
-                // let qn = this.question[index]
-                // console.log(url)
-                axios.get('//54.255.245.23:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
-                .then(response=>{
-                    // this.result = 'entered here'
-                    // this.result = response.data
-                    var reader = new FileReader();
-                        // this.images = []; 
-                    // this.images = [];
-                    reader.onload = () => {
-                        console.log(reader.result);
-                        this.images.push(reader.result);
-                        // console.log(this.images.length)
+            axios.get('//54.255.245.23:3000/upload/getAllSubmissionURL?team='+teamID+'&trail_instance_id='+this.trailID)
+            .then(response=>{
+                let data = response.data
+                let size = Object.keys(data).length
+                // console.log(response.data)
+                // this.path = [];
+                for(var i=0; i<size; i++){
+                    console.log('path length: ' + this.paths.length)
+                    if(i == 0 && this.paths.length != 0){
+                        this.paths = []
+                        this.questions = []
                     }
-                    reader.readAsDataURL(response.data);
-                    this.paths = []
-                    // this.questions = []
-                    // this.images = []
-                })
-                .catch(error =>{
-                    console.log(error)
-                })
-            }
+                    let temp = data[i]
+                    console.log(temp)
+                    this.paths.push(temp.submissionURL)
+                    this.questions.push(temp.question)
+                }
+
+                // this.retrieveAllUrl(teamID);
+                console.log('paths: ')
+                console.log(this.paths)
+                // this.question = [];
+                this.images = []
+                for(var index in this.paths){
+                    // console.log(this.paths[path])
+                    let url = this.paths[index]
+                    // let qn = this.question[index]
+                    // console.log(url)
+                    axios.get('//54.255.245.23:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
+                    .then(response=>{
+                        // this.result = 'entered here'
+                        // this.result = response.data
+                        var reader = new FileReader();
+                            // this.images = []; 
+                        // this.images = [];
+                        reader.onload = () => {
+                            // console.log(reader.result);
+                            this.images.push(reader.result);
+                            console.log('images length: ')
+                            console.log(this.images.length)
+                        }
+                        reader.readAsDataURL(response.data);
+                        // this.paths = []
+                        // this.questions = []
+                        // this.images = []
+                    })
+                    .catch(error =>{
+                        console.log(error)
+                    })
+                }
+                    // console.log(this.questions)
+                // console.log(response.data[0]['SubmissionURL'])
+            });
+            // this.retrieveAllUrl(teamID);
+            // console.log(this.paths)
+            // this.question = [];
+            // for(var index in this.paths){
+            //     // console.log(this.paths[path])
+            //     let url = this.paths[index]
+            //     // let qn = this.question[index]
+            //     // console.log(url)
+            //     axios.get('//54.255.245.23:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
+            //     .then(response=>{
+            //         // this.result = 'entered here'
+            //         // this.result = response.data
+            //         var reader = new FileReader();
+            //             // this.images = []; 
+            //         // this.images = [];
+            //         reader.onload = () => {
+            //             console.log(reader.result);
+            //             this.images.push(reader.result);
+            //             // console.log(this.images.length)
+            //         }
+            //         reader.readAsDataURL(response.data);
+            //         // this.paths = []
+            //         // this.questions = []
+            //         // this.images = []
+            //     })
+            //     .catch(error =>{
+            //         console.log(error)
+            //     })
+            // }
             // vm.$forceUpdate()
         },
 
