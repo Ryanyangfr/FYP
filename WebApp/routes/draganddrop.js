@@ -39,7 +39,7 @@ router.get('/getDragAndDrop',function(req,res){
                                 drag_and_drop_.push({drag_and_drop_question:detail.DRAGANDDROP_QUESTION_OPTION,  drag_and_drop_answer: detail.DRAGANDDROP_QUESTION_ANSWER})
                             })
                             // console.log(drag_and_drop_)
-                            response.push({hotspot: hotspot_name, question: drag_and_)and_drop_details[0].DRAGANDDROP_QUESTION, drag_and_drop: drag_and_drop_});
+                            response.push({hotspot: hotspot_name, question: drag_and_and_drop_details[0].DRAGANDDROP_QUESTION, drag_and_drop: drag_and_drop_});
                             console.log('count: ' + typeof count);
                             console.log('mission length: ' + typeof missions.length);
                             if(count == missions.length){
