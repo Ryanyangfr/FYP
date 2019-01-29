@@ -160,6 +160,7 @@ router.post('/initializeTrail', (req,res) => {
   const trailID = req.body.trailID
   const trailInstanceID = req.body.trailInstanceID;
 
+  console.log('initialize trail')
   const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?)'
 
   conn.query(query, [trailInstanceID,trailID,1,0], (err, data) => {
