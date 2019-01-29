@@ -48,7 +48,7 @@
                                     <input name="answer" type="text" placeholder="Answer" v-model="input.answer">
                                 </div>
                                 <div class="delete-quiz-question-area">
-                                    <button class="delete-quiz-question" @click="deleteRow(index)">Delete</button>
+                                    <button type="button" class="delete-quiz-question" @click="deleteRow(index)">Delete</button>
                                 </div>
                         </div>
                         <button class="add-new-question-btn" type="button" @click="addRow">ADD QUESTION</button>

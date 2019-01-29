@@ -23,7 +23,7 @@
                     </td>
                     <td><button class="view-quiz-btn" @click="saveSelectedQuiz(quiz.mission_id, quiz.mission_title)"><router-link to='/viewQuiz'>View full details</router-link></button></td>
                     <td>
-                        <button><i class="ti-pencil-alt"></i></button>
+                        <button @click="saveSelectedQuiz(quiz.mission_id, quiz.mission_title)"><router-link to='/editQuiz'><i class="ti-pencil-alt"></i></router-link></button>
                         <button><i class="ti-trash"></i></button>
                     </td>
                 </tr>
@@ -32,12 +32,10 @@
             <br>
             <table>
                 <tr class="mission-table-header">
-                    <td class="mission-title-header">Wefie Title</td>
                     <td>Wefie Question</td>
                     <td colspan="2">Actions</td>
                 </tr>
                 <tr class = "wefie-data" v-for="wefie in wefieQuestionList" :key="wefie.value">
-                    <td>{{wefie.value}}</td>
                     <td>{{wefie.label}}</td>
                     <td><button @click="editHotspot(hotspot.hotspot_name,hotspot.latitude,hotspot.longtitude,hotspot.narrative)"><i class="ti-pencil-alt"></i></button></td>
                     <td><button @click="deleteHotspot(hotspot.hotspot_name)"><i class="ti-trash"></i></button></td>
@@ -454,6 +452,7 @@ export default {
     .create-mission-btn i{
         font-size: 13px;
         margin-right: 5px;
+        
     }
 
     .create-mission-btn a {
@@ -491,6 +490,7 @@ export default {
         text-decoration: none!important;
         font-size: 14px;
         font-family: "Roboto", sans-serif;
+        color: #536479;
     }
 
     .wefie-data button, .quiz-data button{
@@ -508,8 +508,9 @@ export default {
         float: left;
     }
 
-    .wefie-data i{
-        font-size: 20px
+    .wefie-data i, .quiz-data i{
+        font-size: 20px;
+        color: #536479;
     }
 
     .mission-table-header td{

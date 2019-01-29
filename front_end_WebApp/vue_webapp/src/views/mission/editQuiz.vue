@@ -1,45 +1,45 @@
 <template>
-    <div class="ViewQuiz">
+    <div class="EditQuiz">
        <div class="card">
             <div class="card-title">
-                <h5>Quiz Details</h5>
+                <h5>Edit Quiz</h5>
             </div>
 
-            <div>
+            <form>
                 <div>
                     <div class="view-mission-body">
                         <div class="view-mission-input">
                             <label for="add-mission-title-input">Title</label>
-                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title" readonly> 
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
                         </div>
-
-                        <div v-for="quiz in quiz" :key="quiz.quiz_id" class="view-options-and-answers"> 
+                        <div v-for="question in quiz" :key="question.quiz_id" class="view-options-and-answers"> 
                             <div class="view-mission-input">
                                 <label>Question</label>
-                                <!--<input name="question" id="question-input" type="text" placeholder="Question">-->
-                                <div class="question">{{quiz.quiz_question}}</div>
+                                <input name="question" id="question-input" type="text" placeholder="Question" v-model="question.quiz_question">
                             </div>
 
                             <div class="add-quiz-options-body">
                                 <label>Question Options</label>
                                 <div class="add-quiz-options">
-                                    <div class="option" v-for="options in quiz.options" :key="options.option_id">
-                                        <!--<input name="option1" type="text" placeholder="Option 1">-->
-                                        <div>{{options.option}}</div>
+                                    <div class="option" v-for="option in question.options" :key="option.option_id">
+                                        <input type="text" v-model="option.option">
                                     </div>
                                     
                                 </div>
                             </div>
                             <div class="view-mission-input">
                                 <label>Answer</label>
-                                <div class="answer">{{quiz.quiz_answer}}</div>
+                                <input class="answer" v-model="question.quiz_answer">
                             </div>
-                        </div>    
+                        </div>  
+                        <div class="submit-btn-area">
+                            <button class="submit-btn" type="submit">Submit</button>
+                        </div>  
                     </div>
                 </div>
 
                 
-            </div>
+            </form>
             
         </div>
     </div>
@@ -48,11 +48,12 @@
 <script>  
 import axios from 'axios'
 export default {
-    name: "addMission",
+    name: "editQuiz",
     data() {
         return{
             title: "",
-            quiz: []
+            quiz: [],
+            
         }  
     },
 
@@ -76,7 +77,6 @@ export default {
             .then(response =>{
                 var data = response.data;
                 this.quiz.push({quiz_id:quiz_id, quiz_question:quiz_question, quiz_answer:quiz_answer, options: data})
-                console.log("OIOIOI")
                 console.log(this.quiz)
                 
             });
@@ -114,7 +114,7 @@ export default {
         font-family: 'lato', sans-serif
     }
 
-    .ViewQuiz .card{
+    .EditQuiz .card{
         padding: 18px;
         margin: 18px;
         border-radius: 3px;
@@ -219,19 +219,47 @@ export default {
         flex-direction: column;
     }
 
-    .question, .option, .answer{
-        float: left;
+    .option input{
         display: flex;
+        float: left;
+        margin-bottom: 25px;
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
-        margin-bottom: 25px;
         border-radius: 4px;
         padding: 10px;
         font-size: 14px;
-        width:75%;
+        min-width:75%;
         font-family: 'Roboto', sans-serif;
     }
+
+    .submit-btn-area{
+        width: 100%;
+    }
+
+    .EditQuiz .submit-btn{
+        /*display: flex;*/
+        float:right;
+        background: none;
+        border: none;
+        background-color: #645cdd;
+        border-radius: 4px;
+        min-width: 8%;
+        min-height: 45px;
+        padding:8px 15px 8px 15px;
+        margin-right: 45px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+        margin-top: 50px;
+    }
+
+     .EditQuiz .submit-btn:hover{
+        background-color: #5a52c4;
+     }
 
 
 </style>
