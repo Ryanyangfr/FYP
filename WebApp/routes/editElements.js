@@ -93,8 +93,9 @@ router.post('/editQuiz', (req, res) => {
     let quizID = row.quiz_id;
     let quiz_question = row.quiz_question;
     let quiz_options = row.options;
+    let quiz_answer = row.quiz_answer;
 
-    updateQuiz(quizID, quiz_question, quiz_options);
+    updateQuiz(quizID, quiz_answer, quiz_question, quiz_options);
   })
 });
 
@@ -139,13 +140,13 @@ router.post('/switchTeams', (req,res) => {
 
 /****************************************************************************************************Utility Methods **************************************************************************************************************************/
 
-function updateQuiz(quizID, question, options) {
+function updateQuiz(quizID, answer, question, options) {
   const updateQnQuery = 'UPDATE QUIZ SET QUIZ_QUESTION = ?, QUIZ_ANSWER = ? WHERE QUIZ_ID = ?'
 
   let count = 0;
   let anyErr = false;
   
-  conn.query(updateQnQuery, [question, quizID], (err, result) => {
+  conn.query(updateQnQuery, [question, answer, quizID], (err, result) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
