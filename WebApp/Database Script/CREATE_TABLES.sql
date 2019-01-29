@@ -418,7 +418,7 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 (8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 14),
 (9, 'Locate the Hive at the Learning Commons and take a wefie!', 15),
 (10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 6),
-(11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 17),
+(11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 17);
 -- (12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 18);
 
 INSERT INTO DRAWING_QUESTION VALUES
