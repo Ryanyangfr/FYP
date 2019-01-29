@@ -5,6 +5,8 @@
                 <h5>Missions List</h5>
                 <button class="create-mission-btn"><i class="ti-plus"></i><router-link to='/addMission'>ADD NEW</router-link></button>
             </div>
+
+            <!--table for mission: quiz begins-->
             <table>
                 <tr class="mission-table-header">
                     <td class="mission-title-header">Quiz Title</td>
@@ -24,12 +26,16 @@
                     <td><button class="view-quiz-btn" @click="saveSelectedQuiz(quiz.mission_id, quiz.mission_title)"><router-link to='/viewQuiz'>View full details</router-link></button></td>
                     <td>
                         <button @click="saveSelectedQuiz(quiz.mission_id, quiz.mission_title)"><router-link to='/editQuiz'><i class="ti-pencil-alt"></i></router-link></button>
-                        <button><i class="ti-trash"></i></button>
+                        <button @click="deleteQuiz(quiz.mission_id, quiz.mission_title)"><i class="ti-trash"></i></button>
                     </td>
                 </tr>
                 
             </table>
+            <!--table for mission: quiz ends-->
+
             <br>
+
+            <!--table for mission: wefie begins-->
             <table>
                 <tr class="mission-table-header">
                     <td>Wefie Question</td>
@@ -37,11 +43,15 @@
                 </tr>
                 <tr class = "wefie-data" v-for="wefie in wefieQuestionList" :key="wefie.value">
                     <td>{{wefie.label}}</td>
-                    <td><button @click="editHotspot(hotspot.hotspot_name,hotspot.latitude,hotspot.longtitude,hotspot.narrative)"><i class="ti-pencil-alt"></i></button></td>
-                    <td><button @click="deleteHotspot(hotspot.hotspot_name)"><i class="ti-trash"></i></button></td>
+                    <td><button><i class="ti-pencil-alt"></i></button></td>
+                    <td><button><i class="ti-trash"></i></button></td>
                 </tr>
             </table>
+            <!--table for mission: wefie ends-->
+
             <br>
+
+            <!--table for mission: drawing begins-->
             <table>
                 <tr class="mission-table-header">
                     <td class="mission-title-header">Drawing Title</td>
@@ -49,104 +59,30 @@
                     <td>Drawing Question</td>
                 </tr>
             </table>
+            <!--table for mission: drawing ends-->
         </div>
 
-
-
-        <v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
-        <v-select :options="missionTypes" v-model="mission" placeholder="Choose your mission" style="width:200px;"></v-select>
-        <br>
-        <div v-if="mission == missionTypes[0]">
-            <form @submit.prevent="quizOnSubmitToAdd" v-if="func == functionsAvailable[0]">
-                Hotspot Name:
-                <v-select :options="hotspotList" v-model="hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>
-                Quiz Title:
-                <input name="title" type="text" placeholder="title" v-model="title">            
-                <ul>
-                    <li v-for="(input, index) in quiz">
-                        Quiz Question:
-                        <input name="question" type="text" placeholder="question" v-model="input.question">
-                        Quiz Options:
-                        <input name="option1" type="text" placeholder="option1" v-model="input.option1">
-                        <input name="option2" type="text" placeholder="option2" v-model="input.option2">
-                        <input name="option3" type="text" placeholder="option3" v-model="input.option3">
-                        <input name="option4" type="text" placeholder="option4" v-model="input.option4">
-                        Quiz Answer:
-                        <input name="answer" type="text" placeholder="answer" v-model="input.answer">
-                        <button @click="deleteRow(index)">Delete</button>
-                    </li>
-                </ul>
-                 <button type="button" @click="addRow">Add row</button>
-                 <button type="submit">submit</button> 
-            </form>
-            <!-- {{this.quiz}} -->
-            <form @submit.prevent="quizOnSubmitToEdit" v-if="func == functionsAvailable[1]">
-                Hotspot Name:
-                <v-select :options="hotspotList" v-model="hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>
-                <button type="button" @click="fetchMissions">Fetch Missions</button>
-
-                Mission ID:
-                <v-select :options="missionList" v-model="missionToEdit" placeholder="Please select a mission" style="width:200px;"></v-select>
-                <button type="button" @click="fetchQuestions">Fetch Questions</button>
-
-                Question:
-                <v-select :options="questionList" v-model='questionToBeEdited' placeholder='Please select a question' style="width:400px;"></v-select>
-                <button type="button" @click="fetchOptions">Fetch Quiz Options</button>
-
-                <div v-if="editedOptions.option1 != ''">
-                    Question:
-                    <input name="question" type="text" placeholder="question" v-model="questionToBeEdited.label" :style="{width: '800px'}">
-                    <br>
-                    Options:
-                    <input name="option1" type="text" placeholder="option1" v-model="editedOptions.option1">
-                    <input name="option2" type="text" placeholder="option2" v-model="editedOptions.option2">
-                    <input name="option3" type="text" placeholder="option3" v-model="editedOptions.option3">
-                    <input name="option4" type="text" placeholder="option4" v-model="editedOptions.option4">
-                
-                    <button type="submit">submit</button>
+        <!--delete quiz popup begins-->
+        <!--shows when user clicks on delete icon for quiz. showDeleteQuiz = true-->
+        <div class="black-blur-bg" v-if="showDeleteQuiz"> 
+            <div class="delete-quiz-popup">
+                <div class="delete-quiz-header">
+                    <h5>Delete</h5>
+                    <button class="close-delete-quiz" @click="closeDelete()"><font-awesome-icon icon="times"/></button>
                 </div>
-            </form>
-
-            <form @submit.prevent="quizOnSubmitToDelete" v-if="func == functionsAvailable[2]">
-                Hotspot Name:
-                <v-select :options="hotspotList" v-model="hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>
-                <button type="button" @click="fetchMissions">Fetch Missions</button>
-
-                Mission:
-                <v-select :options="missionList" v-model="missionToEdit" placeholder="Please select a mission to delete" style="width:200px;"></v-select>
-                <button type="submit">submit</button>
-            </form>
+                <hr>
+                <form class="delete-quiz-body" @submit="onSubmitToDeleteQuiz">
+                    <div><h6>Are you sure you want to delete "{{this.missionTitleToBeDeleted}}"?</h6></div>
+                    <div><hr></div>
+                    <div class="delete-quiz-btm">
+                        <button type="button" class="cancel-delete" @click="closeDelete()">Cancel</button>
+                        <button type="submit" class="delete-quiz-btn">Delete</button>
+                    </div>
+                </form>
+               
+            </div>
         </div>
-
-        <div v-if="mission == missionTypes[1]">
-            <form @submit.prevent="wefieOnSubmitToAdd" v-if="func == functionsAvailable[0]">
-                Hotspot Name:
-                <v-select :options="hotspotList" v-model="hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>
-                Title:
-                <input name="title" type="text" placeholder="title" v-model="title">
-                <br>
-                Wefie Question:
-                <input name="wefie" type="text" placeholder="wefie_question" v-model="wefie_question">
-                <button type="submit">submit</button>
-            </form>
-
-            <form @submit.prevent="wefieOnSubmitToEdit" v-if="func == functionsAvailable[1]">
-                Wefie Question:
-                <v-select :options="wefieQuestionList" v-model="wefieID" placeholder="Please select a wefie question" style="width:500px;"></v-select>
-                <button type="button" @click="updateCurrWefieQn">Edit</button>
-                <br>
-                Wefie Question:
-                <input name="wefie" type="text" v-model="wefie_question">
-                <button type="submit">submit</button>
-            </form>
-
-            <form @submit.prevent="wefieOnSubmitToDelete" v-if="func == functionsAvailable[2]">
-                Wefie Question:
-                <v-select :options="wefieQuestionList" v-model="wefieID" placeholder="Please select a wefie question" style="width:500px;"></v-select>
-                <button type="submit">delete</button>
-            </form>
-        </div>
-        <!-- {{narrative}} -->
+        <!--delete quiz popup ends-->
     </div>
 </template>
 
@@ -170,32 +106,21 @@ export default {
     }, 
     data() {
         return{
-            func: "Add",
-            functionsAvailable: ["Add", "Edit", "Delete"],
             mission: "",
-            missionTypes: ["Quiz", "Wefie", "Drawing"],
-            hotspotList: [],
             quiz: [],
-            hotspot: "",
             missionList: [],
             missionToEdit: "",
             questionList: [],
             questionToBeEdited: "",
             title: "",
-            missionDictionary:{},
-            editedOptions: {
-                option1: "",
-                option2: "",
-                option3: "",
-                option4: "",
-                option1ID: "",
-                option2ID: "",
-                option3ID: "",
-                option4ID: ""
-            },
             wefie_question: "",
             wefieQuestionList: [],
-            wefieID: ""
+            wefieID: "",
+
+            //delete variables
+            showDeleteQuiz: false,
+            missionIDToBeDeleted:"",
+            missionTitleToBeDeleted:"",
         }
     }, 
     components:{
@@ -296,18 +221,7 @@ export default {
                 this.$router.go();
             })
         },
-        quizOnSubmitToDelete(){
-            var postBody = {
-                "hotspot_name": this.hotspotToBeDeleted,
-            }
-            axios.post('http://54.255.245.23:3000/delete/deleteQuiz', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-                this.$router.go();
-            })
-            this.hotspotToBeDeleted = "";
-        },
+
         wefieOnSubmitToAdd(){
             var postBody = {
                 "hotspot": this.hotspot.value,
@@ -363,7 +277,51 @@ export default {
                 })
 
                 console.log(this.missionList)
-        }
+        },
+
+        // delete quiz methods:
+        deleteQuiz(mission_id, mission_title){
+            this.missionIDToBeDeleted = mission_id;
+            this.missionTitleToBeDeleted = mission_title;
+
+            if(this.showDeleteQuiz){
+                this.showDeleteQuiz = false;
+            } else{
+                this.showDeleteQuiz = true;
+            }
+            console.log(this.missionIDToBeDeleted)
+        },
+
+        onSubmitToDeleteQuiz(){
+            var postBody = {
+                "mission_id": this.missionIDToBeDeleted
+            }
+            
+            axios.post('http://54.255.245.23:3000/delete/deleteQuiz', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                this.$router.go();
+            })
+
+            if(this.showDeleteQuiz){
+                this.showDeleteQuiz = false;
+            } else{
+                this.showDeleteQuiz = true;
+            }
+            
+            // location.reload();
+        },
+
+        closeDelete(){
+             if(this.showDeleteQuiz){
+                this.showDeleteQuiz = false;
+            } else{
+                this.showDeleteQuiz = true;
+            }
+        },
+
+
     },
     mounted(){
         if (!this.$session.exists()) {
@@ -490,7 +448,7 @@ export default {
         text-decoration: none!important;
         font-size: 14px;
         font-family: "Roboto", sans-serif;
-        color: #536479;
+        /*color: #536479;*/
     }
 
     .wefie-data button, .quiz-data button{
@@ -524,5 +482,111 @@ export default {
 
     .mission-title-header{
         min-width: 200px;
+    }
+
+    /*delete quiz popup*/
+    .black-blur-bg{
+        width:100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0, 0.7);
+        position: fixed;
+        top:0;
+        z-index: 2;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .delete-quiz-popup{
+        min-width: 30%;
+        min-height: 33%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+    }
+    
+    .delete-quiz-body{
+        width:100%;
+        height: 130px;
+        overflow: hidden;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+    }
+
+    .delete-quiz-body h6{
+        display: flex;
+        float: left;
+        height: 100%;
+        width: 100%;
+        font-size: 15px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .delete-quiz-btm{
+        margin-bottom: 10px;
+        margin-top: 10px;
+    
+    }
+
+    .cancel-delete{
+        background: none;
+        border: 1px solid #C6C4BC;
+        border-radius: 4px;
+        display: flex;
+        float: left;
+        padding:8px 15px 8px 15px;
+        margin-left: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        position: relative;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: #666666;
+    }
+
+    .delete-quiz-btn{
+        background: none;
+        border: none;
+        background-color: #F15E5E;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        position: relative;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+    }
+
+    .close-delete-quiz{
+        background: none;
+        border: none;
+        color: #868686;
+        cursor: pointer;
+        float: right;
+        font-size: 18px;
+    }
+
+    .delete-quiz-popup h5{
+        display: flex;
+        float: left;
+    }
+
+    .delete-quiz-header{
+        max-width: 100%;
+        padding:18px;
     }
 </style>

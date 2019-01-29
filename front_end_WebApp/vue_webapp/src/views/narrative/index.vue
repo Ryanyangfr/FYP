@@ -253,7 +253,7 @@ export default {
         },
 
         onSubmitToDelete(){
-             var postBody = {
+            var postBody = {
                 // "narrative_id": this.narrativeToBeDeleted.value,
                 "narrative_id": this.curr_narrative_id
             }
