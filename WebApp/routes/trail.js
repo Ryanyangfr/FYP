@@ -156,4 +156,55 @@ router.post('/editTrail', (req, res) => {
   });
 });
 
+router.post('/initializeTrail', (req,res) => {
+  const trailID = req.body.trailID
+  const trailInstanceID = req.body.trailInstanceID;
+
+  console.log('initialize trail')
+  const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?)'
+
+  const checkIfAnyActiveTrailQuery = 'SELECT * FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 OR HASSTARTED = 1';
+
+  conn.query(checkIfAnyActiveTrailQuery, (err,data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      const updateQuery = 'UPDATE TRAIL_INSTANCE SET ISACTIVE = 0, HASSTARTED = 0 WHERE TRAIL_ID = ? AND TRAIL_INSTANCE_ID = ?';
+      data.forEach((row) => {
+        let activatedTrailID = row.TRAIL_ID;
+        let activatedTrailInstanceID = row.TRAIL_INSTANCE_ID;
+        conn.query(updateQuery, [activatedTrailID,activatedTrailInstanceID], (err, data) => {
+          if (err) {
+            console.log(err)
+          }
+        });
+      });
+
+      conn.query(query, [trailInstanceID,trailID,1,0], (err, data) => {
+        if (err) {
+          console.log(err)
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          res.send(JSON.stringify({ success: 'true' }));
+        }
+      });
+    }
+  });
+});
+
+router.post('/startTrail', (req,res) => {
+  const trailID = req.body.trailID
+  const trailInstanceID = req.body.trailInstanceID;
+
+  const query = 'UPDATE TRAIL_INSTANCE SET HASSTARTED = 1 WHERE TRAIL_INSTANCE_ID = ? AND TRAIL_ID = ?';
+
+  conn.query(query, [trailInstanceID,trailID], (err, data) => {
+    if (err) {
+      console.log(err)
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      res.send(JSON.stringify({ success: 'true' }));
+    }
+  });
+})
 module.exports = router;

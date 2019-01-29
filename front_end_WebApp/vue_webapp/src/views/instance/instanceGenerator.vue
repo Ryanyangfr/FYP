@@ -1,5 +1,8 @@
 <template>
     <div class="instanceGenerator">
+
+         <v-select :options="trailsList" v-model="trail" placeholder="Select a trail" style="width:200px;"></v-select>
+
         <h4> GENERATE YOUR INSTANCE HERE </h4>
 
         <button v-on:click="toggleGenerate()">Generate Trail Instance</button>
@@ -9,11 +12,13 @@
         <br>
         <div v-if="generate_id">
             <h4><font size="20">{{instance_id}}</font></h4>
+             <button type="button" @click="startTrail">Start Trail</button>
         </div>
     </div>
 </template>
 
 <script>
+import vSelect from 'vue-select'
 import axios from 'axios'
 // import index from '../../components/NavBar/index'
 
@@ -22,10 +27,14 @@ export default {
     data () {
         return {
             instance_id: "",
-            generate_id: false
+            generate_id: false,
+            trailsList: [],
+            trail: ""
         }
     },
-
+    components:{
+      vSelect
+    },
     methods: {
         makeID(){
             var possible = '0123456789'
@@ -40,14 +49,48 @@ export default {
         toggleGenerate(){
             this.generate_id = true
             this.makeID()
+
+            let postBody = {
+                trailID: this.trail.value,
+                trailInstanceID: this.instance_id
+            }
+            axios.post('http://54.255.245.23:3000/trail/initializeTrail', postBody)
+            .then(response => {
+                let data = response.data;
+                console.log(data);
+            })
+        },
+
+        startTrail(){
+            let postBody = {
+                trailID: this.trail.value,
+                trailInstanceID: this.instance_id
+            }
+            axios.post('http://54.255.245.23:3000/trail/startTrail', postBody)
+            .then(response => {
+                let data = response.data;
+                console.log(data);
+            })
         }
     },
+    
     mounted(){
         console.log(this.$session.exists());
             if (!this.$session.exists()) {
             console.log("check")
             this.$router.push('/')
-        } 
+        }
+
+        axios.get('http://54.255.245.23:3000/trail/getAllTrails')
+        .then(response => {
+            let data = response.data;
+            for(var row in data){
+                console.log(data[row]);
+                this.trailsList.push({label: data[row].title, value: data[row].trailID});
+                // this.allTrailsInfoList.push({id: data[row].trailID, information: data[row]})
+            }
+        })
+
     }
 }
 </script>

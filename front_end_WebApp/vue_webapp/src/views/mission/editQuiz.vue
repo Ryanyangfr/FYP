@@ -86,7 +86,7 @@ export default {
         quizOnSubmitToEdit() {
             var postBody = {
                 "quiz": this.quiz,
-                "missionID": this.missionID,
+                "missionID": this.quizID,
                 "title": this.title
             }
 

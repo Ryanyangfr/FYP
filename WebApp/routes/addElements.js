@@ -237,7 +237,7 @@ router.post('/addWefieQuestion', (req,res) => {
       res.send(JSON.stringify({ success: 'false' }));
       console.log(err);
     } else {
-      const add_query = 'INSERT INTO SUBMISSION_QUESTION VALUES (?,?)';
+      const add_query = 'INSERT INTO SUBMISSION_QUESTION VALUES (?,?,?)';
       conn.query(add_query, [wefie_id, question, mission_id], (err, data) => {
         if (err) {
           res.send(JSON.stringify({ success: 'false' }));
