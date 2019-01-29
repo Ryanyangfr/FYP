@@ -74,7 +74,6 @@ router.post('/editQuiz', (req, res) => {
   const missionID = req.body.missionID;
   const title = req.body.title;
   const doneArray = [];
-
   const query = 'UPDATE MISSION SET MISSION_TITLE = ? WHERE MISSION_ID = ?'
 
   conn.query(query, [title, missionID], (err, data) => {
@@ -89,14 +88,18 @@ router.post('/editQuiz', (req, res) => {
   // console.log(quiz);
   // console.log('options:')
   // console.log(quiz[0].options)
+  let totalCount = 0;
 
+  quiz.forEach((row) => {
+    totalCount += row.options.length;
+  })
   quiz.forEach((row) => {
     let quizID = row.quiz_id;
     let quiz_question = row.quiz_question;
     let quiz_options = row.options;
     let quiz_answer = row.quiz_answer;
 
-    updateQuiz(quizID, quiz_answer, quiz_question, quiz_options, res, doneArray, quiz.length);
+    updateQuiz(quizID, quiz_answer, quiz_question, quiz_options, res, doneArray, totalCount);
   })
 });
 
@@ -167,7 +170,7 @@ function updateQuiz(quizID, answer, question, options, res, doneArray, counter) 
               console.log('counta: ' + counter);
               console.log(doneArray.length)
               doneArray.push("done")
-              if (doneArray.length === counter*4) {
+              if (doneArray.length === counter) {
                 res.send(JSON.stringify({ success: 'true' }));
               }
             }
