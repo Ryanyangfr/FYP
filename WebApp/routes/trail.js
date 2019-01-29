@@ -163,12 +163,31 @@ router.post('/initializeTrail', (req,res) => {
   console.log('initialize trail')
   const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?)'
 
-  conn.query(query, [trailInstanceID,trailID,1,0], (err, data) => {
+  const checkIfAnyActiveTrailQuery = 'SELECT * FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 OR HASSTARTED = 1';
+
+  conn.query(checkIfAnyActiveTrailQuery, (err,data) => {
     if (err) {
       console.log(err)
-      res.send(JSON.stringify({ success: 'false' }));
     } else {
-      res.send(JSON.stringify({ success: 'true' }));
+      const updateQuery = 'UPDATE TRAIL_INSTANCE SET ISACTIVE = 0, HASSTARTED = 0 WHERE TRAIL_ID = ? AND TRAIL_INSTANCE_ID = ?';
+      data.forEach((row) => {
+        let activatedTrailID = row.TRAIL_ID;
+        let activatedTrailInstanceID = row.TRAIL_INSTANCE_ID;
+        conn.query(updateQuery, [activatedTrailID,activatedTrailInstanceID], (err, data) => {
+          if (err) {
+            console.log(err)
+          }
+        });
+      });
+
+      conn.query(query, [trailInstanceID,trailID,1,0], (err, data) => {
+        if (err) {
+          console.log(err)
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          res.send(JSON.stringify({ success: 'true' }));
+        }
+      });
     }
   });
 });
