@@ -163,6 +163,8 @@ function updateQuiz(quizID, answer, question, options, res) {
               count += 1;
             } else {
               count += 1;
+              console.log('counta: ' + count);
+              console.log('opt length: ' + options.length)
               if (!anyErr && count === options.length) {
                 res.send(JSON.stringify({ success: 'true' }));
               }
