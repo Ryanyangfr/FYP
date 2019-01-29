@@ -53,7 +53,7 @@ router.post('/deleteQuiz', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      const deleteOptionsQuery = 'DELETE FROM QUIZ_OPTIONS WHERE QUIZ_ID = ?';
+      const deleteOptionsQuery = 'DELETE FROM QUIZ_OPTION WHERE QUIZ_ID = ?';
       const deleteQuizQuery = 'DELETE FROM QUIZ WHERE MISSION_ID = ?';
       const deleteMissionQuery = 'DELETE FROM MISSION WHERE MISSION_ID = ?';
 
