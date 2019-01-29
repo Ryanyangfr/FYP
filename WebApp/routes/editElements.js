@@ -73,6 +73,7 @@ router.post('/editQuiz', (req, res) => {
   const quiz = req.body.quiz;
   const missionID = req.body.missionID;
   const title = req.body.title;
+  const doneArray = [];
 
   const query = 'UPDATE MISSION SET MISSION_TITLE = ? WHERE MISSION_ID = ?'
 
@@ -95,7 +96,7 @@ router.post('/editQuiz', (req, res) => {
     let quiz_options = row.options;
     let quiz_answer = row.quiz_answer;
 
-    updateQuiz(quizID, quiz_answer, quiz_question, quiz_options, res);
+    updateQuiz(quizID, quiz_answer, quiz_question, quiz_options, res, doneArray, quiz.length);
   })
 });
 
@@ -140,7 +141,7 @@ router.post('/switchTeams', (req,res) => {
 
 /****************************************************************************************************Utility Methods **************************************************************************************************************************/
 
-function updateQuiz(quizID, answer, question, options, res) {
+function updateQuiz(quizID, answer, question, options, res, doneArray, count) {
   const updateQnQuery = 'UPDATE QUIZ SET QUIZ_QUESTION = ?, QUIZ_ANSWER = ? WHERE QUIZ_ID = ?'
 
   let count = 0;
@@ -164,8 +165,9 @@ function updateQuiz(quizID, answer, question, options, res) {
             } else {
               count += 1;
               console.log('counta: ' + count);
-              console.log('opt length: ' + options.length)
-              if (!anyErr && count === options.length) {
+              console.log('opt length: ' + options.length && doneArray.length === count)
+              doneArray.push("done")
+              if (!anyErr && count === options.length && doneArray.length === count) {
                 res.send(JSON.stringify({ success: 'true' }));
               }
             }
