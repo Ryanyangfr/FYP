@@ -55,20 +55,25 @@ router.post('/editNarrative', (req, res) => {
 });
 
 router.post('/editQuiz', (req, res) => {
-  const quizID = req.body.question.value;
-  const question = req.body.question.label;
+  // const quizID = req.body.question.value;
+  // const question = req.body.question.label;
 
-  const option1 = req.body.option1.option;
-  const option1ID = req.body.option1.id;
+  // const option1 = req.body.option1.option;
+  // const option1ID = req.body.option1.id;
 
-  const option2 = req.body.option2.option;
-  const option2ID = req.body.option2.id;
+  // const option2 = req.body.option2.option;
+  // const option2ID = req.body.option2.id;
 
-  const option3 = req.body.option3.option;
-  const option3ID = req.body.option3.id;
+  // const option3 = req.body.option3.option;
+  // const option3ID = req.body.option3.id;
 
-  const option4 = req.body.option4.option;
-  const option4ID = req.body.option4.id;
+  // const option4 = req.body.option4.option;
+  // const option4ID = req.body.option4.id;
+
+  const quiz = req.body.quiz;
+  const quizID = req.body.quizID;
+
+  console.log(quiz);
 
   const updateQnQuery = 'UPDATE QUIZ SET QUIZ_QUESTION = ? WHERE QUIZ_ID = ?'
 
