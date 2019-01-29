@@ -71,6 +71,12 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/viewQuiz',
+      name: 'viewQuiz',
+      component: ()=> import('@/views/mission/viewQuiz'),
+      hidden: true
+    },
+    {
       path: '/participant',
       name: 'participant',
       component: ()=> import('@/views/participant/index'),

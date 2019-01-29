@@ -53,7 +53,6 @@ export default{
         showOrHide(){
             if(this.$store.state.showSidebar){
                 // this.$store.state.showSidebar = false;
-                
                 this.show= false;
                 this.$sidebar = '0px';
             } else{
@@ -69,6 +68,8 @@ export default{
         logout(){
             this.$session.destroy();
             this.$router.push("/");
+            this.$store.commit('resetSideBar');
+            this.show= false;
         }
     }
   

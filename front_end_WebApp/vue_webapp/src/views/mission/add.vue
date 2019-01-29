@@ -107,6 +107,7 @@ export default {
         },
 
         deleteRow(index){
+            console.log(this.quiz)        
             this.$delete(this.quiz, index);
         },
 
