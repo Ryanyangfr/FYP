@@ -222,11 +222,20 @@ CREATE TABLE DRAG_AND_DROP
 (
 DRAGANDDROP_ID INT NOT NULL,
 DRAGANDDROP_QUESTION VARCHAR(1000) NOT NULL,
-DRAGANDDROP_ANSWER VARCHAR(1000) NOT NULL,
 MISSION_ID INT NOT NULL,
 CONSTRAINT DRAGANDDROP_PK PRIMARY KEY (DRAGANDDROP_ID),
 CONSTRAINT DRAGANDDROP_FK1 FOREIGN KEY (MISSION_ID)
 REFERENCES MISSION(MISSION_ID)
+);
+
+CREATE TABLE DRAG_AND_DROP_OPTION
+(
+DRAGANDDROP_ID INT NOT NULL,
+DRAGANDDROP_QUESTION_OPTION VARCHAR(500) NOT NULL,
+DRAGANDDROP_QUESTION_ANSWER VARCHAR(500) NOT NULL,
+CONSTRAINT DRAG_AND_DROP_OPTION_PK PRIMARY KEY (DRAGANDDROP_ID,DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER),
+CONSTRAINT DRAG_AND_DROP_OPTION_FK1 FOREIGN KEY (DRAGANDDROP_ID)
+REFERENCES DRAG_AND_DROP(DRAGANDDROP_ID)
 );
 
 CREATE TABLE ANAGRAM
@@ -409,8 +418,8 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 (8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 14),
 (9, 'Locate the Hive at the Learning Commons and take a wefie!', 15),
 (10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 6),
-(11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 17),
-(12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 18);
+(11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 17);
+-- (12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 18);
 
 INSERT INTO DRAWING_QUESTION VALUES
 (1, 'Draw Smoo Smoo', 20);
@@ -467,11 +476,13 @@ INSERT INTO TEAM_HOTSPOT_STATUS VALUES
 ('Li Ka Shing Library', '175239', 3, 0);
 
 INSERT INTO DRAG_AND_DROP VALUES
-(1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 18),
-(2,'In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 18),
-(3,'In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 18),
-(4,'In the CIRCLE values, what does the fourth alphabet \'C\' represent?', 'Collegiality', 18),
-(5,'In the CIRCLE values, what does the alphabet \'L\' represent?', 'Leadership', 18);
+(1,'Match the nonsense', 18);
+
+INSERT INTO DRAG_AND_DROP_OPTION VALUES
+(1,'I', 'Integrity'),
+(1,'R', 'Responsibility'),
+(1,'C', 'Collegiality'),
+(1,'L', 'Leadership');
 
 INSERT INTO ANAGRAM VALUES
 (1,'kwageokchoo', 19);
