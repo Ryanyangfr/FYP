@@ -71,83 +71,31 @@ router.post('/editQuiz', (req, res) => {
   // const option4ID = req.body.option4.id;
 
   const quiz = req.body.quiz;
-  const quizID = req.body.quizID;
+  const missionID = req.body.missionID;
+  const title = req.body.title;
 
-  console.log(quiz);
+  const query = 'UPDATE MISSION SET MISSION_TITLE = ? WHERE MISSION_ID = ?'
 
-  console.log('options:')
-  console.log(quiz[0].options)
-
-  const updateQnQuery = 'UPDATE QUIZ SET QUIZ_QUESTION = ? WHERE QUIZ_ID = ?'
-
-  let count = 0;
-  let anyErr = false;
-
-  conn.query(updateQnQuery, [question, quizID], (err, result) => {
+  conn.query(query, [title, missionID], (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
-      anyErr = true;
+      return;
     } else {
-      const updateOptionQuery = 'UPDATE QUIZ_OPTION SET QUIZ_OPTION = ? WHERE QUIZ_OPTION_ID = ? AND QUIZ_ID = ?'
-            
-      conn.query(updateOptionQuery, [option1, option1ID, quizID], (err, data) => {
-        if (err) {
-          console.log(err);
-          res.send(JSON.stringify({ success: 'false' }));
-          anyErr = true;
-          count += 1;
-        } else {
-          count += 1;
-          if (!anyErr && count === 4) {
-            res.send(JSON.stringify({ success: 'true' }));
-          }
-        }
-      });
-
-      conn.query(updateOptionQuery, [option2, option2ID, quizID], (err, data) => {
-        if (err) {
-          console.log(err);
-          res.send(JSON.stringify({ success: 'false' }));
-          anyErr = true;
-          count += 1;
-        } else {
-          count += 1;
-          if (!anyErr && count == 4) {
-            res.send(JSON.stringify({ success: 'true' }));
-          }
-        }
-      });
-
-      conn.query(updateOptionQuery, [option3, option3ID, quizID], (err, data) => {
-        if (err) {
-          console.log(err);
-          res.send(JSON.stringify({ success: 'false' }));
-          anyErr = true;
-          count += 1;
-        } else {
-          count += 1;
-          if (!anyErr && count == 4) {
-            res.send(JSON.stringify({ success: 'true' }));
-          }
-        }
-      });
-
-      conn.query(updateOptionQuery, [option4, option4ID, quizID], (err, data) => {
-        if (err) {
-          console.log(err);
-          res.send(JSON.stringify({ success: 'false' }));
-          anyErr = true;
-          count += 1;
-        } else {
-          count += 1;
-          if (!anyErr && count == 4) {
-            res.send(JSON.stringify({ success: 'true' }));
-          }
-        }
-      });
+      console.log('mission updated');
     }
-  });
+  })
+  // console.log(quiz);
+  // console.log('options:')
+  // console.log(quiz[0].options)
+
+  quiz.forEach((row) => {
+    let quizID = row.quiz_id;
+    let quiz_question = row.quiz_question;
+    let quiz_options = row.options;
+
+    updateQuiz(quizID, quiz_question, quiz_options);
+  })
 });
 
 router.post('/editWefieQuestion', (req, res) => {
@@ -185,4 +133,97 @@ router.post('/switchTeams', (req,res) => {
     }
   })
 })
+
+
+
+
+/****************************************************************************************************Utility Methods **************************************************************************************************************************/
+
+function updateQuiz(quizID, question, options) {
+  const updateQnQuery = 'UPDATE QUIZ SET QUIZ_QUESTION = ?, QUIZ_ANSWER = ? WHERE QUIZ_ID = ?'
+
+  let count = 0;
+  let anyErr = false;
+  
+  conn.query(updateQnQuery, [question, quizID], (err, result) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+      anyErr = true;
+    } else {
+      const updateOptionQuery = 'UPDATE QUIZ_OPTION SET QUIZ_OPTION = ? WHERE QUIZ_OPTION_ID = ? AND QUIZ_ID = ?'
+      
+      options.forEach((option) => {
+        conn.query(updateOptionQuery, [option.option, option.option_id, quizID], (err, data) => {
+            if (err) {
+              console.log(err);
+              res.send(JSON.stringify({ success: 'false' }));
+              anyErr = true;
+              count += 1;
+            } else {
+              count += 1;
+              if (!anyErr && count === options.length) {
+                res.send(JSON.stringify({ success: 'true' }));
+              }
+            }
+          });
+      });
+      // conn.query(updateOptionQuery, [option1, option1ID, quizID], (err, data) => {
+      //   if (err) {
+      //     console.log(err);
+      //     res.send(JSON.stringify({ success: 'false' }));
+      //     anyErr = true;
+      //     count += 1;
+      //   } else {
+      //     count += 1;
+      //     if (!anyErr && count === 4) {
+      //       res.send(JSON.stringify({ success: 'true' }));
+      //     }
+      //   }
+      // });
+
+      // conn.query(updateOptionQuery, [option2, option2ID, quizID], (err, data) => {
+      //   if (err) {
+      //     console.log(err);
+      //     res.send(JSON.stringify({ success: 'false' }));
+      //     anyErr = true;
+      //     count += 1;
+      //   } else {
+      //     count += 1;
+      //     if (!anyErr && count == 4) {
+      //       res.send(JSON.stringify({ success: 'true' }));
+      //     }
+      //   }
+      // });
+
+      // conn.query(updateOptionQuery, [option3, option3ID, quizID], (err, data) => {
+      //   if (err) {
+      //     console.log(err);
+      //     res.send(JSON.stringify({ success: 'false' }));
+      //     anyErr = true;
+      //     count += 1;
+      //   } else {
+      //     count += 1;
+      //     if (!anyErr && count == 4) {
+      //       res.send(JSON.stringify({ success: 'true' }));
+      //     }
+      //   }
+      // });
+
+      // conn.query(updateOptionQuery, [option4, option4ID, quizID], (err, data) => {
+      //   if (err) {
+      //     console.log(err);
+      //     res.send(JSON.stringify({ success: 'false' }));
+      //     anyErr = true;
+      //     count += 1;
+      //   } else {
+      //     count += 1;
+      //     if (!anyErr && count == 4) {
+      //       res.send(JSON.stringify({ success: 'true' }));
+      //     }
+      //   }
+      // });
+    }
+  });
+}
 module.exports = router;
