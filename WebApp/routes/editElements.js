@@ -167,7 +167,7 @@ function updateQuiz(quizID, answer, question, options, res, doneArray, counter) 
               console.log('counta: ' + counter);
               console.log(doneArray.length)
               doneArray.push("done")
-              if (!anyErr && count === options.length && doneArray.length === counter) {
+              if (!anyErr && count === options.length && doneArray.length === counter*4) {
                 res.send(JSON.stringify({ success: 'true' }));
               }
             }
