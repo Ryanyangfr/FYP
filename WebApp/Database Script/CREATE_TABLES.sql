@@ -480,10 +480,10 @@ INSERT INTO DRAG_AND_DROP VALUES
 
 INSERT INTO DRAG_AND_DROP_OPTION VALUES
 (1,'C', 'Integrity'),
-(2,'I', 'Integrity'),
-(3,'R', 'Responsibility'),
-(4,'C', 'Collegiality'),
-(5,'L', 'Leadership');
+(1,'I', 'Integrity'),
+(1,'R', 'Responsibility'),
+(1,'C', 'Collegiality'),
+(1,'L', 'Leadership');
 
 INSERT INTO ANAGRAM VALUES
 (1,'kwageokchoo', 19);
