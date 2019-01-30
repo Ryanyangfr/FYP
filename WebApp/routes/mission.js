@@ -39,4 +39,20 @@ router.get('/getMissionWefie', function(req,res){
     });
 });
 
+
+router.get('/getAllMissions', function(req,res){
+    var response = [];
+    // var hotspot = req.query.hotspot;
+    var query = 'SELECT * FROM MISSION';
+    conn.query(query, function(err, data){
+        if(err){
+            console.log(err);
+        }else {
+            for(var index in data){
+                response.push({mission: data[index].MISSION_ID, title: data[index].MISSION_TITLE});
+            }
+            res.send(response);
+        }
+    });
+});
 module.exports = router;
