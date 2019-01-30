@@ -205,8 +205,8 @@ router.post('/startTrail', (req,res) => {
       res.send(JSON.stringify({ success: 'false' }));
     } else {
       const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?)';
-
-      for (let teamID=0; teamID<numTeams; teamID++) {
+      let teamID = 0;
+      while (teamID < numTeams) {
         conn.query(updateTeamQuery, [teamID+1, 0, trailInstanceID], (err,data) => {
           if (err) {
             console.log(err)
@@ -217,6 +217,7 @@ router.post('/startTrail', (req,res) => {
             }
           }
         });
+        teamID += 1;
       }
     }
   });
