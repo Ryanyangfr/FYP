@@ -4,7 +4,7 @@
             <div class="card-title">
                 <h6>Edit Trail</h6>
             </div>
-            <form @submit.prevent="trailOnSubmitToAdd" class="add-mission-body">
+            <form @submit.prevent="trailOnSubmitToEdit" class="add-mission-body">
                 <div class="add-mission-input">
                     <label for="add-mission-title-input">Title</label>
                     <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
@@ -60,6 +60,7 @@ export default {
     name: "addMission",
     data() {
         return{
+            trailID: 0,
             title: "",
             duration: "",
             details: [],
@@ -85,6 +86,33 @@ export default {
         //     console.log(this.details)        
         //     this.$delete(this.details, index);
         // },
+        trailOnSubmitToEdit(){
+            this.details.forEach(element => {
+                let updatedNarrative = this.narrativeDict[element.narrativeTitle]
+                let updatedMission = this.missionDict[element.missionTitle]
+
+                this.updatedDetailsToAdd.push({hotspot: element.hotspot, narrative: updatedNarrative, mission: updatedMission})
+            });
+            var postBody = {
+                trailID: this.trailID,
+                title: this.title,
+                totalTime: this.duration,
+                hotspotsAndMissions: this.updatedDetailsToAdd
+            }
+            console.log(postBody);
+            axios.post('http://54.255.245.23:3000/trail/editTrail', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                if (data.success === "true") {
+                    alert("Trail Successfully Edited")
+                } else {
+                    alert("Error Please Try Again")
+                }
+                this.$router.push({ path: this.redirect || '/trail' })
+                // this.$router.go();
+            })
+        }
         
     },
 
@@ -149,6 +177,8 @@ export default {
                 this.narrativeDict[data[row].narrative_title] = data[row].narrative_id;
             }
         })
+
+        this.trailID = this.$store.state.selectedTrailID
     }       
         
 }
