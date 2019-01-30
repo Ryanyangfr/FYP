@@ -193,8 +193,9 @@ router.post('/initializeTrail', (req,res) => {
 });
 
 router.post('/startTrail', (req,res) => {
-  const trailID = req.body.trailID
+  const trailID = req.body.trailID;
   const trailInstanceID = req.body.trailInstanceID;
+  const numTeams = req.body.numTeams;
 
   const query = 'UPDATE TRAIL_INSTANCE SET HASSTARTED = 1 WHERE TRAIL_INSTANCE_ID = ? AND TRAIL_ID = ?';
 
@@ -203,7 +204,20 @@ router.post('/startTrail', (req,res) => {
       console.log(err)
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      res.send(JSON.stringify({ success: 'true' }));
+      const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?)';
+
+      for (let teamID=0; teamID<numTeams; teamID++) {
+        conn.query(updateTeamQuery, [teamID+1, 0, trailInstanceID], (err,data) => {
+          if (err) {
+            console.log(err)
+            res.send(JSON.stringify({ success: 'false' }));
+          } else {
+            if (teamID === numTeams-1) {
+              res.send(JSON.stringify({ success: 'true' }));
+            }
+          }
+        });
+      }
     }
   });
 })
