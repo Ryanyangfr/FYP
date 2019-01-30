@@ -75,7 +75,7 @@ router.post('/addTrail', (req, res) => {
       
       hotspotsAndMissions.forEach((hotspotAndMission) => {
         console.log(hotspotAndMission)
-        conn.query(trailHotspotsCreationQuery, [trailID, hotspotAndMission.hotspot.label, hotspotAndMission.narrative.value, hotspotAndMission.mission.value], (err, result) => {
+        conn.query(trailHotspotsCreationQuery, [trailID, hotspotAndMission.hotspot, hotspotAndMission.narrative, hotspotAndMission.mission], (err, result) => {
           if (err) {
             res.send(JSON.stringify({ success: 'false' }));
             console.log(err);
@@ -159,6 +159,7 @@ router.post('/editTrail', (req, res) => {
 router.post('/initializeTrail', (req,res) => {
   const trailID = req.body.trailID
   const trailInstanceID = req.body.trailInstanceID;
+  const numTeams = req.body.numTeams;
 
   console.log('initialize trail')
   const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?)'
@@ -185,7 +186,20 @@ router.post('/initializeTrail', (req,res) => {
           console.log(err)
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          res.send(JSON.stringify({ success: 'true' }));
+          const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?)';
+
+          for (let teamID=0; teamID<numTeams; teamID++) {
+            conn.query(updateTeamQuery, [teamID+1, 0, trailInstanceID], (err,data) => {
+              if (err) {
+                console.log(err)
+                res.send(JSON.stringify({ success: 'false' }));
+              } else {
+                if (teamID === numTeams-1) {
+                  res.send(JSON.stringify({ success: 'true' }));
+                }
+              }
+            });
+          }
         }
       });
     }
@@ -193,7 +207,7 @@ router.post('/initializeTrail', (req,res) => {
 });
 
 router.post('/startTrail', (req,res) => {
-  const trailID = req.body.trailID
+  const trailID = req.body.trailID;
   const trailInstanceID = req.body.trailInstanceID;
 
   const query = 'UPDATE TRAIL_INSTANCE SET HASSTARTED = 1 WHERE TRAIL_INSTANCE_ID = ? AND TRAIL_ID = ?';
