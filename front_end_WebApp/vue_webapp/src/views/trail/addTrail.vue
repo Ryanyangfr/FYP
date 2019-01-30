@@ -39,6 +39,9 @@
                                 </option> 
                             </select>  
                         </div>
+                        <div class="delete-quiz-question-area">
+                                <button type="button" class="delete-quiz-question" @click="deleteRow(index)">Delete</button>
+                        </div>
                         
                 </div>
                 <button class="add-new-question-btn" type="button" @click="addRow">ADD HOTSPOT, NARRATIVE AND MISSION</button>
@@ -364,12 +367,14 @@ export default {
         box-shadow: 0 0 2px #645cdd;
     }
 
-    .submit-btn-area{
+    .AddTrail .submit-btn-area{
         width: 100%;
+        overflow: hidden;
+        float: right;
     }
 
     .AddTrail .submit-btn{
-        /*display: flex;*/
+        /*display: inline;*/
         float:right;
         background: none;
         border: none;

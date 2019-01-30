@@ -354,7 +354,7 @@ export default {
         box-shadow: 0 0 2px #645cdd;
     }
 
-    .submit-btn-area{
+    .AddMission .submit-btn-area{
         width: 100%;
     }
 
