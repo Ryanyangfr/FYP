@@ -4,8 +4,7 @@
             <div class="card-title">
                 <h6>Add New Trail</h6>
             </div>
-
-            <form @submit.prevent="quizOnSubmitToAdd" class="add-mission-body">
+            <form @submit.prevent="trailOnSubmitToAdd" class="add-mission-body">
                 <div class="add-mission-input">
                     <label for="add-mission-title-input">Title</label>
                     <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
@@ -34,7 +33,7 @@
                         </div>
                         <div class="missions-droplist">
                             <label for="missions-droplist-input">Select Narrative</label>
-                            <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.mission">
+                            <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.narrative">
                                 <option v-for="narrative in narratives" :key="narrative.narrative_id">
                                     {{narrative.narrative_title}}
                                 </option> 
@@ -58,13 +57,15 @@ export default {
     name: "addMission",
     data() {
         return{
-            
             title: "",
             duration: "",
             details: [],
+            updatedDetailsToAdd: [],
             missions: [],
             hotspotList: [],
-            narratives: []
+            narratives: [],
+            narrativeDict: {},
+            missionDict: {}
         }  
     },
 
@@ -82,24 +83,31 @@ export default {
             this.$delete(this.details, index);
         },
 
-        quizOnSubmitToAdd(){
+        trailOnSubmitToAdd(){
+            this.details.forEach(element => {
+                let updatedNarrative = this.narrativeDict[element.narrative]
+                let updatedMission = this.missionDict[element.mission]
+
+                this.updatedDetailsToAdd.push({hotspot: element.hotspot, narrative: updatedNarrative, mission: updatedMission})
+            });
             var postBody = {
-                "title": this.title,
-                "quiz": this.quiz
+                title: this.title,
+                totalTime: this.duration,
+                hotspotsAndMissions: this.updatedDetailsToAdd
             }
-            // console.log(this.hotspot.value);
-            console.log(this.title);
-            console.log(this.quiz);
-            axios.post('http://54.255.245.23:3000/add/addQuiz', postBody)
+            console.log(postBody);
+            axios.post('http://54.255.245.23:3000/trail/addTrail', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
-                this.$router.push({ path: this.redirect || '/mission' })
+                if (data.success === "true") {
+                    alert("Trail Successfully Added")
+                } else {
+                    alert("Error Please Try Again")
+                }
+                this.$router.push({ path: this.redirect || '/trail' })
+                // this.$router.go();
             })
-            // this.hotspot = "";
-            // this.quiz = [];
-            // location.reload();
-            // this.$router.go();
         },
 
         wefieOnSubmitToAdd(){
@@ -130,6 +138,7 @@ export default {
             console.log(data)
             for(var index in data){
                this.missions.push({mission_ID:data[index].mission, mission_title:data[index].title})
+               this.missionDict[data[index].title] = data[index].mission;
             }
 
             console.log(this.missions)
@@ -151,6 +160,7 @@ export default {
             for(var row in data){
                 console.log(data[row])
                 this.narratives.push({narrative_title: data[row].narrative_title, narrative_id: data[row].narrative_id})
+                this.narrativeDict[data[row].narrative_title] = data[row].narrative_id;
             }
         })
     }       
