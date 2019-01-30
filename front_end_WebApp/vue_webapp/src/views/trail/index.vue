@@ -19,7 +19,7 @@
                     <td>{{trail.trail_duration}}</td>
                     <td><button class="view-trail-btn" @click="saveSelectedTrail(trail.trail_ID)"><router-link to='/viewTrail'>View full details</router-link></button></td>
                     <td>
-                        <button @click="saveSelectedTrail(trail.trail_ID)"><router-link to='/addTrail'><i class="ti-pencil-alt"></i></router-link></button>
+                        <button @click="saveSelectedTrail(trail.trail_ID)"><router-link to='/editTrail'><i class="ti-pencil-alt"></i></router-link></button>
                         <button><i class="ti-trash"></i></button>
                     </td>
                 </tr>
@@ -98,11 +98,6 @@ export default {
         },
 
     //store in vuex store ends 
-
-
-
-
-
 
     addRow(){
         this.hotspotsAndMissions.push({

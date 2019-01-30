@@ -111,6 +111,12 @@ export default new Router({
       name: 'viewTrail',
       component: ()=> import('@/views/trail/view'),
       hidden: true
+    },
+    {
+      path: '/editTrail',
+      name: 'editTrail',
+      component: ()=> import('@/views/trail/editTrail'),
+      hidden: true
     }
   ]
 })
