@@ -3,9 +3,9 @@
 
          <v-select :options="trailsList" v-model="trail" placeholder="Select a trail" style="width:200px;"></v-select>
 
-        <h4> GENERATE YOUR INSTANCE HERE </h4>
+        <h4> GENERATE TRAIL ID HERE </h4>
 
-        <button v-on:click="toggleGenerate()">Generate Trail Instance</button>
+        <button v-on:click="toggleGenerate()">Generate Trail ID</button>
 
         <br>
         <br>

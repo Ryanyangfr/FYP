@@ -1,86 +1,54 @@
 <template>
-  <div>
-    <v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
-    
-    <form @submit.prevent="trailOnSubmitToAdd" v-if="func == functionsAvailable[0]">
-        Trail Title:
-        <input name="title" type="text" placeholder="title" v-model="title">
-        <br>
-        Trail Duration:
-        <input name="duration" type="text" placeholder="duration" v-model="duration">
-        <br>
-        <!-- {{this.narrativeList}}
-        {{this.hotspotsAndMissions}} -->
-        Trail Hotspots:
-         <ul>
-            <li v-for="(input, index) in hotspotsAndMissions">
-              Hotspot:
-              <v-select :options="hotspotList" v-model="input.hotspot" placeholder="Please select a hotspot" style="width:200px;"></v-select>
-              
-              <br>
-              Narrative:
-              <v-select :options="narrativeList" v-model="input.narrative" placeholder="Please select a narrative" style="width:200px;"></v-select>
-              <br>
-              <!-- {{input.narrative }} -->
-              Mission Type:
-              <v-select :options="missionTypesAvailable" v-model="input.missionType" style="width:200px;"></v-select>
-              {{input.missionType}}
-              <button type="button" @click="fetchMissions(input.missionList, input.missionType)">Get Available Missions</button>
-              <!-- {{input.missionList}} -->
-              
-              <div v-if="input.missionList.length > 0">
-                Mission:
-                <v-select :options="input.missionList" v-model="input.mission" placeholder="Select a mission" style="width:200px;"></v-select>
-              </div>
-              
-              <button @click="deleteRow(index)">Delete</button>
-            </li>
-            <button type="button" @click="addRow">Add row</button>
-            <button type="submit">submit</button>
-        </ul>
-    </form>
-    <!-- {{allTrailsInfoList}} -->
-    <form @submit.prevent="trailOnSubmitToEdit" v-if="func == functionsAvailable[1]">
-        <v-select :options="trailsList" v-model="trailID" placeholder="Please select a trail" style="width:200px;"></v-select>
-        <button type="button" @click="populateCurrentTrailInfo">Edit Trail</button>
-        <!-- {{trailID}} -->
-        <div v-if="trailID != undefined">
-            <!-- {{allTrailsInfoList}} -->
-            <!-- {{currTrailTitle}} -->
-            <!-- {{currHotspotsAndMissions}} -->
-            Trail Title:
-            <input name="title" type="text" v-model="currTrailTitle">
-            {{currTrailTitle}}
-            <br>
-            Trail Duration:
-            <input name="duration" type="text" v-model="currTrailTotalTime">
-            <!-- {{currHotspotsAndMissions}} -->
-            <ul>
-                <li v-for="(input, index) in currHotspotsAndMissions">
-                {{input}}
-                Hotspot:
-                <v-select :options="hotspotList" v-model="input.hotspot" style="width:200px;"></v-select>
-                
-                <br>
-                Narrative:
-                <v-select :options="narrativeList" v-model="input.narrativeTitle" style="width:200px;"></v-select>
-                <br>
-                <!-- {{input.narrative }} -->
-                Mission Type:
-                <v-select :options="missionTypesAvailable" v-model="input.missionType" style="width:200px;"></v-select>
-                <button type="button" @click="fetchMissions(input.missionList, input.missionType)">Get Available Missions</button>
-                <!-- {{input.missionList}} -->
-                
-                <div v-if="input.missionList.length > 0">
-                    Mission:
-                    <v-select :options="input.missionList" v-model="input.missionTitle" placeholder="Select a mission" style="width:200px;"></v-select>
-                </div>
-                <button type="submit">submit</button>
+    <div class="Trail">
+        <div class="card">
+            <div class="card-title">
+                <h5>Trail List</h5>
+                <button class="create-trail-btn"><i class="ti-plus"></i><router-link to='/addTrail'>ADD NEW</router-link></button>
+            </div>
 
-                </li>
-            </ul>
+            <!--table for trail begins-->
+            <table>
+                <tr class="trail-table-header">
+                    <td class="trail-title-header">Trail Title</td>
+                    <td>Trail Duration (Minutes)</td>
+                    <td>Details</td>
+                    <td>Actions</td>
+                </tr>
+                <tr class="trail-data" v-for="trail in trailsList" :key="trail.trail_ID">
+                    <td>{{trail.trail_title}}</td>
+                    <td>{{trail.trail_duration}}</td>
+                    <td><button class="view-trail-btn" @click="saveSelectedTrail(trail.trail_ID)"><router-link to='/viewTrail'>View full details</router-link></button></td>
+                    <td>
+                        <button @click="saveSelectedTrail(trail.trail_ID)"><router-link to='/addTrail'><i class="ti-pencil-alt"></i></router-link></button>
+                        <button><i class="ti-trash"></i></button>
+                    </td>
+                </tr>
+            </table>
+            <!--table for trail  ends-->
         </div>
-    </form>
+
+        <!--delete trail popup begins-->
+        <!--shows when user clicks on delete icon for trail. showDeleteTrail = true-->
+        <div class="black-blur-bg" v-if="showDeleteTrail"> 
+            <div class="delete-trail-popup">
+                <div class="delete-trail-header">
+                    <h5>Delete</h5>
+                    <button class="close-delete-trail" @click="closeDeleteTrail()"><font-awesome-icon icon="times"/></button>
+                </div>
+                <hr>
+                <form class="delete-trail-body" @submit="onSubmitToDeleteTrail">
+                    <div><h6>Are you sure you want to delete "{{this.trailTitleToBeDeleted}}"?</h6></div>
+                    <div><hr></div>
+                    <div class="delete-trail-btm">
+                        <button type="button" class="cancel-delete" @click="closeDeleteTrail()">Cancel</button>
+                        <button type="submit" class="delete-trail-btn">Delete</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+        <!--delete trail popup ends-->
+    
   </div>
 </template>
 
@@ -111,10 +79,31 @@ export default {
         editedCurrHotspotsAndMissionsForUpdating: []
       }
   }, 
+
   components:{
       vSelect
   },
+
+  computed:{
+    selectedTrailID(){
+            return this.$store.state.selectedTrailID;
+            // console.log(this.$store.state.selectedQuiz);
+    },
+  },
+
   methods : {
+    // store in vuex store begins
+    saveSelectedTrail(trailID){
+            this.$store.commit('saveSelectedTrailID', trailID);
+        },
+
+    //store in vuex store ends 
+
+
+
+
+
+
     addRow(){
         this.hotspotsAndMissions.push({
            hotspot: "",
@@ -259,7 +248,7 @@ export default {
         let data = response.data;
         for(var row in data){
             console.log(data[row]);
-            this.trailsList.push({label: data[row].title, value: data[row].trailID});
+            this.trailsList.push({trail_title: data[row].title, trail_ID: data[row].trailID, trail_duration: data[row].totalTime});
             this.allTrailsInfoList.push({id: data[row].trailID, information: data[row]})
         }
     })
@@ -267,3 +256,235 @@ export default {
   }
 }
 </script>
+
+<style>
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
+    @import '../../assets/themify-icons.css';
+
+    label{
+        font-family: 'lato', sans-serif
+    }
+    .Trail .card{
+        padding: 18px;
+        margin: 18px;
+        border-radius: 3px;
+        border: none;
+        font-family: 'Roboto Condensed', sans-serif; 
+    }
+
+    .card .card-title{
+        /*display: flex;*/
+        /*float: left;*/
+        font-size: 20px;
+    }
+
+    .card-title h5{
+        display: flex;
+        float: left;
+    }
+
+    .create-trail-btn{
+        background-color: #645cdd;;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size:15px;
+        display: flex;
+        float: right;
+        padding:12px;
+        margin-right: 12px;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 600;
+        align-items: center;
+    }
+
+    .create-trail-btn:hover{
+        background-color: #6200EE;
+    }
+
+    .create-trail-btn i{
+        font-size: 13px;
+        margin-right: 5px;
+        
+    }
+
+    .create-trail-btn a {
+        text-decoration: none!important;
+        font-size: 15px;
+        color:white;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
+    .card table{
+        margin: 18px;
+        font-size: 14px;
+        font-family: "Roboto", sans-serif;
+       
+    }
+
+    .card table td{
+        text-align: left;
+    }
+
+    
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+        border-top: 1px solid #DEE2E6;
+        border-bottom: 1px solid #DEE2E6;
+    }
+
+    .trail-data td{
+        /*max-height: 10px;*/
+        max-width: 700px;
+        padding: 15px;
+    }
+
+    .trail-data a{
+        text-decoration: none!important;
+        font-size: 14px;
+        font-family: "Roboto", sans-serif;
+        /*color: #536479;*/
+    }
+
+    .trail-data button{
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .view-trail-btn{
+        background:none;
+        border:none;
+        cursor: pointer;
+    }
+
+    .trail-data i{
+        font-size: 20px;
+        color: #536479;
+    }
+
+    .trail-table-header td{
+        font-size: 15px;
+        padding: 10px;
+        min-height: 100px;
+        font-weight: 600;
+        border-top: 1px solid #DEE2E6;
+        border-bottom: 2px solid #DEE2E6;
+    }
+
+    .trail-title-header{
+        min-width: 200px;
+    }
+
+    /*delete trail popup starts*/
+    .black-blur-bg{
+        width:100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0, 0.7);
+        position: fixed;
+        top:0;
+        z-index: 2;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .delete-trail-popup{
+        min-width: 30%;
+        min-height: 33%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+    }
+    
+    .delete-trail-body{
+        width:100%;
+        height: 130px;
+        overflow: hidden;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+    }
+
+    .delete-trail-body h6{
+        display: flex;
+        float: left;
+        height: 100%;
+        width: 100%;
+        font-size: 15px;
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .delete-trail-btm{
+        margin-bottom: 10px;
+        margin-top: 10px;
+    
+    }
+
+    .cancel-delete{
+        background: none;
+        border: 1px solid #C6C4BC;
+        border-radius: 4px;
+        display: flex;
+        float: left;
+        padding:8px 15px 8px 15px;
+        margin-left: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        position: relative;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: #666666;
+    }
+
+    .delete-trail-btn{
+        background: none;
+        border: none;
+        background-color: #F15E5E;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        position: relative;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+    }
+
+    .close-delete-trail{
+        background: none;
+        border: none;
+        color: #868686;
+        cursor: pointer;
+        float: right;
+        font-size: 18px;
+    }
+
+    .delete-trail-popup h5{
+        display: flex;
+        float: left;
+    }
+
+    .delete-trail-header{
+        max-width: 100%;
+        padding:18px;
+    }
+
+    /*deleted quiz popup ends*/
+
+</style>
+

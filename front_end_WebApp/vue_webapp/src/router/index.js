@@ -99,6 +99,18 @@ export default new Router({
       name: 'trail',
       component: ()=> import('@/views/trail/index'),
       hidden: true
+    },
+    {
+      path: '/addTrail',
+      name: 'addTrail',
+      component: ()=> import('@/views/trail/addTrail'),
+      hidden: true
+    },
+    {
+      path: '/viewTrail',
+      name: 'viewTrail',
+      component: ()=> import('@/views/trail/view'),
+      hidden: true
     }
   ]
 })

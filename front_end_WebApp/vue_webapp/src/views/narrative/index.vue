@@ -399,7 +399,7 @@ export default {
         background-color: rgb(0, 0, 0, 0.7);
         position: fixed;
         top:0;
-        z-index: 2;
+        z-index: 1000;
         display:flex;
         align-items: center;
         justify-content: center;
