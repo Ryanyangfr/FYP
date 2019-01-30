@@ -185,7 +185,20 @@ router.post('/initializeTrail', (req,res) => {
           console.log(err)
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          res.send(JSON.stringify({ success: 'true' }));
+          const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?)';
+
+          for (let teamID=0; teamID<numTeams; teamID++) {
+            conn.query(updateTeamQuery, [teamID+1, 0, trailInstanceID], (err,data) => {
+              if (err) {
+                console.log(err)
+                res.send(JSON.stringify({ success: 'false' }));
+              } else {
+                if (teamID === numTeams-1) {
+                  res.send(JSON.stringify({ success: 'true' }));
+                }
+              }
+            });
+          }
         }
       });
     }
@@ -204,21 +217,7 @@ router.post('/startTrail', (req,res) => {
       console.log(err)
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?)';
-      let teamID = 0;
-      while (teamID < numTeams) {
-        conn.query(updateTeamQuery, [teamID+1, 0, trailInstanceID], (err,data) => {
-          if (err) {
-            console.log(err)
-            res.send(JSON.stringify({ success: 'false' }));
-          } else {
-            if (teamID === numTeams-1) {
-              res.send(JSON.stringify({ success: 'true' }));
-            }
-          }
-        });
-        teamID += 1;
-      }
+      res.send(JSON.stringify({ success: 'true' }));
     }
   });
 })
