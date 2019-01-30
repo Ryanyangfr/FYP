@@ -220,13 +220,13 @@ input:-webkit-autofill:active  {
   margin-right: 5px; 
 }
 
-.submit-btn-area{
+.Login .submit-btn-area{
   /*text-align: center;*/
   align-items: center;
   margin-top: 90px
 }
 
-.submit-btn-area button{
+.Login .submit-btn-area button{
     width: 100%;
     height: 50px;
     border: none;
