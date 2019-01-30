@@ -7,6 +7,7 @@
         <br>
         <input id="numTeams" v-model="numTeams" placeholder="Enter number of teams">
 
+
         <br>
         <br>
         <br>

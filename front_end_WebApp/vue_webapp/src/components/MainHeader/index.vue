@@ -17,13 +17,13 @@
         <transition name="slide">
             <div class="sideBar" v-if="show">
                 <ul>
-                    <li><router-link to="/generateInstanceID">Generate Instance ID</router-link></li>
+                    <li><router-link to='/addHotspot'>Location</router-link></li>
+                    <li><router-link to='/addNarrative'>Narrative</router-link></li>
+                    <li><router-link to='/mission'>Missions</router-link></li>
+                    <li><router-link to='/trail'>Trail</router-link></li>
+                    <li><router-link to="/generateInstanceID">Start Trail</router-link></li>
                     <li><router-link to="/leaderboard">Leaderboard</router-link></li>
                     <li><router-link to='/viewSubmissions'>Submissions</router-link></li>
-                    <li><router-link to='/mission'>Missions</router-link></li>
-                    <li><router-link to='/addNarrative'>Narrative</router-link></li>
-                    <li><router-link to='/addHotspot'>Hotspot</router-link></li>
-
                 </ul>
             </div>
         </transition>
@@ -88,6 +88,7 @@ export default{
         height: calc(100% - 65px);
         z-index: 1;
         position:fixed;
+        overflow: hidden;
     }
 
     .slide-enter {

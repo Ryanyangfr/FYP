@@ -2,7 +2,7 @@
     <div class="Hotspot">
         <div class="card">
             <div class="card-title">
-                <h5>Hotspot List</h5>
+                <h5>Location List</h5>
                 <button class="create-hotspot-btn" @click="addHotspot()"><i class="ti-plus"></i>ADD NEW</button>
             </div>
             <table>
