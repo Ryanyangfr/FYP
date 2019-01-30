@@ -75,7 +75,7 @@ router.post('/addTrail', (req, res) => {
       
       hotspotsAndMissions.forEach((hotspotAndMission) => {
         console.log(hotspotAndMission)
-        conn.query(trailHotspotsCreationQuery, [trailID, hotspotAndMission.hotspot.label, hotspotAndMission.narrative.value, hotspotAndMission.mission.value], (err, result) => {
+        conn.query(trailHotspotsCreationQuery, [trailID, hotspotAndMission.hotspot, hotspotAndMission.narrative, hotspotAndMission.mission], (err, result) => {
           if (err) {
             res.send(JSON.stringify({ success: 'false' }));
             console.log(err);
@@ -160,7 +160,7 @@ router.post('/initializeTrail', (req,res) => {
   const trailID = req.body.trailID
   const trailInstanceID = req.body.trailInstanceID;
   const numTeams = req.body.numTeams;
-  
+
   console.log('initialize trail')
   const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?)'
 
