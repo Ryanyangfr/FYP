@@ -159,7 +159,8 @@ router.post('/editTrail', (req, res) => {
 router.post('/initializeTrail', (req,res) => {
   const trailID = req.body.trailID
   const trailInstanceID = req.body.trailInstanceID;
-
+  const numTeams = req.body.numTeams;
+  
   console.log('initialize trail')
   const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?)'
 
@@ -208,7 +209,6 @@ router.post('/initializeTrail', (req,res) => {
 router.post('/startTrail', (req,res) => {
   const trailID = req.body.trailID;
   const trailInstanceID = req.body.trailInstanceID;
-  const numTeams = req.body.numTeams;
 
   const query = 'UPDATE TRAIL_INSTANCE SET HASSTARTED = 1 WHERE TRAIL_INSTANCE_ID = ? AND TRAIL_ID = ?';
 
