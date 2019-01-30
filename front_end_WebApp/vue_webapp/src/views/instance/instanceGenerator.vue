@@ -1,18 +1,28 @@
 <template>
     <div class="instanceGenerator">
-
-         <v-select :options="trailsList" v-model="trail" placeholder="Select a trail" style="width:200px;"></v-select>
-
-        <h4> GENERATE YOUR INSTANCE HERE </h4>
-
-        <button v-on:click="toggleGenerate()">Generate Trail Instance</button>
+        Select Trail:
+         <v-select :options="trailsList" v-model="trail" placeholder="Select a trail" style="width:200px;margin-left:1170px"/>
+        <br>
+        Enter Number Of Teams:
+        <br>
+        <input id="numTeams" v-model="numTeams" placeholder="Enter number of teams">
 
         <br>
         <br>
         <br>
-        <div v-if="generate_id">
-            <h4><font size="20">{{instance_id}}</font></h4>
-             <button type="button" @click="startTrail">Start Trail</button>
+        <div v-if="this.trail.length != 0 && this.numTeams > 0">
+            <h1> GENERATE YOUR INSTANCE HERE </h1>
+
+            <button v-on:click="toggleGenerate()">Generate Trail Instance</button>
+
+            <br>
+            <br>
+            <br>
+            <div v-if="generate_id">
+                <h4>TRAIL ID:</h4>
+                <h4><font size="30">{{instance_id}}</font></h4>
+                <button type="button" @click="startTrail">Start Trail</button>
+            </div>
         </div>
     </div>
 </template>
@@ -29,7 +39,8 @@ export default {
             instance_id: "",
             generate_id: false,
             trailsList: [],
-            trail: ""
+            trail: "",
+            numTeams: 0
         }
     },
     components:{
@@ -52,7 +63,8 @@ export default {
 
             let postBody = {
                 trailID: this.trail.value,
-                trailInstanceID: this.instance_id
+                trailInstanceID: this.instance_id,
+                numTeam: this.numTeams
             }
             axios.post('http://54.255.245.23:3000/trail/initializeTrail', postBody)
             .then(response => {
