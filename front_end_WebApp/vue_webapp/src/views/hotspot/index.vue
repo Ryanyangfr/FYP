@@ -125,6 +125,20 @@
                
             </div>
         </div>
+
+        <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
+            <div class="delete-narrative-popup">
+                <hr>
+                
+                <div><h6>{{deleteMessage}}</h6></div>
+                <div><hr></div>
+                <div class="delete-narrative-btm">
+                    <button class="delete-narrative-btn" @click="closeDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+               
+            </div>
+        </div>
         <!--delete hotspot ends-->
 
         <!--<v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
@@ -178,6 +192,8 @@ export default {
             curr_hotspot_name: "",
             curr_lat: "",
             curr_long: "",
+            deleteMessage: "",
+            closeMessage: false
             // curr_narrative:"curr_narrative",
             // narrative_dictionary: {}
         }
@@ -309,10 +325,9 @@ export default {
                 let data = response.data
                 console.log(data)
                 if (data.success === "true") {
-                    alert("Hotspot Successfully Deleted")
-                    // this.$router.go();
+                    this.deleteMessage = "Hotspot Successfully Deleted"
                 } else {
-                    alert("Error Please Remove Hotspot From All Existing Trails")
+                    this.deleteMessage = "Error Please Remove Hotspot From All Existing Trails"
                 }
                 // this.$router.go();
             })
@@ -336,6 +351,16 @@ export default {
             }
 
             this.curr_hotspot_name = "";
+        },
+
+        closeDeleteMessage(){
+            this.showDelete = false;
+            this.closeMessage = true;
+            if( this.deleteMessage === "Narrative Successfully Deleted") {
+                this.deleteMessage = "";
+                location.reload();
+            }
+            this.deleteMessage = "";
         },
     },
     mounted(){
