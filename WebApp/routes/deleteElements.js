@@ -56,22 +56,30 @@ router.post('/deleteQuiz', (req, res) => {
       const deleteOptionsQuery = 'DELETE FROM QUIZ_OPTION WHERE QUIZ_ID = ?';
       const deleteQuizQuery = 'DELETE FROM QUIZ WHERE MISSION_ID = ?';
       const deleteMissionQuery = 'DELETE FROM MISSION WHERE MISSION_ID = ?';
+      let count = 0;
 
       rows.forEach((row) => {
         conn.query(deleteOptionsQuery, row.QUIZ_ID, (err, data) => {
           if (err) {
             console.log(err);
             res.send(JSON.stringify({ success: 'false' }));
+            return;
           } else {
             conn.query(deleteQuizQuery, mission_id, (err, data2) => {
               if (err) {
                 console.log(err);
                 res.send(JSON.stringify({ success: 'false' }));
+                return;
               } else {
                 conn.query(deleteMissionQuery, mission_id, (err, data3) => {
                   if (err) {
                     console.log(err);
                     res.send(JSON.stringify({ success: 'false' }));
+                    return;
+                  }
+                  count += 1;
+                  if (count === rows.length) {
+                    res.send(JSON.stringify({ success: 'true' }));
                   }
                 });
               }
@@ -79,7 +87,6 @@ router.post('/deleteQuiz', (req, res) => {
           }
         });
       });
-      res.send(JSON.stringify({ success: 'true' }));
     }
   });
 });
