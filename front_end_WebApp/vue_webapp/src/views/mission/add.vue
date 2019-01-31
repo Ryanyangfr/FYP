@@ -2,7 +2,7 @@
     <div class="AddMission">
        <div class="card">
             <div class="card-title">
-                <h6>Add New Mission</h6>
+                <h5>Add New Mission</h5>
             </div>
 
             <form>
@@ -181,7 +181,7 @@ export default {
         margin-bottom: 50px;
     }
 
-    .card-title h6{
+    .card-title h5{
         display: flex;
         float: left;
     }

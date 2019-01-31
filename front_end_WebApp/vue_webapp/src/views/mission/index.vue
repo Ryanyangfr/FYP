@@ -38,7 +38,7 @@
             <!--table for mission: wefie begins-->
             <table>
                 <tr class="mission-table-header">
-                    <td>Title</td>
+                    <td>Wefie Title</td>
                     <td>Wefie Question</td>
                     <td colspan="2">Actions</td>
                 </tr>

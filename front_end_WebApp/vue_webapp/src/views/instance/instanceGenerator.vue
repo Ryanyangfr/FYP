@@ -1,7 +1,7 @@
 <template>
     <div class="instanceGenerator">
         <div class="card">
-            <div class="card-title"><h6>START TRAIL</h6></div>
+            <div class="card-title"><h5>START TRAIL</h5></div>
 
             <div class="start-trail-body">
                 <!--select trail dropdown area begins-->
@@ -24,11 +24,15 @@
 
                 <!--generate trail instance id area begins-->
                 <div class="generate-trail-instance-area" v-if="this.trail.length != 0 && this.numTeams > 0">
-                    <button v-on:click="toggleGenerate()">Generate Trail ID</button>
+                    <div class="generate-id-btn-area">
+                        <button class = "generate-id-btn" v-on:click="toggleGenerate()">GENERATE TRAIL ID</button>
+                    </div>
                     <div v-if="generate_id">
                         <h4>TRAIL ID:</h4>
                         <h4>{{instance_id}}</h4>
-                        <button type="button" @click="startTrail">Start Trail</button>
+                        <div class="start-trail-btn-area">
+                            <button type="button" class="start-trail-btn" @click="startTrail">Start Trail</button>
+                        </div>
                     </div>
                 </div>
                 <!--generate trail instance id area ends-->
@@ -151,6 +155,7 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Poppins|Gochi+Hand");
     .instanceGenerator .card{
         padding: 20px;
         margin: 18px;
@@ -166,19 +171,18 @@ export default {
         margin-bottom: 50px;
     }
 
-    .card-title h6{
+    .card-title h5{
         display: flex;
         float: left;
     }
 
     .start-trail-body{
         width:100%;
-        background-color: red;
         display: flex;
         flex-direction: column
     }
 
-    .select-trail-area{
+    .select-trail-area, .select-team-num-area{
         float: left;
         display: flex;
         margin-left:18px;
@@ -201,7 +205,7 @@ export default {
     }
 
     .select-trail-area option{
-        padding: 10px;
+        /*padding: 10px;*/
         font-family: 'Roboto', sans-serif;
         font-size: 14px;
     }
@@ -228,15 +232,7 @@ export default {
         box-shadow: 0 0 2px #645cdd;
     }
 
-    .select-team-num-area{
-        float: left;
-        display: flex;
-        margin-left: 18px;
-        margin-bottom: 25px;
-        font-family: 'Lato', sans-serif;
-        position: relative;
-        /*background-color: pink*/
-    } 
+    
 
     .select-team-num-area input{
         /*margin-left: 100px;*/
@@ -248,5 +244,58 @@ export default {
         font-size: 14px;
         min-width:75%;
         font-family: 'Roboto', sans-serif;
+    }
+
+    .generate-trail-instance-area{
+        padding: 20px;
+    }
+
+    .generate-id-btn-area button{
+        border: none;
+        background: none;
+        border:1px solid #6200EE;
+        color:#6200EE;
+        background-color: white;
+        cursor: pointer;
+        width: 100%;
+        height: 40px;
+        padding:5px;
+        font-size: 15px;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 3px;
+        margin-bottom: 25px;
+
+    }
+
+    .start-trail-btn{        
+        border: none;
+        background: none;
+        background-color: #6200EE;
+        color: white;
+        cursor: pointer;
+        width: 100%;
+        height: 40px;
+        padding:5px;
+        font-size: 15px;
+        font-family: 'Poppins', sans-serif;
+        border-radius: 3px;
+        margin-bottom: 30px;
+        margin-top: 30px
+    }
+
+    .generate-trail-instance-area h4{
+        font-family: 'Gochi Hand', cursive;
+        font-size: 50px;
+    }
+
+    .start-trail-btn-area button:hover{
+        background-color: #6200EE;
+        color: white
+    }
+
+    .generate-id-btn-area button:hover{
+        border:1px solid #6200EE;
+        color:#6200EE;
+        box-shadow: 0 0 2px #645cdd;
     }
 </style>
