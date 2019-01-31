@@ -95,10 +95,6 @@
 
         <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
             <div class="delete-narrative-popup">
-                <div class="delete-narrative-header">
-                    <h5>Delete</h5>
-                    <button class="close-delete-narrative" @click="closeDeleteMessage()"><font-awesome-icon icon="times"/></button>
-                </div>
                 <hr>
                 
                 <div><h6>{{deleteMessage}}</h6></div>

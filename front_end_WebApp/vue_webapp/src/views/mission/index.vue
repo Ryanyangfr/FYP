@@ -90,6 +90,20 @@
                
             </div>
         </div>
+
+         <div class="black-blur-bg" v-if="quizDeleteMessage.length > 0"> 
+            <div class="delete-quiz-popup">
+                <hr>
+                
+                <div><h6>{{quizDeleteMessage}}</h6></div>
+                <div><hr></div>
+                <div class="delete-quiz-btm">
+                    <button class="delete-quiz-btn" @click="quizCloseDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+               
+            </div>
+        </div>
         <!--delete quiz popup ends-->
 
         <!--delete weie popup begins-->
@@ -112,7 +126,21 @@
                
             </div>
         </div>
-        <!--delete quiz popup ends-->
+
+        <div class="black-blur-bg" v-if="wefieDeleteMessage.length > 0"> 
+            <div class="delete-quiz-popup">
+                <hr>
+                
+                <div><h6>{{wefieDeleteMessage}}</h6></div>
+                <div><hr></div>
+                <div class="delete-quiz-btm">
+                    <button class="delete-quiz-btn" @click="wefieCloseDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+               
+            </div>
+        </div>
+        <!--delete wefie popup ends-->
     </div>
 </template>
 
@@ -165,7 +193,11 @@ export default {
             missionTitleToBeDeleted:"",
             showDeleteWefie: false,
             wefieIDToBeDeleted:"",
-            wefieTitleToBeDeleted:""
+            wefieTitleToBeDeleted:"",
+            quizDeleteMessage: "",
+            quizCloseMessage: false,
+            wefieDeleteMessage: "",
+            wefieCloseMessage: false
         }
     }, 
     components:{
@@ -314,7 +346,7 @@ export default {
             .then(response => {
                 let data = response.data;
                 console.log(data);
-                this.$router.go();
+                // this.$router.go();
             })
         },
 
@@ -356,10 +388,10 @@ export default {
                 let data = response.data
                 console.log(data)
                 if (data.success === "true") {
-                    alert("Quiz Successfully Deleted")
-                    this.$router.go();
+                    this.quizDeleteMessage = "Quiz Successfully Deleted"
+                    // this.$router.go();
                 } else {
-                    alert("Error Please Remove Quiz From All Existing Trails")
+                    this.quizDeleteMessage = "Error Please Remove Quiz From All Existing Trails"
                 }
             })
 
@@ -380,6 +412,16 @@ export default {
             }
         },
 
+        quizCloseDeleteMessage(){
+            this.showDeleteQuiz = false;
+            this.quizCloseMessage = true;
+            if( this.quizDeleteMessage === "Quiz Successfully Deleted") {
+                this.quizDeleteMessage = "";
+                this.$router.go();
+            }
+            this.quizDeleteMessage = "";
+        },
+
         deleteWefie(wefie_title, wefie_id){
             this.wefieIDToBeDeleted = wefie_id;
             this.wefieTitleToBeDeleted = wefie_title;
@@ -393,6 +435,16 @@ export default {
             
         },
 
+        wefieCloseDeleteMessage(){
+            this.showDeleteWefie = false;
+            this.wefieCloseMessage = true;
+            if( this.wefieDeleteMessage === "Wefie Question Successfully Deleted") {
+                this.wefieDeleteMessage = "";
+                this.$router.go();
+            }
+            this.wefieDeleteMessage = "";
+        },
+
         onSubmitToDeleteWefie(){
             var postBody = {
                 "id": this.wefieIDToBeDeleted
@@ -403,10 +455,10 @@ export default {
                 let data = response.data
                 console.log(data)
                 if (data.success === "true") {
-                    alert("Wefie Question Successfully Deleted")
-                    this.$router.go();
+                    this.wefieDeleteMessage ="Wefie Question Successfully Deleted"
+                    // this.$router.go();
                 } else {
-                    alert("Error Please Remove Wefie Question From All Existing Trails")
+                    this.wefieDeleteMessage = "Error Please Remove Wefie Question From All Existing Trails";
                 }
                 // this.$router.go();
             })
