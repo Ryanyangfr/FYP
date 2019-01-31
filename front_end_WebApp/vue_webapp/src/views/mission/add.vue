@@ -23,7 +23,7 @@
                         </div> 
                         <div v-for="(input, index) in quiz" :key="index" class="add-question-body">
                                 <div class="add-mission-input">
-                                    <label for="question-input">Question</label>
+                                    <label for="question-input">Question {{index + 1}}</label>
                                     <input name="question" id="question-input" type="text" placeholder="Question" v-model="input.question">
                                 </div>
                                 <div class="add-quiz-options-body">
