@@ -308,7 +308,13 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
-                this.$router.go();
+                if (data.success === "true") {
+                    alert("Hotspot Successfully Deleted")
+                    // this.$router.go();
+                } else {
+                    alert("Error Please Remove Hotspot From All Existing Trails")
+                }
+                // this.$router.go();
             })
         },
 

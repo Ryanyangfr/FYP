@@ -261,6 +261,12 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
+                if (data.success === "true") {
+                    alert("Trail Successfully Edited")
+                    location.reload();
+                } else {
+                    alert("Error Please Remove Narrative From Existing Trail")
+                }
             })
 
             if(this.showDelete){
@@ -268,8 +274,6 @@ export default {
             } else{
                 this.showDelete = true;
             }
-
-            location.reload();
         }
     },
     mounted(){

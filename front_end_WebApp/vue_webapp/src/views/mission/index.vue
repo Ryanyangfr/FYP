@@ -355,7 +355,12 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
-                this.$router.go();
+                if (data.success === "true") {
+                    alert("Quiz Successfully Deleted")
+                    this.$router.go();
+                } else {
+                    alert("Error Please Remove Quiz From All Existing Trails")
+                }
             })
 
             if(this.showDeleteQuiz){
@@ -397,7 +402,13 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
-                this.$router.go();
+                if (data.success === "true") {
+                    alert("Wefie Question Successfully Deleted")
+                    this.$router.go();
+                } else {
+                    alert("Error Please Remove Wefie Question From All Existing Trails")
+                }
+                // this.$router.go();
             })
 
             if(this.showDeleteWefie){
