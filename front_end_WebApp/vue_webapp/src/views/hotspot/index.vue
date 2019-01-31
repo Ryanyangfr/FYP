@@ -127,13 +127,13 @@
         </div>
 
         <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
-            <div class="delete-narrative-popup">
+            <div class="delete-hotspot-popup">
                 <hr>
                 
                 <div><h6>{{deleteMessage}}</h6></div>
                 <div><hr></div>
-                <div class="delete-narrative-btm">
-                    <button class="delete-narrative-btn" @click="closeDeleteMessage()">Close</button>
+                <div class="delete-hotspot-btm">
+                    <button class="delete-hotspot-btn" @click="closeDeleteMessage()">Close</button>
                     <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
                
@@ -356,10 +356,11 @@ export default {
         closeDeleteMessage(){
             this.showDelete = false;
             this.closeMessage = true;
-            if( this.deleteMessage === "Narrative Successfully Deleted") {
+            if( this.deleteMessage === "Hotspot Successfully Deleted") {
                 this.deleteMessage = "";
-                location.reload();
+                this.$router.go();
             }
+            this.curr_hotspot_name = "";
             this.deleteMessage = "";
         },
     },
