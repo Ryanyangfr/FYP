@@ -1,6 +1,48 @@
 <template>
     <div class="instanceGenerator">
-        Select Trail:
+        <div class="card">
+            <div class="card-title"><h6>START TRAIL</h6></div>
+
+            <div class="start-trail-body">
+                <!--select trail dropdown area begins-->
+                <div class="select-trail-area">
+                    <label for="trails-droplist-input">Please select trail to begin</label>
+                    <select placeholder="Select Trail" id="trails-droplist-input" v-model="trail">
+                            <option v-for="trail in trailsList" :key="trail.value">
+                                {{trail.label}}
+                            </option> 
+                    </select>
+                </div>
+                <!--select trail dropdown area ends-->
+
+                <!--select number of teams area begins-->
+                <div class="select-team-num-area" v-if="trail.length != 0">
+                    <label for="select-team-num">Select number of teams</label>
+                    <input name="select-team-num" id="select-team-num" type="text" placeholder="Select number of teams" v-model="numTeams"> 
+                </div>
+                <!--select number of teams area ends-->
+
+                <!--generate trail instance id area begins-->
+                <div class="generate-trail-instance-area" v-if="this.trail.length != 0 && this.numTeams > 0">
+                    <button v-on:click="toggleGenerate()">Generate Trail ID</button>
+                    <div v-if="generate_id">
+                        <h4>TRAIL ID:</h4>
+                        <h4>{{instance_id}}</h4>
+                        <button type="button" @click="startTrail">Start Trail</button>
+                    </div>
+                </div>
+                <!--generate trail instance id area ends-->
+                
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <!--Select Trail:
          <v-select :options="trailsList" v-model="trail" placeholder="Select a trail" style="width:200px;margin-left:1170px"/>
         <br>
         Enter Number Of Teams:
@@ -24,7 +66,7 @@
                 <h4><font size="30">{{instance_id}}</font></h4>
                 <button type="button" @click="startTrail">Start Trail</button>
             </div>
-        </div>
+        </div>-->
     </div>
 </template>
 
@@ -107,3 +149,104 @@ export default {
     }
 }
 </script>
+
+<style>
+    .instanceGenerator .card{
+        padding: 20px;
+        margin: 18px;
+        border-radius: 3px;
+        border: none;
+        font-family: 'Roboto Condensed', sans-serif; 
+    }
+
+    .instanceGenerator .card .card-title{
+        /*display: flex;*/
+        /*float: left;*/
+        font-size: 20px;
+        margin-bottom: 50px;
+    }
+
+    .card-title h6{
+        display: flex;
+        float: left;
+    }
+
+    .start-trail-body{
+        width:100%;
+        background-color: red;
+        display: flex;
+        flex-direction: column
+    }
+
+    .select-trail-area{
+        float: left;
+        display: flex;
+        margin-left:18px;
+        margin-bottom: 25px;
+        font-family: 'Lato', sans-serif;
+        position: relative;
+        min-width: 98%;
+        overflow: hidden;
+        /*background-color: red*/
+    }
+    
+    .select-trail-area select{
+        height: 40px;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        font-size: 14px;
+        min-width:75%;
+        padding: 5px;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .select-trail-area option{
+        padding: 10px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+    }
+
+    .select-trail-area label, .select-team-num-area label{
+        margin-right: 100px;
+        font-size: 14px;
+        font-weight: 600;
+        pointer-events: none;
+        transition: all 0.3s ease 0s;
+        white-space: nowrap;
+        float: left;
+        display: flex;
+        /*background-color: pink;*/
+        height: inherit;
+        align-items: center;
+        min-width: 12%
+
+    }
+
+    .select-trail-area select:focus{
+        outline: none !important;
+        border:1px solid #6200EE;
+        box-shadow: 0 0 2px #645cdd;
+    }
+
+    .select-team-num-area{
+        float: left;
+        display: flex;
+        margin-left: 18px;
+        margin-bottom: 25px;
+        font-family: 'Lato', sans-serif;
+        position: relative;
+        /*background-color: pink*/
+    } 
+
+    .select-team-num-area input{
+        /*margin-left: 100px;*/
+        height: 40px;
+        outline: none;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 14px;
+        min-width:75%;
+        font-family: 'Roboto', sans-serif;
+    }
+</style>

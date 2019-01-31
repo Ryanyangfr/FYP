@@ -54,11 +54,11 @@ export default{
             if(this.$store.state.showSidebar){
                 // this.$store.state.showSidebar = false;
                 this.show= false;
-                this.$sidebar = '0px';
+                // this.$sidebar = '0px';
             } else{
                 // this.$store.state.showSidebar = true;
                 this.show = true;
-                this.$sidebar = '250px';
+                // this.$sidebar = '250px';
             }
 
             this.$store.commit('changeSideBarState')
@@ -83,7 +83,7 @@ export default{
     .sideBar{
         position: absolute;
         background-color: white;
-        width: 20%;
+        width: 18%;
         border-right: 1px solid #e6e6e6;
         height: calc(100% - 65px);
         z-index: 1;
@@ -129,16 +129,16 @@ export default{
 
     .logo{
         /*min-height:50px;*/
-        /*width:20%;*/
+        width:18%;
         overflow: hidden;
         /*background-color: #645cdd; */
-         background-color: #645cdd;
+        background-color: #645cdd;
         display: flex;
         align-items: center;
     }
 
     .logout-area{
-        display: flex;
+        display: flex;        
         width: 15%;
         height: 100%;
         align-items: center;
@@ -173,7 +173,7 @@ export default{
     }
 
     .header-left{
-        min-width:80%;
+        min-width:82%;
         display: flex;
         align-items: center;
         justify-content: space-between;
