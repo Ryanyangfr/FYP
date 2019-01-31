@@ -64,6 +64,7 @@ router.post('/deleteQuiz', (req, res) => {
           if (err) {
             anyErr = true;
             console.log(err);
+            console.log('print 1')
             res.send(JSON.stringify({ success: 'false' }));
             return;
           } else {
@@ -71,6 +72,7 @@ router.post('/deleteQuiz', (req, res) => {
               if (err) {
                 anyErr = true;
                 console.log(err);
+                console.log('print 2')
                 res.send(JSON.stringify({ success: 'false' }));
                 return;
               } else {
@@ -78,11 +80,13 @@ router.post('/deleteQuiz', (req, res) => {
                   if (err) {
                     anyErr = true;
                     console.log(err);
+                    console.log('print 3')
                     res.send(JSON.stringify({ success: 'false' }));
                     return;
                   }
                   count += 1;
-                  if (count === rows.length && !anyErr === true) {
+                  if (count === rows.length && anyErr != true) {
+                    console.log('print 4')
                     res.send(JSON.stringify({ success: 'true' }));
                   }
                 });
