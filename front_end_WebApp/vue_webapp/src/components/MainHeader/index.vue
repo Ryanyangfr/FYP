@@ -17,10 +17,12 @@
         <transition name="slide">
             <div class="sideBar" v-if="show">
                 <ul>
+                    <div class="setup-header"><li>Setup</li></div>
                     <li><router-link to='/addHotspot'>Location</router-link></li>
                     <li><router-link to='/addNarrative'>Narrative</router-link></li>
                     <li><router-link to='/mission'>Missions</router-link></li>
                     <li><router-link to='/trail'>Trail</router-link></li>
+                    <div class="ingame-header"><li>In-Game</li></div>
                     <li><router-link to="/generateInstanceID">Start Trail</router-link></li>
                     <li><router-link to="/leaderboard">Leaderboard</router-link></li>
                     <li><router-link to='/viewSubmissions'>Submissions</router-link></li>
@@ -105,7 +107,7 @@ export default{
 
     .sideBar a {
         text-decoration: none!important;
-        font-size: 15px;
+        font-size: 16px;
         color:#536479;
         font-family: 'Roboto Condensed', sans-serif;
     }
@@ -114,9 +116,30 @@ export default{
         background-color: #f5f5f5
     }
 
+    .sideBar ul{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sideBar .setup-header{
+        margin-left: -20px;
+        font-size: 18px;
+        font-weight: 600
+    }
+
+    .sideBar .ingame-header{
+        margin-top: 10px;
+        margin-left: -20px;
+        font-size: 18px;
+        font-weight: 600
+    }
+
     .sideBar ul li{
         list-style-type: none;
-        margin:15px;
+        margin-left: 30px;
+        margin-top:25px;
+        float: left;
+        display: flex;
         /*position: relative;*/
     }
 
