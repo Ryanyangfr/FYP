@@ -7,7 +7,7 @@
             </div>
             <table>
                 <tr class="hotspot-table-header">
-                    <td class="hotspot-title-header">Hotspot Name</td>
+                    <td class="hotspot-title-header">Location Name</td>
                     <td>Latitude</td>
                     <td>Longtitude</td>
                     <!-- <td>Narrative</td> -->
@@ -30,7 +30,7 @@
         <div class="black-blur-bg" v-if="showAdd"> 
             <div class="add-hotspot-form">
                 <div class="add-hotspot-header">
-                    <h5>New Hotspot</h5>
+                    <h5>New Location</h5>
                     <button class="close-add-hotspot" @click="closeAdd()"><font-awesome-icon icon="times"/></button>
                 </div>
                 <hr>
@@ -38,7 +38,7 @@
                 <form class="add-hotspot-body" @submit.prevent="onSubmitToAdd">
                     <div class="add-hotspot-input">
                         <input type="text" id="add-hotspot-name-input" v-model="curr_hotspot_name" required>
-                        <label for="add-hotspot-name-input">Hotspot Name</label>
+                        <label for="add-hotspot-name-input">Location Name</label>
                     </div>
                     <div class="add-hotspot-input">
                         <input type="text" id="add-lat-input" v-model="curr_lat" required>
@@ -70,7 +70,7 @@
         <div class="black-blur-bg" v-if="showEdit"> 
             <div class="edit-hotspot-form">
                 <div class="edit-hotspot-header">
-                    <h5>Edit Hotspot</h5>
+                    <h5>Edit Location</h5>
                     <button class="close-edit-hotspot" @click="closeEdit()"><font-awesome-icon icon="times"/></button>
                 </div>
                 <hr>
@@ -78,7 +78,7 @@
                 <form class="edit-hotspot-body" @submit.prevent="onSubmitToEdit">
                     <div class="edit-hotspot-input">
                         <input type="text" id="edit-hotspot-name-input" v-model="curr_hotspot_name" required>
-                        <label for="edit-hotspot-name-input">Hotspot Name</label>
+                        <label for="edit-hotspot-name-input">Location Name</label>
                     </div>
                     <div class="edit-hotspot-input">
                         <input type="text" id="edit-lat-input" v-model="curr_lat" required>
