@@ -93,6 +93,24 @@
             </div>
         </div>
 
+        <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
+            <div class="delete-narrative-popup">
+                <div class="delete-narrative-header">
+                    <h5>Delete</h5>
+                    <button class="close-delete-narrative" @click="closeDeleteMessage()"><font-awesome-icon icon="times"/></button>
+                </div>
+                <hr>
+                
+                <div><h6>{{deleteMessage}}</h6></div>
+                <div><hr></div>
+                <div class="delete-narrative-btm">
+                    <button class="delete-narrative-btn" @click="closeDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+               
+            </div>
+        </div>
+
         <!--<v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
 
         <form @submit.prevent="onSubmitToAdd" v-if="func == functionsAvailable[0]">
@@ -142,7 +160,9 @@ export default {
             narrativeTableList: [],
             curr_narrative_id: "",
             curr_narrative: "",
-            curr_narrative_title: ""
+            curr_narrative_title: "",
+            deleteMessage: "",
+            closeMessage: false
         }
     },
     components:{
@@ -252,6 +272,16 @@ export default {
             this.curr_narrative_id = "";
         },
 
+        closeDeleteMessage(){
+            this.showDelete = false;
+            this.closeMessage = true;
+            if( this.deleteMessage === "Narrative Successfully Deleted") {
+                this.deleteMessage = "";
+                location.reload();
+            }
+            this.deleteMessage = "";
+        },
+
         onSubmitToDelete(){
             var postBody = {
                 // "narrative_id": this.narrativeToBeDeleted.value,
@@ -261,6 +291,11 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
+                if (data.success === "true") {
+                    this.deleteMessage = "Narrative Successfully Deleted"
+                } else {
+                    this.deleteMessage = "Error Please Remove Narrative From Existing Trail"
+                }
             })
 
             if(this.showDelete){
@@ -268,8 +303,6 @@ export default {
             } else{
                 this.showDelete = true;
             }
-
-            location.reload();
         }
     },
     mounted(){
