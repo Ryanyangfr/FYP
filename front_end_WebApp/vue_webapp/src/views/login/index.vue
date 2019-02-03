@@ -67,7 +67,7 @@ export default {
                 // console.log(response.data.token)
                 this.$session.start()
                 this.$session.set('jwt', response.data.token)
-                this.$router.push({ path: this.redirect || '/generateInstanceID' })
+                this.$router.push({ path: this.redirect || '/landing' })
               } else{
                 alert('Wrong Username or Password, please try again')
               }

@@ -23,6 +23,12 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/landing',
+      name: 'landing',
+      component: () => import('@/views/landing/index'),
+      hidden: true
+    },
+    {
       path: '/generateInstanceID',
       name: 'generateInstanceID',
       component: () => import('@/views/instance/instanceGenerator'),
