@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-title">
                 <h5>Missions List</h5>
-                <button class="create-mission-btn"><i class="ti-plus"></i><router-link to='/addMission'>ADD NEW</router-link></button>
+                <button class="create-mission-btn"><i class="ti-plus"></i><router-link to='/addMission'>ADD MISSION</router-link></button>
             </div>
 
             <!--table for mission: quiz begins-->
@@ -12,7 +12,7 @@
                     <td class="mission-title-header">Quiz Title</td>
                     <td>Questions</td>
                     <td>Details</td>
-                    <td>Actions</td>
+                    <td colspan="2">Actions</td>
                 </tr>
                 <tr class="quiz-data" v-for="quiz in missionList" :key="quiz.mission_id">
                     <td>{{quiz.mission_title}}</td>
@@ -26,6 +26,8 @@
                     <td><button class="view-quiz-btn" @click="saveSelectedQuiz(quiz.mission_id, quiz.mission_title)"><router-link to='/viewQuiz'>View full details</router-link></button></td>
                     <td>
                         <button @click="saveSelectedQuiz(quiz.mission_id, quiz.mission_title)"><router-link to='/editQuiz'><i class="ti-pencil-alt"></i></router-link></button>
+                    </td>
+                    <td>
                         <button @click="deleteQuiz(quiz.mission_id, quiz.mission_title)"><i class="ti-trash"></i></button>
                     </td>
                 </tr>
@@ -518,7 +520,7 @@ export default {
 }
 </script>
 
-<style>
+<<style scoped>
     @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
     @import '../../assets/themify-icons.css';
 
@@ -579,13 +581,14 @@ export default {
 
     .card table{
         margin: 18px;
-        font-size: 14px;
+        font-size: 16px;
         font-family: "Roboto", sans-serif;
        
     }
 
     .card table td{
         text-align: left;
+        
     }
 
     

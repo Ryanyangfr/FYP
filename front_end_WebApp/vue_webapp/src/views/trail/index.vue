@@ -313,13 +313,13 @@ export default {
 
     .card table{
         margin: 18px;
-        font-size: 14px;
         font-family: "Roboto", sans-serif;
        
     }
 
     .card table td{
         text-align: left;
+        font-size: 16px;
     }
 
     

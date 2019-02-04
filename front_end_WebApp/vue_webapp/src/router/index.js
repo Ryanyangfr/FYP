@@ -24,13 +24,13 @@ export default new Router({
     },
     {
       path: '/landing',
-      name: 'landing',
+      name: 'Home',
       component: () => import('@/views/landing/index'),
       hidden: true
     },
     {
       path: '/generateInstanceID',
-      name: 'generateInstanceID',
+      name: 'Generate Instance ID',
       component: () => import('@/views/instance/instanceGenerator'),
       hidden: true
     },
@@ -42,55 +42,61 @@ export default new Router({
     },
     {
       path: '/leaderboard',
-      name: 'leaderboard',
+      name: 'Leaderboard',
       component: ()=> import('@/views/leaderboard/index'),
       hidden: true
     },
     {
       path: '/viewSubmissions',
-      name: 'viewSubmissions',
+      name: 'View Submissions',
       component: ()=> import('@/views/Multimedia/view'),
       hidden: true
     },
     {
       path: '/addHotspot',
-      name: 'addHotspot',
+      name: 'All Locations',
       component: ()=> import('@/views/hotspot/index'),
       hidden: true
     },
     {
-      path: '/addNarrative',
-      name: 'addNarrative',
+      path: '/viewNarrative',
+      name: 'All Narratives',
       component: ()=> import('@/views/narrative/index'),
       hidden: true
     },
     {
+      path: '/addNarrative',
+      name: 'Add Narrative',
+      component: ()=> import('@/views/narrative/addNarrative'),
+      hidden: true
+    },
+    {
       path: '/mission',
-      name: 'mission',
+      name: 'All Missions',
       component: ()=> import('@/views/mission/index'),
       hidden: true
     },
     {
       path: '/addMission',
-      name: 'addMission',
+      name: 'Add Mission',
       component: ()=> import('@/views/mission/add'),
       hidden: true
     },
     {
       path: '/viewQuiz',
-      name: 'viewQuiz',
+      name: 'View Quiz',
       component: ()=> import('@/views/mission/viewQuiz'),
       hidden: true
     },
     {
       path: '/editQuiz',
-      name: 'editQuiz',
+      name: 'Edit Quiz',
       component: ()=> import('@/views/mission/editQuiz'),
       hidden: true
     },
     {
       path: '/editWefie',
-      name: 'editWefie',
+      name: 'Edit Wefie',
       component: ()=> import('@/views/mission/editWefie'),
       hidden: true
     },
@@ -102,27 +108,31 @@ export default new Router({
     },
     {
       path: '/trail',
-      name: 'trail',
+      name: 'View All Trails',
       component: ()=> import('@/views/trail/index'),
       hidden: true
     },
     {
       path: '/addTrail',
-      name: 'addTrail',
+      name: 'Add Trail',
       component: ()=> import('@/views/trail/addTrail'),
       hidden: true
     },
     {
       path: '/viewTrail',
-      name: 'viewTrail',
+      name: 'View Trail Details',
       component: ()=> import('@/views/trail/view'),
       hidden: true
     },
     {
       path: '/editTrail',
-      name: 'editTrail',
+      name: 'Edit Trail',
       component: ()=> import('@/views/trail/editTrail'),
       hidden: true
     }
-  ]
+  ],
+
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })

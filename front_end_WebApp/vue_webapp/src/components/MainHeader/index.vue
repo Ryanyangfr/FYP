@@ -2,7 +2,7 @@
     <div>
         <div class="container-horizontal">
             <div class="logo"> 
-                <a href="login"><img src="@/assets/titlelogo.png"></a>
+                <button><router-link to='/landing'><img src="@/assets/titlelogo.png"></router-link></button>
             </div>
             <div class="header-left">
                 <div class = hamburger-menu> 
@@ -19,7 +19,7 @@
                 <ul>
                     <div class="setup-header"><li>Setup</li></div>
                     <li><router-link to='/addHotspot'>Location</router-link></li>
-                    <li><router-link to='/addNarrative'>Narrative</router-link></li>
+                    <li><router-link to='/viewNarrative'>Narrative</router-link></li>
                     <li><router-link to='/mission'>Missions</router-link></li>
                     <li><router-link to='/trail'>Trail</router-link></li>
                     <div class="ingame-header"><li>In-Game</li></div>
@@ -193,6 +193,12 @@ export default{
         position: relative;
         width: 90%;
         height: 90%
+    }
+
+    .logo button{
+        border:none;
+        background:none;
+        cursor: pointer;
     }
 
     .header-left{

@@ -1,29 +1,29 @@
 <template>
-    <div class="AddTrail">
+    <div class="EditTrail">
        <div class="card">
             <div class="card-title">
-                <h6>Edit Trail</h6>
+                <h5>Edit Trail</h5>
             </div>
             <form @submit.prevent="trailOnSubmitToEdit" class="add-mission-body">
-                <div class="add-mission-input">
-                    <label for="add-mission-title-input">Title</label>
-                    <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                <div class="input-area">
+                    <label for="edit-trail-input">Title</label>
+                    <input name="edit-trail-input" type="text" placeholder="Title" v-model="title"> 
                 </div> 
-                <div class="add-mission-input">
-                    <label for="add-mission-title-input">Duration</label>
-                    <input name="add-mission-title-input" type="text" placeholder="Duration(in minutes)" v-model="duration"> 
+                <div class="input-area">
+                    <label for="add-trail-input">Duration</label>
+                    <input name="add-trail-input" type="text" placeholder="Duration(in minutes)" v-model="duration"> 
                 </div> 
 
-                <div v-for="(input, index) in details" :key="index" class="add-question-body">
-                        <div class="missions-droplist">
-                            <label for="missions-droplist-input">Select Hotspot</label>
-                            <select placeholder="Select hotspot type" id="missions-droplist-input" v-model="input.hotspot">
+                <div v-for="(input, index) in details" :key="index" class="add-details-body">
+                        <div class="droplist">
+                            <label for="hotspots-droplist-input">Select Location</label>
+                            <select placeholder="Select Location" id="hotspots-droplist-input" v-model="input.hotspot">
                                 <option v-for="hotspot in hotspotList" :key="hotspot">
                                     {{hotspot}}
                                 </option> 
                             </select>  
                         </div>
-                        <div class="missions-droplist">
+                        <div class="droplist">
                             <label for="missions-droplist-input">Select Mission</label>
                             <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.missionTitle">
                                 <option v-for="mission in missions" :key="mission.mission_ID">
@@ -31,22 +31,22 @@
                                 </option> 
                             </select>  
                         </div>
-                        <div class="missions-droplist">
-                            <label for="missions-droplist-input">Select Narrative</label>
-                            <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.narrativeTitle">
+                        <div class="droplist">
+                            <label for="narratives-droplist-input">Select Narrative</label>
+                            <select placeholder="Select mission type" id="narratives-droplist-input" v-model="input.narrativeTitle">
                                 <option v-for="narrative in narratives" :key="narrative.narrative_id">
                                     {{narrative.narrative_title}}
                                 </option> 
                             </select>  
                         </div>
-                        <!--<div class="delete-quiz-question-area">
-                                <button type="button" class="delete-quiz-question" @click="deleteRow(index)">Delete</button>
-                        </div>-->
+                        <div class="delete-trail-details-area">
+                                <button type="button" class="delete-trail-details" @click="deleteRow(index)">Delete</button>
+                        </div>
                         
                 </div>
                 <!--<button class="add-new-question-btn" type="button" @click="addRow">ADD HOTSPOT, NARRATIVE AND MISSION</button>-->
                 <div class="submit-btn-area">
-                    <button class="submit-btn" type="submit">Submit</button>
+                    <button class="submit-btn" type="submit">Save</button>
                 </div>
             </form>
             
@@ -184,7 +184,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Poppins");
     @import '../../assets/themify-icons.css';
 
@@ -192,7 +192,8 @@ export default {
         font-family: 'lato', sans-serif
     }
 
-    .AddTrail .card{
+    /*card styling begins*/
+    .EditTrail .card{
         padding: 18px;
         margin: 18px;
         border-radius: 3px;
@@ -200,24 +201,26 @@ export default {
         font-family: 'Roboto Condensed', sans-serif; 
     }
 
-    .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
+    .EditTrail .card .card-title{
+        display: flex;
+        float: left;
         font-size: 20px;
         margin-bottom: 50px;
     }
 
-    .card-title h6{
+    .EditTrailcard-title h5{
         display: flex;
         float: left;
     }
 
-    .AddTrail form{
+    .EditTrail form{
         min-width: inherit;
         /*background-color: blue*/
     }
+    /*card styling ends*/
 
-    .missions-droplist{
+    /*add trail title and duration starts*/
+    .EditTrail .input-area{
         float: left;
         display: flex;
         margin-left:18px;
@@ -226,20 +229,65 @@ export default {
         position: relative;
         min-width: 98%;
         overflow: hidden;
-        /*background-color: red*/
     }
-    
-    .missions-droplist select{
+
+    .input-area label{
+         margin-right: 100px;
+        font-size: 14px;
+        font-weight: 600;
+        pointer-events: none;
+        transition: all 0.3s ease 0s;
+        white-space: nowrap;
+        float: left;
+        display: flex;
+        /*background-color: pink;*/
+        height: inherit;
+        align-items: center;
+        min-width: 12%
+    }
+
+    .EditTrail .input-area input{
+        /*margin-left: 100px;*/
         height: 40px;
+        outline: none;
         border: 1px solid #CED4DA;
         border-radius: 4px;
-        font-size: 14px;
+        padding: 10px;
+        font-size: 17px;
         min-width:75%;
-        padding: 5px;
         font-family: 'Roboto', sans-serif;
     }
 
-    .missions-droplist label, .add-mission-input label{
+    .EditTrail .input-area input:focus{
+        outline: none !important;
+        border:1px solid #6200EE;
+        box-shadow: 0 0 2px #645cdd;
+    }
+    /*add trail title and duration ends*/
+
+
+    /*add narrative, hotspot and mission begins*/
+    .add-details-body{
+        display: flex;
+        flex-direction: column;
+        width:100%;
+        border-top: 1px solid #CED4DA;
+        padding-top: 25px;
+    }
+
+    .EditTrail .droplist{
+        float: left;
+        display: flex;
+        margin-left:17px;
+        margin-bottom: 25px;
+        font-family: 'Lato', sans-serif;
+        position: relative;
+        min-width: 98%;
+        overflow: hidden;
+        /*background-color: red*/
+    }
+
+    .EditTrail .droplist label {
         margin-right: 100px;
         font-size: 14px;
         font-weight: 600;
@@ -255,92 +303,30 @@ export default {
 
     }
 
-    .missions-droplist select:focus{
+    .EditTrail .droplist select{
+        height: 40px;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        font-size: 17px;
+        min-width:75%;
+        padding: 5px;
+        font-family: 'Roboto', sans-serif;
+        
+    }
+
+    .EditTrail .droplist select:focus{
         outline: none !important;
         border:1px solid #6200EE;
         box-shadow: 0 0 2px #645cdd;
     }
+    /*add narrative, hotspot, mission ends*/
 
-    .add-mission-input{
-        float: left;
-        display: flex;
-        margin-left: 18px;
-        margin-bottom: 25px;
-        font-family: 'Lato', sans-serif;
-        position: relative;
-        /*background-color: pink*/
-    }
-
-    .edit-hotspot-input input, .add-mission-input input{
-        /*margin-left: 100px;*/
-        height: 40px;
-        outline: none;
-        border: 1px solid #CED4DA;
-        border-radius: 4px;
-        padding: 10px;
-        font-size: 14px;
-        min-width:75%;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .add-question-body, .add-mission-body{
-        display: flex;
-        flex-direction: column;
-        width:100%;
-    }
-
-    .add-question-body{
-        border-top: 1px solid #CED4DA;
-        padding-top: 25px;
-    }
-
-    .add-quiz-options{
-        display: flex;
-        flex-direction: column;
-        min-width: 100%;
-    }
-
-    .add-quiz-options-body{
-        margin-left:18px;
-        display: flex;
-        flex-direction: row;
-        min-width: 100%;
-        /*background-color: pink;*/
-    }
-
-    .add-quiz-options-body input{
-        /*background-color: red;*/
-        height: 40px;
-        outline: none;
-        border: 1px solid #CED4DA;
-        border-radius: 4px;
-        padding: 10px;
-        font-size: 14px;
-        min-width:75%;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .add-quiz-options-body label{
-        margin-right: 82px;
-        font-size: 14px;
-        font-weight: 600;
-        pointer-events: none;
-        transition: all 0.3s ease 0s;
-        white-space: nowrap;
-        float: left;
-        display: flex;
-        /*background-color: pink;*/
-        height: inherit;
-        min-width: 12%
-
-    }
-
-    .delete-quiz-question-area{
+    .delete-trail-details-area{
         width: 100%;
         margin-bottom: 25px;
     }
 
-    .delete-quiz-question{
+    .delete-trail-details{
         display: flex;
         float: right;
         background: none;
@@ -359,9 +345,10 @@ export default {
         color: white;
     }
 
-    .add-new-question-btn{
+    .add-new-details-btn{
         background: none;
         border: 1px solid #CED4DA;
+        width:90%;
         padding-top: 8px;
         padding-bottom: 8px;
         font-family: 'Roboto', sans-serif;
@@ -374,19 +361,19 @@ export default {
         margin-right: 58px;
     }
 
-    .add-new-question-btn:hover{
+    .add-new-details-btn:hover{
         border:1px solid #6200EE;
         color:#6200EE;
         box-shadow: 0 0 2px #645cdd;
     }
 
-    .AddTrail .submit-btn-area{
+    .EditTrail .submit-btn-area{
         width: 100%;
         overflow: hidden;
         float: right;
     }
 
-    .AddTrail .submit-btn{
+    .EditTrail .submit-btn{
         /*display: inline;*/
         float:right;
         background: none;
@@ -401,12 +388,12 @@ export default {
         cursor: pointer;
         align-items: center;
         font-family: 'Roboto', sans-serif;
-        font-size: 17px;
+        font-size: 20px;
         color: white;
         margin-top: 70px;
     }
 
-     .AddMission .submit-btn:hover{
+     .EditTrail .submit-btn:hover{
         background-color: #5a52c4;
      }
 

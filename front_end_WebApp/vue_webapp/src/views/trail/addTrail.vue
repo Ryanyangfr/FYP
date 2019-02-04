@@ -111,26 +111,6 @@ export default {
                 this.$router.push({ path: this.redirect || '/trail' })
                 // this.$router.go();
             })
-        },
-
-        wefieOnSubmitToAdd(){
-            var postBody = {
-                "question": this.wefie_instruction,
-                "title": this.title
-            }
-            // console.log(this.hotspot.value);
-            console.log(this.wefie_instruction);
-            console.log(this.title);
-            axios.post('http://54.255.245.23:3000/add/addWefieQuestion', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-                this.$router.push({ path: this.redirect || '/mission' })
-            })
-            // this.hotspot = "";
-            // this.quiz = [];
-            // location.reload();
-            // this.$router.go();
         }
     },
 
@@ -171,7 +151,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
     @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Poppins");
     @import '../../assets/themify-icons.css';
 
@@ -189,13 +170,13 @@ export default {
     }
 
     .AddTrail .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
+        display: flex;
+        float: left;
         font-size: 20px;
         margin-bottom: 50px;
     }
 
-    .AddTrailcard-title h5{
+    .AddTrail .card-title h5{
         display: flex;
         float: left;
     }
@@ -294,10 +275,11 @@ export default {
         height: 40px;
         border: 1px solid #CED4DA;
         border-radius: 4px;
-        font-size: 18px;
+        font-size: 17px;
         min-width:75%;
         padding: 5px;
         font-family: 'Roboto', sans-serif;
+        
     }
 
     .AddTrail .droplist select:focus{
@@ -379,7 +361,7 @@ export default {
         margin-top: 70px;
     }
 
-     .AddMission .submit-btn:hover{
+     .AddTrail .submit-btn:hover{
         background-color: #5a52c4;
      }
 

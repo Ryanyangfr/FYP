@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-title">
                 <h5>Narrative List</h5>
-                <button class="create-narrative-btn" @click="addNarrative()"><i class="ti-plus"></i>ADD NEW</button>
+                <button class="create-narrative-btn"><i class="ti-plus"></i><router-link to='/addNarrative'>ADD NEW</router-link></button>
             </div>
             <table>
                 <tr class="narrative-table-header">
@@ -106,33 +106,6 @@
                
             </div>
         </div>
-
-        <!--<v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
-
-        <form @submit.prevent="onSubmitToAdd" v-if="func == functionsAvailable[0]">
-            Narrative Title:
-            <input name="title" type="text" placeholder="title" v-model="title">
-            Narrative:
-            <input name="narrative" type="text" placeholder="narrative" v-model="narrative">
-            <button type="submit">Add</button>
-        </form>
-
-        <form @submit.prevent="onSubmitToEdit" v-if="func == functionsAvailable[1]">
-            Narrative Title:
-            <v-select :options="dropDownList" v-model='narrativeToBeEdited' placeholder='Please select a narrative title' style="width:200px;"></v-select>
-            Narrative:
-            <input name="narrative" type="text" placeholder="narrative" v-model="narrative">
-            <button type="submit">Edit</button>
-        </form>
-
-        <form @submit.prevent="onSubmitToDelete" v-if="func == functionsAvailable[2]">
-            <v-select :options="dropDownList" v-model="narrativeToBeDeleted" placeholder="Please select a narrative" style="width:200px;"></v-select>
-             <button type="submit">Delete</button>
-        </form>-->
-
-        <!-- {{this.title}}
-        {{this.narrative}} -->
-        <!-- {{narrative}} -->
     </div>
 </template>
 
@@ -146,8 +119,6 @@ export default {
             showEdit: false,
             showAdd:false,
             showDelete:false,
-            func: "Add",
-            functionsAvailable: ["Add", "Edit", "Delete"],
             title: "",
             narrative: "",
             narrativeToBeEdited: "",
@@ -372,6 +343,13 @@ export default {
         margin-right: 5px;
     }
 
+    .create-narrative-btn a {
+        text-decoration: none!important;
+        font-size: 15px;
+        color:white;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
     .card table{
         margin: 18px;
         font-size: 14px;
@@ -407,7 +385,7 @@ export default {
     }
 
     .narrative-table-header td{
-        font-size: 15px;
+        font-size: 16px;
         padding: 10px;
         min-height: 100px;
         font-weight: 600;

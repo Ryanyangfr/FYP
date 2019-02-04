@@ -16,7 +16,7 @@
                         <input name="edit-wefie-title-input" type="text" placeholder="Question" v-model="wefie_question"> 
                     </div>  
                     <div class="submit-btn-area">
-                        <button class="submit-btn" type="submit">Submit</button>
+                        <button class="submit-btn" type="submit">Save</button>
                     </div>  
                 </div>
   

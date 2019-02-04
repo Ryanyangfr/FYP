@@ -9,7 +9,7 @@
             <router-link to="/leaderboard"><div id='sidebar'>Leaderboard</div></router-link>
         </Slide>-->
       </div>
-      <div v-bind:style="'{margin-left: sidebar}'">
+      <div v-bind:class="{main: this.$store.state.showSidebar}">
           <Navigation class="Navigate" v-if="['Login'].indexOf($route.name) == -1"></Navigation>
           <!--<SideBar class="SideBar" v-if="['Login'].indexOf($route.name) == -1"></SideBar> -->
       </div>

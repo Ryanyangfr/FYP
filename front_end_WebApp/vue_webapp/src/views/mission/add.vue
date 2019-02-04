@@ -53,7 +53,7 @@
                         </div>
                         <button class="add-new-question-btn" type="button" @click="addRow">ADD QUESTION</button>
                         <div class="submit-btn-area">
-                            <button class="submit-btn" type="submit">Submit</button>
+                            <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
                 </div>
@@ -70,7 +70,7 @@
                             <input name="add-wefie-instruction-input" type="text" placeholder="Wefie Instruction" v-model="wefie_instruction"> 
                         </div> 
                         <div class="submit-btn-area">
-                            <button class="submit-btn" type="submit">Submit</button>
+                            <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
 
@@ -207,7 +207,7 @@ export default {
         height: 40px;
         border: 1px solid #CED4DA;
         border-radius: 4px;
-        font-size: 14px;
+        font-size: 17px;
         min-width:75%;
         padding: 5px;
         font-family: 'Roboto', sans-serif;
@@ -252,7 +252,7 @@ export default {
         border: 1px solid #CED4DA;
         border-radius: 4px;
         padding: 10px;
-        font-size: 14px;
+        font-size: 17px;
         min-width:75%;
         font-family: 'Roboto', sans-serif;
     }
@@ -289,7 +289,7 @@ export default {
         border: 1px solid #CED4DA;
         border-radius: 4px;
         padding: 10px;
-        font-size: 14px;
+        font-size: 17px;
         min-width:75%;
         font-family: 'Roboto', sans-serif;
     }
@@ -373,7 +373,7 @@ export default {
         cursor: pointer;
         align-items: center;
         font-family: 'Roboto', sans-serif;
-        font-size: 17px;
+        font-size: 18px;
         color: white;
         margin-top: 70px;
     }

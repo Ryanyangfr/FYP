@@ -1,8 +1,10 @@
 <template>
     <div class="horizontal-menu">
-        <nav>
-            Getting Started
-        </nav>
+        <div class="route-name-area">
+            <div class="route-name">
+                {{$route.name}}
+            </div>
+        </div>
     </div>
 </template>
 
@@ -15,36 +17,25 @@ export default{
 <style>
     @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
 
-    .horizontal-menu nav {
-        text-align: left;
-        font-size: 18px;
-        padding-left: 25px;
-        padding-top: 5px;
+    .horizontal-menu{
+        /*background-color: red;*/
+        overflow: hidden;
+        height: 50px;
+        vertical-align: middle;
+        padding: 5px;
+        padding-left: 35px
+    }
+
+    .horizontal-menu .route-name-area {
         display: flex;
-        height: 65px;
+        float: left;
+        font-size: 18px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         color:black;
         font-family: 'Roboto', sans-serif;
+        /*background-color: pink;*/
         vertical-align: middle
-    }
-
-    .horizontal-menu ul li{
-        list-style-type: none;
-        margin:0;
-        display: inline-block;
-        /*position: relative;*/
-    }
-
-    .horizontal-menu a{
-        text-decoration: none!important;
-        font-size: 15px;
-        padding: 10px 20px;
-        display: block;
-        color:#536479;
-        font-family: 'Roboto Condensed', sans-serif
-    }
-
-    .horizontal-menu a:hover{
-        color: #007BFF;
     }
 
 </style>
