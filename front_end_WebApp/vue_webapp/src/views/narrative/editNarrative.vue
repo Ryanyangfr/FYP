@@ -1,21 +1,22 @@
 <template>
-    <div class="AddNarrative">
+    <div class="EditNarrative">
        <div class="card">
             <div class="card-title">
-                <h5>Add New Narrative</h5>
+                <h5>Edit Narrative</h5>
             </div>
-            <form @submit.prevent="narrativeOnSubmitToAdd" class="add-narrative-body">
+            <form @submit.prevent="narrativeOnSubmitToEdit" class="edit-narrative-body">
                 <div class="input-area">
-                    <label for="add-narrative-input">Narrative Title</label>
-                    <input name="add-narrative-input" type="text" placeholder="Title" v-model="title" required> 
+                    <label for="edit-narrative-input">Narrative Title</label>
+                    <input name="edit-narrative-input" type="text" placeholder="Title" v-model="title" required> 
                 </div> 
                 <div class="input-area">
-                    <label for="add-trail-input">Narrative</label>
-                    <textarea name="add-trail-input" rows="8" cols="65" type="text" placeholder="Type your narrative here" v-model="narrative" required></textarea>
+                    <label for="edit-trail-input">Narrative</label>
+                    <textarea name="edit-trail-input" rows="8" cols="65" type="text" placeholder="Type your narrative here" v-model="narrative" required></textarea>
                 </div> 
                 <div class="submit-btn-area">
-                    <button class="cancel-btn" type="button"><router-link to='/viewNarrative'>Cancel</router-link></button>
-                    <button class="submit-btn" type="submit">Create</button>
+                    <button class="cancel-btn" type="cancel"><router-link to='/viewNarrative'>Cancel</router-link></button>
+                    <button class="submit-btn" type="submit"></i>Save</button>
+                    
                 </div>
             </form>
             
@@ -26,28 +27,40 @@
 <script>  
 import axios from 'axios'
 export default {
-    name: "addMission",
+    name: "editMission",
     data() {
         return{
             narrative: "",
             title: "",
+            narrativeID:""
         }  
     },
 
     methods: {
-        narrativeOnSubmitToAdd(){
-          var postBody = {
-                "narrative": this.narrative,
-	            "title": this.title
+        narrativeOnSubmitToEdit(){
+            var postBody = {
+                "narrative_id": this.narrativeID,
+	            "narrative": this.narrative
             }
-            axios.post('http://54.255.245.23:3000/add/addNarrative', postBody)
+            axios.post('http://54.255.245.23:3000/edit/editNarrative', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
+
                 this.$router.push({ path: this.redirect || '/viewNarrative' })
             })
         }
-    }      
+    },
+    mounted(){
+        if (!this.$session.exists()) {
+            console.log("check")
+            this.$router.push('/')
+        }
+
+        this.narrativeID = this.$store.state.selectedNarrativeID;  
+        this.title = this.$store.state.selectedNarrativeTitle;  
+        this.narrative = this.$store.state.selectedNarrative;  
+    }   
         
 }
 </script>
@@ -62,7 +75,7 @@ export default {
     }
 
     /*card styling begins*/
-    .AddNarrative .card{
+    .EditNarrative .card{
         padding: 18px;
         margin: 18px;
         border-radius: 3px;
@@ -70,25 +83,25 @@ export default {
         font-family: 'Roboto Condensed', sans-serif; 
     }
 
-    .AddNarrative .card .card-title{
+    .EditNarrative .card .card-title{
         display: flex;
         float: left;
         font-size: 20px;
         margin-bottom: 50px;
     }
 
-    .AddNarrative .card-title h5{
+    .EditNarrative .card-title h5{
         display: flex;
         float: left;
     }
 
-    .AddNarrative form{
+    .EditNarrative form{
         min-width: inherit;
         /*background-color: blue*/
     }
     /*card styling ends*/
 
-    .AddNarrative .input-area{
+    .EditNarrative .input-area{
         float: left;
         display: flex;
         margin-left:18px;
@@ -114,7 +127,7 @@ export default {
         min-width: 12%
     }
 
-    .AddNarrative .input-area input{
+    .EditNarrative .input-area input{
         /*margin-left: 100px;*/
         height: 40px;
         outline: none;
@@ -126,13 +139,13 @@ export default {
         font-family: 'Roboto', sans-serif;
     }
 
-    .AddNarrative .input-area input:focus{
+    .EditNarrative .input-area input:focus{
         outline: none !important;
         border:1px solid #6200EE;
         box-shadow: 0 0 2px #645cdd;
     }
 
-    .AddNarrative textarea{
+    .EditNarrative textarea{
         resize: none;
         outline: none;
         border: 1px solid #CED4DA;
@@ -143,25 +156,25 @@ export default {
         font-family: 'Roboto', sans-serif;
     }
 
-    .AddNarrative textarea:focus{
+    .EditNarrative textarea:focus{
         outline: none !important;
         border:1px solid #6200EE;
         box-shadow: 0 0 2px #645cdd;
     }
 
-    .add-narrative-body{
+    .edit-narrative-body{
         display: flex;
         flex-direction: column;
         width:100%;
     }
 
-    .AddNarrative .submit-btn-area{
+    .EditNarrative .submit-btn-area{
         width: 100%;
         overflow: hidden;
         float: right;
     }
 
-    .AddNarrative .submit-btn{
+    .EditNarrative .submit-btn{
         /*display: inline;*/
         float:right;
         background: none;
@@ -181,12 +194,11 @@ export default {
         margin-top: 70px;
     }
 
-     .AddNarrative .submit-btn:hover{
+     .EditNarrative .submit-btn:hover{
         background-color: #5a52c4;
      }
 
-
-     .AddNarrative .cancel-btn{
+    .EditNarrative .cancel-btn{
          float:right;
          background-color: #ACACAC;
          color: white;
@@ -205,12 +217,13 @@ export default {
         margin-top: 70px;
     }
 
-    .AddNarrative .cancel-btn:hover{
+    .EditNarrative .cancel-btn:hover{
         background-color: #b2a7a7
     }
 
-    .AddNarrative .cancel-btn a{
+    .EditNarrative .cancel-btn a{
         text-decoration: none!important;
         color: white
     }
+
 </style>

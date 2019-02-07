@@ -12,6 +12,9 @@ export const store = new Vuex.Store({
         selectedWefieID:0,
         selectedWefieQuestion:"",
         selectedTrailID:"",
+        selectedNarrativeID: 0,
+        selectedNarrativeTitle:"",
+        selectedNarrative:""
 
     },
     
@@ -46,6 +49,18 @@ export const store = new Vuex.Store({
 
         saveSelectedTrailID(state, trailID){
             state.selectedTrailID = trailID
+        },
+
+        saveSelectedNarrativeID(state, narrativeID){
+            state.selectedNarrativeID = narrativeID;
+        },
+        
+        saveSelectedNarrativeTitle(state, narrativeTitle){
+            state.selectedNarrativeTitle = narrativeTitle
+        },
+
+        saveSelectedNarrative(state, narrative){
+            state.selectedNarrative = narrative
         }
     }
 });

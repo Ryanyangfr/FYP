@@ -15,63 +15,13 @@
                 <tr class = "narrative-data" v-for="narrative in narrativeTableList" :key="narrative.id">
                     <td>{{narrative.title}}</td>
                     <td>{{narrative.narrative}}</td>
-                    <td><button @click="editNarrative(narrative.id, narrative.title, narrative.narrative)"><i class="ti-pencil-alt"></i></button></td>
+                    <td><button @click="saveNarrative(narrative.id, narrative.title, narrative.narrative)"><router-link to='/editNarrative'><i class="ti-pencil-alt"></i></router-link></button></td>
                     <td><button @click="deleteNarrative(narrative.id,narrative.title)"><i class="ti-trash"></i></button></td>
                 </tr>
                 
             </table>
         </div>
         
-        <div class="black-blur-bg" v-if="showEdit"> 
-            <div class="edit-narrative-form">
-                <div class="edit-narrative-header">
-                    <h5>Edit Narrative</h5>
-                    <button class="close-edit-narrative" @click="closeEdit()"><font-awesome-icon icon="times"/></button>
-                </div>
-                <hr>
-                
-                <form class="edit-narrative-body" @submit.prevent="onSubmitToEdit">
-                    <div class="edit-narrative-input">
-                        <input type="text" id="edit-narrative-title-input" required v-model="curr_narrative_title" required>
-                        <label for="edit-narrative-title-input">Narrative Title</label>
-                    </div>
-                    <div class="edit-narrative-input">
-                        <textarea id="edit-narrative-input" rows="5" cols="65" required v-model= "curr_narrative"></textarea>
-                        <label for="edit-narrative-input">Enter Narrative</label>
-                    </div>
-                    <div>
-                     <button type="submit" class="edit-narrative-submit">Submit</button>
-                    </div>
-                </form>
-               
-            </div>
-        </div>
-
-        <div class="black-blur-bg" v-if="showAdd"> 
-            <div class="add-narrative-form">
-                <div class="add-narrative-header">
-                    <h5>New Narrative</h5>
-                    <button class="close-add-narrative" @click="closeAdd()"><font-awesome-icon icon="times"/></button>
-                </div>
-                <hr>
-                
-                <form class="add-narrative-body" @submit.prevent="onSubmitToAdd">
-                    <div class="add-narrative-input">
-                        <input type="text" id="add-narrative-title-input" v-model="curr_narrative_title" required>
-                        <label for="add-narrative-title-input">Narrative Title</label>
-                    </div>
-                    <div class="add-narrative-input">
-                        <textarea id="add-narrative-input" rows="5" cols="65" v-model="curr_narrative" required></textarea>
-                        <label for="add-narrative-input">Enter Narrative</label>
-                    </div>
-                    <div>
-                     <button type="submit" class="add-narrative-submit">Submit</button>
-                    </div>
-                </form>
-               
-            </div>
-        </div>
-
         <!--delete narrative popup -->
         <div class="black-blur-bg" v-if="showDelete"> 
             <div class="delete-narrative-popup">
@@ -96,7 +46,6 @@
         <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
             <div class="delete-narrative-popup">
                 <hr>
-                
                 <div><h6>{{deleteMessage}}</h6></div>
                 <div><hr></div>
                 <div class="delete-narrative-btm">
@@ -116,12 +65,9 @@ export default {
     name: "narrative",
     data() {
         return{
-            showEdit: false,
-            showAdd:false,
             showDelete:false,
             title: "",
             narrative: "",
-            narrativeToBeEdited: "",
             dropDownList: [],
             narrativeToBeDeleted: "",
             narrativeTableList: [],
@@ -135,85 +81,27 @@ export default {
     components:{
         vSelect
     },
+
+    computed:{
+        selectedNarrativeID(){
+            return this.$store.state.selectedNarrativeID;
+        },
+
+        selectedNarrativeTitle(){
+            return this.$store.state.selectedNarrativeTitle;
+        },
+
+        selectedNarrative(){
+            return this.$store.state.selectedNarrativeNarrative;
+        },
+    },
+
     methods: {
 
-        addNarrative(){
-            if(this.showAdd){
-                this.showAdd = false;
-            } else{
-                this.showAdd = true;
-            }
-        },
-
-        closeAdd(){
-            if(this.showAdd){
-                this.showAdd = false;
-            } else{
-                this.showAdd = true;
-            }
-
-            this.curr_narrative = "";
-            this.curr_narrative_title = "";
-            this.curr_narrative_id = "";
-        },
-
-        onSubmitToAdd() {
-            var postBody = {
-                "narrative": this.curr_narrative,
-	            "title": this.curr_narrative_title
-            }
-            axios.post('http://54.255.245.23:3000/add/addNarrative', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-                this.$router.go();
-            })
-
-        },
-
-        onSubmitToEdit() {
-            var postBody = {
-                "narrative_id": this.curr_narrative_id,
-	            "narrative": this.curr_narrative
-            }
-            axios.post('http://54.255.245.23:3000/edit/editNarrative', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-
-                this.$router.go();
-            })
-            if(this.showEdit){
-                this.showEdit = false;
-            } else{
-                this.showEdit = true;
-            }
-
-        },
-
-        editNarrative(narrative_id, narrative_title, narrative){
-            if(this.showEdit){
-                this.showEdit = false;
-            } else{
-                this.showEdit = true;
-            }
-
-            this.curr_narrative = narrative;
-            this.curr_narrative_title = narrative_title;
-            this.curr_narrative_id = narrative_id;
-
-        },
-
-        closeEdit(){
-            if(this.showEdit){
-                this.showEdit = false;
-            } else{
-                this.showEdit = true;
-            }
-
-            this.curr_narrative = "";
-            this.curr_narrative_title = "";
-            this.curr_narrative_id = "";
+        saveNarrative(narrative_ID, narrative_title, narrative){
+            this.$store.commit('saveSelectedNarrativeID', narrative_ID);
+            this.$store.commit('saveSelectedNarrativeTitle', narrative_title);
+            this.$store.commit('saveSelectedNarrative', narrative);
         },
 
         deleteNarrative(narrative_id, narrative_title){
@@ -381,7 +269,13 @@ export default {
     }
 
     .narrative-data i{
-        font-size: 20px
+        font-size: 20px;
+        color: #536479
+    }
+
+    .narrative-data a{
+        font-size: 20px;
+        color: #536479
     }
 
     .narrative-table-header td{

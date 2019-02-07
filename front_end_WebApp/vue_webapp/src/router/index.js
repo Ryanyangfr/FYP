@@ -71,6 +71,12 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/editNarrative',
+      name: 'Edit Narrative',
+      component: ()=> import('@/views/narrative/editNarrative'),
+      hidden: true
+    },
+    {
       path: '/mission',
       name: 'All Missions',
       component: ()=> import('@/views/mission/index'),

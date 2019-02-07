@@ -16,6 +16,7 @@
                         <input name="edit-wefie-title-input" type="text" placeholder="Question" v-model="wefie_question"> 
                     </div>  
                     <div class="submit-btn-area">
+                        <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
                         <button class="submit-btn" type="submit">Save</button>
                     </div>  
                 </div>
@@ -226,9 +227,9 @@ export default {
         background-color: #645cdd;
         border-radius: 4px;
         min-width: 8%;
-        min-height: 45px;
-        padding:8px 15px 8px 15px;
-        margin-right: 45px;
+        min-height: 40px;
+        padding:8px 10px 8px 10px;
+        margin-right: 20px;
         text-align: center;
         cursor: pointer;
         align-items: center;
@@ -241,6 +242,34 @@ export default {
      .EditWefie .submit-btn:hover{
         background-color: #5a52c4;
      }
+
+     .EditWefie .cancel-btn{
+         float:right;
+         background-color: #ACACAC;
+         color: white;
+         border:none;
+         border-radius: 4px;
+        min-width: 8%;
+        min-height: 40px;
+        padding:8px 10px 8px 10px;
+        margin-right: 45px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+        color: white;
+        margin-top: 50px;
+    }
+
+    .EditWefie .cancel-btn:hover{
+        background-color: #b2a7a7
+    }
+
+    .EditWefie .cancel-btn a{
+        text-decoration: none!important;
+        color: white
+    }
 
 
 </style>

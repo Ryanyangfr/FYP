@@ -45,7 +45,11 @@
                                 </div>
                                 <div class="add-mission-input">
                                     <label for="question-input">Answer</label>
-                                    <input name="answer" type="text" placeholder="Answer" v-model="input.answer">
+                                    <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.answer">
+                                        <option v-for="option in answer_options" :key="option">
+                                            {{option}}
+                                        </option> 
+                                    </select>
                                 </div>
                                 <div class="delete-quiz-question-area">
                                     <button type="button" class="delete-quiz-question" @click="deleteRow(index)">Delete</button>
@@ -53,6 +57,7 @@
                         </div>
                         <button class="add-new-question-btn" type="button" @click="addRow">ADD QUESTION</button>
                         <div class="submit-btn-area">
+                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
                             <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
@@ -70,6 +75,7 @@
                             <input name="add-wefie-instruction-input" type="text" placeholder="Wefie Instruction" v-model="wefie_instruction"> 
                         </div> 
                         <div class="submit-btn-area">
+                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
                             <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
@@ -92,7 +98,8 @@ export default {
             missionType: "",
             title: "",
             quiz: [],
-            wefie_instruction: ""
+            wefie_instruction: "",
+            answer_options: ["Option 1", "Option 2", "Option 3", "Option 4"]
         }  
     },
 
@@ -105,7 +112,7 @@ export default {
                 option2: "",
                 option3: "",
                 option4: "",
-                answer: ""
+                answer:"",
             })
         },
 
@@ -245,9 +252,9 @@ export default {
         /*background-color: pink*/
     }
 
-    .edit-hotspot-input input, .add-mission-input input{
+    .edit-hotspot-input input, .add-mission-input input, .add-mission-input select{
         /*margin-left: 100px;*/
-        height: 40px;
+        height: 45px;
         outline: none;
         border: 1px solid #CED4DA;
         border-radius: 4px;
@@ -311,7 +318,7 @@ export default {
 
     .delete-quiz-question-area{
         width: 100%;
-        margin-bottom: 25px;
+        margin-bottom: 30px;
     }
 
     .delete-quiz-question{
@@ -366,9 +373,9 @@ export default {
         background-color: #645cdd;
         border-radius: 4px;
         min-width: 8%;
-        min-height: 45px;
-        padding:8px 15px 8px 15px;
-        margin-right: 45px;
+        min-height: 40px;
+        padding:8px 10px 8px 10px;
+        margin-right: 20px;
         text-align: center;
         cursor: pointer;
         align-items: center;
@@ -381,5 +388,33 @@ export default {
      .AddMission .submit-btn:hover{
         background-color: #5a52c4;
      }
+
+     .AddMission .cancel-btn{
+         float:right;
+         background-color: #ACACAC;
+         color: white;
+         border:none;
+         border-radius: 4px;
+        min-width: 8%;
+        min-height: 40px;
+        padding:8px 10px 8px 10px;
+        margin-right: 45px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+        color: white;
+        margin-top: 70px;
+    }
+
+    .AddMission .cancel-btn:hover{
+        background-color: #b2a7a7
+    }
+
+    .AddMission .cancel-btn a{
+        text-decoration: none!important;
+        color: white
+    }
 
 </style>
