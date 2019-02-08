@@ -206,7 +206,7 @@ router.post('/initializeTrail', (req, res) => {
           }
 
           const updateTeamHotspotStatusQuery = 'INSERT INTO TEAM_HOTSPOT_STATUS VALUES(?,?,?,?)';
-          const retrieveHotspotsInTrail = 'SELECT HOTSPOT_NAME FROM TRAIL WHERE TRAIL_ID = ?';
+          const retrieveHotspotsInTrail = 'SELECT HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = ?';
 
           //retrieve all hotspots in trail
           conn.query(retrieveHotspotsInTrail, trailID, (err, hotspots) => {
