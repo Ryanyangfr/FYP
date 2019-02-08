@@ -156,7 +156,7 @@ router.post('/editTrail', (req, res) => {
   });
 });
 
-router.post('/initializeTrail', (req,res) => {
+router.post('/initializeTrail', (req, res) => {
   const trailID = req.body.trailID
   const trailInstanceID = req.body.trailInstanceID;
   const numTeams = req.body.numTeams;
@@ -166,7 +166,7 @@ router.post('/initializeTrail', (req,res) => {
 
   const checkIfAnyActiveTrailQuery = 'SELECT * FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 OR HASSTARTED = 1';
 
-  conn.query(checkIfAnyActiveTrailQuery, (err,data) => {
+  conn.query(checkIfAnyActiveTrailQuery, (err, data) => {
     if (err) {
       console.log(err)
     } else {
@@ -174,14 +174,14 @@ router.post('/initializeTrail', (req,res) => {
       data.forEach((row) => {
         let activatedTrailID = row.TRAIL_ID;
         let activatedTrailInstanceID = row.TRAIL_INSTANCE_ID;
-        conn.query(updateQuery, [activatedTrailID,activatedTrailInstanceID], (err, data) => {
+        conn.query(updateQuery, [activatedTrailID, activatedTrailInstanceID], (err, data) => {
           if (err) {
             console.log(err)
           }
         });
       });
 
-      conn.query(query, [trailInstanceID,trailID,1,0], (err, data) => {
+      conn.query(query, [trailInstanceID, trailID, 1, 0], (err, data) => {
         if (err) {
           console.log(err)
           res.send(JSON.stringify({ success: 'false' }));
@@ -189,7 +189,7 @@ router.post('/initializeTrail', (req,res) => {
           const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?)';
 
           for (let teamID=0; teamID<numTeams; teamID++) {
-            conn.query(updateTeamQuery, [teamID+1, 0, trailInstanceID], (err,data) => {
+            conn.query(updateTeamQuery, [teamID+1, 0, trailInstanceID], (err, data) => {
               if (err) {
                 console.log(err)
                 res.send(JSON.stringify({ success: 'false' }));
@@ -206,17 +206,20 @@ router.post('/initializeTrail', (req,res) => {
   });
 });
 
-router.post('/startTrail', (req,res) => {
+router.post('/startTrail', (req, res) => {
   const trailID = req.body.trailID;
   const trailInstanceID = req.body.trailInstanceID;
 
+  const io = req.app.get('socketio');
+
   const query = 'UPDATE TRAIL_INSTANCE SET HASSTARTED = 1 WHERE TRAIL_INSTANCE_ID = ? AND TRAIL_ID = ?';
 
-  conn.query(query, [trailInstanceID,trailID], (err, data) => {
+  conn.query(query, [trailInstanceID, trailID], (err, data) => {
     if (err) {
       console.log(err)
       res.send(JSON.stringify({ success: 'false' }));
     } else {
+      io.emit('startTrail', { trail_instance_id: trailInstanceID });
       res.send(JSON.stringify({ success: 'true' }));
     }
   });

@@ -11,7 +11,7 @@ var conn = mysql.createConnection(databaseConfig);
 router.get('/getInstance', function(req,res){
     // console.log(req.app.get('socketio'));
     // var io = req.app.get('socketio');   
-    query = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
+    query = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 AND HASSTARTED = 1';
     console.log('getInstance called');
     // io.emit('test', {test: 'test test'});
     conn.query(query, function(err,instance){
