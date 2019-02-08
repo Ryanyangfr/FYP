@@ -63,7 +63,7 @@ router.post('/updateScore', (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          io.emit('activityFeed', { time: dateString, team: team_id, hotspot: hotspot });
+          io.emit('activityFeed', { time: timestamp, team: team_id, hotspot: hotspot });
           res.send('update successful');
         }
       });
