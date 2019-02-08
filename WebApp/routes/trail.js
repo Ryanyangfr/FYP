@@ -219,7 +219,7 @@ router.post('/initializeTrail', (req, res) => {
                     if (err) {
                       console.log(err);
                     } else {
-                      if(hotspot.HOTSPOT_NAME === hotspots[hotspot.length-1].HOTSPOT_NAME && teamID === numTeams-1 && hasErr != true){
+                      if(hotspot.HOTSPOT_NAME === hotspots[hotspots.length-1].HOTSPOT_NAME && teamID === numTeams-1 && hasErr != true){
                         res.send(JSON.stringify({ success: 'true' }));
                       }
                     }
