@@ -31,7 +31,7 @@ router.post('/updateScore', (req, res) => {
   const io = req.app.get('socketio');
   // var time = utility.getDateTime();
   
-  const today = Date.now();
+  const today = new Date();
   const date = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
   const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
   const dateTime = `${date} ${time}`;
