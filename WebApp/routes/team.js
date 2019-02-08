@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 
 const router = express.Router();
 const databaseConfig = require('../config/mysqlconf.js');
-// var utility = require('../utility.js');
+const utility = require('../utility.js');
+
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 const conn = mysql.createConnection(databaseConfig);
@@ -29,31 +30,31 @@ router.post('/updateScore', (req, res) => {
   const update = parseInt(req.body.score);
   const hotspot = req.body.hotspot;
   const io = req.app.get('socketio');
-  // var time = utility.getDateTime();
+  const time = utility.getDateTime();
 
-  const today = new Date();
-  // console.log(`timezone offset: ${today.getTimezoneOffset()}`);
-  today.setTime(today.getTime() + today.getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000);
-  const date = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
+  // const today = new Date();
+  // // console.log(`timezone offset: ${today.getTimezoneOffset()}`);
+  // today.setTime(today.getTime() + today.getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000);
+  // const date = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
 
-  let minutes = today.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
+  // let minutes = today.getMinutes();
+  // if (minutes < 10) {
+  //   minutes = `0${minutes}`;
+  // }
 
-  let seconds = today.getSeconds();
-  if (seconds < 10) {
-    seconds = `0${seconds}`;
-  }
+  // let seconds = today.getSeconds();
+  // if (seconds < 10) {
+  //   seconds = `0${seconds}`;
+  // }
 
-  let hours = today.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
+  // let hours = today.getHours();
+  // if (hours < 10) {
+  //   hours = `0${hours}`;
+  // }
 
-  const time = `${hours}:${minutes}:${seconds}`;
-  const dateTime = `${date} ${time}`;
-  console.log(`timestamp: ${dateTime}`);
+  // const time = `${hours}:${minutes}:${seconds}`;
+  // const dateTime = `${date} ${time}`;
+  console.log(`timestamp: ${time}`);
   // console.log('time: ' + time);
   console.log(`team_id: ${team_id}`);
   console.log(`instance_id: ${instance_id}`);
@@ -83,7 +84,7 @@ router.post('/updateScore', (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          io.emit('activityFeed', { time: dateTime, team: team_id, hotspot: hotspot });
+          io.emit('activityFeed', { time: time, team: team_id, hotspot: hotspot });
           res.send('update successful');
         }
       });
