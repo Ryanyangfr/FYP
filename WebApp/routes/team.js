@@ -32,7 +32,8 @@ router.post('/updateScore', (req, res) => {
   // var time = utility.getDateTime();
 
   const today = new Date();
-  today.setTime(today.getTime() + today.getTimezoneOffset() * 60 * 1000);
+  // console.log(`timezone offset: ${today.getTimezoneOffset()}`);
+  today.setTime(today.getTime() + today.getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000);
   const date = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
 
   let minutes = today.getMinutes();
