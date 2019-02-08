@@ -161,6 +161,7 @@ router.post('/initializeTrail', (req, res) => {
   const trailInstanceID = req.body.trailInstanceID;
   const numTeams = req.body.numTeams;
 
+  console.log(trailID);
   console.log('initialize trail')
   const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?)'
 
