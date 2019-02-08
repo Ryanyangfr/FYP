@@ -87,7 +87,8 @@ export default {
             generate_id: false,
             trailsList: [],
             trail: "",
-            numTeams: 0
+            numTeams: 0,
+            trailMap: {}
         }
     },
     components:{
@@ -109,7 +110,7 @@ export default {
             this.makeID()
 
             let postBody = {
-                trailID: this.trail,
+                trailID: this.trailMap[this.trail],
                 trailInstanceID: this.instance_id,
                 numTeams: this.numTeams
             }
@@ -122,7 +123,7 @@ export default {
 
         startTrail(){
             let postBody = {
-                trailID: this.trail,
+                trailID: this.trailMap[this.trail],
                 trailInstanceID: this.instance_id
             }
             axios.post('http://54.255.245.23:3000/trail/startTrail', postBody)
@@ -135,7 +136,7 @@ export default {
     
     mounted(){
         console.log(this.$session.exists());
-            if (!this.$session.exists()) {
+        if (!this.$session.exists()) {
             console.log("check")
             this.$router.push('/')
         }
@@ -146,6 +147,7 @@ export default {
             for(var row in data){
                 console.log(data[row]);
                 this.trailsList.push({label: data[row].title, value: data[row].trailID});
+                this.trailMap[data[row].title] = data[row].trailID;
                 // this.allTrailsInfoList.push({id: data[row].trailID, information: data[row]})
             }
         })
