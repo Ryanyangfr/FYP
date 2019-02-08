@@ -109,7 +109,7 @@ export default {
             this.makeID()
 
             let postBody = {
-                trailID: this.trail.value,
+                trailID: this.trail,
                 trailInstanceID: this.instance_id,
                 numTeams: this.numTeams
             }
@@ -122,7 +122,7 @@ export default {
 
         startTrail(){
             let postBody = {
-                trailID: this.trail.value,
+                trailID: this.trail,
                 trailInstanceID: this.instance_id
             }
             axios.post('http://54.255.245.23:3000/trail/startTrail', postBody)
