@@ -30,8 +30,10 @@ router.post('/updateScore', (req, res) => {
   const hotspot = req.body.hotspot;
   const io = req.app.get('socketio');
   // var time = utility.getDateTime();
-    
-  // console.log(io);
+  
+  let timestamp = Date.now();
+
+  console.log(`timestamp: ${timestamp}`);
   // console.log('time: ' + time);
   console.log(`team_id: ${team_id}`);
   console.log(`instance_id: ${instance_id}`);
@@ -61,7 +63,7 @@ router.post('/updateScore', (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          io.emit('activityFeed', { time: '123sadasdasfvv123123124431', team: team_id, hotspot: hotspot });
+          io.emit('activityFeed', { time: dateString, team: team_id, hotspot: hotspot });
           res.send('update successful');
         }
       });
