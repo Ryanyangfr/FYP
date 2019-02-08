@@ -30,15 +30,16 @@ router.post('/updateScore', (req, res) => {
   const hotspot = req.body.hotspot;
   const io = req.app.get('socketio');
   // var time = utility.getDateTime();
-  
+
   const today = new Date();
+  today.setTime(today.getTime() + today.getTimezoneOffset() * 60 * 1000);
   const date = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
- 
+
   let minutes = today.getMinutes();
   if (minutes < 10) {
     minutes = `0${minutes}`;
   }
-  
+
   let seconds = today.getSeconds();
   if (seconds < 10) {
     seconds = `0${seconds}`;
