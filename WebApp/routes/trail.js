@@ -160,6 +160,7 @@ router.post('/initializeTrail', (req, res) => {
   const trailID = req.body.trailID
   const trailInstanceID = req.body.trailInstanceID;
   const numTeams = req.body.numTeams;
+  let hasErr = false;
 
   console.log(trailID);
   console.log('initialize trail')
@@ -169,6 +170,7 @@ router.post('/initializeTrail', (req, res) => {
 
   conn.query(checkIfAnyActiveTrailQuery, (err, data) => {
     if (err) {
+      hasErr = true;
       console.log(err)
     } else {
       const updateQuery = 'UPDATE TRAIL_INSTANCE SET ISACTIVE = 0, HASSTARTED = 0 WHERE TRAIL_ID = ? AND TRAIL_INSTANCE_ID = ?';
@@ -193,14 +195,39 @@ router.post('/initializeTrail', (req, res) => {
             conn.query(updateTeamQuery, [teamID+1, 0, trailInstanceID], (err, data) => {
               if (err) {
                 console.log(err)
+                hasErr = true;
                 res.send(JSON.stringify({ success: 'false' }));
               } else {
                 if (teamID === numTeams-1) {
-                  res.send(JSON.stringify({ success: 'true' }));
+                  // res.send(JSON.stringify({ success: 'true' }));
                 }
               }
             });
           }
+
+          const updateTeamHotspotStatusQuery = 'INSERT INTO TEAM_HOTSPOT_STATUS VALUES(?,?,?,?)';
+          const retrieveHotspotsInTrail = 'SELECT HOTSPOT_NAME FROM TRAIL WHERE TRAIL_ID = ?';
+
+          //retrieve all hotspots in trail
+          conn.query(retrieveHotspotsInTrail, trailID, (err, hotspots) => {
+            if (err) {
+              console.log(err)
+            } else {
+              hotspots.forEach((hotspot) => {
+                for (let teamID=0; teamID<numTeams; teamID++) {
+                  conn.query(updateTeamHotspotStatusQuery, [hotspot.HOTSPOT_NAME, trailInstanceID, teamID+1, 0], (err, data) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      if(hotspot.HOTSPOT_NAME === hotspots[hotspot.length-1].HOTSPOT_NAME && teamID === numTeams-1 && hasErr != true){
+                        res.send(JSON.stringify({ success: 'true' }));
+                      }
+                    }
+                  })
+                }
+              })
+            }
+          })
         }
       });
     }
