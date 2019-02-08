@@ -1,6 +1,5 @@
 module.exports = {
-  method: function getDateTime() {
-
+  getDateTime() {
     const date = new Date();
     date.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000);
 
