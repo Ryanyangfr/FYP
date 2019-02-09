@@ -21,7 +21,7 @@ conn.query('SELECT COUNT(*) AS COUNT FROM TRAIL', (err, num) => {
 });
 
 router.get('/getAllTrails', (req, res) => {
-  let response = [];
+  const response = [];
   const query = 'SELECT TRAIL.TRAIL_ID, TRAIL_HOTSPOT.NARRATIVE_ID, NARRATIVE_TITLE, HOTSPOT_NAME, TITLE, TOTAL_TIME, MISSION_TITLE, TRAIL_HOTSPOT.MISSION_ID FROM TRAIL_HOTSPOT, TRAIL, MISSION, NARRATIVE WHERE TRAIL_HOTSPOT.TRAIL_ID = TRAIL.TRAIL_ID AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND NARRATIVE.NARRATIVE_ID = TRAIL_HOTSPOT.NARRATIVE_ID ORDER BY TRAIL.TRAIL_ID';
 
   conn.query(query, (err, data) => {
@@ -62,7 +62,7 @@ router.post('/addTrail', (req, res) => {
   // const narrativeID = req.body.narrativeID;
 
   let hotspotCount = 0;
-  let missionCount = 0;
+  const missionCount = 0;
   console.log(req.body);
 
   const trailCreationQuery = 'INSERT INTO TRAIL VALUES (?,?,?)';
@@ -173,8 +173,8 @@ router.post('/initializeTrail', (req, res) => {
     } else {
       const updateQuery = 'UPDATE TRAIL_INSTANCE SET ISACTIVE = 0, HASSTARTED = 0 WHERE TRAIL_ID = ? AND TRAIL_INSTANCE_ID = ?';
       data.forEach((row) => {
-        let activatedTrailID = row.TRAIL_ID;
-        let activatedTrailInstanceID = row.TRAIL_INSTANCE_ID;
+        const activatedTrailID = row.TRAIL_ID;
+        const activatedTrailInstanceID = row.TRAIL_INSTANCE_ID;
         conn.query(updateQuery, [activatedTrailID, activatedTrailInstanceID], (err, data) => {
           if (err) {
             console.log(err)
@@ -189,15 +189,13 @@ router.post('/initializeTrail', (req, res) => {
         } else {
           const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?)';
 
-          for (let teamID=0; teamID<numTeams; teamID++) {
-            conn.query(updateTeamQuery, [teamID+1, 0, trailInstanceID], (err, data) => {
+          for (let teamID = 0; teamID < numTeams; teamID++) {
+            conn.query(updateTeamQuery, [teamID + 1, 0, trailInstanceID], (err, data) => {
               if (err) {
                 console.log(err)
                 res.send(JSON.stringify({ success: 'false' }));
-              } else {
-                if (teamID === numTeams-1) {
-                  res.send(JSON.stringify({ success: 'true' }));
-                }
+              } else if (teamID === numTeams - 1) {
+                res.send(JSON.stringify({ success: 'true' }));
               }
             });
           }
