@@ -240,7 +240,7 @@ export default {
 
     .card table{
         margin: 18px;
-        font-size: 14px;
+        font-size: 17px;
         font-family: "Roboto", sans-serif;
        
     }

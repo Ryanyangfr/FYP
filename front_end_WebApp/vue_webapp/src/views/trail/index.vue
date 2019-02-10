@@ -319,7 +319,7 @@ export default {
 
     .card table td{
         text-align: left;
-        font-size: 16px;
+        font-size: 17px;
     }
 
     
