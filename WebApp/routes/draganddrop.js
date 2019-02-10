@@ -41,20 +41,16 @@ router.get('/getDragAndDrop',function(req,res){
                             // console.log(drag_and_drop_)
                             response.push({hotspot: hotspot_name, question: drag_and_drop_details[0].DRAGANDDROP_QUESTION, drag_and_drop: drag_and_drop_});
                             console.log('count: ' + typeof count);
-                            console.log('mission length: ' + typeof missions.length);
-                            if(count == missions.length){
-                                res.end(JSON.stringify(response, null, 3));
-                                console.log('count: ' + count);
-                                console.log('mission length: ' + missions.length);
-                            }
-                            
+                            console.log('mission length: ' + typeof missions.length);                            
+                        }
+                        if(count == missions.length){
+                            res.end(JSON.stringify(response, null, 3));
+                            console.log('count: ' + count);
+                            console.log('mission length: ' + missions.length);
                         }                        // number = number + 1;
                     }
                 })
             })
-            if (missions.length == 0) {
-                res.send([]);
-            }
         }
         console.log(response)
         
