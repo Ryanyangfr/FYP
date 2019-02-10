@@ -440,11 +440,11 @@ INSERT INTO TRAIL_INSTANCE VALUES
 -- (1,6, 'Li Ka Shing Library');
 
 INSERT INTO TRAIL_HOTSPOT VALUES
-(1, 'Lee Kong Chian School of Business', 1, 18),
-(1, 'School of Accountancy', 2, 21),
-(1, 'School of Economics/School of Social Sciences', 3, 20),
+(1, 'Lee Kong Chian School of Business', 1, 1),
+(1, 'School of Accountancy', 2, 8),
+(1, 'School of Economics/School of Social Sciences', 3, 10),
 (1, 'School of Information Systems', 4, 4),
-(1, 'School of Law', 5, 19),
+(1, 'School of Law', 5, 2),
 (1, 'Li Ka Shing Library', 6, 6);
 
 INSERT INTO TEAM VALUES
@@ -476,7 +476,7 @@ INSERT INTO TEAM_HOTSPOT_STATUS VALUES
 ('Li Ka Shing Library', '175239', 3, 0);
 
 INSERT INTO DRAG_AND_DROP VALUES
-(1,'Match the nonsense', 18);
+(1,'Match the words', 18);
 
 INSERT INTO DRAG_AND_DROP_OPTION VALUES
 (1,'I', 'Integrity'),
