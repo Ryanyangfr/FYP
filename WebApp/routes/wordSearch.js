@@ -51,6 +51,10 @@ router.get('/getWordSearchWords', (req, res) => {
           }
         });
       });
+
+      if (missions.length == 0) {
+        res.send([]);
+      }
     }
   });
 });
