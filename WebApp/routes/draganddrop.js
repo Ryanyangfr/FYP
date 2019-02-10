@@ -52,6 +52,9 @@ router.get('/getDragAndDrop',function(req,res){
                     }
                 })
             })
+            if (missions.length == 0) {
+                res.send([]);
+            }
         }
         console.log(response)
         
