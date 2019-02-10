@@ -303,11 +303,10 @@ router.get('/getDrawingQuestion', (req, res) => {
         response.push({ hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
       });
       console.log('drawing question: ' + response.length);
-      if (response.length == 0) {
-        res.send(null);
-      } else {
-        res.send(response);
+      if (result.length == 0) {
+        response.push({success: 'false'});
       }
+      res.send(response);
     }
   })
 })
