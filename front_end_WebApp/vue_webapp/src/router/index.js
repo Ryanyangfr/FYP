@@ -35,6 +35,12 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/map',
+      name: 'Live Map',
+      component: () => import('@/views/LiveMap/index'),
+      hidden: true
+    },
+    {
       path: '/uploadMultimedia',
       name: 'uploadMultimedia',
       component: ()=> import('@/views/Multimedia/upload'),

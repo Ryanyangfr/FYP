@@ -24,6 +24,7 @@
                     <li><router-link to='/trail'>Trail</router-link></li>
                     <div class="ingame-header"><li>In-Game</li></div>
                     <li><router-link to="/generateInstanceID">Start Trail</router-link></li>
+                    <li><router-link to="/map">Live Map</router-link></li>
                     <li><router-link to="/leaderboard">Leaderboard</router-link></li>
                     <li><router-link to='/viewSubmissions'>Submissions</router-link></li>
                 </ul>

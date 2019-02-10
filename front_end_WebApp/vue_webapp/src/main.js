@@ -18,6 +18,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueSession from 'vue-session';
 import { store } from './store';
 
+import * as VueGoogleMaps from 'vue2-google-maps'
+
 library.add(faBars)
 library.add(faTimes)
 
@@ -28,6 +30,13 @@ Vue.config.productionTip = false
 Vue.use(BootstrapVue);
 Vue.use(VueSession);
 /* eslint-disable no-new */
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: 'AIzaSyAxCjFVo3ywy2FtsAHCXzz_4UJ5YS0fB9w',
+    libraries: 'places'
+  },
+})
 
 new Vue({
   el: '#app',
