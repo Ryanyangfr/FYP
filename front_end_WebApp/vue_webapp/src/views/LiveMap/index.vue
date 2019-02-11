@@ -10,16 +10,19 @@
 
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import io from 'socket.io-client';
+
 export default {
     
     name: "LiveMap",
     data() {
         return {
             center: { lat: 1.2962, lng: 103.8501 },
-            markers: [],
-            hotspots_positions: [],
+            hotspot_markers: [],
+            team_markers: {},
             currentPlace: null,
+            socket : io('localhost:3000')
             
         };
     },
@@ -59,11 +62,20 @@ export default {
 
                 
             }
+        });
+
+        axios.get('http://54.255.245.23:3000/team/getAllTeamsInCurrentActiveTrail')
+        .then (response => {
+            let data = response.data;
+            data.forEach((team) => {
+                this.team_markers[team.team_id] = {lat: parseFloat(team.latitude), lng: parseFloat(team.longtitude)}
+            })
+            console.log(this.team_markers);
         })
 
-        
-
-
+        this.socket.on('locationUpdate', (data) => {
+            this.team_markers[data.team] = {lat: parseFloat(data.latitude), lng: parseFloat(data.longtitude)};
+        });
     }    
 }
 </script>
