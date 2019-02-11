@@ -21,6 +21,7 @@ router.get('/getAllTeams', (req, res) => {
         team_id: team.TEAM_ID, points: team.TEAM_POINTS, latitude: team.LATITUDE, longtitude: team.LONGTITUDE
       });
     });
+    console.log(response)
     res.send(response);
   });
 
