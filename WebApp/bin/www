@@ -4,21 +4,21 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var http = require('http');
+let app = require('../app');
+let http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+let port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+let server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -28,23 +28,38 @@ server.listen(port);
 server.on('error', onError);
 // server.on('listening', onListening);
 
-var io = require('socket.io').listen(server)
+let io = require('socket.io').listen(server)
 
-io.sockets.on('connection', function(socket){
+io.sockets.on('connection', (socket) => {
   // socket.emit('connect', {test:'trolololol'});
   // io.emit('connect', {test:'trolololol'});
   // io.emit('test', {test:'again'});
   // console.log(socket);
 
-  socket.on('test', function(data){
-    console.log("data: ");
+  socket.on('test', (data) => {
+    console.log('data: ');
     console.log(data);
   });
-  
-  socket.on('error', function(err){
+
+  socket.on('error', (err) => {
     console.log(err);
   });
-  
+
+  socket.on('locationUpdate', (newLocation) => {
+    const team = newLocation.team;
+    const lat = newLocation.lat;
+    const long = newLocation.long;
+
+    const updateTeamLocationQuery = 'UPDATE TEAM SET LATITUDE = ?, LONGTITUDE = ? WHERE TEAM_ID = ?';
+
+    conn.query(updateTeamLocationQuery, [lat,long,team], (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        io.emit('locationUpdate', {latitude: lat, longtitude: long, team: team});
+      }
+    })
+  }) 
   console.log('User Connected');
 });
 
@@ -56,7 +71,7 @@ app.set('socketio', io);
  */
 
 function normalizePort(val) {
-  var port = parseInt(val, 10);
+  let port = parseInt(val, 10);
 
   if (isNaN(port)) {
     // named pipe
@@ -80,7 +95,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
+  let bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
 
