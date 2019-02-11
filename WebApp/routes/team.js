@@ -31,15 +31,14 @@ router.get('/getAllTeamsInCurrentActiveTrail', (req, res) => {
   // const trail_instance_id = req.query.trail_instance_id;
 
   const getActiveTrailQuery = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 AND HASSTARTED = 1';
-
+  const response = [];
   conn.query(getActiveTrailQuery, (err, trails) => {
     if (err) {
       console.log(err);
     } else {
       const query = 'SELECT * FROM TEAM WHERE TRAIL_INSTANCE_ID = ?';
-      const response = [];
     
-      conn.query(query, trail_instance_id, (err, teams) => {
+      conn.query(query, trails[0].TRAIL_INSTANCE_ID, (err, teams) => {
         if (err) {
           console.log(err);
         } else {
