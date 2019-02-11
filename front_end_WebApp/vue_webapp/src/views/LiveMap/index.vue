@@ -56,14 +56,8 @@ export default {
                     infowindow.setContent(marker.title)
                     // console.log(marker)
                 });
-
-                
             }
         })
-
-        
-
-
     }    
 }
 </script>
