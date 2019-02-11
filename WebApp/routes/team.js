@@ -21,10 +21,39 @@ router.get('/getAllTeams', (req, res) => {
         team_id: team.TEAM_ID, points: team.TEAM_POINTS, latitude: team.LATITUDE, longtitude: team.LONGTITUDE
       });
     });
-    console.log(response)
+    console.log(response);
     res.send(response);
   });
 
+});
+
+router.get('/getAllTeamsInCurrentActiveTrail', (req, res) => {
+  // const trail_instance_id = req.query.trail_instance_id;
+
+  const getActiveTrailQuery = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 AND HASSTARTED = 1';
+
+  conn.query(getActiveTrailQuery, (err, trails) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const query = 'SELECT * FROM TEAM WHERE TRAIL_INSTANCE_ID = ?';
+      const response = [];
+    
+      conn.query(query, trail_instance_id, (err, teams) => {
+        if (err) {
+          console.log(err);
+        } else {
+          teams.forEach((team) => {
+            response.push({
+              team_id: team.TEAM_ID, points: team.TEAM_POINTS, latitude: team.LATITUDE, longtitude: team.LONGTITUDE
+            });
+          });
+          console.log(response);
+          res.send(response);
+        }
+      });
+    }
+  });
 });
 
 router.post('/updateScore', (req, res) => {
