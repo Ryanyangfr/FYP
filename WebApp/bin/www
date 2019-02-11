@@ -50,6 +50,7 @@ io.sockets.on('connection', (socket) => {
     const lat = newLocation.lat;
     const long = newLocation.long;
 
+    console.log('location update received');
     const updateTeamLocationQuery = 'UPDATE TEAM SET LATITUDE = ?, LONGTITUDE = ? WHERE TEAM_ID = ?';
 
     conn.query(updateTeamLocationQuery, [lat,long,team], (err, data) => {
