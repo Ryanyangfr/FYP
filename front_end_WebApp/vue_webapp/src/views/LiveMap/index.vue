@@ -22,7 +22,7 @@ export default {
             hotspot_markers: [],
             team_markers: {},
             currentPlace: null,
-            socket : io('localhost:3000')
+            socket : io('localhost:3001')
             
         };
     },
