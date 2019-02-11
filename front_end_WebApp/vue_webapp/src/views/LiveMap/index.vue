@@ -43,7 +43,7 @@ export default {
             for(var row in data){
                 console.log(data[row])
                 var latlng = {lat: parseFloat(data[row].latitude), lng: parseFloat(data[row].longtitude)};
-                this.markers.push({ 
+                this.hotspot_markers.push({ 
                     position: latlng, 
                     title: data[row].title
                 });
