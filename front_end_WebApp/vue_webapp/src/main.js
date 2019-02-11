@@ -18,6 +18,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import VueSession from 'vue-session';
 import { store } from './store';
 
+// import VueSocketio from 'vue-socket.io';
+
 import * as VueGoogleMaps from 'vue2-google-maps'
 
 library.add(faBars)
@@ -29,6 +31,7 @@ Vue.use(VueMaterial)
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);
 Vue.use(VueSession);
+// Vue.use(VueSocketio, 'http://54.255.245.23:3000/');
 /* eslint-disable no-new */
 
 // Vue.use(VueGoogleMaps, {
