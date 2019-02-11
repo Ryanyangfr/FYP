@@ -17,7 +17,9 @@ router.get('/getAllTeams', (req, res) => {
 
   conn.query(query, trail_instance_id, (err, teams) => {
     teams.forEach((team) => {
-      response.push({ team_id: team.TEAM_ID });
+      response.push({
+        team_id: team.TEAM_ID, points: team.TEAM_POINTS, latitude: team.LATITUDE, longtitude: team.LONGTITUDE
+      });
     });
     res.send(response);
   });
