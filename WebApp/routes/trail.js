@@ -187,10 +187,7 @@ router.post('/initializeTrail', (req, res) => {
       conn.query(query, [trailInstanceID, trailID, 1, 0], (err, data) => {
         if (err) {
           console.log(err)
-          conn.query('UPDATE TRAIL_INSTANCE SET ISACTIVE = 1 WHERE TRAIL_ID = ? AND TRAIL_INSTANCE_ID = ?', [trailInstanceID, trailID], (err, data) => {
-            res.send(JSON.stringify({ success: 'true' }));
-          })
-          // res.send(JSON.stringify({ success: 'false' }));
+          res.send(JSON.stringify({ success: 'false' }));
         } else {
           const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?)';
 

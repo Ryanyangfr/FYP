@@ -102,7 +102,7 @@ export default {
             for(var i=0; i<6; i++){
                 id += possible.charAt(Math.floor(Math.random()* possible.length))
             }
-            this.instance_id = '175239'
+            this.instance_id = id
         },
 
         toggleGenerate(){

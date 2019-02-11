@@ -278,10 +278,14 @@ router.get('/getSubmissionQuestion', (req, res) => {
   const response = [];
 
   conn.query(query, instance_id, (err, result) => {
-    result.forEach((row) => {
-      response.push({ hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
-    });
-    console.log(response);
+    if (err) {
+      console.log(err);
+    } else {
+      result.forEach((row) => {
+        response.push({ hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
+      });
+      console.log('submission question: ' + response);
+    }
     res.send(response);
   })
 })
@@ -292,11 +296,18 @@ router.get('/getDrawingQuestion', (req, res) => {
   const response = []
 
   conn.query(query, instance_id, (err, result) => {
-    result.forEach((row) => {
-      response.push({ hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
-    });
-    console.log(response);
-    res.send(response);
+    if (err) {
+      console.log(err);
+    } else {
+      result.forEach((row) => {
+        response.push({ hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
+      });
+      console.log('drawing question: ' + response.length);
+      if (result.length == 0) {
+        response.push({success: 'false'});
+      }
+      res.send(response);
+    }
   })
 })
 
