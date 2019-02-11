@@ -18,7 +18,7 @@
             <div class="sideBar" v-if="show">
                 <ul>
                     <div class="setup-header"><li>Setup</li></div>
-                    <li><router-link to='/addHotspot'>Location</router-link></li>
+                    <li><router-link to='/viewHotspots'>Location</router-link></li>
                     <li><router-link to='/viewNarrative'>Narrative</router-link></li>
                     <li><router-link to='/mission'>Missions</router-link></li>
                     <li><router-link to='/trail'>Trail</router-link></li>

@@ -59,9 +59,21 @@ export default new Router({
       hidden: true
     },
     {
-      path: '/addHotspot',
+      path: '/viewHotspots',
       name: 'All Locations',
       component: ()=> import('@/views/hotspot/index'),
+      hidden: true
+    },
+    {
+      path: '/addHotspot',
+      name: 'Add New Hotspot',
+      component: ()=> import('@/views/hotspot/addHotspot'),
+      hidden: true
+    },
+    {
+      path: '/editHotspot',
+      name: 'Edit Hotspot',
+      component: ()=> import('@/views/hotspot/editHotspot'),
       hidden: true
     },
     {

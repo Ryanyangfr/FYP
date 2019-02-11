@@ -14,7 +14,10 @@ export const store = new Vuex.Store({
         selectedTrailID:"",
         selectedNarrativeID: 0,
         selectedNarrativeTitle:"",
-        selectedNarrative:""
+        selectedNarrative:"",
+        selectedHotspotName: "",
+        selectedLat: "",
+        selectedLng: "",
 
     },
     
@@ -61,6 +64,18 @@ export const store = new Vuex.Store({
 
         saveSelectedNarrative(state, narrative){
             state.selectedNarrative = narrative
+        },
+
+        saveSelectedHotspotName(state, hotspotName){
+            state.selectedHotspotName = hotspotName;
+        },
+        
+        saveSelectedLat(state, lat){
+            state.selectedLat = lat
+        },
+
+        saveSelectedLng(state, lng){
+            state.selectedLng = lng
         }
     }
 });

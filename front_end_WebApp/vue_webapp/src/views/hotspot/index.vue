@@ -3,14 +3,13 @@
         <div class="card">
             <div class="card-title">
                 <h5>Location List</h5>
-                <button class="create-hotspot-btn" @click="addHotspot()"><i class="ti-plus"></i>ADD NEW</button>
+                <button class="create-hotspot-btn"><i class="ti-plus"></i><router-link to='/addHotspot'>ADD NEW</router-link></button>
             </div>
             <table>
                 <tr class="hotspot-table-header">
                     <td class="hotspot-title-header">Location Name</td>
                     <td>Latitude</td>
                     <td>Longtitude</td>
-                    <!-- <td>Narrative</td> -->
                     <td colspan="2">Actions</td>
                 </tr>
 
@@ -18,92 +17,12 @@
                     <td>{{hotspot.hotspot_name}}</td>
                     <td>{{hotspot.latitude}}</td>
                     <td>{{hotspot.longtitude}}</td>
-                    <!-- <td>{{hotspot.narrative}}</td> -->
-                    <td><button @click="editHotspot(hotspot.hotspot_name,hotspot.latitude,hotspot.longtitude)"><i class="ti-pencil-alt"></i></button></td>
+                    <td><button @click="saveHotspot(hotspot.hotspot_name,hotspot.latitude,hotspot.longtitude)"><router-link to='editHotspot'><i class="ti-pencil-alt"></i></router-link></button></td>
                     <td><button @click="deleteHotspot(hotspot.hotspot_name)"><i class="ti-trash"></i></button></td>
                 </tr>
-                <!-- {{this.hotspotList}} -->
             </table>
         </div>
-
-        <!--add hotspot begins-->
-        <div class="black-blur-bg" v-if="showAdd"> 
-            <div class="add-hotspot-form">
-                <div class="add-hotspot-header">
-                    <h5>New Location</h5>
-                    <button class="close-add-hotspot" @click="closeAdd()"><font-awesome-icon icon="times"/></button>
-                </div>
-                <hr>
-                
-                <form class="add-hotspot-body" @submit.prevent="onSubmitToAdd">
-                    <div class="add-hotspot-input">
-                        <input type="text" id="add-hotspot-name-input" v-model="curr_hotspot_name" required>
-                        <label for="add-hotspot-name-input">Location Name</label>
-                    </div>
-                    <div class="add-hotspot-input">
-                        <input type="text" id="add-lat-input" v-model="curr_lat" required>
-                        <label for="add-lat-input">Latitude</label>
-                    </div>
-                    <div class="add-hotspot-input">
-                        <input type="text" id="add-long-input" v-model="curr_long" required>
-                        <label for="add-long-input">Longitude</label>
-                    </div>
-                    <!-- <div class="narrative-droplist">
-                        <select placeholder='Select narrative for hotspot' id="narrative-droplist-input" v-model='curr_narrative'>
-                             <option v-for="narrative in dropDownList" :key="narrative.value">
-                                 {{narrative.label}}
-                             </option> 
-                        </select>
-                        {{curr_narrative}}
-                        <label for="narrative-droplist-input">Narrative</label>  
-                    </div> -->
-                    <div>
-                        <button type="submit" class="add-hotspot-submit">Submit</button>
-                    </div>
-                </form>
-               
-            </div>
-        </div>
-        <!--add hotspot ends-->
         
-        <!--edit hotspot begins-->
-        <div class="black-blur-bg" v-if="showEdit"> 
-            <div class="edit-hotspot-form">
-                <div class="edit-hotspot-header">
-                    <h5>Edit Location</h5>
-                    <button class="close-edit-hotspot" @click="closeEdit()"><font-awesome-icon icon="times"/></button>
-                </div>
-                <hr>
-                
-                <form class="edit-hotspot-body" @submit.prevent="onSubmitToEdit">
-                    <div class="edit-hotspot-input">
-                        <input type="text" id="edit-hotspot-name-input" v-model="curr_hotspot_name" required>
-                        <label for="edit-hotspot-name-input">Location Name</label>
-                    </div>
-                    <div class="edit-hotspot-input">
-                        <input type="text" id="edit-lat-input" v-model="curr_lat" required>
-                        <label for="edit-lat-input">Latitude</label>
-                    </div>
-                    <div class="edit-hotspot-input">
-                        <input type="text" id="edit-long-input" v-model="curr_long" required>
-                        <label for="edit-long-input">Longitude</label>
-                    </div>
-                    <!-- <div class="narrative-droplist">
-                        <select placeholder='Select narrative for hotspot' id="narrative-droplist-input" v-model='curr_narrative'>
-                             <option v-for="narrative in dropDownList" :key="narrative.value">
-                                 {{narrative.label}}
-                             </option> 
-                        </select>
-                        <label for="narrative-droplist-input">Narrative</label>  
-                    </div> -->
-                    <div>
-                        <button type="submit" class="edit-hotspot-submit">Submit</button>
-                    </div>
-                </form>
-               
-            </div>
-        </div>
-        <!--edit hotspot ends-->
 
         <!--delete hotspot begins-->
         <div class="black-blur-bg" v-if="showDelete"> 
@@ -180,12 +99,7 @@ export default {
     name: "hotspot",
     data() {
         return{
-            showEdit: false,
-            showAdd: false,
             showDelete: false,
-            func: "Add",
-            functionsAvailable: ["Add", "Edit", "Delete"],
-            // dropDownList: [],
             hotspotList: [],
             hotspotToBeDeleted: "",
             hotspotToBeEdited: "",
@@ -194,123 +108,32 @@ export default {
             curr_long: "",
             deleteMessage: "",
             closeMessage: false
-            // curr_narrative:"curr_narrative",
-            // narrative_dictionary: {}
         }
     }, 
     components:{
         vSelect
     },
+
+    computed:{
+        selectedHotspotName(){
+            return this.$store.state.selectedHotspotName;
+        },
+
+        selectedLat(){
+            return this.$store.state.selectedLat;
+        },
+
+        selectedLng(){
+            return this.$store.state.selectedLng;
+        },
+    },
+
     methods: {
-        onSubmitToAdd(){
-            var postBody = {
-                "hotspot_name": this.curr_hotspot_name,
-                "latitude": this.curr_lat,
-                "longtitude": this.curr_long,
-                // "narrative_id": this.narrative_dictionary[this.curr_narrative] 
-            }
-            // console.log("post body: ");
-            // console.log(postBody)
-            axios.post('http://54.255.245.23:3000/add/addHotspot', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-                this.$router.go();
-            })
-            this.hotspot = "";
-            this.latitude = "";
-            this.longtitude = "";
-            // this.narrative = "";
-            
-        },
 
-        addHotspot(){
-             if(this.showAdd){
-                this.showAdd = false;
-            } else{
-                this.showAdd = true;
-            }
-        },
-
-        closeAdd(){
-            if(this.showAdd){
-                this.showAdd = false;
-            } else{
-                this.showAdd = true;
-            }
-
-            this.curr_hotspot_name = "";
-            this.curr_lat = "";
-            this.curr_long = "";
-            // this.curr_narrative = "";
-        },
-
-        onSubmitToEdit(){
-            var postBody = {
-                "hotspot_name": this.curr_hotspot_name,
-                "latitude": this.curr_lat,
-                "longtitude": this.curr_long,
-                // "narrative_id": this.narrative_dictionary[this.curr_narrative]
-            }
-            console.log("post body: ");
-            console.log(postBody)
-
-            // var hsName = this.curr_hotspot_name;
-            // var lat = this.curr_lat;
-            // var long = this.curr_long;
-            // var narrative = this.curr_narrative;
-            // console.log(this.curr_hotspot_name);
-
-            axios.post('http://54.255.245.23:3000/edit/editHotspot', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-                this.$router.go();
-                // if(data.success = "true"){
-                //     this.hotspotList.forEach(function(hotspot){
-                //         console.log("hotspot: ");
-                //         // console.log(hsName)
-                //         if(hotspot.hotspot_name == hsName){
-                //             console.log(hotspot.hotspot_name);
-                //             hotspot.latitude = lat;
-                //             hotspot.longtitude = long;
-                //             hotspot.narrative = narrative;
-                //         }
-                //     })
-                // }
-            })
-            // this.$router.go();
-            // this.hotspotToBeEdited = "";
-            // this.latitude = "";
-            // this.longtitude = "";
-            // this.narrative = "";
-
-        },
-
-        editHotspot(hotspot_name, lat, long){
-            if(this.showEdit){
-                this.showEdit = false;
-            } else{
-                this.showEdit = true;
-            }
-
-            this.curr_hotspot_name = hotspot_name;
-            this.curr_lat = lat;
-            this.curr_long = long;
-            this.curr_narrative = narrative;
-        },
-
-        closeEdit(){
-            if(this.showEdit){
-                this.showEdit = false;
-            } else{
-                this.showEdit = true;
-            }
-
-            this.curr_hotspot_name = "";
-            this.curr_lat = "";
-            this.curr_long = "";
-            this.curr_narrative = "";
+        saveHotspot(hotspot_name, lat, lng){
+            this.$store.commit('saveSelectedHotspotName', hotspot_name);
+            this.$store.commit('saveSelectedLat', lat);
+            this.$store.commit('saveSelectedLng', lng);
         },
 
         onSubmitToDelete(){
@@ -437,6 +260,13 @@ export default {
         align-items: center;
     }
 
+    .create-hotspot-btn a {
+        text-decoration: none!important;
+        font-size: 15px;
+        color:white;
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
     .create-hotspot-btn:hover{
         background-color: #6200EE;
     }
@@ -477,7 +307,13 @@ export default {
     }
 
     .hotspot-data i{
-        font-size: 20px
+        font-size: 20px;
+        color: #536479
+    }
+
+     .hotspot-data a{
+        font-size: 20px;
+        color: #536479
     }
 
     .hotspot-table-header td{
