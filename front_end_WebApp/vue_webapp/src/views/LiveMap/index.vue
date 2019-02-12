@@ -11,7 +11,7 @@
 
 <script>
 import axios from 'axios';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 export default {
     
@@ -20,9 +20,9 @@ export default {
         return {
             center: { lat: 1.2962, lng: 103.8501 },
             hotspot_markers: [],
-            team_markers: {},
+            team_markers: [],
             currentPlace: null,
-            socket : io('http://54.255.245.23:3000')
+            // socket : io('http://54.255.245.23:3000')
             
         };
     },
@@ -36,44 +36,55 @@ export default {
             
         })
 
-        axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
-        .then(response => {
-            let data = response.data;
-            var infowindow = new google.maps.InfoWindow();
-            for(var row in data){
-                console.log(data[row])
-                var latlng = {lat: parseFloat(data[row].latitude), lng: parseFloat(data[row].longtitude)};
-                this.hotspot_markers.push({ 
-                    position: latlng, 
-                    title: data[row].title
-                });
+        // axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
+        // .then(response => {
+        //     let data = response.data;
+        //     var infowindow = new google.maps.InfoWindow();
+        //     for(var row in data){
+        //         console.log(data[row])
+        //         var latlng = {lat: parseFloat(data[row].latitude), lng: parseFloat(data[row].longtitude)};
+        //         this.hotspot_markers.push({ 
+        //             position: latlng, 
+        //             title: data[row].title
+        //         });
 
-                let marker = new google.maps.Marker({
-                    position: latlng,
-                    map: this.map,
-                    title: data[row].hotspot_name
-                });
+        //         let marker = new google.maps.Marker({
+        //             position: latlng,
+        //             map: this.map,
+        //             title: data[row].hotspot_name
+        //         });
 
-                google.maps.event.addListener(marker, 'click', function() {
-                    infowindow.open(this.map,marker);
-                    infowindow.setContent(marker.title)
-                    // console.log(marker)
-                });
-            }
-        });
+        //         google.maps.event.addListener(marker, 'click', function() {
+        //             infowindow.open(this.map,marker);
+        //             infowindow.setContent(marker.title)
+        //             // console.log(marker)
+        //         });
+        //     }
+        // });
 
         axios.get('http://54.255.245.23:3000/team/getAllTeamsInCurrentActiveTrail')
         .then (response => {
             let data = response.data;
+            let infowindow = new google.maps.InfoWindow();
             data.forEach((team) => {
-                this.team_markers[team.team_id] = {lat: parseFloat(team.latitude), lng: parseFloat(team.longtitude)}
+                this.team_markers.push({ team:team.team_id, lat: parseFloat(team.latitude), lng: parseFloat(team.longtitude) })
             })
             console.log(this.team_markers);
-        })
 
-        this.socket.on('locationUpdate', (data) => {
-            this.team_markers[data.team] = {lat: parseFloat(data.latitude), lng: parseFloat(data.longtitude)};
-        });
+            this.team_markers.forEach((marker) => {
+                let team_marker = new google.maps.Marker({
+                    position: {lat:marker.lat, lng:marker.lng},
+                    map: this.map,
+                    title: 'team ' + marker.team
+                });
+
+                 google.maps.event.addListener(team_marker, 'click', function() {
+                    infowindow.open(this.map,team_marker);
+                    infowindow.setContent(team_marker.title)
+                    // console.log(marker)
+                });
+            })
+        })
     }    
 }
 </script>
