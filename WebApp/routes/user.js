@@ -147,21 +147,21 @@ router.post('/changeAdminPassword', cors(), (req, res) => {
   });
 });
 
-// router.get('/retrieveAllUsers',(req,res) => {
-//   const query = 'SELECT USERNAME FROM PARTICIPANT';
-//   const response = [];
-//   console.log('retrieveAllUsers called');
+router.get('/retrieveAllUsers',(req,res) => {
+  const query = 'SELECT USERNAME FROM PARTICIPANT';
+  const response = [];
+  console.log('retrieveAllUsers called');
 
-//   conn.query(query, (err, rows) => {
-//     if (err) {
-//       console.log(error);
-//     }
-//     rows.forEach((row) => {
-//       response.push(row.USERNAME);
-//     });
+  conn.query(query, (err, rows) => {
+    if (err) {
+      console.log(error);
+    }
+    rows.forEach((row) => {
+      response.push(row.USERNAME);
+    });
 
-//     res.send(JSON.stringify({ username: response }));
-//   });
-// });
+    res.send(JSON.stringify({ username: response }));
+  });
+});
 
 module.exports = router;
