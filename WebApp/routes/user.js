@@ -28,6 +28,17 @@ const pusher = new Pusher({
 const channel = 'events_to_be_shown';
 
 let numUsersEntered = 0;
+
+//check check for users already entered
+
+conn.query('SELECT COUNT(*) AS COUNT FROM PARTICIPANT', (err, numParticipants) => {
+  if (err) {
+    console.log(err);
+  } else {
+    numUsersEntered = numParticipants.COUNT;
+  }
+})
+
 // checks if user is valid
 // router.get('/loginCheck/', function(req,res){
 //     // console.log(req.query.password);
@@ -86,9 +97,10 @@ router.post('/register', (req, res) => {
       const team_id = numUsersEntered % numTeams + 1;
       numUsersEntered = numUsersEntered + 1;
       let isLeader = 0;
-      if (user_id <= 3) {
+      if (user_id <= numTeams) {
         isLeader = 1;
       }
+      console.log(numTeams);
       const event = {
         team_id: team_id,
         id: crypto.randomBytes(16).toString('hex').substring(0,4),
