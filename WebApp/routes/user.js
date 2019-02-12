@@ -35,7 +35,7 @@ conn.query('SELECT COUNT(*) AS COUNT FROM PARTICIPANT', (err, numParticipants) =
   if (err) {
     console.log(err);
   } else {
-    numUsersEntered = numParticipants.COUNT;
+    numUsersEntered = numParticipants[0].COUNT;
   }
 })
 
