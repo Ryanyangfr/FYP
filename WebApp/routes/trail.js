@@ -162,6 +162,7 @@ router.post('/initializeTrail', (req, res) => {
   const numTeams = req.body.numTeams;
   let hasErr = false;
 
+  console.log('number of teams: ' + numTeams);
   console.log(trailID);
   console.log('initialize trail')
   const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?)'
@@ -192,6 +193,7 @@ router.post('/initializeTrail', (req, res) => {
           const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?,?,?)';
 
           for (let teamID = 0; teamID < numTeams; teamID++) {
+            console.log('team: ' + teamID);
             conn.query(updateTeamQuery, [teamID + 1, 0, '1.268', '103.8522', trailInstanceID], (err, data) => {
               if (err) {
                 console.log(err)
