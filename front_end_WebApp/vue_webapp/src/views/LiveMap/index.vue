@@ -36,31 +36,31 @@ export default {
             
         })
 
-        // axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
-        // .then(response => {
-        //     let data = response.data;
-        //     var infowindow = new google.maps.InfoWindow();
-        //     for(var row in data){
-        //         console.log(data[row])
-        //         var latlng = {lat: parseFloat(data[row].latitude), lng: parseFloat(data[row].longtitude)};
-        //         this.hotspot_markers.push({ 
-        //             position: latlng, 
-        //             title: data[row].title
-        //         });
+        axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
+        .then(response => {
+            let data = response.data;
+            var infowindow = new google.maps.InfoWindow();
+            for(var row in data){
+                console.log(data[row])
+                var latlng = {lat: parseFloat(data[row].latitude), lng: parseFloat(data[row].longtitude)};
+                this.hotspot_markers.push({ 
+                    position: latlng, 
+                    title: data[row].title
+                });
 
-        //         let marker = new google.maps.Marker({
-        //             position: latlng,
-        //             map: this.map,
-        //             title: data[row].hotspot_name
-        //         });
+                let marker = new google.maps.Marker({
+                    position: latlng,
+                    map: this.map,
+                    title: data[row].hotspot_name
+                });
 
-        //         google.maps.event.addListener(marker, 'click', function() {
-        //             infowindow.open(this.map,marker);
-        //             infowindow.setContent(marker.title)
-        //             // console.log(marker)
-        //         });
-        //     }
-        // });
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.open(this.map,marker);
+                    infowindow.setContent(marker.title)
+                    // console.log(marker)
+                });
+            }
+        });
 
         axios.get('http://54.255.245.23:3000/team/getAllTeamsInCurrentActiveTrail')
         .then (response => {
