@@ -129,7 +129,7 @@ export default {
             // console.log(this.hotspot.value);
             console.log(this.title);
             console.log(this.quiz);
-            axios.post('http://54.255.245.23:3000/add/addQuiz', postBody)
+            axios.post('http://13.229.115.32:3000/add/addQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -149,7 +149,7 @@ export default {
             // console.log(this.hotspot.value);
             console.log(this.wefie_instruction);
             console.log(this.title);
-            axios.post('http://54.255.245.23:3000/add/addWefieQuestion', postBody)
+            axios.post('http://13.229.115.32:3000/add/addWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
