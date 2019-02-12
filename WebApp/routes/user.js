@@ -91,7 +91,7 @@ router.post('/register', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      const numTeams = data.COUNT;
+      const numTeams = data[0].COUNT;
       const username = req.body.username;
       const user_id = numUsersEntered + 1;
       const team_id = numUsersEntered % numTeams + 1;
