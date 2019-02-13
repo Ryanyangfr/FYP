@@ -11,13 +11,14 @@ router.get('/getQuizzes', function(req, res){
     var trail_instance_id = req.query.trail_instance_id;
     query = 'SELECT MISSION_ID, HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ? ORDER BY MISSION_ID)';
     var response = [];
-    var number = 1;
+    let number = 0;
     conn.query(query, trail_instance_id, function(err, missions){
         if (err){
             console.log(err);
         }else{
             console.log(missions);
             missions.forEach(function(missionRow){
+                number += 1;
                 var mission = missionRow.MISSION_ID;
                 var hotspot_name = missionRow.HOTSPOT_NAME;
                 mission_query = 'SELECT QUIZ.QUIZ_ID, QUIZ_QUESTION, QUIZ_ANSWER, QUIZ_OPTION FROM QUIZ,QUIZ_OPTION WHERE MISSION_ID = ? AND QUIZ.QUIZ_ID = QUIZ_OPTION.QUIZ_ID';
@@ -66,7 +67,9 @@ router.get('/getQuizzes', function(req, res){
                             console.log('mission: ' + mission);
                             console.log('mission length: ' + missions.length);
                         }
-                        if (mission == missions.length){
+                        if (number === missions.length){
+                            console.log('send quiz response: ')
+                            console.log(response);
                             res.end(JSON.stringify(response, null, 3));
                         }
                         // number = number + 1;
