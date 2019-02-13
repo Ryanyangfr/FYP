@@ -66,6 +66,7 @@ router.get('/getQuizzes', function(req, res){
                             response.push({hotspot: hotspot_name, quiz: quiz_question});
                             console.log('mission: ' + mission);
                             console.log('mission length: ' + missions.length);
+                            console.log('number: ' + number)
                         }
                         if (number === missions.length){
                             console.log('send quiz response: ')
