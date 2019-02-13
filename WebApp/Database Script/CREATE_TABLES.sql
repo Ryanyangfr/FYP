@@ -286,145 +286,145 @@ INSERT INTO HOTSPOT VALUES
 ('Li Ka Shing Library', '1.2962', '103.8501'),
 ('Administrative Building', '1.268', '103.8522');
 
-INSERT INTO MISSION VALUES 
-(1, 'title 1'),
-(2, 'title 2'),
-(3, 'title 3'),
-(4, 'title 4'),
-(5, 'title 5'),
-(6, 'title 6'),
-(7, 'title 7'),
-(8, 'title 8'),
-(9, 'title 9'),
-(10, 'title 10'),
-(11, 'title 11'),
-(12, 'title 12'),
-(13, 'title 13'),
-(14, 'title 14'),
-(15, 'title 15'),
-(16, 'title 16'),
-(17, 'title 17'),
-(18, 'title 18'),
-(19, 'title 19'),
-(20, 'title 20'),
-(21, 'title 21');
+-- INSERT INTO MISSION VALUES 
+-- (1, 'title 1'),
+-- (2, 'title 2'),
+-- (3, 'title 3'),
+-- (4, 'title 4'),
+-- (5, 'title 5'),
+-- (6, 'title 6'),
+-- (7, 'title 7'),
+-- (8, 'title 8'),
+-- (9, 'title 9'),
+-- (10, 'title 10'),
+-- (11, 'title 11'),
+-- (12, 'title 12'),
+-- (13, 'title 13'),
+-- (14, 'title 14'),
+-- (15, 'title 15'),
+-- (16, 'title 16'),
+-- (17, 'title 17'),
+-- (18, 'title 18'),
+-- (19, 'title 19'),
+-- (20, 'title 20'),
+-- (21, 'title 21');
 
-INSERT INTO QUIZ VALUES
-(1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
-(2,'In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 1),
-(3,'In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 1),
-(4,'In the CIRCLE values, what does the fourth alphabet \'C\' represent?', 'Collegiality', 1),
-(5,'In the CIRCLE values, what does the alphabet \'L\' represent?', 'Leadership', 1),
-(6,'In the CIRCLE values, what does the alphabet \'E\' represent?', 'Excellence', 1),
-(7,'A game changer represents:', 'Transformative Education for A New Generation of Graduates', 2),
-(8,'A Great University represents:', 'Tacking World’s Complexities, Impacting Human Positively', 2),
-(9,'A game catalyst represents:', 'Leader In Cutting Edge Multi-disciplinary Research', 2),
-(10,'A Global Exemplar represents:', 'Pre-eminent and Esteemed Global City University in Asia', 2),
-(11,'Who is the founding dean of School of Economics?', 'Professor Roberto S. Mariano', 3),
-(12,'What is one way in which SMU supports staff in achieving excellence?', 'Open Enrolment Program', 3),
-(13,'What does collegiality entail in SMU?', 'Being a responsible citizen in the University Community', 3),
-(14,'Dean Prof Pang Hwee Hwa is the ______ Dean of School of Information Systems.', 'second', 4),
-(15,'All proceeds from B3 Burger Beer Bistro at the Basement Concourse go to ________.', 'foundation of SMU guild house in the not too distant future.', 4),
-(16,'The Living Analytics Research Centre (LARC) is a collaboration with ________.', 'Carnegie Mellon University', 4),
-(17,'Which level is the Office of Finance located at?', '11', 7),
-(18,'We are required to tap the employee card in the lift’s card reader if we want to access Levels __  and above.', '7', 7),
-(19,'The University Lounge is a great place for all employees and alumni members to relax. It is located at Level ___ in the Administration building.', '6', 7);
-
-
-
-INSERT INTO QUIZ_OPTION VALUES
-(1,1, 'Commitment'),
-(1,2, 'Character'),
-(1,3, 'Culture'),
-(1,4, 'Courage'),
-(2,5, 'Integrity'),
-(2,6, 'Intelligent'),
-(2,7, 'Inspiring'),
-(2,8, 'Innovative'),
-(3,9, 'Responsibility'),
-(3,10, 'Rational'),
-(3,11, 'Respect'),
-(3,12, 'Resolved'),
-(4,13, 'Collegiality'),
-(4,14, 'Character'),
-(4,15, 'Culture'),
-(4,16, 'Courage'),
-(5,17, 'Leadership'),
-(5,18, 'Lively'),
-(5,19, 'Linguistic'),
-(5,20, 'Loyal'),
-(6,21, 'Excellence'),
-(6,22, 'Encourage'),
-(6,23, 'Engaging'),
-(6,24, 'Equal'),
-(7,25, 'Transformative Education for A New Generation of Graduates'),
-(7,26, 'Leader In Cutting Edge Multi-disciplinary Research'),
-(7,27, 'Pre-eminent and Esteemed Global City University in Asia'),
-(7,28, 'Tacking World’s Complexities, Impacting Human Positively'),
-(8,29, 'Tacking World’s Complexities, Impacting Human Positively'),
-(8,30, 'Transformative Education for A New Generation of Graduates'),
-(8,31, 'Leader In Cutting Edge Multi-disciplinary Research'),
-(8,32, 'Pre-eminent and Esteemed Global City University in Asia'),
-(9,33, 'Pre-eminent and Esteemed Global City University in Asia'),
-(9,34, 'Transformative Education for A New Generation of Graduates'),
-(9,35, 'Leader In Cutting Edge Multi-disciplinary Research'),
-(9,36, 'Tacking World’s Complexities, Impacting Human Positively'),
-(10,37, 'Pre-eminent and Esteemed Global City University in Asia'),
-(10,38, 'Transformative Education for A New Generation of Graduates'),
-(10,39, 'Leader In Cutting Edge Multi-disciplinary Research'),
-(10,40, 'Tacking World’s Complexities, Impacting Human Positively'),
-(11,41, 'Professor Roberto S. Mariano'),
-(11,42, 'Professor James Tang'),
-(11,43, 'Professor Bryce Hool'),
-(12,44, 'Virtual classrooms'),
-(12,45, 'Recreational programs'),
-(12,46, 'Open Enrolment Program'),
-(13,47, 'Working together with my colleagues'),
-(13,48, 'Being a responsible citizen in the University Community'),
-(13,49, 'Developing good working relationships'),
-(14,50, 'first'),
-(14,51, 'second'),
-(14,52, 'third'),
-(14,53, 'fourth'),
-(15,54, 'foundation of SMU guild house in the not too distant future.'),
-(15,55, 'funding of scholarships for students.'),
-(15,56, 'B3’s owners who are not affiliated with SMU.'),
-(15,57, 'SMU’s building funds.'),
-(16,58, 'Harvard University'),
-(16,59, 'Oxford University'),
-(16,60, 'University of Washington'),
-(16,61, 'Carnegie Mellon University'),
-(17,62, '10'),
-(17,63, '11'),
-(17,64, '12'),
-(17,65, '13'),
-(18,66, '7'),
-(18,67, '8'),
-(18,68, '9'),
-(18,69, '10'),
-(19,70, '6'),
-(19,71, '5'),
-(19,72, '4'),
-(19,73, '3');
+-- INSERT INTO QUIZ VALUES
+-- (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
+-- (2,'In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 1),
+-- (3,'In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 1),
+-- (4,'In the CIRCLE values, what does the fourth alphabet \'C\' represent?', 'Collegiality', 1),
+-- (5,'In the CIRCLE values, what does the alphabet \'L\' represent?', 'Leadership', 1),
+-- (6,'In the CIRCLE values, what does the alphabet \'E\' represent?', 'Excellence', 1),
+-- (7,'A game changer represents:', 'Transformative Education for A New Generation of Graduates', 2),
+-- (8,'A Great University represents:', 'Tacking World’s Complexities, Impacting Human Positively', 2),
+-- (9,'A game catalyst represents:', 'Leader In Cutting Edge Multi-disciplinary Research', 2),
+-- (10,'A Global Exemplar represents:', 'Pre-eminent and Esteemed Global City University in Asia', 2),
+-- (11,'Who is the founding dean of School of Economics?', 'Professor Roberto S. Mariano', 3),
+-- (12,'What is one way in which SMU supports staff in achieving excellence?', 'Open Enrolment Program', 3),
+-- (13,'What does collegiality entail in SMU?', 'Being a responsible citizen in the University Community', 3),
+-- (14,'Dean Prof Pang Hwee Hwa is the ______ Dean of School of Information Systems.', 'second', 4),
+-- (15,'All proceeds from B3 Burger Beer Bistro at the Basement Concourse go to ________.', 'foundation of SMU guild house in the not too distant future.', 4),
+-- (16,'The Living Analytics Research Centre (LARC) is a collaboration with ________.', 'Carnegie Mellon University', 4),
+-- (17,'Which level is the Office of Finance located at?', '11', 7),
+-- (18,'We are required to tap the employee card in the lift’s card reader if we want to access Levels __  and above.', '7', 7),
+-- (19,'The University Lounge is a great place for all employees and alumni members to relax. It is located at Level ___ in the Administration building.', '6', 7);
 
 
 
-INSERT INTO SUBMISSION_QUESTION VALUES
-(1, 'Find the Mission Statement and take a wefie!', 8),
-(2, 'Find the Mission Statement and take a wefie!', 9),
-(3, 'Find Le Suantio Gallery and take a wefie!', 10),
-(4, 'Locate the SMU Gym and take a wefie together with one qualified student fitness instructor!', 11),
-(5, 'Locate Living Analytics Research Centre (LARC) and take a wefie together with LARC’s logo!', 12),
-(6, 'Locate the SMU Hall and take a wefie outside of the Hall! (Hint: Basement)', 13),
-(7, 'Locate the Kwa Geok Choo Library and take a wefie next to the scenic elevator!', 5),
-(8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 14),
-(9, 'Locate the Hive at the Learning Commons and take a wefie!', 15),
-(10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 6),
-(11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 17);
--- (12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 18);
+-- INSERT INTO QUIZ_OPTION VALUES
+-- (1,1, 'Commitment'),
+-- (1,2, 'Character'),
+-- (1,3, 'Culture'),
+-- (1,4, 'Courage'),
+-- (2,5, 'Integrity'),
+-- (2,6, 'Intelligent'),
+-- (2,7, 'Inspiring'),
+-- (2,8, 'Innovative'),
+-- (3,9, 'Responsibility'),
+-- (3,10, 'Rational'),
+-- (3,11, 'Respect'),
+-- (3,12, 'Resolved'),
+-- (4,13, 'Collegiality'),
+-- (4,14, 'Character'),
+-- (4,15, 'Culture'),
+-- (4,16, 'Courage'),
+-- (5,17, 'Leadership'),
+-- (5,18, 'Lively'),
+-- (5,19, 'Linguistic'),
+-- (5,20, 'Loyal'),
+-- (6,21, 'Excellence'),
+-- (6,22, 'Encourage'),
+-- (6,23, 'Engaging'),
+-- (6,24, 'Equal'),
+-- (7,25, 'Transformative Education for A New Generation of Graduates'),
+-- (7,26, 'Leader In Cutting Edge Multi-disciplinary Research'),
+-- (7,27, 'Pre-eminent and Esteemed Global City University in Asia'),
+-- (7,28, 'Tacking World’s Complexities, Impacting Human Positively'),
+-- (8,29, 'Tacking World’s Complexities, Impacting Human Positively'),
+-- (8,30, 'Transformative Education for A New Generation of Graduates'),
+-- (8,31, 'Leader In Cutting Edge Multi-disciplinary Research'),
+-- (8,32, 'Pre-eminent and Esteemed Global City University in Asia'),
+-- (9,33, 'Pre-eminent and Esteemed Global City University in Asia'),
+-- (9,34, 'Transformative Education for A New Generation of Graduates'),
+-- (9,35, 'Leader In Cutting Edge Multi-disciplinary Research'),
+-- (9,36, 'Tacking World’s Complexities, Impacting Human Positively'),
+-- (10,37, 'Pre-eminent and Esteemed Global City University in Asia'),
+-- (10,38, 'Transformative Education for A New Generation of Graduates'),
+-- (10,39, 'Leader In Cutting Edge Multi-disciplinary Research'),
+-- (10,40, 'Tacking World’s Complexities, Impacting Human Positively'),
+-- (11,41, 'Professor Roberto S. Mariano'),
+-- (11,42, 'Professor James Tang'),
+-- (11,43, 'Professor Bryce Hool'),
+-- (12,44, 'Virtual classrooms'),
+-- (12,45, 'Recreational programs'),
+-- (12,46, 'Open Enrolment Program'),
+-- (13,47, 'Working together with my colleagues'),
+-- (13,48, 'Being a responsible citizen in the University Community'),
+-- (13,49, 'Developing good working relationships'),
+-- (14,50, 'first'),
+-- (14,51, 'second'),
+-- (14,52, 'third'),
+-- (14,53, 'fourth'),
+-- (15,54, 'foundation of SMU guild house in the not too distant future.'),
+-- (15,55, 'funding of scholarships for students.'),
+-- (15,56, 'B3’s owners who are not affiliated with SMU.'),
+-- (15,57, 'SMU’s building funds.'),
+-- (16,58, 'Harvard University'),
+-- (16,59, 'Oxford University'),
+-- (16,60, 'University of Washington'),
+-- (16,61, 'Carnegie Mellon University'),
+-- (17,62, '10'),
+-- (17,63, '11'),
+-- (17,64, '12'),
+-- (17,65, '13'),
+-- (18,66, '7'),
+-- (18,67, '8'),
+-- (18,68, '9'),
+-- (18,69, '10'),
+-- (19,70, '6'),
+-- (19,71, '5'),
+-- (19,72, '4'),
+-- (19,73, '3');
 
-INSERT INTO DRAWING_QUESTION VALUES
-(1, 'Draw Smoo Smoo', 20);
+
+
+-- INSERT INTO SUBMISSION_QUESTION VALUES
+-- (1, 'Find the Mission Statement and take a wefie!', 8),
+-- (2, 'Find the Mission Statement and take a wefie!', 9),
+-- (3, 'Find Le Suantio Gallery and take a wefie!', 10),
+-- (4, 'Locate the SMU Gym and take a wefie together with one qualified student fitness instructor!', 11),
+-- (5, 'Locate Living Analytics Research Centre (LARC) and take a wefie together with LARC’s logo!', 12),
+-- (6, 'Locate the SMU Hall and take a wefie outside of the Hall! (Hint: Basement)', 13),
+-- (7, 'Locate the Kwa Geok Choo Library and take a wefie next to the scenic elevator!', 5),
+-- (8, 'Locate the Eagle’s Nest and take a wefie! (Hint: Its outdoors)', 14),
+-- (9, 'Locate the Hive at the Learning Commons and take a wefie!', 15),
+-- (10, 'Locate the Daringly Different book in the Library and take a wefie together with a Library staff.', 6),
+-- (11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 17);
+-- -- (12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 18);
+
+-- INSERT INTO DRAWING_QUESTION VALUES
+-- (1, 'Draw Smoo Smoo', 20);
 
 INSERT INTO TRAIL VALUES
 (1,'test trail',45);
@@ -477,27 +477,27 @@ INSERT INTO TEAM_HOTSPOT_STATUS VALUES
 ('Li Ka Shing Library', '175239', 2, 0),
 ('Li Ka Shing Library', '175239', 3, 0);
 
-INSERT INTO DRAG_AND_DROP VALUES
-(1,'Match the words', 18);
+-- INSERT INTO DRAG_AND_DROP VALUES
+-- (1,'Match the words', 18);
 
-INSERT INTO DRAG_AND_DROP_OPTION VALUES
-(1,'I', 'Integrity'),
-(1,'R', 'Responsibility'),
-(1,'C', 'Collegiality'),
-(1,'L', 'Leadership');
+-- INSERT INTO DRAG_AND_DROP_OPTION VALUES
+-- (1,'I', 'Integrity'),
+-- (1,'R', 'Responsibility'),
+-- (1,'C', 'Collegiality'),
+-- (1,'L', 'Leadership');
 
-INSERT INTO ANAGRAM VALUES
-(1,'kwageokchoo', 19);
+-- INSERT INTO ANAGRAM VALUES
+-- (1,'kwageokchoo', 19);
 
-INSERT INTO WORDSEARCH VALUES
-('Accountancy Word Search', 21);
+-- INSERT INTO WORDSEARCH VALUES
+-- ('Accountancy Word Search', 21);
 
-INSERT INTO WORDSEARCH_WORD VALUES
-('Accountancy Word Search', 'account'),
-('Accountancy Word Search', 'study'),
-('Accountancy Word Search', 'money'),
-('Accountancy Word Search', 'loss'),
-('Accountancy Word Search', 'profit');
+-- INSERT INTO WORDSEARCH_WORD VALUES
+-- ('Accountancy Word Search', 'account'),
+-- ('Accountancy Word Search', 'study'),
+-- ('Accountancy Word Search', 'money'),
+-- ('Accountancy Word Search', 'loss'),
+-- ('Accountancy Word Search', 'profit');
 
 INSERT INTO ADMIN VALUES
 ('admin', 'password');
