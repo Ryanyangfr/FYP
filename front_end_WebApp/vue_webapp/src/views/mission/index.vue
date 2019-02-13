@@ -237,7 +237,7 @@ export default {
         fetchMissions(){
             // console.log('entered')
             this.missionList = [];
-            axios.get('http://54.255.245.23:3000/mission/getMissionQuiz')
+            axios.get('http://13.229.115.32:3000/mission/getMissionQuiz')
             .then(response =>{
                 var data = response.data;
                 // console.log(data)
@@ -249,7 +249,7 @@ export default {
         },
         fetchQuestions(){
             this.questionList = [];
-            axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + this.missionToEdit.value)
+            axios.get('http://13.229.115.32:3000/quiz/getQuizQuestion?mission=' + this.missionToEdit.value)
             .then(response =>{
                 var data = response.data;
                 console.log(data)
@@ -260,7 +260,7 @@ export default {
         },
         fetchOptions(){
             console.log(this.questionToBeEdited.value);
-            axios.get('http://54.255.245.23:3000/quiz/getQuizOptions?quizID=' + this.questionToBeEdited.value)
+            axios.get('http://13.229.115.32:3000/quiz/getQuizOptions?quizID=' + this.questionToBeEdited.value)
             .then(response =>{
                 var data = response.data;
                 console.log(data)
@@ -283,7 +283,7 @@ export default {
             console.log(this.hotspot.value);
             console.log(this.title);
             console.log(this.quiz);
-            axios.post('http://54.255.245.23:3000/add/addQuiz', postBody)
+            axios.post('http://13.229.115.32:3000/add/addQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -302,7 +302,7 @@ export default {
                 option3: {option: this.editedOptions.option3, id: this.editedOptions.option3ID},
                 option4: {option: this.editedOptions.option4, id: this.editedOptions.option4ID}
             }
-            axios.post('http://54.255.245.23:3000/edit/editQuiz', postBody)
+            axios.post('http://13.229.115.32:3000/edit/editQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -316,7 +316,7 @@ export default {
                 "title": this.title,
                 "question": this.wefie_question
             }
-            axios.post('http://54.255.245.23:3000/add/addWefieQuestion', postBody)
+            axios.post('http://13.229.115.32:3000/add/addWefieQuestion', postBody)
             .then(response => {
                 let data = response.data;
                 console.log(data);
@@ -330,7 +330,7 @@ export default {
                 "id": this.wefieID.value,
                 "question": this.wefie_question
             }
-            axios.post('http://54.255.245.23:3000/edit/editWefieQuestion', postBody)
+            axios.post('http://13.229.115.32:3000/edit/editWefieQuestion', postBody)
             .then(response => {
                 let data = response.data;
                 console.log(data);
@@ -344,7 +344,7 @@ export default {
             var postBody = {
                 "id": this.wefieID.value
             }
-            axios.post('http://54.255.245.23:3000/delete/deleteWefieQuestion', postBody)
+            axios.post('http://13.229.115.32:3000/delete/deleteWefieQuestion', postBody)
             .then(response => {
                 let data = response.data;
                 console.log(data);
@@ -353,7 +353,7 @@ export default {
         },
 
         getMissionQuizQuestions(missionid, mission){
-            axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + missionid)
+            axios.get('http://13.229.115.32:3000/quiz/getQuizQuestion?mission=' + missionid)
                 .then(response =>{
                     // console.log(data[index].mission);
                     var data = response.data;
@@ -385,7 +385,7 @@ export default {
                 "mission_id": this.missionIDToBeDeleted
             }
             
-            axios.post('http://54.255.245.23:3000/delete/deleteQuiz', postBody)
+            axios.post('http://13.229.115.32:3000/delete/deleteQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -452,7 +452,7 @@ export default {
                 "id": this.wefieIDToBeDeleted
             }
             
-            axios.post('http://54.255.245.23:3000/delete/deleteWefieQuestion', postBody)
+            axios.post('http://13.229.115.32:3000/delete/deleteWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -488,7 +488,7 @@ export default {
             this.$router.push('/')
         }
 
-        // axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
+        // axios.get('http://13.229.115.32:3000/hotspot/getHotspots')
         // .then(response => {
         //     let data = response.data;
         //     for(var row in data){
@@ -497,7 +497,7 @@ export default {
         //     }
         // })
 
-        axios.get('http://54.255.245.23:3000/upload/getAllSubmissionQuestion')
+        axios.get('http://13.229.115.32:3000/upload/getAllSubmissionQuestion')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -506,7 +506,7 @@ export default {
             }
         })
 
-        axios.get('http://54.255.245.23:3000/mission/getMissionQuiz')
+        axios.get('http://13.229.115.32:3000/mission/getMissionQuiz')
         .then(response =>{
             let data = response.data;
             // console.log(data);

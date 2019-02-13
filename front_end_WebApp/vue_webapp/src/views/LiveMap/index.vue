@@ -22,7 +22,7 @@ export default {
             hotspot_markers: [],
             team_markers: [],
             currentPlace: null,
-            // socket : io('http://54.255.245.23:3000')
+            // socket : io('http://13.229.115.32:3000')
             
         };
     },
@@ -36,7 +36,7 @@ export default {
             
         })
 
-        axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
+        axios.get('http://13.229.115.32:3000/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
             var infowindow = new google.maps.InfoWindow();
@@ -62,7 +62,7 @@ export default {
             }
         });
 
-        axios.get('http://54.255.245.23:3000/team/getAllTeamsInCurrentActiveTrail')
+        axios.get('http://13.229.115.32:3000/team/getAllTeamsInCurrentActiveTrail')
         .then (response => {
             let data = response.data;
             let infowindow = new google.maps.InfoWindow();
