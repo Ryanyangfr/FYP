@@ -16,18 +16,10 @@
 
                 <div v-for="(input, index) in details" :key="index" class="add-details-body">
                         <div class="droplist">
-                            <label for="hotspots-droplist-input">Select location</label>
+                            <label for="hotspots-droplist-input">Select Location</label>
                             <select placeholder="Select location" id="hotspots-droplist-input" v-model="input.hotspot">
                                 <option v-for="hotspot in hotspotList" :key="hotspot">
                                     {{hotspot}}
-                                </option> 
-                            </select>  
-                        </div>
-                        <div class="droplist">
-                            <label for="missions-droplist-input">Select Mission</label>
-                            <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.mission">
-                                <option v-for="mission in missions" :key="mission.mission_ID">
-                                    {{mission.mission_title}}
                                 </option> 
                             </select>  
                         </div>
@@ -36,6 +28,14 @@
                             <select placeholder="Select mission type" id="narratives-droplist-input" v-model="input.narrative">
                                 <option v-for="narrative in narratives" :key="narrative.narrative_id">
                                     {{narrative.narrative_title}}
+                                </option> 
+                            </select>  
+                        </div>
+                        <div class="droplist">
+                            <label for="missions-droplist-input">Select Mission</label>
+                            <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.mission">
+                                <option v-for="mission in missions" :key="mission.mission_ID">
+                                    {{mission.mission_title}}
                                 </option> 
                             </select>  
                         </div>
