@@ -71,6 +71,7 @@ router.get('/getQuizzes', function(req, res){
                             console.log('send quiz response: ')
                             console.log(response);
                             res.end(JSON.stringify(response, null, 3));
+                            number = 0;
                         }
                         // number = number + 1;
                     }
