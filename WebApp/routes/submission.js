@@ -298,14 +298,12 @@ router.get('/getDrawingQuestion', (req, res) => {
   conn.query(query, instance_id, (err, result) => {
     if (err) {
       console.log(err);
+      res.send(response)
     } else {
       result.forEach((row) => {
         response.push({ hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
       });
       console.log('drawing question: ' + response.length);
-      if (result.length == 0) {
-        response.push({success: 'false'});
-      }
       res.send(response);
     }
   })
