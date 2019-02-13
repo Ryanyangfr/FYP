@@ -441,13 +441,13 @@ INSERT INTO TRAIL_INSTANCE VALUES
 -- (1,19, 'School of Law'),
 -- (1,6, 'Li Ka Shing Library');
 
-INSERT INTO TRAIL_HOTSPOT VALUES
-(1, 'Lee Kong Chian School of Business', 1, 1),
-(1, 'School of Accountancy', 2, 8),
-(1, 'School of Economics/School of Social Sciences', 3, 10),
-(1, 'School of Information Systems', 4, 4),
-(1, 'School of Law', 5, 2),
-(1, 'Li Ka Shing Library', 6, 6);
+-- INSERT INTO TRAIL_HOTSPOT VALUES
+-- (1, 'Lee Kong Chian School of Business', 1, 1),
+-- (1, 'School of Accountancy', 2, 8),
+-- (1, 'School of Economics/School of Social Sciences', 3, 10),
+-- (1, 'School of Information Systems', 4, 4),
+-- (1, 'School of Law', 5, 2),
+-- (1, 'Li Ka Shing Library', 6, 6);
 
 INSERT INTO TEAM VALUES
 (1,0,'1.2953', '103.8506',1),
