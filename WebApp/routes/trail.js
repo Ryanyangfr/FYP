@@ -28,6 +28,10 @@ router.get('/getAllTrails', (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      if (data[0] === undefined) {
+        res.send([]);
+        return;
+      }
       let temp = [];
       let currTrailID = data[0].TRAIL_ID;
       let currTrailTitle = data[0].TITLE
