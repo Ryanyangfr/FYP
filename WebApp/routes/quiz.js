@@ -18,12 +18,12 @@ router.get('/getQuizzes', function(req, res){
         }else{
             console.log(missions);
             missions.forEach(function(missionRow){
-                number = number + 1;
                 var mission = missionRow.MISSION_ID;
                 var hotspot_name = missionRow.HOTSPOT_NAME;
                 mission_query = 'SELECT QUIZ.QUIZ_ID, QUIZ_QUESTION, QUIZ_ANSWER, QUIZ_OPTION FROM QUIZ,QUIZ_OPTION WHERE MISSION_ID = ? AND QUIZ.QUIZ_ID = QUIZ_OPTION.QUIZ_ID';
 
                 conn.query(mission_query, mission, function(err, quiz_details){
+                    number = number + 1;
                     console.log(mission);
                     console.log(hotspot_name);
                     if (err){
