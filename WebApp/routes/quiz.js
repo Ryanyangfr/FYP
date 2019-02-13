@@ -71,7 +71,7 @@ router.get('/getQuizzes', function(req, res){
                         if (number === missions.length){
                             console.log('send quiz response: ')
                             console.log(response);
-                            res.end(JSON.stringify(response, null, 3));
+                            res.send(JSON.stringify(response, null, 3));
                         }
                         // number = number + 1;
                     }
