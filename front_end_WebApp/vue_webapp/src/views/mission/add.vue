@@ -122,6 +122,17 @@ export default {
         },
 
         quizOnSubmitToAdd(){
+            this.quiz.forEach((question) => {
+                if (question.answer === this.answer_options[0]) {
+                    question.answer = question.option1;
+                } else if (question.answer === this.answer_options[1]) {
+                    question.answer = question.option2;
+                } else if (question.answer === this.answer_options[2]) {
+                    question.answer = question.option3;
+                } else {
+                    question.answer = question.option4;
+                }
+            })
             var postBody = {
                 "title": this.title,
                 "quiz": this.quiz
