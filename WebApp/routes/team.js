@@ -134,13 +134,15 @@ router.get('/startingHotspot', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(row)
-      console.log(row[0]);
+      // console.log(row)
+      // console.log(row[0]);
       // console.log(row[0]);
       conn.query('SELECT COUNT(*) as COUNT FROM TEAM WHERE TRAIL_INSTANCE_ID = ?', instance_id, (err, row_count) => {
         const numTeams = row_count[0].COUNT;
         console.log(numTeams);
         for (let i = 0; i < numTeams; i++) {
+          console.log('row: ');
+          console.log(row[i]);
           response.push({ team: i + 1, startingHotspot: row[i].HOTSPOT_NAME, coordinates: [row[i].LATITUDE, row[i].LONGTITUDE], narrative: row[i].NARRATIVE });
         }
         console.log('response: ');
