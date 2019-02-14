@@ -478,6 +478,7 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 
 INSERT INTO TRAIL VALUES
 (1,'test trail',45);
+(2, 'wet weather trail', 45)
 
 INSERT INTO TRAIL_INSTANCE VALUES
 (1,1,0,0),
@@ -497,7 +498,9 @@ INSERT INTO TRAIL_HOTSPOT VALUES
 -- (1, 'School of Economics/School of Social Sciences', 3, 2),
 -- (1, 'School of Information Systems', 4, 1),
 (1, 'School of Law', 5, 6);
--- (1, 'Li Ka Shing Library', 6, 5);
+(2, 'Li Ka Shing Library', 6, 5);
+(2, 'Lee Kong Chian School of Business', 1, 3),
+(2, 'School of Accountancy', 2, 4),
 
 INSERT INTO TEAM VALUES
 (1,0,'1.2953', '103.8506',1),
