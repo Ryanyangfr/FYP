@@ -24,18 +24,18 @@
                             </select>  
                         </div>
                         <div class="droplist">
-                            <label for="missions-droplist-input">Select Mission</label>
-                            <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.missionTitle">
-                                <option v-for="mission in missions" :key="mission.mission_ID">
-                                    {{mission.mission_title}}
-                                </option> 
-                            </select>  
-                        </div>
-                        <div class="droplist">
                             <label for="narratives-droplist-input">Select Narrative</label>
                             <select placeholder="Select mission type" id="narratives-droplist-input" v-model="input.narrativeTitle">
                                 <option v-for="narrative in narratives" :key="narrative.narrative_id">
                                     {{narrative.narrative_title}}
+                                </option> 
+                            </select>  
+                        </div>                        
+                        <div class="droplist">
+                            <label for="missions-droplist-input">Select Mission</label>
+                            <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.missionTitle">
+                                <option v-for="mission in missions" :key="mission.mission_ID">
+                                    {{mission.mission_title}}
                                 </option> 
                             </select>  
                         </div>
