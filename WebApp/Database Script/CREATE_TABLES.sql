@@ -284,7 +284,7 @@ INSERT INTO HOTSPOT VALUES
 ('School of Information Systems', '1.2974', '103.8495'),
 ('School of Law', '1.2949', '103.8495'),
 ('Li Ka Shing Library', '1.2962', '103.8501'),
-('Administrative Building', '1.268', '103.8522');
+('Administrative Building', '1.2968', '103.8522');
 
 -- INSERT INTO MISSION VALUES 
 -- (1, 'title 1'),
