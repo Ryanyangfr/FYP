@@ -143,6 +143,8 @@ router.get('/startingHotspot', (req, res) => {
         for (let i = 0; i < numTeams; i++) {
           response.push({ team: i + 1, startingHotspot: row[i].HOTSPOT_NAME, coordinates: [row[i].LATITUDE, row[i].LONGTITUDE], narrative: row[i].NARRATIVE });
         }
+        console.log('response: ');
+        console.log(response);
         io.emit('test', { test: 'test starting hotspot' });
         res.send(response);
       });
