@@ -128,11 +128,14 @@ router.get('/startingHotspot', (req, res) => {
   const query = 'SELECT TH.HOTSPOT_NAME, LATITUDE, LONGTITUDE, N.NARRATIVE FROM TRAIL_HOTSPOT AS TH, HOTSPOT AS H, NARRATIVE AS N WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND H.HOTSPOT_NAME = TH.HOTSPOT_NAME AND TH.NARRATIVE_ID = N.NARRATIVE_ID';
   const response = [];
   const io = req.app.get('socketio');
+  console.log('instance id: ' + instance_id);
 
   conn.query(query, instance_id, (err, row) => {
     if (err) {
       console.log(err);
     } else {
+      console.log(row)
+      console.log(row[0]);
       // console.log(row[0]);
       conn.query('SELECT COUNT(*) as COUNT FROM TEAM WHERE TRAIL_INSTANCE_ID = ?', instance_id, (err, row_count) => {
         const numTeams = row_count[0].COUNT;
