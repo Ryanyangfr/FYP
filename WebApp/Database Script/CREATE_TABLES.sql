@@ -477,8 +477,8 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 -- (1, 'Draw Smoo Smoo', 20);
 
 INSERT INTO TRAIL VALUES
-(1,'test trail',45);
-(2, 'wet weather trail', 45)
+(1,'test trail',45),
+(2, 'wet weather trail', 45);
 
 INSERT INTO TRAIL_INSTANCE VALUES
 (1,1,0,0),
