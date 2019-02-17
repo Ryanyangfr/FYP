@@ -55,7 +55,34 @@ router.get('/getDragAndDrop',function(req,res){
         console.log(response)
         
     })
-})
+});
+
+router.get('/getAllDragAndDrop', (req,res) => {
+    const dragNDropQuery = 'SELECT DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION WHERE DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID';
+    const response = [];
+
+    conn.query(dragNDropQuery, (err, data) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        options = [];
+        currentQuestion = data[0].DRAGANDDROP_QUESTION;
+        currentAnswer = data[0].DRAGANDDROP_QUESTION_ANSWER;
+        if (data.length != 0) {
+            data.forEach((row) => {
+                if (row.DRAGANDDROP_QUESTION !== currentQuestion) {
+                    response.push({question: currentQuestion, answer: currentAnswer, options: options});
+                    options = [];
+                    currentQuestion = row.DRAGANDDROP_QUESTION;
+                    currentAnswer = row.DRAGANDDROP_QUESTION_ANSWER;
+                }
+                options.push({option: row.DRAGANDDROP_QUESTION_OPTION});
+            });
+        }
+        res.send(response);
+    });
+});
 
 module.exports = router;
 
