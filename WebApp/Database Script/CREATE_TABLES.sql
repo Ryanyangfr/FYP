@@ -530,14 +530,14 @@ INSERT INTO TEAM_HOTSPOT_STATUS VALUES
 ('Li Ka Shing Library', '175239', 2, 0),
 ('Li Ka Shing Library', '175239', 3, 0);
 
--- INSERT INTO DRAG_AND_DROP VALUES
--- (1,'Match the words', 18);
+INSERT INTO DRAG_AND_DROP VALUES
+(1,'Match the words', 18);
 
--- INSERT INTO DRAG_AND_DROP_OPTION VALUES
--- (1,'I', 'Integrity'),
--- (1,'R', 'Responsibility'),
--- (1,'C', 'Collegiality'),
--- (1,'L', 'Leadership');
+INSERT INTO DRAG_AND_DROP_OPTION VALUES
+(1,'I', 'Integrity'),
+(1,'R', 'Responsibility'),
+(1,'C', 'Collegiality'),
+(1,'L', 'Leadership');
 
 -- INSERT INTO ANAGRAM VALUES
 -- (1,'kwageokchoo', 19);

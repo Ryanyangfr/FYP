@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         getData() {
-            const baseURI = '//13.229.115.32:3000/team/hotspotStatus?trail_instance_id=' + this.trail_instance_id;
+            const baseURI = '//54.255.245.23:3000/team/hotspotStatus?trail_instance_id=' + this.trail_instance_id;
             axios.get(baseURI)
             .then(response => {
                 console.log(response);

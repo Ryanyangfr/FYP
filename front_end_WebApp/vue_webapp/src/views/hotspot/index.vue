@@ -143,7 +143,7 @@ export default {
             console.log("post body: ");
             console.log(postBody)
 
-            axios.post('http://13.229.115.32:3000/delete/deleteHotspot', postBody)
+            axios.post('http://54.255.245.23:3000/delete/deleteHotspot', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -194,7 +194,7 @@ export default {
             this.$router.push('/')
         }
 
-        // axios.get('http://13.229.115.32:3000/narrative/getNarratives')
+        // axios.get('http://54.255.245.23:3000/narrative/getNarratives')
         // .then(response => {
         //     let data = response.data;
         //     for(var row in data){
@@ -206,7 +206,7 @@ export default {
         //     console.log(this.narrative_dictionary);
         // })
 
-        axios.get('http://13.229.115.32:3000/hotspot/getHotspots')
+        axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
             for(var row in data){

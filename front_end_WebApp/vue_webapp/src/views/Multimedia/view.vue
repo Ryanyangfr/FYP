@@ -75,13 +75,13 @@ export default{
     methods:{
         retrieveAllTeams(){
             this.teamList = [];
-            axios.get('http://13.229.115.32:3000/team/getAllTeams?trail_instance_id='+this.trailID)
+            axios.get('http://54.255.245.23:3000/team/getAllTeams?trail_instance_id='+this.trailID)
             .then(response => {
                 let data = response.data;
                 for(var row in data){
                     console.log(data[row]);
                     let team_id = data[row].team_id;
-                    axios.get('//13.229.115.32:3000/upload/getAllSubmissionURL?team='+team_id+'&trail_instance_id='+this.trailID)
+                    axios.get('//54.255.245.23:3000/upload/getAllSubmissionURL?team='+team_id+'&trail_instance_id='+this.trailID)
                     .then(res => {
                         let submissionsURLs = res.data;
                         let size = Object.keys(submissionsURLs).length;
@@ -96,8 +96,8 @@ export default{
         }, 
 
         retrieveAllUrl(teamID){
-            // console.log('13.229.115.32:3000/upload/getAllSubmissionURL?team='+this.team+'&trail_instance_id='+this.trail)
-            axios.get('//13.229.115.32:3000/upload/getAllSubmissionURL?team='+teamID+'&trail_instance_id='+this.trailID)
+            // console.log('54.255.245.23:3000/upload/getAllSubmissionURL?team='+this.team+'&trail_instance_id='+this.trail)
+            axios.get('//54.255.245.23:3000/upload/getAllSubmissionURL?team='+teamID+'&trail_instance_id='+this.trailID)
             .then(response=>{
                 let data = response.data
                 let size = Object.keys(data).length
@@ -123,7 +123,7 @@ export default{
             // this.paths = []
             // this.images = []
             // console.log('team: ' + teamID)
-            axios.get('//13.229.115.32:3000/upload/getAllSubmissionURL?team='+teamID+'&trail_instance_id='+this.trailID)
+            axios.get('//54.255.245.23:3000/upload/getAllSubmissionURL?team='+teamID+'&trail_instance_id='+this.trailID)
             .then(response=>{
                 let data = response.data
                 let size = Object.keys(data).length
@@ -179,7 +179,7 @@ export default{
             //     let url = this.paths[index]
             //     // let qn = this.question[index]
             //     // console.log(url)
-            //     axios.get('//13.229.115.32:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
+            //     axios.get('//54.255.245.23:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
             //     .then(response=>{
             //         // this.result = 'entered here'
             //         // this.result = response.data
@@ -203,7 +203,7 @@ export default{
             // vm.$forceUpdate()
         },
         getImage(url, updatedQn, qn){
-             axios.get('//13.229.115.32:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
+             axios.get('//54.255.245.23:3000/upload/getSubmission?url=' + url, {responseType: 'blob'})
                 .then(response=>{
                     // this.result = 'entered here'
                     // this.result = response.data
