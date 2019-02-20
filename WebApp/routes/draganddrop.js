@@ -58,7 +58,7 @@ router.get('/getDragAndDrop',function(req,res){
 });
 
 router.get('/getAllDragAndDrop', (req,res) => {
-    const dragNDropQuery = 'SELECT MISSION_TITLE, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION, MISSION WHERE DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID AND DRAG_AND_DROP.MISSION_ID = MISSION.MISSION_ID';
+    const dragNDropQuery = 'SELECT MISSION_TITLE, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER, DRAGANDDROP_ID FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION, MISSION WHERE DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID AND DRAG_AND_DROP.MISSION_ID = MISSION.MISSION_ID';
     const response = [];
 
     conn.query(dragNDropQuery, (err, data) => {
@@ -68,20 +68,22 @@ router.get('/getAllDragAndDrop', (req,res) => {
         }
         options = [];
         currentQuestion = data[0].DRAGANDDROP_QUESTION;
-        currentTitle = data[0].MISSION_TITLE
+        currentTitle = data[0].MISSION_TITLE;
+        currentID = data[0].DRAGANDDROP_ID;
         // currentAnswer = data[0].DRAGANDDROP_QUESTION_ANSWER;
         if (data.length != 0) {
             data.forEach((row) => {
                 if (row.DRAGANDDROP_QUESTION !== currentQuestion) {
-                    response.push({question: currentQuestion, title: currentTitle, options: options});
+                    response.push({id: currentID, question: currentQuestion, title: currentTitle, options: options});
                     options = [];
                     currentQuestion = row.DRAGANDDROP_QUESTION;
                     currentTitle = row.MISSION_TITLE;
+                    currentID = row.DRAGANDDROP_ID;
                     // currentAnswer = row.DRAGANDDROP_QUESTION_ANSWER;
                 }
                 options.push({option: row.DRAGANDDROP_QUESTION_OPTION, answer: row.DRAGANDDROP_QUESTION_ANSWER});
             });
-            response.push({question: currentQuestion, title:currentTitle, options: options});
+            response.push({id: currentID, question: currentQuestion, title:currentTitle, options: options});
         }
         res.send(response);
     });
