@@ -99,6 +99,9 @@ router.get('/getDragAndDropByMission', (req,res) => {
       console.log(err);
       return;
     }
+    if (data.length === 0) {
+        console.log('no drag and drop mission')
+    }
     options = []
     currentQuestion = data[0].DRAGANDDROP_QUESTION;
     currentTitle = data[0].MISSION_TITLE;
