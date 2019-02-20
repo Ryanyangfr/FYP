@@ -101,6 +101,7 @@ router.get('/getDragAndDropByMission', (req,res) => {
     }
     if (data.length === 0) {
         console.log('no drag and drop mission');
+        res.send(response);
         return;
     }
     options = []
