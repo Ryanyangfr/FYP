@@ -100,7 +100,8 @@ router.get('/getDragAndDropByMission', (req,res) => {
       return;
     }
     if (data.length === 0) {
-        console.log('no drag and drop mission')
+        console.log('no drag and drop mission');
+        return;
     }
     options = []
     currentQuestion = data[0].DRAGANDDROP_QUESTION;
