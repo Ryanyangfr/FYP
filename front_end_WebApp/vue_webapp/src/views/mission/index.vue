@@ -61,12 +61,38 @@
 
             <br>
 
-            <!--table for mission: drawing begins-->
+            <!--table for mission: drag and drop begins-->
             <table>
                 <tr class="mission-table-header">
-                    <td class="mission-title-header">Drawing Title</td>
-                    <td>Hotspot</td>
-                    <td>Drawing Question</td>
+                    <td class="mission-title-header">Drag And Drop Title</td>
+                    <td>Question</td>
+                    <!-- <td>Details</td> -->
+                    <td>Words To Match</td>
+                    <td>Answers</td>
+                    <td colspan="2">Actions</td>
+                </tr>
+                <tr class = "draganddrop-data" v-for="draganddrop in dragAndDropList" :key="draganddrop.id">
+                    <td>{{draganddrop.title}}</td>
+                    <td>{{draganddrop.question}}</td>
+                    <td>
+                        <div v-for="option in draganddrop.options" :key="option.option">
+                            {{option.option}}    
+                        </div>
+                    </td>
+                    <td>
+                        <div v-for="option in draganddrop.options" :key="option.option">
+                            {{option.answer}}    
+                        </div>
+                    </td>
+                    <!-- <td><button class="view-quiz-btn" @click="saveSelectedDragAndDrop(dragandrop.title, dragandrop.question, draganddrop.id)"><router-link to='/viewDragAndDrop'>View full details</router-link></button></td> -->
+                    <td>
+                        <button @click="saveSelectedDragAndDrop(dragandrop.title, dragandrop.question, draganddrop.id)">
+                            <router-link to='/editdragandrop'>
+                            <i class="ti-pencil-alt"></i>
+                            </router-link>
+                        </button>
+                    </td>
+                    <td><button @click="deleteDragAndDrop(draganddrop.title, draganddrop.id)"><i class="ti-trash"></i></button></td>
                 </tr>
             </table>
             <!--table for mission: drawing ends-->
@@ -173,22 +199,40 @@ export default {
 
         selectedWefieQuestion(){
             return this.$store.state.selectedWefieQuestion
+        },
+
+        selectedDragAndDropID(){
+            return this.$store.state.selectedDragAndDropID
+        },
+
+        selectedDragAndDropQuestion(){
+            return this.$store.state.selectedDragAndDropQuestion
+        },
+
+        selectedDragAndDropTitle(){
+            return this.$store.state.selectedDragAndDropTitle
         }
 
     }, 
     data() {
         return{
-            mission: "",
+            // mission: "",
+            // missionToEdit: "",
+            // questionList: [],
+            // questionToBeEdited: "",
+            // title: "",
+
+            //quiz
             quiz: [],
             missionList: [],
-            missionToEdit: "",
-            questionList: [],
-            questionToBeEdited: "",
-            title: "",
+            
+            //wefie
             wefie_question: "",
             wefieQuestionList: [],
             wefieID: "",
 
+            //draganddrop
+            dragAndDropList: [],
             //delete variables
             showDeleteQuiz: false,
             missionIDToBeDeleted:"",
@@ -218,22 +262,28 @@ export default {
             this.$store.commit('saveSelectedWefieQuestion', wefie_question);
             this.$store.commit('saveSelectedWefieID', wefie_id);
         },
+
+        saveSelectedDragAndDrop(mission_title, question, id){
+            this.$store.commit('saveSelectedDragAndDropTitle', mission_title);
+            this.$store.commit('saveSelectedDragAndDropQuestion', question);
+            this.$store.commit('saveSelectedDragAndDropID', id);
+        },
         //store to vuex store methods ends 
 
-        addRow(){
-            this.quiz.push({
-                question: "",
-                title: "",
-                option1: "",
-                option2: "",
-                option3: "",
-                option4: "",
-                answer: ""
-            })
-        },
-        updateCurrWefieQn(){
-            this.wefie_question = this.wefieID.label
-        },
+        // addRow(){
+        //     this.quiz.push({
+        //         question: "",
+        //         title: "",
+        //         option1: "",
+        //         option2: "",
+        //         option3: "",
+        //         option4: "",
+        //         answer: ""
+        //     })
+        // },
+        // updateCurrWefieQn(){
+        //     this.wefie_question = this.wefieID.label
+        // },
         fetchMissions(){
             // console.log('entered')
             this.missionList = [];
@@ -247,110 +297,110 @@ export default {
                 }
             })
         },
-        fetchQuestions(){
-            this.questionList = [];
-            axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + this.missionToEdit.value)
-            .then(response =>{
-                var data = response.data;
-                console.log(data)
-                for(var index in data){
-                    this.questionList.push({label: data[index].question, value: data[index].quiz_id});
-                }
-            })
-        },
-        fetchOptions(){
-            console.log(this.questionToBeEdited.value);
-            axios.get('http://54.255.245.23:3000/quiz/getQuizOptions?quizID=' + this.questionToBeEdited.value)
-            .then(response =>{
-                var data = response.data;
-                console.log(data)
-                this.editedOptions.option1 = data[0].option
-                this.editedOptions.option2 = data[1].option
-                this.editedOptions.option3 = data[2].option
-                this.editedOptions.option4 = data[3].option
-                this.editedOptions.option1ID = data[0].option_id
-                this.editedOptions.option2ID = data[1].option_id
-                this.editedOptions.option3ID = data[2].option_id
-                this.editedOptions.option4ID = data[3].option_id
-            })
-        },
-        quizOnSubmitToAdd(){
-            var postBody = {
-                "hotspot": this.hotspot.value,
-                "title": this.title,
-                "quiz": this.quiz
-            }
-            console.log(this.hotspot.value);
-            console.log(this.title);
-            console.log(this.quiz);
-            axios.post('http://54.255.245.23:3000/add/addQuiz', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-                this.$router.go();
-            })
-            // this.hotspot = "";
-            // this.quiz = [];
-            // location.reload();
-            // this.$router.go();
-        },
-        quizOnSubmitToEdit(){
-            var postBody = {
-                question: this.questionToBeEdited,
-                option1: {option: this.editedOptions.option1, id: this.editedOptions.option1ID},
-                option2: {option: this.editedOptions.option2, id: this.editedOptions.option2ID},
-                option3: {option: this.editedOptions.option3, id: this.editedOptions.option3ID},
-                option4: {option: this.editedOptions.option4, id: this.editedOptions.option4ID}
-            }
-            axios.post('http://54.255.245.23:3000/edit/editQuiz', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-                this.$router.go();
-            })
-        },
+        // fetchQuestions(){
+        //     this.questionList = [];
+        //     axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + this.missionToEdit.value)
+        //     .then(response =>{
+        //         var data = response.data;
+        //         console.log(data)
+        //         for(var index in data){
+        //             this.questionList.push({label: data[index].question, value: data[index].quiz_id});
+        //         }
+        //     })
+        // },
+        // fetchOptions(){
+        //     console.log(this.questionToBeEdited.value);
+        //     axios.get('http://54.255.245.23:3000/quiz/getQuizOptions?quizID=' + this.questionToBeEdited.value)
+        //     .then(response =>{
+        //         var data = response.data;
+        //         console.log(data)
+        //         this.editedOptions.option1 = data[0].option
+        //         this.editedOptions.option2 = data[1].option
+        //         this.editedOptions.option3 = data[2].option
+        //         this.editedOptions.option4 = data[3].option
+        //         this.editedOptions.option1ID = data[0].option_id
+        //         this.editedOptions.option2ID = data[1].option_id
+        //         this.editedOptions.option3ID = data[2].option_id
+        //         this.editedOptions.option4ID = data[3].option_id
+        //     })
+        // },
+        // quizOnSubmitToAdd(){
+        //     var postBody = {
+        //         "hotspot": this.hotspot.value,
+        //         "title": this.title,
+        //         "quiz": this.quiz
+        //     }
+        //     console.log(this.hotspot.value);
+        //     console.log(this.title);
+        //     console.log(this.quiz);
+        //     axios.post('http://54.255.245.23:3000/add/addQuiz', postBody)
+        //     .then(response => {
+        //         let data = response.data
+        //         console.log(data)
+        //         this.$router.go();
+        //     })
+        //     // this.hotspot = "";
+        //     // this.quiz = [];
+        //     // location.reload();
+        //     // this.$router.go();
+        // },
+        // quizOnSubmitToEdit(){
+        //     var postBody = {
+        //         question: this.questionToBeEdited,
+        //         option1: {option: this.editedOptions.option1, id: this.editedOptions.option1ID},
+        //         option2: {option: this.editedOptions.option2, id: this.editedOptions.option2ID},
+        //         option3: {option: this.editedOptions.option3, id: this.editedOptions.option3ID},
+        //         option4: {option: this.editedOptions.option4, id: this.editedOptions.option4ID}
+        //     }
+        //     axios.post('http://54.255.245.23:3000/edit/editQuiz', postBody)
+        //     .then(response => {
+        //         let data = response.data
+        //         console.log(data)
+        //         this.$router.go();
+        //     })
+        // },
 
-        wefieOnSubmitToAdd(){
-            var postBody = {
-                "hotspot": this.hotspot.value,
-                "title": this.title,
-                "question": this.wefie_question
-            }
-            axios.post('http://54.255.245.23:3000/add/addWefieQuestion', postBody)
-            .then(response => {
-                let data = response.data;
-                console.log(data);
-                this.$router.go();
-            });
-            // this.hotspot = "";
-            // this.quiz = [];
-        },
-        wefieOnSubmitToEdit(){
-            var postBody = {
-                "id": this.wefieID.value,
-                "question": this.wefie_question
-            }
-            axios.post('http://54.255.245.23:3000/edit/editWefieQuestion', postBody)
-            .then(response => {
-                let data = response.data;
-                console.log(data);
-                this.$router.go();
-            })
-            // this.hotspot = "";
-            // this.quiz = [];
-            // location.reload();
-        },
-        wefieOnSubmitToDelete(){
-            var postBody = {
-                "id": this.wefieID.value
-            }
-            axios.post('http://54.255.245.23:3000/delete/deleteWefieQuestion', postBody)
-            .then(response => {
-                let data = response.data;
-                console.log(data);
-                // this.$router.go();
-            })
-        },
+        // wefieOnSubmitToAdd(){
+        //     var postBody = {
+        //         "hotspot": this.hotspot.value,
+        //         "title": this.title,
+        //         "question": this.wefie_question
+        //     }
+        //     axios.post('http://54.255.245.23:3000/add/addWefieQuestion', postBody)
+        //     .then(response => {
+        //         let data = response.data;
+        //         console.log(data);
+        //         this.$router.go();
+        //     });
+        //     // this.hotspot = "";
+        //     // this.quiz = [];
+        // },
+        // wefieOnSubmitToEdit(){
+        //     var postBody = {
+        //         "id": this.wefieID.value,
+        //         "question": this.wefie_question
+        //     }
+        //     axios.post('http://54.255.245.23:3000/edit/editWefieQuestion', postBody)
+        //     .then(response => {
+        //         let data = response.data;
+        //         console.log(data);
+        //         this.$router.go();
+        //     })
+        //     // this.hotspot = "";
+        //     // this.quiz = [];
+        //     // location.reload();
+        // },
+        // wefieOnSubmitToDelete(){
+        //     var postBody = {
+        //         "id": this.wefieID.value
+        //     }
+        //     axios.post('http://54.255.245.23:3000/delete/deleteWefieQuestion', postBody)
+        //     .then(response => {
+        //         let data = response.data;
+        //         console.log(data);
+        //         // this.$router.go();
+        //     })
+        // },
 
         getMissionQuizQuestions(missionid, mission){
             axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + missionid)
@@ -516,6 +566,14 @@ export default {
                //this.missionList.push({label: data[index].title, value: data[index].mission});
             }           
         })
+
+        axios.get('http://54.255.245.23:3000/draganddrop/getAllDragAndDrop')
+        .then(response =>{
+            let data = response.data;
+            console.log(data);
+            this.dragAndDropList = data;      
+        })
+        console.log(this.dragAndDropList)
     }
 }
 </script>
@@ -598,7 +656,7 @@ export default {
         border-bottom: 1px solid #DEE2E6;
     }
 
-    .wefie-data td, .quiz-data td{
+    .wefie-data td, .quiz-data td, .draganddrop-data td{
         /*max-height: 10px;*/
         max-width: 700px;
         padding: 15px;
