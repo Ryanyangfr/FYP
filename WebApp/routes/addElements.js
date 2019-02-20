@@ -45,6 +45,19 @@ conn.query(wefie_query, (err, data) => {
   }
 });
 
+//getting current drag and drop id
+let dragAndDropID = 0;
+const dragAndDropIDQuery = 'SELECT MAX(DRAGANDDROP_ID) AS ID FROM DRAGANDDROP';
+
+conn.query(dragAndDropIDQuery, (err,data) => {
+  if (err) {
+    console.log(err);
+  } else {
+    dragAndDropID = data[0].ID + 1;
+    console.log('drag and drop id: ' + dragAndDropID)
+  }
+})
+
 // getting the current mission id
 let mission_id = 0;
 const mission_query = 'SELECT COUNT(*) as count from MISSION';
@@ -251,4 +264,47 @@ router.post('/addWefieQuestion', (req,res) => {
     }
   });
 });
+
+router.post('/addDragAndDropQuestion', (req,res) => {
+  console.log('dragAndDropAdd: ');
+  console.log(req.body);
+
+  const title = req.body.title;
+  const question = req.body.question;
+  const options = req.body.options;
+  const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
+  const dragNDropQuery = 'INSERT INTO DRAG_AND_DROP VALUES (?,?,?)';
+  const dragNDropOptionQuery = 'INSERT INTO DRAG_AND_DROP_OPTION VALUES (?,?,?)';
+
+  conn.query(ms_query, [mission_id,title], (err,data) => {
+    if (err) {
+      res.send(JSON.stringify({ success: 'false' }));
+      console.log(err);
+    } else {
+      mission_id += 1;
+      conn.query(dragNDropQuery, [dragAndDropID, question, mission_id], (err, rows) => {
+        if (err) {
+          console.log(err);
+        } else {
+          let counter = 0;
+          options.forEach((option) => {
+            let qn_option = option.option;
+            let qn_answer = option.answer;
+            conn.query(dragNDropOptionQuery, [dragAndDropID, qn_option, qn_answer], (err, data2) => {
+              if (err) {
+                console.log(err);
+              } else {
+                counter += 1;
+                if (counter === options.length) {
+                  res.send(JSON.stringify({ success: 'true' }));
+                }
+              }
+            })
+          })
+        }
+      })
+    }
+  })
+  
+})
 module.exports = router;
