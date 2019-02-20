@@ -281,8 +281,8 @@ router.post('/addDragAndDropQuestion', (req,res) => {
       res.send(JSON.stringify({ success: 'false' }));
       console.log(err);
     } else {
-      mission_id += 1;
       conn.query(dragNDropQuery, [dragAndDropID, question, mission_id], (err, rows) => {
+        mission_id += 1;
         if (err) {
           console.log(err);
         } else {
