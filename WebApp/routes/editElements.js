@@ -142,6 +142,57 @@ router.post('/switchTeams', (req,res) => {
   })
 })
 
+router.post('/editDragAndDrop', (req,res) => {
+
+  const id = req.body.id;
+  const question = req.body.question;
+  const options = req.body.options;
+  const title = req.body.title;
+  const missionID = req.body.missionID
+
+  const updateMission = 'UPDATE MISSION SET MISSION_TITLE = ? WHERE MISSION_ID = ?';
+  const updateDragAndDrop = 'UPDATE DRAG_AND_DROP SET DRAGANDDROP_QUESTION = ? WHERE DRAGANDDROP_ID = ?';
+  const deleteOptions = 'DELETE FROM DRAG_AND_DROP_OPTION WHERE DRAGANDDROP_ID = ?';
+  const addOptions = 'INSERT INTO DRAG_AND_DROP_OPTION VALUES (?,?,?)';
+
+  conn.query(updateMission, [title, missionID], (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      conn.query(updateDragAndDrop, [question, id], (err, data2) => {
+        if (err) {
+          console.log(err);
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          conn.query(deleteOptions, id, (err, data3) => {
+            if (err) {
+              console.log(err);
+              res.send(JSON.stringify({ success: 'false' }));
+            } else {
+              options.forEach((option) => {
+                let qn_option = option.option;
+                let qn_answer = option.answer;
+                conn.query(addOptions, [id, qn_option, qn_answer], (err, data2) => {
+                  if (err) {
+                    console.log(err);
+                    res.send(JSON.stringify({ success: 'false' }));
+                  } else {
+                    counter += 1;
+                    if (counter === options.length) {
+                      res.send(JSON.stringify({ success: 'true' }));
+                    }
+                  }
+                })
+              })
+            }
+          })
+        }
+      })
+    }
+  })
+  
+})
 
 
 
