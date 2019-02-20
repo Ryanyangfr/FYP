@@ -85,7 +85,7 @@ router.get('/getAllDragAndDrop', (req,res) => {
         }
         options.push({option: row.DRAGANDDROP_QUESTION_OPTION, answer: row.DRAGANDDROP_QUESTION_ANSWER});
       });
-      response.push({id: currentID, question: currentQuestion, title:currentTitle, options: options});
+      response.push({id: currentID, question: currentQuestion, title:currentTitle, options: options, missionID: currentMissionID});
     }
     res.send(response);
   });
