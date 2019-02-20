@@ -86,8 +86,8 @@
                     </td>
                     <!-- <td><button class="view-quiz-btn" @click="saveSelectedDragAndDrop(dragandrop.title, dragandrop.question, draganddrop.id)"><router-link to='/viewDragAndDrop'>View full details</router-link></button></td> -->
                     <td>
-                        <button @click="saveSelectedDragAndDrop(dragandrop.title, dragandrop.question, draganddrop.id)">
-                            <router-link to='/editdragandrop'>
+                        <button @click="saveSelectedDragAndDrop(draganddrop.title, draganddrop.missionID, draganddrop.question, draganddrop.id)">
+                            <router-link to='/editDragAndDrop'>
                             <i class="ti-pencil-alt"></i>
                             </router-link>
                         </button>
@@ -95,7 +95,7 @@
                     <td><button @click="deleteDragAndDrop(draganddrop.title, draganddrop.id)"><i class="ti-trash"></i></button></td>
                 </tr>
             </table>
-            <!--table for mission: drawing ends-->
+            <!--table for mission: draganddrop ends-->
         </div>
 
         <!--delete quiz popup begins-->
@@ -211,6 +211,10 @@ export default {
 
         selectedDragAndDropTitle(){
             return this.$store.state.selectedDragAndDropTitle
+        },
+
+        selectedDragAndDropMissionID(){
+            return this.$store.state.selectedDragAndDropMissionID
         }
 
     }, 
@@ -263,10 +267,15 @@ export default {
             this.$store.commit('saveSelectedWefieID', wefie_id);
         },
 
-        saveSelectedDragAndDrop(mission_title, question, id){
+        saveSelectedDragAndDrop(mission_title, missionID, question, id){
+            console.log(mission_title)
+            console.log(missionID)
+            console.log(id)
+            console.log(question)
             this.$store.commit('saveSelectedDragAndDropTitle', mission_title);
             this.$store.commit('saveSelectedDragAndDropQuestion', question);
             this.$store.commit('saveSelectedDragAndDropID', id);
+            this.$store.commit('saveSelectedDragAndDropMissionID', missionID);
         },
         //store to vuex store methods ends 
 

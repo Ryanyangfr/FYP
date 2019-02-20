@@ -153,6 +153,12 @@ export default new Router({
       name: 'Edit Trail',
       component: ()=> import('@/views/trail/editTrail'),
       hidden: true
+    },
+    {
+      path: '/editDragAndDrop',
+      name: 'Edit Drag And Drop',
+      component: ()=> import('@/views/mission/editDragAndDrop'),
+      hidden: true
     }
   ],
 
