@@ -94,7 +94,7 @@ router.get('/getDragAndDropByMission', (req,res) => {
   const dragNDropQuery = 'SELECT MISSION_TITLE, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER, DRAG_AND_DROP.DRAGANDDROP_ID FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION, MISSION WHERE DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID AND DRAG_AND_DROP.MISSION_ID = MISSION.MISSION_ID AND MISSION.MISSION_ID = ?';
   const response = [];
 
-  conn.query(dragNDropQuery, (err, data) => {
+  conn.query(dragNDropQuery, missionID, (err, data) => {
     if (err) {
       console.log(err);
       return;
