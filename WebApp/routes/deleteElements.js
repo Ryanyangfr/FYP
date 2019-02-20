@@ -130,4 +130,35 @@ router.post('/deleteParticipant', (req,res) => {
   });
 });
 
+router.post('/deleteDragAndDrop', (req,res) => {
+  const id = req.body.id;
+  const missionID = req.body.missionID;
+  const query = 'DELETE FROM DRAG_AND_DROP WHERE DRAGANDDROP_ID = ?';
+  const optionQuery = 'DELETE FROM DRAG_AND_DROP_OPTION WHERE DRAGANDDROP_ID = ?';
+  const deleteFromMissionQuery = 'DELETE FROM MISSION WHERE MISSION_ID = ?';
+
+  conn.query(optionQuery, id, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      conn.query(query, id, (err, data2) => {
+        if (err) {
+          console.log(err);
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          conn.query(deleteFromMissionQuery, missionID, (err, data3) => {
+            if (err) {
+              console.log(err);
+              res.send(JSON.stringify({ success: 'false' }));
+            } else {
+              res.send(JSON.stringify({ success: 'true' }));
+            }
+          })
+        }
+      })
+    }
+  })
+})
+
 module.exports = router;

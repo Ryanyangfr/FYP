@@ -237,6 +237,7 @@ export default {
 
             //draganddrop
             dragAndDropList: [],
+            
             //delete variables
             showDeleteQuiz: false,
             missionIDToBeDeleted:"",
@@ -247,7 +248,9 @@ export default {
             quizDeleteMessage: "",
             quizCloseMessage: false,
             wefieDeleteMessage: "",
-            wefieCloseMessage: false
+            wefieCloseMessage: false,
+            showDeleteDragAndDrop: false,
+            dragAndDropMessage: ""
         }
     }, 
     components:{
@@ -523,7 +526,7 @@ export default {
                 }
                 // this.$router.go();
             })
-
+        
             if(this.showDeleteWefie){
                 this.showDeleteWefie = false;
             } else{
@@ -540,6 +543,33 @@ export default {
                 this.showDeleteWefie = true;
             }
         },
+
+        // onSubmitToDeleteDragAndDrop(){
+        //     var postBody = {
+        //         "id": this.wefieIDToBeDeleted
+        //     }
+            
+        //     axios.post('http://54.255.245.23:3000/delete/deleteWefieQuestion', postBody)
+        //     .then(response => {
+        //         let data = response.data
+        //         console.log(data)
+        //         if (data.success === "true") {
+        //             this.wefieDeleteMessage ="Wefie Question Successfully Deleted"
+        //             // this.$router.go();
+        //         } else {
+        //             this.wefieDeleteMessage = "Error Please Remove Wefie Question From All Existing Trails";
+        //         }
+        //         // this.$router.go();
+        //     })
+        
+        //     if(this.showDeleteWefie){
+        //         this.showDeleteWefie = false;
+        //     } else{
+        //         this.showDeleteWefie = true;
+        //     }
+            
+        //     // location.reload();
+        // },
     },
     mounted(){
         if (!this.$session.exists()) {
