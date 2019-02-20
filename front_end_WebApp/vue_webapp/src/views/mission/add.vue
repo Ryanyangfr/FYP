@@ -82,6 +82,38 @@
 
                 </div>
                 <!--add wefie ends-->
+
+                <div v-if="missionType == allMissionTypes[2]">
+                    <form @submit.prevent="dragAndDropOnSubmitToAdd" class="add-mission-body">
+                        <div class="add-mission-input">
+                            <label for="add-mission-title-input">Title</label>
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                        </div> 
+                        <div class="add-mission-input">
+                            <label for="add-dragAndDrop-question-input">Question</label>
+                            <input name="add-dragAndDrop-question-input" type="text" placeholder="Drag And Drop Question" v-model="dragAndDropQuestion"> 
+                        </div> 
+                        <div v-for="(input, index) in dragAndDropOptions" :key="index" class="add-mission-input">
+                            
+                            <div class="add-mission-body">
+                                <label for="add-mission-title-input">Option</label>
+                                <div class="add-mission-input">
+                                    <input name="option1" type="text" placeholder="option" v-model="input.option">
+                                </div>
+                                
+                                <label for="add-mission-title-input">Answer</label>
+                                <div class="add-mission-input">
+                                    <input name="option1" type="text" placeholder="answer" v-model="input.answer">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="submit-btn-area">
+                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                            <button class="submit-btn" type="submit">Create</button>
+                        </div>
+                    </form>
+                </div>
             </form>
             
         </div>
@@ -94,12 +126,16 @@ export default {
     name: "addMission",
     data() {
         return{
-            allMissionTypes: ["Quiz", "Wefie", "Drawing"],
+            allMissionTypes: ["Quiz", "Wefie", "Drag And Drop"],
             missionType: "",
             title: "",
             quiz: [],
             wefie_instruction: "",
-            answer_options: ["Option 1", "Option 2", "Option 3", "Option 4"]
+            answer_options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+            
+            //drag and drop
+            dragAndDropQuestion: "",
+            dragAndDropOptions: [{option: "", answer: ""}, {option: "", answer: ""}, {option: "", answer: ""}, {option: "", answer: ""}]
         }  
     },
 
@@ -170,6 +206,22 @@ export default {
             // this.quiz = [];
             // location.reload();
             // this.$router.go();
+        },
+
+        dragAndDropOnSubmitToAdd(){
+            var postBody = {
+                title: this.title,
+                question: this.dragAndDropQuestion,
+                options: this.dragAndDropOptions
+            }
+
+            console.log(postBody);
+            axios.post('http://54.255.245.23:3000/add/addDragAndDropQuestion', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                this.$router.push({ path: this.redirect || '/mission' });
+            })
         }
     }       
         
