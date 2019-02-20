@@ -18,6 +18,10 @@ export const store = new Vuex.Store({
         selectedHotspotName: "",
         selectedLat: "",
         selectedLng: "",
+        selectedDragAndDropID: "",
+        selectedDragAndDropMissionID: "",
+        selectedDragAndDropTitle: "",
+        selectedDragAndDropQuestion: ""
 
     },
     
@@ -76,6 +80,22 @@ export const store = new Vuex.Store({
 
         saveSelectedLng(state, lng){
             state.selectedLng = lng
+        },
+
+        saveSelectedDragAndDropID(state, id){
+            state.selectedDragAndDropID = id;
+        },
+
+        saveSelectedDragAndDropQuestion(state, question){
+            state.selectedDragAndDropQuestion = question;
+        },
+
+        saveSelectedDragAndDropTitle(state, title){
+            state.selectedDragAndDropTitle = title;
+        },
+
+        saveSelectedDragAndDropMissionID(state, missionID){
+            state.selectedDragAndDropMissionID = missionID;
         }
     }
 });
