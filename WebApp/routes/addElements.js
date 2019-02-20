@@ -47,7 +47,7 @@ conn.query(wefie_query, (err, data) => {
 
 //getting current drag and drop id
 let dragAndDropID = 0;
-const dragAndDropIDQuery = 'SELECT MAX(DRAGANDDROP_ID) AS ID FROM DRAGANDDROP';
+const dragAndDropIDQuery = 'SELECT MAX(DRAGANDDROP_ID) AS ID FROM DRAG_AND_DROP';
 
 conn.query(dragAndDropIDQuery, (err,data) => {
   if (err) {
