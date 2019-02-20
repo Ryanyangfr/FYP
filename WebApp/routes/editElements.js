@@ -170,6 +170,7 @@ router.post('/editDragAndDrop', (req,res) => {
               console.log(err);
               res.send(JSON.stringify({ success: 'false' }));
             } else {
+              let counter = 0;
               options.forEach((option) => {
                 let qn_option = option.option;
                 let qn_answer = option.answer;
