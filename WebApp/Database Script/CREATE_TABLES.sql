@@ -494,7 +494,7 @@ INSERT INTO TRAIL_INSTANCE VALUES
 
 INSERT INTO TRAIL_HOTSPOT VALUES
 (1, 'Lee Kong Chian School of Business', 1, 3),
-(1, 'School of Accountancy', 2, 4),
+(1, 'School of Accountancy', 2, 21),
 -- (1, 'School of Economics/School of Social Sciences', 3, 2),
 -- (1, 'School of Information Systems', 4, 1),
 (1, 'School of Law', 5, 6),
@@ -542,15 +542,15 @@ INSERT INTO DRAG_AND_DROP_OPTION VALUES
 -- INSERT INTO ANAGRAM VALUES
 -- (1,'kwageokchoo', 19);
 
--- INSERT INTO WORDSEARCH VALUES
--- ('Accountancy Word Search', 21);
+INSERT INTO WORDSEARCH VALUES
+('Accountancy Word Search', 21);
 
--- INSERT INTO WORDSEARCH_WORD VALUES
--- ('Accountancy Word Search', 'account'),
--- ('Accountancy Word Search', 'study'),
--- ('Accountancy Word Search', 'money'),
--- ('Accountancy Word Search', 'loss'),
--- ('Accountancy Word Search', 'profit');
+INSERT INTO WORDSEARCH_WORD VALUES
+('Accountancy Word Search', 'account'),
+('Accountancy Word Search', 'study'),
+('Accountancy Word Search', 'money'),
+('Accountancy Word Search', 'loss'),
+('Accountancy Word Search', 'profit');
 
 INSERT INTO ADMIN VALUES
 ('admin', 'password');
