@@ -92,7 +92,7 @@
                             </router-link>
                         </button>
                     </td>
-                    <td><button @click="deleteDragAndDrop(draganddrop.title, draganddrop.id)"><i class="ti-trash"></i></button></td>
+                    <td><button @click="deleteDragAndDrop(draganddrop.title, draganddrop.missionID, draganddrop.id)"><i class="ti-trash"></i></button></td>
                 </tr>
             </table>
             <!--table for mission: draganddrop ends-->
@@ -106,10 +106,10 @@
                     <h5>Delete</h5>
                     <button class="close-delete-quiz" @click="closeDeleteQuiz()"><font-awesome-icon icon="times"/></button>
                 </div>
-                <hr>
+                <!--<hr>-->
                 <form class="delete-quiz-body" @submit="onSubmitToDeleteQuiz">
-                    <div><h6>Are you sure you want to delete "{{this.missionTitleToBeDeleted}}"?</h6></div>
-                    <div><hr></div>
+                    <div class="delete-quiz-content"><h6>Are you sure you want to delete "{{this.missionTitleToBeDeleted}}"?</h6></div>
+                    <!--<div class="btm-header"><hr></div>-->
                     <div class="delete-quiz-btm">
                         <button type="button" class="cancel-delete" @click="closeDeleteQuiz()">Cancel</button>
                         <button type="submit" class="delete-quiz-btn">Delete</button>
@@ -134,7 +134,7 @@
         </div>
         <!--delete quiz popup ends-->
 
-        <!--delete weie popup begins-->
+        <!--delete wefie popup begins-->
         <!--shows when user clicks on delete icon for wefie. showDeleteWefie = true-->
         <div class="black-blur-bg" v-if="showDeleteWefie"> 
             <div class="delete-wefie-popup">
@@ -142,10 +142,10 @@
                     <h5>Delete</h5>
                     <button class="close-delete-wefie" @click="closeDeleteWefie()"><font-awesome-icon icon="times"/></button>
                 </div>
-                <hr>
+                <!--<hr>-->
                 <form class="delete-wefie-body" @submit="onSubmitToDeleteWefie">
-                    <div><h6>Are you sure you want to delete "{{this.wefieTitleToBeDeleted}}"?</h6></div>
-                    <div><hr></div>
+                    <div class="delete-wefie-content"><h6>Are you sure you want to delete "{{this.wefieTitleToBeDeleted}}"?</h6></div>
+                    <!--<div><hr></div>-->
                     <div class="delete-wefie-btm">
                         <button type="button" class="cancel-delete" @click="closeDeleteWefie()">Cancel</button>
                         <button type="submit" class="delete-wefie-btn">Delete</button>
@@ -157,12 +157,47 @@
 
         <div class="black-blur-bg" v-if="wefieDeleteMessage.length > 0"> 
             <div class="delete-quiz-popup">
-                <hr>
+                <!--<hr>-->
                 
-                <div><h6>{{wefieDeleteMessage}}</h6></div>
-                <div><hr></div>
+                <div class="delete-quiz-content"><h6>{{wefieDeleteMessage}}</h6></div>
+                <!--<div><hr></div>-->
                 <div class="delete-quiz-btm">
                     <button class="delete-quiz-btn" @click="wefieCloseDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+               
+            </div>
+        </div>
+        <!--delete wefie popup ends-->
+
+        <!--delete drag and drop popup begins-->
+        <!--shows when user clicks on delete icon for drag and drop. showDeleteDragDrop = true-->
+        <div class="black-blur-bg" v-if="showDeleteDragDrop"> 
+            <div class="delete-dragdrop-popup">
+                <div class="delete-dragdrop-header">
+                    <h5>Delete</h5>
+                    <button class="close-delete-dragdrop" @click="closeDeleteDragDrop()"><font-awesome-icon icon="times"/></button>
+                </div>
+                <!--<hr>-->
+                <form class="delete-dragdrop-body" @submit="onSubmitToDeleteDragDrop">
+                    <div class="delete-dragdrop-content"><h6>Are you sure you want to delete "{{this.dragDropTitleToDeleted}}"?</h6></div>
+                    <!--<div><hr></div>-->
+                    <div class="delete-dragdrop-btm">
+                        <button type="button" class="cancel-delete" @click="closeDeleteDragDrop()">Cancel</button>
+                        <button type="submit" class="delete-dragdrop-btn">Delete</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+
+        <div class="black-blur-bg" v-if="dragAndDropDeleteMessage.length > 0"> 
+            <div class="delete-quiz-popup">
+                <!--<hr>-->
+                <div><h6>{{dragAndDropDeleteMessage}}</h6></div>
+                <!--<div><hr></div>-->
+                <div class="delete-quiz-btm">
+                    <button class="delete-quiz-btn" @click="dragDropCloseDeleteMessage()">Close</button>
                     <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
                
@@ -249,15 +284,20 @@ export default {
             quizCloseMessage: false,
             wefieDeleteMessage: "",
             wefieCloseMessage: false,
-            showDeleteDragAndDrop: false,
-            dragAndDropMessage: ""
+            // showDeleteDragAndDrop: false,
+            dragAndDropDeleteMessage: "",
+            dragAndDropCloseMessage:false,
+            showDeleteDragDrop: false,
+            dragDropTitleToDeleted: "",
+            dragDropMissionIDToBeDeleted:"",
+            dragDropIDToBeDeleted:"",
+
         }
     }, 
     components:{
         vSelect
     },
     methods: {
-
         //store to vuex store methods:
         saveSelectedQuiz(missionid, missiontitle){
             this.$store.commit('saveSelectedQuizID', missionid);
@@ -281,21 +321,7 @@ export default {
             this.$store.commit('saveSelectedDragAndDropMissionID', missionID);
         },
         //store to vuex store methods ends 
-
-        // addRow(){
-        //     this.quiz.push({
-        //         question: "",
-        //         title: "",
-        //         option1: "",
-        //         option2: "",
-        //         option3: "",
-        //         option4: "",
-        //         answer: ""
-        //     })
-        // },
-        // updateCurrWefieQn(){
-        //     this.wefie_question = this.wefieID.label
-        // },
+        
         fetchMissions(){
             // console.log('entered')
             this.missionList = [];
@@ -309,110 +335,6 @@ export default {
                 }
             })
         },
-        // fetchQuestions(){
-        //     this.questionList = [];
-        //     axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + this.missionToEdit.value)
-        //     .then(response =>{
-        //         var data = response.data;
-        //         console.log(data)
-        //         for(var index in data){
-        //             this.questionList.push({label: data[index].question, value: data[index].quiz_id});
-        //         }
-        //     })
-        // },
-        // fetchOptions(){
-        //     console.log(this.questionToBeEdited.value);
-        //     axios.get('http://54.255.245.23:3000/quiz/getQuizOptions?quizID=' + this.questionToBeEdited.value)
-        //     .then(response =>{
-        //         var data = response.data;
-        //         console.log(data)
-        //         this.editedOptions.option1 = data[0].option
-        //         this.editedOptions.option2 = data[1].option
-        //         this.editedOptions.option3 = data[2].option
-        //         this.editedOptions.option4 = data[3].option
-        //         this.editedOptions.option1ID = data[0].option_id
-        //         this.editedOptions.option2ID = data[1].option_id
-        //         this.editedOptions.option3ID = data[2].option_id
-        //         this.editedOptions.option4ID = data[3].option_id
-        //     })
-        // },
-        // quizOnSubmitToAdd(){
-        //     var postBody = {
-        //         "hotspot": this.hotspot.value,
-        //         "title": this.title,
-        //         "quiz": this.quiz
-        //     }
-        //     console.log(this.hotspot.value);
-        //     console.log(this.title);
-        //     console.log(this.quiz);
-        //     axios.post('http://54.255.245.23:3000/add/addQuiz', postBody)
-        //     .then(response => {
-        //         let data = response.data
-        //         console.log(data)
-        //         this.$router.go();
-        //     })
-        //     // this.hotspot = "";
-        //     // this.quiz = [];
-        //     // location.reload();
-        //     // this.$router.go();
-        // },
-        // quizOnSubmitToEdit(){
-        //     var postBody = {
-        //         question: this.questionToBeEdited,
-        //         option1: {option: this.editedOptions.option1, id: this.editedOptions.option1ID},
-        //         option2: {option: this.editedOptions.option2, id: this.editedOptions.option2ID},
-        //         option3: {option: this.editedOptions.option3, id: this.editedOptions.option3ID},
-        //         option4: {option: this.editedOptions.option4, id: this.editedOptions.option4ID}
-        //     }
-        //     axios.post('http://54.255.245.23:3000/edit/editQuiz', postBody)
-        //     .then(response => {
-        //         let data = response.data
-        //         console.log(data)
-        //         this.$router.go();
-        //     })
-        // },
-
-        // wefieOnSubmitToAdd(){
-        //     var postBody = {
-        //         "hotspot": this.hotspot.value,
-        //         "title": this.title,
-        //         "question": this.wefie_question
-        //     }
-        //     axios.post('http://54.255.245.23:3000/add/addWefieQuestion', postBody)
-        //     .then(response => {
-        //         let data = response.data;
-        //         console.log(data);
-        //         this.$router.go();
-        //     });
-        //     // this.hotspot = "";
-        //     // this.quiz = [];
-        // },
-        // wefieOnSubmitToEdit(){
-        //     var postBody = {
-        //         "id": this.wefieID.value,
-        //         "question": this.wefie_question
-        //     }
-        //     axios.post('http://54.255.245.23:3000/edit/editWefieQuestion', postBody)
-        //     .then(response => {
-        //         let data = response.data;
-        //         console.log(data);
-        //         this.$router.go();
-        //     })
-        //     // this.hotspot = "";
-        //     // this.quiz = [];
-        //     // location.reload();
-        // },
-        // wefieOnSubmitToDelete(){
-        //     var postBody = {
-        //         "id": this.wefieID.value
-        //     }
-        //     axios.post('http://54.255.245.23:3000/delete/deleteWefieQuestion', postBody)
-        //     .then(response => {
-        //         let data = response.data;
-        //         console.log(data);
-        //         // this.$router.go();
-        //     })
-        // },
 
         getMissionQuizQuestions(missionid, mission){
             axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + missionid)
@@ -544,6 +466,66 @@ export default {
             }
         },
 
+        deleteDragAndDrop(draganddrop_title, dragdrop_mission_id, draganddrop_id){
+            this.dragDropTitleToDeleted = draganddrop_title;
+            this.dragDropMissionIDToBeDeleted = dragdrop_mission_id;
+            this.dragDropIDToBeDeleted = draganddrop_id;
+
+            if(this.showDeleteDragDrop){
+                this.showDeleteDragDrop = false;
+            } else{
+                this.showDeleteDragDrop = true;
+            }
+        },
+
+        onSubmitToDeleteDragDrop(){
+            var postBody = {
+                "id": this.dragDropIDToBeDeleted,
+                "missionID": this.dragDropMissionIDToBeDeleted
+            }
+
+            // console.log(postBody)
+            
+            axios.post('http://54.255.245.23:3000/delete/deleteDragAndDrop', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                if (data.success === "true") {
+                    this.dragAndDropDeleteMessage ="Drag and Drop Question Successfully Deleted"
+                    // this.$router.go();
+                } else {
+                    this.dragAndDropDeleteMessage = "Error Please Remove Drag and Drop Question From All Existing Trails";
+                }
+                // this.$router.go();
+            })
+        
+            if(this.showDeleteDragDrop){
+                this.showDeleteDragDrop = false;
+            } else{
+                this.showDeleteDragDrop = true;
+            }
+            
+            // location.reload();
+        },
+
+        closeDeleteDragDrop(){
+             if(this.showDeleteDragDrop){
+                this.showDeleteDragDrop = false;
+            } else{
+                this.showDeleteDragDrop = true;
+            }
+        },
+
+        dragDropCloseDeleteMessage(){
+            this.showDeleteDragDrop = false;
+            this.dragAndDropCloseMessage = true;
+            if( this.dragAndDropDeleteMessage === "Drag and Drop Question Successfully Deleted") {
+                this.dragAndDropDeleteMessage = "";
+                this.$router.go();
+            }
+            this.dragAndDropDeleteMessage = "";
+        },
+
         // onSubmitToDeleteDragAndDrop(){
         //     var postBody = {
         //         "id": this.wefieIDToBeDeleted
@@ -617,7 +599,7 @@ export default {
 }
 </script>
 
-<<style scoped>
+<style scoped>
     @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
     @import '../../assets/themify-icons.css';
 
@@ -701,14 +683,14 @@ export default {
         padding: 15px;
     }
 
-    .quiz-data a{
+    .quiz-data a, .draganddrop-data a{
         text-decoration: none!important;
         font-size: 14px;
         font-family: "Roboto", sans-serif;
         /*color: #536479;*/
     }
 
-    .wefie-data button, .quiz-data button{
+    .wefie-data button, .quiz-data button, .draganddrop-data button{
         background: none;
         border: none;
         cursor: pointer;
@@ -723,7 +705,7 @@ export default {
         float: left;
     }
 
-    .wefie-data i, .quiz-data i{
+    .wefie-data i, .quiz-data i, .draganddrop-data i{
         font-size: 20px;
         color: #536479;
     }
@@ -741,7 +723,7 @@ export default {
         min-width: 200px;
     }
 
-    /*delete quiz popup starts*/
+    /*delete quiz and drag and drop popup starts*/
     .black-blur-bg{
         width:100%;
         height: 100%;
@@ -755,9 +737,9 @@ export default {
         overflow: hidden;
     }
 
-    .delete-quiz-popup{
+    .delete-quiz-popup, .delete-dragdrop-popup, .delete-wefie-popup{
         min-width: 30%;
-        min-height: 33%;
+        min-height: 23%;
         background-color: white;
         opacity: 100%;
         z-index: 500;
@@ -765,32 +747,54 @@ export default {
         font-family: 'Roboto', sans-serif;
         font-weight: 600;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
     }
     
-    .delete-quiz-body{
-        width:100%;
-        height: 130px;
+    .delete-quiz-body, .delete-dragdrop-body, .delete-wefie-body{
+        width: 100%;
         overflow: hidden;
         text-align: center;
         display: flex;
         flex-direction: column;
         padding-top: 10px;
+        /*background-color: pink;*/
+        flex: 10;
     }
 
-    .delete-quiz-body h6{
+    .delete-quiz-content, .delete-wefie-content, .delete-dragdrop-content{
+        flex: 4;
+        padding: 12px;
+    }
+
+    .delete-quiz-header, .delete-dragdrop-header, .delete-wefie-header{
+        flex: 1;
+        width: 100%;
+        padding:10px; 
+        border-bottom: 1px solid #C6C4BC;
+    }
+
+    .delete-quiz-body h6, .delete-dragdrop-body h6, .delete-wefie-body h6{
         display: flex;
+        flex: 9;
         float: left;
         height: 100%;
         width: 100%;
+        align-items: flex-start;
         font-size: 15px;
         margin-left: 20px;
-        margin-bottom: 10px;
+        /*margin-bottom: 10px;*/
+        flex-direction: column;
     }
 
-    .delete-quiz-btm{
-        margin-bottom: 10px;
+    .delete-quiz-btm, .delete-dragdrop-btm, .delete-wefie-btm{
+        margin-bottom: 0px;
+        /*flex: 4;*/
         margin-top: 10px;
-    
+        border-top: 1px solid #C6C4BC;
+        padding: 10px;
+        position: relative;
     }
 
     .cancel-delete{
@@ -810,7 +814,7 @@ export default {
         color: #666666;
     }
 
-    .delete-quiz-btn{
+    .delete-quiz-btn, .delete-dragdrop-btn, .delete-wefie-btn{
         background: none;
         border: none;
         background-color: #F15E5E;
@@ -828,7 +832,7 @@ export default {
         color: white;
     }
 
-    .close-delete-quiz{
+    .close-delete-quiz, .close-delete-dragdrop, .close-delete-wefie{
         background: none;
         border: none;
         color: #868686;
@@ -837,20 +841,15 @@ export default {
         font-size: 18px;
     }
 
-    .delete-quiz-popup h5{
+    .delete-quiz-popup h5, .delete-dragdrop-popup h5, .delete-wefie-popup h5{
         display: flex;
         float: left;
-    }
-
-    .delete-quiz-header{
-        max-width: 100%;
-        padding:18px;
     }
 
     /*deleted quiz popup ends*/
 
     /*delete wefie popup starts*/
-    .black-blur-bg{
+    /*.black-blur-bg{
         width:100%;
         height: 100%;
         background-color: rgb(0, 0, 0, 0.7);
@@ -953,7 +952,8 @@ export default {
     .delete-wefie-header{
         max-width: 100%;
         padding:18px;
-    }
+    }*/
 
     /*deleted wefie popup ends*/
+
 </style>
