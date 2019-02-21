@@ -16,7 +16,7 @@ router.post('/sendNotification', (req,res) => {
   const message = req.body.message;
   console.log(message)
 
-  io.emit('notification', {message});
+  io.emit('notification', {message:message});
   if (message.length > 0) {
     res.send(JSON.stringify({ success: 'true' }));
   } else {
