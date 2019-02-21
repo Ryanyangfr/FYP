@@ -17,7 +17,12 @@ router.post('/sendNotification', (req,res) => {
   console.log(message)
 
   io.emit('notification', {message});
-  res.send(JSON.stringify({ success: 'true' }));
+  if (message.length > 0) {
+    res.send(JSON.stringify({ success: 'true' }));
+  } else {
+    res.send(JSON.stringify({ success: 'false' }));
+  }
+ 
 });
 
 module.exports = router;
