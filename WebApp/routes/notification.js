@@ -17,6 +17,7 @@ router.post('/sendNotification', (req,res) => {
   console.log(message)
 
   io.emit('notification', {message});
+  res.send(JSON.stringify({ success: 'true' }));
 });
 
 module.exports = router;
