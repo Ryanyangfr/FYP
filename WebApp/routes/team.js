@@ -199,6 +199,7 @@ router.get('/getAllTeamsWithMembers', (req, res) => {
 });
 
 router.post('/teamLocation', (req,res) => {
+  console.log('location update');
   console.log(req.body)
   const io = req.app.get('socketio');
   const teamID = req.body.teamID;
