@@ -304,7 +304,7 @@ INSERT INTO MISSION VALUES
 -- (15, 'title 15'),
 -- (16, 'title 16'),
 -- (17, 'title 17'),
-(18, 'title 18');
+(18, 'title 18'),
 -- (19, 'title 19'),
 -- (20, 'title 20'),
 (21, 'title 21');
