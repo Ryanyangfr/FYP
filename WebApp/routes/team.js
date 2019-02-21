@@ -198,4 +198,24 @@ router.get('/getAllTeamsWithMembers', (req, res) => {
   });
 });
 
+router.post('/teamLocation', (req,res) => {
+  console.log('location update');
+  console.log(req.body)
+  const io = req.app.get('socketio');
+  const teamID = req.body.teamID;
+  const long = req.body.long;
+  const lat = req.body.lat;
+
+  const locationQuery = 'UPDATE TEAM SET LONGTITUDE = ?, LATITUDE = ? WHERE TEAM_ID = ?';
+
+  conn.query(locationQuery, [long,lat,teamID], (err,data) => {
+    if (err) {
+      console.log(err)
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      io.emit('updateLocation', { teamID: teamID, long: long, lat: lat })
+      res.send(JSON.stringify({ success: 'true' }));
+    }
+  })
+})
 module.exports = router;

@@ -17,6 +17,7 @@ router.get('/getWordSearchWords', (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      console.log(missions.length);
       missions.forEach((missionRow) => {
         let mission = missionRow.MISSION_ID;
         let hotspot_name = missionRow.HOTSPOT_NAME;
