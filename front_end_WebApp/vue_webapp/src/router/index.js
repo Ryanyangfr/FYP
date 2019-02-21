@@ -159,6 +159,12 @@ export default new Router({
       name: 'Edit Drag And Drop',
       component: ()=> import('@/views/mission/editDragAndDrop'),
       hidden: true
+    },
+    {
+      path: '/notification',
+      name: 'Notification',
+      component: ()=> import('@/views/notification/notification'),
+      hidden: true
     }
   ],
 
