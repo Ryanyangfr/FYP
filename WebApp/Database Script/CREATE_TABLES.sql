@@ -307,7 +307,7 @@ INSERT INTO MISSION VALUES
 (18, 'title 18');
 -- (19, 'title 19'),
 -- (20, 'title 20'),
--- (21, 'title 21');
+(21, 'title 21');
 
 INSERT INTO QUIZ VALUES
 (1, 'Which of the following lab is not located in School of Information Systems?', 'SAS Lab', 1),
