@@ -203,6 +203,8 @@ router.post('/teamLocation', (req,res) => {
   const teamID = req.body.teamID;
   const long = req.body.long;
   const lat = req.body.lat;
+
+  console.log(req.body)
   const locationQuery = 'UPDATE TEAM SET LONGTITUDE = ?, LATITUDE = ? WHERE TEAM_ID = ?';
 
   conn.query(locationQuery, [long,lat,teamID], (err,data) => {
