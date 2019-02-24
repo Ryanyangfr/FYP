@@ -161,7 +161,7 @@ router.post('/deleteDragAndDrop', (req,res) => {
   })
 })
 
-router.post('/deleteWefieQuestion', (req, res) => {
+router.post('/deleteDrawingQuestion', (req, res) => {
   const drawingID = req.body.id;
   const query = 'DELETE FROM DRAWING_QUESTION WHERE QUESTION_ID = ?';
 
@@ -170,8 +170,6 @@ router.post('/deleteWefieQuestion', (req, res) => {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      console.log(drawingID.id);
-      console.log(data);
       res.send(JSON.stringify({ success: 'true' }));
     }
   });
