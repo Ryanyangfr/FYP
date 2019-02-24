@@ -375,4 +375,20 @@ router.get('/getAllSubmissionQuestion', (req, res) => {
     }
   });
 });
+
+router.get('/getAllDrawingQuestion', (req,res) => {
+  const response = [];
+  const query = 'SELECT * FROM DRAWING_QUESTION, MISSION WHERE MISSION.MISSION_ID = DRAWING_QUESTION.MISSION_ID';
+
+  conn.query(query, (err, questions) => {
+    if (err) {
+      console.log(err);
+    } else {
+      questions.forEach((question) => {
+        response.push({ id: question.QUESTION_ID, question: question.QUESTION, mission: question.MISSION_ID, title: question.MISSION_TITLE});
+      });
+      res.send(response);
+    }
+  });
+})
 module.exports = router;
