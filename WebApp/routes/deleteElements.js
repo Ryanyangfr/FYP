@@ -170,7 +170,7 @@ router.post('/deleteWefieQuestion', (req, res) => {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      console.log(drawingID);
+      console.log(drawingID.id);
       console.log(data);
       res.send(JSON.stringify({ success: 'true' }));
     }
