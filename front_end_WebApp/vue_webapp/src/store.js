@@ -21,7 +21,10 @@ export const store = new Vuex.Store({
         selectedDragAndDropID: "",
         selectedDragAndDropMissionID: "",
         selectedDragAndDropTitle: "",
-        selectedDragAndDropQuestion: ""
+        selectedDragAndDropQuestion: "",
+        selectedDrawingTitle:"",
+        selectedDrawingID:0,
+        selectedDrawingQuestion:""
 
     },
     
@@ -96,6 +99,19 @@ export const store = new Vuex.Store({
 
         saveSelectedDragAndDropMissionID(state, missionID){
             state.selectedDragAndDropMissionID = missionID;
-        }
+        },
+
+        saveSelectedDrawingTitle(state, drawingTitle){
+            state.selectedDrawingTitle = drawingTitle
+        },
+
+        saveSelectedDrawingID(state, drawingID){
+            state.selectedDrawingID = drawingID
+        },
+
+        saveSelectedDrawingQuestion(state, drawingQuestion){
+            state.selectedDrawingQuestion = drawingQuestion
+        },
+
     }
 });

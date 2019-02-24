@@ -125,6 +125,12 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/editDrawing',
+      name: 'Edit Drawing',
+      component: ()=> import('@/views/mission/editDrawing'),
+      hidden: true
+    },
+    {
       path: '/participant',
       name: 'participant',
       component: ()=> import('@/views/participant/index'),

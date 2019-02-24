@@ -1,19 +1,19 @@
 <template>
-    <div class="EditWefie">
+    <div class="EditDrawing">
        <div class="card">
             <div class="card-title">
-                <h5>Edit Wefie</h5>
+                <h5>Edit Drawing</h5>
             </div>
             <!--{{quiz}}-->
-            <form @submit.prevent="wefieOnSubmitToEdit">
-                <div class="edit-wefie-body">
-                    <!--<div class="edit-wefie-input">
-                        <label for="edit-wefie-title-input">Title</label>
-                        <input name="edit-wefie-title-input" type="text" placeholder="Title" v-model="wefie_title"> 
+            <form @submit.prevent="drawingOnSubmitToEdit">
+                <div class="edit-drawing-body">
+                    <!--<div class="view-drawing-input">
+                        <label for="edit-drawing-title-input">Title</label>
+                        <input name="edit-drawing-title-input" type="text" placeholder="Title" v-model="drawing_title"> 
                     </div>  -->
-                    <div class="edit-wefie-input">
-                        <label for="edit-wefie-title-input">Wefie Question</label>
-                        <input name="edit-wefie-title-input" type="text" placeholder="Question" v-model="wefie_question"> 
+                    <div class="edit-drawing-input">
+                        <label for="edit-drawing-title-input">Drawing Question</label>
+                        <input name="edit-drawing-title-input" type="text" placeholder="Question" v-model="drawing_question"> 
                     </div>  
                     <div class="submit-btn-area">
                         <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
@@ -30,41 +30,41 @@
 <script>  
 import axios from 'axios'
 export default {
-    name: "editWefie",
+    name: "editDrawing",
     data() {
         return{
-            wefie_title: "",
-            wefie_question: "",
-            wefie_ID: 0
+            drawing_title: "",
+            drawing_question: "",
+            drawing_ID: 0
             
         }  
     },
 
     computed: {
-         selectedWefieTitle(){
-            return this.$store.state.selectedWefieTitle
+         selectedDrawingTitle(){
+            return this.$store.state.selectedDrawingTitle
         },
 
-        selectedWefieID(){
-            return this.$store.state.selectedWefieID
+        selectedDrawingID(){
+            return this.$store.state.selectedDrawingID
         },
 
-        selectedWefieQuestion(){
-            return this.$store.state.selectedWefieQuestion
+        selectedDrawingQuestion(){
+            return this.$store.state.selectedDrawingQuestion
         }
 
     }, 
 
     methods:{
 
-        wefieOnSubmitToEdit() {
+        drawingOnSubmitToEdit() {
             var postBody = {
-                "id": this.wefie_ID,
-                "question": this.wefie_question,
+                "id": this.drawing_ID,
+                "question": this.drawing_question,
             }
 
             // console.log(this.quiz);
-            axios.post('http://54.255.245.23:3000/edit/editWefieQuestion', postBody)
+            axios.post('http://54.255.245.23:3000/edit/editDrawingQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -80,9 +80,10 @@ export default {
             this.$router.push('/')
         }
 
-        this.wefie_title = this.$store.state.selectedWefieTitle;
-        this.wefie_ID = this.$store.state.selectedWefieID;
-        this.wefie_question = this.$store.state.selectedWefieQuestion;
+        this.drawing_title = this.$store.state.selectedDrawingTitle;
+        this.drawing_ID = this.$store.state.selectedDrawingID;
+        console.log(this.drawing_ID);
+        this.drawing_question = this.$store.state.selectedDrawingQuestion;
         
     }           
 }
@@ -96,7 +97,7 @@ export default {
         font-family: 'lato', sans-serif
     }
 
-    .EditWefie .card{
+    .EditDrawing .card{
         padding: 18px;
         margin: 18px;
         border-radius: 3px;
@@ -116,7 +117,7 @@ export default {
         float: left;
     }
 
-   .edit-wefie-input label{
+   .edit-drawing-input label{
         margin-right: 90px;
         font-size: 14px;
         font-weight: 600;
@@ -125,14 +126,14 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
+        /* background-color: pink; */
         height: inherit;
         /*align-items: center;*/
         min-width: 11%
 
     }
 
-    .edit-wefie-input{
+    .edit-drawing-input{
         float: left;
         display: flex;
         margin-left: 30px;
@@ -141,7 +142,7 @@ export default {
         position: relative;
     }
 
-    .edit-wefie-input input{
+    .edit-drawing-input input{
         /*margin-left: 100px;*/
         height: 40px;
         outline: none;
@@ -153,7 +154,7 @@ export default {
         font-family: 'Roboto', sans-serif;
     }
 
-    .edit-wefie-body{
+    .edit-drawing-body{
         display: flex;
         flex-direction: column;
         width:100%;
@@ -163,7 +164,7 @@ export default {
         width: 100%;
     }
 
-    .EditWefie .submit-btn{
+    .EditDrawing .submit-btn{
         /*display: flex;*/
         float:right;
         background: none;
@@ -183,11 +184,11 @@ export default {
         margin-top: 50px;
     }
 
-     .EditWefie .submit-btn:hover{
+     .EditDrawing .submit-btn:hover{
         background-color: #5a52c4;
      }
 
-     .EditWefie .cancel-btn{
+     .EditDrawing .cancel-btn{
          float:right;
          background-color: #ACACAC;
          color: white;
@@ -206,11 +207,11 @@ export default {
         margin-top: 50px;
     }
 
-    .EditWefie .cancel-btn:hover{
+    .EditDrawing .cancel-btn:hover{
         background-color: #b2a7a7
     }
 
-    .EditWefie .cancel-btn a{
+    .EditDrawing .cancel-btn a{
         text-decoration: none!important;
         color: white
     }

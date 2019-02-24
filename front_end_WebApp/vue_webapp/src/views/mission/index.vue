@@ -106,15 +106,15 @@
                 </tr>
                 <tr class = "drawing-data" v-for="drawing in drawingQuestionList" :key="drawing.drawing_id">
                     <td>{{drawing.title}}</td>
-                    <td>{{drawing.wefie_question}}</td>
+                    <td>{{drawing.drawing_question}}</td>
                     <td>
-                        <button @click="saveSelectedWefie(wefie.title, wefie.wefie_question, wefie.wefie_id)">
+                        <button @click="saveSelectedDrawing(drawing.title, drawing.drawing_question, drawing.drawing_id)">
                             <router-link to='/editDrawing'>
                             <i class="ti-pencil-alt"></i>
                             </router-link>
                         </button>
                     </td>
-                    <td><button @click="deleteWefie(wefie.title, wefie.wefie_id)"><i class="ti-trash"></i></button></td>
+                    <td><button @click="deleteDrawing(drawing.title, drawing.drawing_id)"><i class="ti-trash"></i></button></td>
                 </tr>
             </table>
             <!-- table for mission: drawing ends -->
@@ -130,7 +130,7 @@
                 </div>
                 <!--<hr>-->
                 <form class="delete-quiz-body" @submit="onSubmitToDeleteQuiz">
-                    <div class="delete-quiz-content"><h6>Are you sure you want to delete "{{this.missionTitleToBeDeleted}}"?</h6></div>
+                    <div class="delete-quiz-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
                     <!--<div class="btm-header"><hr></div>-->
                     <div class="delete-quiz-btm">
                         <button type="button" class="cancel-delete" @click="closeDeleteQuiz()">Cancel</button>
@@ -166,7 +166,7 @@
                 </div>
                 <!--<hr>-->
                 <form class="delete-wefie-body" @submit="onSubmitToDeleteWefie">
-                    <div class="delete-wefie-content"><h6>Are you sure you want to delete "{{this.wefieTitleToBeDeleted}}"?</h6></div>
+                    <div class="delete-wefie-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
                     <!--<div><hr></div>-->
                     <div class="delete-wefie-btm">
                         <button type="button" class="cancel-delete" @click="closeDeleteWefie()">Cancel</button>
@@ -202,7 +202,7 @@
                 </div>
                 <!--<hr>-->
                 <form class="delete-dragdrop-body" @submit="onSubmitToDeleteDragDrop">
-                    <div class="delete-dragdrop-content"><h6>Are you sure you want to delete "{{this.dragDropTitleToDeleted}}"?</h6></div>
+                    <div class="delete-dragdrop-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
                     <!--<div><hr></div>-->
                     <div class="delete-dragdrop-btm">
                         <button type="button" class="cancel-delete" @click="closeDeleteDragDrop()">Cancel</button>
@@ -225,7 +225,43 @@
                
             </div>
         </div>
-        <!--delete wefie popup ends-->
+        <!--delete drag drop popup ends-->
+
+        <!--delete drawing popup begins-->
+        <!--shows when user clicks on delete icon for drawing. showDeleteDrawing = true-->
+        <div class="black-blur-bg" v-if="showDeleteDrawing"> 
+            <div class="delete-drawing-popup">
+                <div class="delete-drawing-header">
+                    <h5>Delete</h5>
+                    <button class="close-delete-drawing" @click="closeDeleteDrawing()"><font-awesome-icon icon="times"/></button>
+                </div>
+                <!--<hr>-->
+                <form class="delete-drawing-body" @submit="onSubmitToDeleteDrawing">
+                    <div class="delete-drawing-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
+                    <!--<div><hr></div>-->
+                    <div class="delete-drawing-btm">
+                        <button type="button" class="cancel-delete" @click="closeDeleteDrawing()">Cancel</button>
+                        <button type="submit" class="delete-drawing-btn">Delete</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+
+        <div class="black-blur-bg" v-if="drawingDeleteMessage.length > 0"> 
+            <div class="delete-quiz-popup">
+                <!--<hr>-->
+                
+                <div class="delete-quiz-content"><h6>{{drawingDeleteMessage}}</h6></div>
+                <!--<div><hr></div>-->
+                <div class="delete-quiz-btm">
+                    <button class="delete-quiz-btn" @click="drawingCloseDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+               
+            </div>
+        </div>
+        <!--delete drawing popup ends-->
     </div>
 </template>
 
@@ -272,7 +308,20 @@ export default {
 
         selectedDragAndDropMissionID(){
             return this.$store.state.selectedDragAndDropMissionID
-        }
+        },
+
+        selectedDrawingTitle(){
+            return this.$store.state.selectedDrawingTitle
+        },
+
+        selectedDrawingID(){
+            return this.$store.state.selectedDrawingID
+        },
+
+        selectedDrawingQuestion(){
+            return this.$store.state.selectedDrawingQuestion
+        },
+        
 
     }, 
     data() {
@@ -301,10 +350,9 @@ export default {
             //delete variables
             showDeleteQuiz: false,
             missionIDToBeDeleted:"",
-            missionTitleToBeDeleted:"",
+            titleToBeDeleted:"",
             showDeleteWefie: false,
             wefieIDToBeDeleted:"",
-            wefieTitleToBeDeleted:"",
             quizDeleteMessage: "",
             quizCloseMessage: false,
             wefieDeleteMessage: "",
@@ -313,9 +361,12 @@ export default {
             dragAndDropDeleteMessage: "",
             dragAndDropCloseMessage:false,
             showDeleteDragDrop: false,
-            dragDropTitleToDeleted: "",
             dragDropMissionIDToBeDeleted:"",
             dragDropIDToBeDeleted:"",
+            drawingIDToBeDeleted:"",
+            showDeleteDrawing: false,
+            drawingDeleteMessage:"",
+            drawingCloseMessage: false,
 
         }
     }, 
@@ -346,7 +397,7 @@ export default {
             this.$store.commit('saveSelectedDragAndDropMissionID', missionID);
         },
 
-        saveSelectedDrawing(mission_title, drawing_question, drawing_id){
+        saveSelectedDrawing(drawing_title, drawing_question, drawing_id){
             this.$store.commit('saveSelectedDrawingTitle', drawing_title);
             this.$store.commit('saveSelectedDrawingQuestion', drawing_question);
             this.$store.commit('saveSelectedDrawingID', drawing_id);
@@ -385,7 +436,7 @@ export default {
         // delete methods:
         deleteQuiz(mission_id, mission_title){
             this.missionIDToBeDeleted = mission_id;
-            this.missionTitleToBeDeleted = mission_title;
+            this.titleToBeDeleted = mission_title;
 
             if(this.showDeleteQuiz){
                 this.showDeleteQuiz = false;
@@ -441,7 +492,7 @@ export default {
 
         deleteWefie(wefie_title, wefie_id){
             this.wefieIDToBeDeleted = wefie_id;
-            this.wefieTitleToBeDeleted = wefie_title;
+            this.titleToBeDeleted = wefie_title;
 
             if(this.showDeleteWefie){
                 this.showDeleteWefie = false;
@@ -557,32 +608,64 @@ export default {
             this.dragAndDropDeleteMessage = "";
         },
 
-        // onSubmitToDeleteDragAndDrop(){
-        //     var postBody = {
-        //         "id": this.wefieIDToBeDeleted
-        //     }
+        deleteDrawing(drawing_title, drawing_id){
+            this.drawingIDToBeDeleted = drawing_id;
+            this.titleToBeDeleted = drawing_title;
+
+            if(this.showDeleteDrawing){
+                this.showDeleteDrawing = false;
+            } else{
+                this.showDeleteDrawing = true;
+            }
+            console.log(this.drawingIDToBeDeleted)
             
-        //     axios.post('http://54.255.245.23:3000/delete/deleteWefieQuestion', postBody)
-        //     .then(response => {
-        //         let data = response.data
-        //         console.log(data)
-        //         if (data.success === "true") {
-        //             this.wefieDeleteMessage ="Wefie Question Successfully Deleted"
-        //             // this.$router.go();
-        //         } else {
-        //             this.wefieDeleteMessage = "Error Please Remove Wefie Question From All Existing Trails";
-        //         }
-        //         // this.$router.go();
-        //     })
+        },
+
+        onSubmitToDeleteDrawing(){
+            var postBody = {
+                "id": this.drawingIDToBeDeleted
+            }
+            
+            axios.post('http://54.255.245.23:3000/delete/deleteDrawingQuestion', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                if (data.success === "true") {
+                    this.drawingDeleteMessage ="Drawing Question Successfully Deleted"
+                    // this.$router.go();
+                } else {
+                    this.drawingDeleteMessage = "Error Please Remove Drawing Question From All Existing Trails";
+                }
+                // this.$router.go();
+            })
         
-        //     if(this.showDeleteWefie){
-        //         this.showDeleteWefie = false;
-        //     } else{
-        //         this.showDeleteWefie = true;
-        //     }
+            if(this.showDeleteDrawing){
+                this.showDeleteDrawing = false;
+            } else{
+                this.showDeleteDrawing = true;
+            }
             
-        //     // location.reload();
-        // },
+            // location.reload();
+        },
+
+        closeDeleteWefie(){
+             if(this.showDeleteDrawing){
+                this.showDeleteDrawing = false;
+            } else{
+                this.showDeleteDrawing = true;
+            }
+        },
+
+        drawingCloseDeleteMessage(){
+            this.showDeleteDrawing = false;
+            this.drawingCloseMessage = true;
+            if( this.drawingDeleteMessage === "Drawing Question Successfully Deleted") {
+                this.drawingDeleteMessage = "";
+                this.$router.go();
+            }
+            this.drawingDeleteMessage = "";
+        },
+
     },
     mounted(){
         if (!this.$session.exists()) {
@@ -631,7 +714,7 @@ export default {
             let data = response.data;
             for(var row in data){
                 console.log(data[row])
-                this.drawingQuestionList.push({title:data[row].title, mission_id: data[row].mission, wefie_question: data[row].question, wefie_id: data[row].id})
+                this.drawingQuestionList.push({title:data[row].title, mission_id: data[row].mission, drawing_question: data[row].question, drawing_id: data[row].id})
             }
         })
     }
@@ -716,20 +799,20 @@ export default {
         border-bottom: 1px solid #DEE2E6;
     }
 
-    .wefie-data td, .quiz-data td, .draganddrop-data td, .drawing-data{
+    .wefie-data td, .quiz-data td, .draganddrop-data td, .drawing-data td{
         /*max-height: 10px;*/
         max-width: 700px;
         padding: 15px;
     }
 
-    .quiz-data a, .draganddrop-data a{
+    .quiz-data a, .draganddrop-data a, .wefie-data a, .drawing-data a{
         text-decoration: none!important;
         font-size: 14px;
         font-family: "Roboto", sans-serif;
         /*color: #536479;*/
     }
 
-    .wefie-data button, .quiz-data button, .draganddrop-data, .drawing-data button{
+    .wefie-data button, .quiz-data button, .draganddrop-data button, .drawing-data button{
         background: none;
         border: none;
         cursor: pointer;
@@ -744,7 +827,7 @@ export default {
         float: left;
     }
 
-    .wefie-data i, .quiz-data i, .draganddrop-data i{
+    .wefie-data i, .quiz-data i, .draganddrop-data i, .drawing-data i{
         font-size: 20px;
         color: #536479;
     }
@@ -776,7 +859,7 @@ export default {
         overflow: hidden;
     }
 
-    .delete-quiz-popup, .delete-dragdrop-popup, .delete-wefie-popup{
+    .delete-quiz-popup, .delete-dragdrop-popup, .delete-wefie-popup, .delete-drawing-popup{
         min-width: 30%;
         min-height: 23%;
         background-color: white;
@@ -791,7 +874,7 @@ export default {
         position: relative;
     }
     
-    .delete-quiz-body, .delete-dragdrop-body, .delete-wefie-body{
+    .delete-quiz-body, .delete-dragdrop-body, .delete-wefie-body, .delete-drawing-body{
         width: 100%;
         overflow: hidden;
         text-align: center;
@@ -802,19 +885,19 @@ export default {
         flex: 10;
     }
 
-    .delete-quiz-content, .delete-wefie-content, .delete-dragdrop-content{
+    .delete-quiz-content, .delete-wefie-content, .delete-dragdrop-content, .delete-drawing-content{
         flex: 4;
         padding: 12px;
     }
 
-    .delete-quiz-header, .delete-dragdrop-header, .delete-wefie-header{
+    .delete-quiz-header, .delete-dragdrop-header, .delete-wefie-header, .delete-drawing-header{
         flex: 1;
         width: 100%;
         padding:10px; 
         border-bottom: 1px solid #C6C4BC;
     }
 
-    .delete-quiz-body h6, .delete-dragdrop-body h6, .delete-wefie-body h6{
+    .delete-quiz-body h6, .delete-dragdrop-body h6, .delete-wefie-body h6, .delete-drawing-body h6{
         display: flex;
         flex: 9;
         float: left;
@@ -827,7 +910,7 @@ export default {
         flex-direction: column;
     }
 
-    .delete-quiz-btm, .delete-dragdrop-btm, .delete-wefie-btm{
+    .delete-quiz-btm, .delete-dragdrop-btm, .delete-wefie-btm, .delete-drawing-btm{
         margin-bottom: 0px;
         /*flex: 4;*/
         margin-top: 10px;
@@ -853,7 +936,7 @@ export default {
         color: #666666;
     }
 
-    .delete-quiz-btn, .delete-dragdrop-btn, .delete-wefie-btn{
+    .delete-quiz-btn, .delete-dragdrop-btn, .delete-wefie-btn, .delete-drawing-btn{
         background: none;
         border: none;
         background-color: #F15E5E;
@@ -871,7 +954,7 @@ export default {
         color: white;
     }
 
-    .close-delete-quiz, .close-delete-dragdrop, .close-delete-wefie{
+    .close-delete-quiz, .close-delete-dragdrop, .close-delete-wefie, .close-delete-drawing{
         background: none;
         border: none;
         color: #868686;
@@ -880,7 +963,7 @@ export default {
         font-size: 18px;
     }
 
-    .delete-quiz-popup h5, .delete-dragdrop-popup h5, .delete-wefie-popup h5{
+    .delete-quiz-popup h5, .delete-dragdrop-popup h5, .delete-wefie-popup h5, .delete-drawing-popup h5{
         display: flex;
         float: left;
     }

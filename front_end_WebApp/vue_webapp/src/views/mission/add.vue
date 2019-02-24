@@ -79,7 +79,6 @@
                             <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
-
                 </div>
                 <!--add wefie ends-->
 
@@ -115,6 +114,25 @@
                     </form>
                 </div>
                 <!--add drag and drop ends-->
+
+                <!--add drawing begins-->
+                <div v-if="missionType == allMissionTypes[3]">
+                    <form @submit.prevent="drawingOnSubmitToAdd" class="add-mission-body">
+                        <div class="add-mission-input">
+                            <label for="add-mission-title-input">Title</label>
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                        </div> 
+                        <div class="add-mission-input">
+                            <label for="add-drawing-instruction-input">Instruction</label>
+                            <input name="add-drawing-instruction-input" type="text" placeholder="Drawing Instruction" v-model="drawing_instruction"> 
+                        </div> 
+                        <div class="submit-btn-area">
+                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                            <button class="submit-btn" type="submit">Create</button>
+                        </div>
+                    </form>
+                </div>
+                <!--add drawing ends-->
             </form>
             
         </div>
@@ -127,7 +145,7 @@ export default {
     name: "addMission",
     data() {
         return{
-            allMissionTypes: ["Quiz", "Wefie", "Drag And Drop"],
+            allMissionTypes: ["Quiz", "Wefie", "Drag And Drop", "Drawing"],
             missionType: "",
             title: "",
             quiz: [],
@@ -136,7 +154,11 @@ export default {
             
             //drag and drop
             dragAndDropQuestion: "",
-            dragAndDropOptions: [{option: "", answer: ""}, {option: "", answer: ""}, {option: "", answer: ""}, {option: "", answer: ""}]
+            dragAndDropOptions: [{option: "", answer: ""}, {option: "", answer: ""}, {option: "", answer: ""}, {option: "", answer: ""}],
+
+            //drawing
+            drawing_instruction: "",
+
         }  
     },
 
@@ -223,7 +245,27 @@ export default {
                 console.log(data)
                 this.$router.push({ path: this.redirect || '/mission' });
             })
-        }
+        },
+
+        drawingOnSubmitToAdd(){
+            var postBody = {
+                "question": this.drawing_instruction,
+                "title": this.title
+            }
+            // console.log(this.hotspot.value);
+            console.log(this.drawing_instruction);
+            console.log(this.title);
+            axios.post('http://54.255.245.23:3000/add/addDrawingQuestion', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                this.$router.push({ path: this.redirect || '/mission' })
+            })
+            // this.hotspot = "";
+            // this.quiz = [];
+            // location.reload();
+            // this.$router.go();
+        },
     }       
         
 }
