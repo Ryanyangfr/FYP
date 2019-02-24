@@ -96,6 +96,28 @@
                 </tr>
             </table>
             <!--table for mission: draganddrop ends-->
+
+            <!-- table for mission: drawing starts -->
+                <table>
+                <tr class="mission-table-header">
+                    <td>Drawing Title</td>
+                    <td>Drawing Question</td>
+                    <td colspan="2">Actions</td>
+                </tr>
+                <tr class = "drawing-data" v-for="drawing in drawingQuestionList" :key="drawing.drawing_id">
+                    <td>{{drawing.title}}</td>
+                    <td>{{drawing.wefie_question}}</td>
+                    <td>
+                        <button @click="saveSelectedWefie(wefie.title, wefie.wefie_question, wefie.wefie_id)">
+                            <router-link to='/editDrawing'>
+                            <i class="ti-pencil-alt"></i>
+                            </router-link>
+                        </button>
+                    </td>
+                    <td><button @click="deleteWefie(wefie.title, wefie.wefie_id)"><i class="ti-trash"></i></button></td>
+                </tr>
+            </table>
+            <!-- table for mission: drawing ends -->
         </div>
 
         <!--delete quiz popup begins-->
@@ -272,6 +294,9 @@ export default {
 
             //draganddrop
             dragAndDropList: [],
+
+            //drawing
+            drawingQuestionList: [],
             
             //delete variables
             showDeleteQuiz: false,
@@ -319,6 +344,12 @@ export default {
             this.$store.commit('saveSelectedDragAndDropQuestion', question);
             this.$store.commit('saveSelectedDragAndDropID', id);
             this.$store.commit('saveSelectedDragAndDropMissionID', missionID);
+        },
+
+        saveSelectedDrawing(mission_title, drawing_question, drawing_id){
+            this.$store.commit('saveSelectedDrawingTitle', drawing_title);
+            this.$store.commit('saveSelectedDrawingQuestion', drawing_question);
+            this.$store.commit('saveSelectedDrawingID', drawing_id);
         },
         //store to vuex store methods ends 
         
@@ -594,7 +625,15 @@ export default {
             console.log(data);
             this.dragAndDropList = data;      
         })
-        console.log(this.dragAndDropList)
+
+        axios.get('http://54.255.245.23:3000/upload/getAllDrawingQuestion')
+        .then(response => {
+            let data = response.data;
+            for(var row in data){
+                console.log(data[row])
+                this.drawingQuestionList.push({title:data[row].title, mission_id: data[row].mission, wefie_question: data[row].question, wefie_id: data[row].id})
+            }
+        })
     }
 }
 </script>
@@ -677,7 +716,7 @@ export default {
         border-bottom: 1px solid #DEE2E6;
     }
 
-    .wefie-data td, .quiz-data td, .draganddrop-data td{
+    .wefie-data td, .quiz-data td, .draganddrop-data td, .drawing-data{
         /*max-height: 10px;*/
         max-width: 700px;
         padding: 15px;
@@ -690,7 +729,7 @@ export default {
         /*color: #536479;*/
     }
 
-    .wefie-data button, .quiz-data button, .draganddrop-data button{
+    .wefie-data button, .quiz-data button, .draganddrop-data, .drawing-data button{
         background: none;
         border: none;
         cursor: pointer;
