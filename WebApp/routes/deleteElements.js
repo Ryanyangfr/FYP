@@ -164,12 +164,14 @@ router.post('/deleteDragAndDrop', (req,res) => {
 router.post('/deleteWefieQuestion', (req, res) => {
   const drawingID = req.body.id;
   const query = 'DELETE FROM DRAWING_QUESTION WHERE QUESTION_ID = ?';
-  
+
   conn.query(query, drawingID, (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
+      console.log(drawingID);
+      console.log(query);
       res.send(JSON.stringify({ success: 'true' }));
     }
   });
