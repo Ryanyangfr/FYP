@@ -83,6 +83,7 @@
                 </div>
                 <!--add wefie ends-->
 
+                <!--add drag and drop begins-->
                 <div v-if="missionType == allMissionTypes[2]">
                     <form @submit.prevent="dragAndDropOnSubmitToAdd" class="add-mission-body">
                         <div class="add-mission-input">
@@ -93,17 +94,16 @@
                             <label for="add-dragAndDrop-question-input">Question</label>
                             <input name="add-dragAndDrop-question-input" type="text" placeholder="Drag And Drop Question" v-model="dragAndDropQuestion"> 
                         </div> 
-                        <div v-for="(input, index) in dragAndDropOptions" :key="index" class="add-mission-input">
-                            
+                        <div v-for="(input, index) in dragAndDropOptions" :key="index" class="add-question-body">
                             <div class="add-mission-body">
-                                <label for="add-mission-title-input">Option</label>
                                 <div class="add-mission-input">
-                                    <input name="option1" type="text" placeholder="option" v-model="input.option">
+                                    <label for="add-mission-title-input">Option {{index+1}}</label>
+                                    <input name="option" type="text" placeholder="option" v-model="input.option">
                                 </div>
                                 
-                                <label for="add-mission-title-input">Answer</label>
                                 <div class="add-mission-input">
-                                    <input name="option1" type="text" placeholder="answer" v-model="input.answer">
+                                    <label for="add-mission-title-input">Answer {{index+1}}</label>
+                                    <input name="option" type="text" placeholder="answer" v-model="input.answer">
                                 </div>
                             </div>
 
@@ -114,6 +114,7 @@
                         </div>
                     </form>
                 </div>
+                <!--add drag and drop ends-->
             </form>
             
         </div>
@@ -333,6 +334,8 @@ export default {
         width:100%;
     }
 
+    /* add question body: whole question body for quiz and options and answer for drag and drop.
+    Add a diver between each question/ option and answer */
     .add-question-body{
         border-top: 1px solid #CED4DA;
         padding-top: 25px;

@@ -1,6 +1,6 @@
 <template>
   <div class="Login">
-    <div class="container">
+    <!-- <div class="container"> -->
       <div class="login-box ptb--100">
         <form @submit.prevent="login_check">
           <div class="login-form-head">
@@ -31,7 +31,7 @@
           </div>
         </form>
       </div>
-    </div>
+    <!-- </div> -->
 
     <!--<span>Username: {{user.username}}</span>
     <span>Password: {{user.password}}</span>-->
@@ -102,6 +102,9 @@ export default {
     position: fixed;
     height: 100%;
     width: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center
   }
 
   .ptb--100 {
@@ -111,9 +114,7 @@ export default {
   .login-box {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex;
-    min-height: 50vh;
-    
+    display: flex;   
   }
 
   .login-box form {
