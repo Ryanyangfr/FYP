@@ -35,13 +35,14 @@ conn.query(quiz_option_query, (err, data) => {
 
 // getting the current wefie question id
 let wefie_id = 0;
-const wefie_query = 'SELECT COUNT(*) as count from SUBMISSION_QUESTION';
+const wefie_query = 'SELECT MAX(QUESTION_ID) AS ID from SUBMISSION_QUESTION';
 
 conn.query(wefie_query, (err, data) => {
   if (err) {
     console.log(err);
   } else {
-    wefie_id = data[0].count + 1;
+    wefie_id = data[0].ID + 1;
+    console.log('wefie id: ' + wefie_id)
   }
 });
 
@@ -57,6 +58,19 @@ conn.query(dragAndDropIDQuery, (err,data) => {
     console.log('drag and drop id: ' + dragAndDropID)
   }
 })
+
+// getting the current drawing question id
+let drawing_id = 0;
+const drawing_query = 'SELECT MAX(QUESTION_ID) AS ID FROM DRAWING_QUESTION';
+
+conn.query(drawing_query, (err, data) => {
+  if (err) {
+    console.log(err);
+  } else {
+    drawing_id = data[0].ID + 1;
+    console.log(`drawing id: ${drawing_id}`);
+  }
+});
 
 // getting the current mission id
 let mission_id = 0;
@@ -305,6 +319,33 @@ router.post('/addDragAndDropQuestion', (req,res) => {
       })
     }
   })
-  
 })
+
+router.post('/addDrawingQuestion', (req,res) => {
+  const question = req.body.question;
+  const title = req.body.title;
+
+  const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
+  console.log('add drawing question called');
+  console.log(req.body);
+  conn.query(ms_query, [mission_id,title], (err, data) => {
+    if (err) {
+      res.send(JSON.stringify({ success: 'false' }));
+      console.log(err);
+    } else {
+      const add_query = 'INSERT INTO DRAWING_QUESTION VALUES (?,?,?)';
+      conn.query(add_query, [drawing_id, question, mission_id], (err, data) => {
+        if (err) {
+          res.send(JSON.stringify({ success: 'false' }));
+          console.log(err);
+        } else {
+          res.send(JSON.stringify({ success: 'true' }));
+          mission_id += 1;
+          drawing_id += 1;
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;

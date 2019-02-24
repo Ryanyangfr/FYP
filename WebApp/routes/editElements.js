@@ -192,9 +192,25 @@ router.post('/editDragAndDrop', (req,res) => {
       })
     }
   })
-  
 })
 
+router.post('/editDrawingQuestion', (req, res) => {
+  const questionID = req.body.id;
+  const question = req.body.question;
+  console.log('edit drawing called');
+
+  console.log(req.body)
+  const query = 'UPDATE DRAWING_QUESTION SET QUESTION = ? WHERE QUESTION_ID = ?';
+
+  conn.query(query, [question, questionID], (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      res.send(JSON.stringify({ success: 'true' }));
+    }
+  });
+});
 
 
 /****************************************************************************************************Utility Methods **************************************************************************************************************************/
