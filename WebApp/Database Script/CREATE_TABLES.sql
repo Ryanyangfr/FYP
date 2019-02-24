@@ -306,7 +306,7 @@ INSERT INTO MISSION VALUES
 -- (17, 'title 17'),
 (18, 'title 18'),
 -- (19, 'title 19'),
--- (20, 'title 20'),
+(20, 'title 20'),
 (21, 'title 21');
 
 INSERT INTO QUIZ VALUES
@@ -473,8 +473,8 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 -- (11, 'Locate the SMU Shop in this building and take a wefie with one of the retail staff!', 17);
 -- -- (12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 18);
 
--- INSERT INTO DRAWING_QUESTION VALUES
--- (1, 'Draw Smoo Smoo', 20);
+INSERT INTO DRAWING_QUESTION VALUES
+(1, 'Draw Smoo Smoo', 20);
 
 INSERT INTO TRAIL VALUES
 (1,'test trail',45),
