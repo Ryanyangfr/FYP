@@ -22,9 +22,21 @@ export default {
             hotspot_markers: [],
             team_markers: [],
             currentPlace: null,
-            socket : io('http://54.255.245.23:3000')
+            socket : io('http://54.255.245.23:3000'),
+            map: '',
+            currentMarkersInMap: []
             
         };
+    },
+    method: {
+        setMapOnAll(map) {
+            for (var i = 0; i < this.team_markers.length; i++) {
+                this.team_markers[i].setMap(map);
+            }
+        },
+        clearMarkers() {
+            setMapOnAll(null);
+        },
     },
 
     mounted: function() {
@@ -34,7 +46,7 @@ export default {
             scrollwheel: false,
             zoom: 17
             
-        })
+        }),
 
         axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
         .then(response => {
@@ -66,7 +78,7 @@ export default {
         .then (response => {
             
             let data = response.data;
-            let infowindow = new google.maps.InfoWindow();
+            this.infowindow = new google.maps.InfoWindow();
             data.forEach((team) => {
                 this.team_markers.push({ team:team.team_id, lat: parseFloat(team.latitude), lng: parseFloat(team.longtitude) })
             })
@@ -78,10 +90,12 @@ export default {
                     map: this.map,
                     title: 'team ' + marker.team
                 });
+                
+                this.currentMarkersInMap.push(team_marker)
 
-                 google.maps.event.addListener(team_marker, 'click', function() {
-                    infowindow.open(this.map,team_marker);
-                    infowindow.setContent(team_marker.title)
+                google.maps.event.addListener(team_marker, 'click', function() {
+                    this.infowindow.open(this.map,team_marker);
+                    this.infowindow.setContent(team_marker.title)
                     // console.log(marker)
                 });
             })
@@ -89,36 +103,56 @@ export default {
 
         console.log(this.team_markers)
         this.socket.on('updateLocation', (location) => {
-            // console.log(location);
+            console.log(location);
 
-            this.map = new google.maps.Map(document.getElementById('gmap-view'), {
-                center: this.center,
-                scrollwheel: false,
-                zoom: 17
-            })
+            // this.map = new google.maps.Map(document.getElementById('gmap-view'), {
+            //     center: this.center,
+            //     scrollwheel: false,
+            //     zoom: 17
+            // })
+            // this.clearMarkers()
 
             let teamID = location.teamID;
             let long = location.long;
             let lat = location.lat;
+            // let infowindow = new google.maps.InfoWindow();
+
+            console.log('map markers:')
+            console.log(this.currentMarkersInMap[teamID-1])
+            //clear current marker
+            this.currentMarkersInMap[teamID-1].setMap(null);
 
             // console.log(this.team_markers)
             this.team_markers[teamID-1] = ({team:parseInt(teamID), lat: parseFloat(lat), lng: parseFloat(long)});
 
             console.log(this.team_markers)
-            this.team_markers.forEach((marker) => {
-                console.log(marker)
-                let team_marker = new google.maps.Marker({
-                    position: {lat:marker.lat, lng:marker.lng},
-                    map: this.map,
-                    title: 'team ' + marker.team
-                });
-
-                 google.maps.event.addListener(team_marker, 'click', function() {
-                    infowindow.open(this.map,team_marker);
-                    infowindow.setContent(team_marker.title)
-                    // console.log(marker)
-                });
+            let team_marker = new google.maps.Marker({
+                position: {lat:parseFloat(lat), lng:parseFloat(long)},
+                map: this.map,
+                title: 'team ' + teamID
             })
+
+            this.currentMarkersInMap[teamID-1] = team_marker;
+            
+            google.maps.event.addListener(team_marker, 'click', () => {
+                infowindow.open(this.map,team_marker);
+                infowindow.setContent(team_marker.title)
+                console.log(team_marker)
+            });
+            // this.team_markers.forEach((marker) => {
+            //     console.log(marker)
+            //     let team_marker = new google.maps.Marker({
+            //         position: {lat:marker.lat, lng:marker.lng},
+            //         map: this.map,
+            //         title: 'team ' + marker.team
+            //     });
+
+            //      google.maps.event.addListener(team_marker, 'click', function() {
+            //         infowindow.open(this.map,team_marker);
+            //         infowindow.setContent(team_marker.title)
+            //         // console.log(marker)
+            //     });
+            // })
         })
     }    
 }
