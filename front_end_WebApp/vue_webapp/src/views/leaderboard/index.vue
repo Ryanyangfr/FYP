@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         getData() {
-            const baseURI = '//54.255.245.23:3000/team/hotspotStatus?trail_instance_id=' + this.trail_instance_id;
+            const baseURI = '//54.255.245.23:3000/team/getAllTeamPoints?trail_instance_id=' + this.trail_instance_id;
             axios.get(baseURI)
             .then(response => {
                 console.log(response);
@@ -44,6 +44,29 @@ export default {
             console.log("check")
             this.$router.push('/')
         }
+    //data received [
+    //     {
+    //         "team": 1,
+    //         "points": 0,
+    //         "hotspots_completed": 0
+    //     },
+    //     {
+    //         "team": 2,
+    //         "points": 0,
+    //         "hotspots_completed": 0
+    //     },
+    //     {
+    //         "team": 3,
+    //         "points": 0,
+    //         "hotspots_completed": 0
+    //     }
+    // ]
+        const baseURI = '//54.255.245.23:3000/team/getAllTeamPoints';
+        axios.get(baseURI)
+        .then(response => {
+            console.log(response);
+            this.items = response.data;
+        })
     }
 }
 </script>
