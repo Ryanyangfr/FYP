@@ -30,6 +30,7 @@ module.exports = {
       if (err) {
         console.log(`get active trail instance error: ${err}`);
       } else {
+        console.log(data);
         return data[0].TRAIL_INSTANCE_ID;
       }
     });
