@@ -232,7 +232,7 @@ router.get('/getAllTeamPoints', (req,res) => {
 
       console.log(`instance id : ${activeTrailInstanceID}`)
       const response = [];
-    
+      //query to get team points and number of completed hotspots
       const teamPointsQuery = 'SELECT TEAM.TEAM_ID, TEAM.TEAM_POINTS, COUNT(ISCOMPLETED) AS COUNT FROM TEAM LEFT OUTER JOIN TEAM_HOTSPOT_STATUS ON TEAM.TRAIL_INSTANCE_ID = TEAM_HOTSPOT_STATUS.TRAIL_INSTANCE_ID AND TEAM.TEAM_ID = TEAM_HOTSPOT_STATUS.TEAM_ID AND ISCOMPLETED = 1 WHERE TEAM.TRAIL_INSTANCE_ID = ? GROUP BY TEAM_ID ORDER BY COUNT DESC';
   
       conn.query(teamPointsQuery, activeTrailInstanceID, (err, teams) => {
