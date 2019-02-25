@@ -11,7 +11,7 @@
 
 <script>
 import axios from 'axios';
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 
 export default {
     
@@ -22,7 +22,7 @@ export default {
             hotspot_markers: [],
             team_markers: [],
             currentPlace: null,
-            // socket : io('http://54.255.245.23:3000')
+            socket : io('http://54.255.245.23:3000')
             
         };
     },
@@ -64,6 +64,7 @@ export default {
 
         axios.get('http://54.255.245.23:3000/team/getAllTeamsInCurrentActiveTrail')
         .then (response => {
+            
             let data = response.data;
             let infowindow = new google.maps.InfoWindow();
             data.forEach((team) => {
@@ -72,6 +73,40 @@ export default {
             console.log(this.team_markers);
 
             this.team_markers.forEach((marker) => {
+                let team_marker = new google.maps.Marker({
+                    position: {lat:marker.lat, lng:marker.lng},
+                    map: this.map,
+                    title: 'team ' + marker.team
+                });
+
+                 google.maps.event.addListener(team_marker, 'click', function() {
+                    infowindow.open(this.map,team_marker);
+                    infowindow.setContent(team_marker.title)
+                    // console.log(marker)
+                });
+            })
+        })
+
+        console.log(this.team_markers)
+        this.socket.on('updateLocation', (location) => {
+            // console.log(location);
+
+            this.map = new google.maps.Map(document.getElementById('gmap-view'), {
+                center: this.center,
+                scrollwheel: false,
+                zoom: 17
+            })
+
+            let teamID = location.teamID;
+            let long = location.long;
+            let lat = location.lat;
+
+            // console.log(this.team_markers)
+            this.team_markers[teamID-1] = ({team:parseInt(teamID), lat: parseFloat(lat), lng: parseFloat(long)});
+
+            console.log(this.team_markers)
+            this.team_markers.forEach((marker) => {
+                console.log(marker)
                 let team_marker = new google.maps.Marker({
                     position: {lat:marker.lat, lng:marker.lng},
                     map: this.map,
