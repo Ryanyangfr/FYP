@@ -221,7 +221,7 @@ router.post('/teamLocation', (req,res) => {
 
 router.get('/getAllTeamPoints', (req,res) => {
   // get current trail instance
-  const instanceID = req.query.trail_instance_id;
+  let instanceID = req.query.trail_instance_id;
   const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
 
   conn.query(getActiveTrailInstance, (err, data) => {
