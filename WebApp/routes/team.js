@@ -233,7 +233,7 @@ router.get('/getAllTeamPoints', (req,res) => {
       if (instanceID !== undefined) {
         activeTrailInstanceID = instanceID;
       }
-
+      console.log(instanceID);
       console.log(`instance id : ${activeTrailInstanceID}`)
       const response = [];
       //query to get team points and number of completed hotspots
