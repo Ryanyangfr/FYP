@@ -22,5 +22,17 @@ module.exports = {
 
     return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
 
+  },
+
+  getActiveTrailInstanceID() {
+    const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
+
+    conn.query(getActiveTrailInstance, (err, data) => {
+      if (err) {
+        console.log(`get active trail instance error: ${err}`);
+      } else {
+        return data[0].TRAIL_INSTANCE_ID;
+      }
+    });
   }
 }
