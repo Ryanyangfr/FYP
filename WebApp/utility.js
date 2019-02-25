@@ -21,10 +21,9 @@ module.exports = {
     day = (day < 10 ? '0' : '') + day;
 
     return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
-
   },
 
-  getActiveTrailInstanceID() {
+  getActiveTrailInstanceID(conn) {
     const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
 
     conn.query(getActiveTrailInstance, (err, data) => {
