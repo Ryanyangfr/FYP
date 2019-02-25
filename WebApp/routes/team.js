@@ -220,34 +220,37 @@ router.post('/teamLocation', (req,res) => {
 });
 
 router.get('/getAllTeamPoints', (req,res) => {
-  // get current trail instance
-  let activeTrailInstanceID;
-  utility.getActiveTrailInstanceID(conn, (instanceID) => {
-    activeTrailInstanceID = instanceID;
-    console.log(`instance id : ${activeTrailInstanceID}`)
-  });
-  // console.log(`instance id : ${activeTrailInstanceID}`)
-  const response = [];
-  const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
-
   conn.query(getActiveTrailInstance, (err, data) => {
-    const teamPointsQuery = 'SELECT TEAM.TEAM_ID, TEAM.TEAM_POINTS, COUNT(ISCOMPLETED) AS COUNT FROM TEAM LEFT OUTER JOIN TEAM_HOTSPOT_STATUS ON TEAM.TRAIL_INSTANCE_ID = TEAM_HOTSPOT_STATUS.TRAIL_INSTANCE_ID AND TEAM.TEAM_ID = TEAM_HOTSPOT_STATUS.TEAM_ID AND ISCOMPLETED = 1 WHERE TEAM.TRAIL_INSTANCE_ID = ? GROUP BY TEAM_ID ORDER BY COUNT DESC';
+    if (err) {
+      console.log(`get active trail instance error: ${err}`);
+    } else {
+      console.log(data[0]);
+      const activeTrailInstanceID = data[0].TRAIL_INSTANCE_ID;
 
-    conn.query(teamPointsQuery, activeTrailInstanceID, (err, teams) => {
-      if (err) {
-        console.log(err);
-        res.send(response);
-      } else {
-        console.log('Team data: ');
-        console.log(teams);
-
-        teams.forEach((team) => {
-          response.push({ team: team.TEAM_ID, points: team.TEAM_POINTS, hotspots_completed: team.COUNT });
+      console.log(`instance id : ${activeTrailInstanceID}`)
+      const response = [];
+      const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
+    
+      conn.query(getActiveTrailInstance, (err, data) => {
+        const teamPointsQuery = 'SELECT TEAM.TEAM_ID, TEAM.TEAM_POINTS, COUNT(ISCOMPLETED) AS COUNT FROM TEAM LEFT OUTER JOIN TEAM_HOTSPOT_STATUS ON TEAM.TRAIL_INSTANCE_ID = TEAM_HOTSPOT_STATUS.TRAIL_INSTANCE_ID AND TEAM.TEAM_ID = TEAM_HOTSPOT_STATUS.TEAM_ID AND ISCOMPLETED = 1 WHERE TEAM.TRAIL_INSTANCE_ID = ? GROUP BY TEAM_ID ORDER BY COUNT DESC';
+    
+        conn.query(teamPointsQuery, activeTrailInstanceID, (err, teams) => {
+          if (err) {
+            console.log(err);
+            res.send(response);
+          } else {
+            console.log('Team data: ');
+            console.log(teams);
+    
+            teams.forEach((team) => {
+              response.push({ team: team.TEAM_ID, points: team.TEAM_POINTS, hotspots_completed: team.COUNT });
+            });
+    
+            res.send(response);
+          }
         });
-
-        res.send(response);
-      }
-    });
+      });
+    }
   });
 });
 module.exports = router;
