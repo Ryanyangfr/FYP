@@ -229,7 +229,7 @@ router.get('/getAllTeamPoints', (req,res) => {
       console.log(`get active trail instance error: ${err}`);
     } else {
       console.log(data[0]);
-      const activeTrailInstanceID = data[0].TRAIL_INSTANCE_ID;
+      let activeTrailInstanceID = data[0].TRAIL_INSTANCE_ID;
       if (instanceID !== undefined) {
         activeTrailInstanceID = instanceID;
       }
