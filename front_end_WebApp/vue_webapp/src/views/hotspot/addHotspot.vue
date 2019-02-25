@@ -6,7 +6,7 @@
             </div>
             <form @submit.prevent="hotspotOnSubmitToAdd" class="add-hotspot-body">
                 <div class="input-area">
-                    <label for="add-hotspot-input">Hotspot Name</label>
+                    <label for="add-hotspot-input">Location Name</label>
                     <input name="add-hotspot-input" type="text" placeholder="Hotspot Name" v-model="name" required> 
                 </div> 
                 <div class="input-area">

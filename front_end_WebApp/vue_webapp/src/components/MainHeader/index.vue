@@ -18,15 +18,15 @@
             <div class="sideBar" v-if="show">
                 <ul>
                     <div class="setup-header"><li>Setup</li></div>
-                    <li><router-link to='/viewHotspots'>Location</router-link></li>
-                    <li><router-link to='/viewNarrative'>Narrative</router-link></li>
-                    <li><router-link to='/mission'>Missions</router-link></li>
-                    <li><router-link to='/trail'>Trail</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/viewHotspots'>Location</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/viewNarrative'>Narrative</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/mission'>Missions</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/trail'>Trail</router-link></li>
                     <div class="ingame-header"><li>In-Game</li></div>
-                    <li><router-link to="/generateInstanceID">Start Trail</router-link></li>
-                    <li><router-link to="/map">Live Map</router-link></li>
-                    <li><router-link to="/leaderboard">Leaderboard</router-link></li>
-                    <li><router-link to='/viewSubmissions'>Submissions</router-link></li>
+                    <li @click="showOrHide()"><router-link to="/generateInstanceID">Start Trail</router-link></li>
+                    <li @click="showOrHide()"><router-link to="/map">Live Map</router-link></li>
+                    <li @click="showOrHide()"><router-link to="/leaderboard">Leaderboard</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/viewSubmissions'>Submissions</router-link></li>
                 </ul>
             </div>
         </transition>
@@ -68,6 +68,7 @@ export default{
             console.log(this.$store.state.showSidebar);
 
         },
+        
         logout(){
             this.$session.destroy();
             this.$router.push("/");
@@ -86,7 +87,7 @@ export default{
     .sideBar{
         position: absolute;
         background-color: white;
-        width: 18%;
+        width: 15%;
         border-right: 1px solid #e6e6e6;
         height: calc(100% - 65px);
         z-index: 1;
@@ -153,7 +154,7 @@ export default{
 
     .logo{
         /*min-height:50px;*/
-        width:18%;
+        width:15%;
         overflow: hidden;
         /*background-color: #645cdd; */
         background-color: #645cdd;
@@ -203,7 +204,7 @@ export default{
     }
 
     .header-left{
-        min-width:82%;
+        min-width:85%;
         display: flex;
         align-items: center;
         justify-content: space-between;

@@ -94,6 +94,13 @@ export default {
     components:{
       vSelect
     },
+
+    computed:{
+        currentTrailID(){
+            return this.$store.state.currentTrailID;
+        }
+    },
+
     methods: {
         makeID(){
             var possible = '0123456789'
@@ -123,6 +130,7 @@ export default {
         },
 
         startTrail(){
+            this.$store.commit('saveCurrentTrailID', this.instance_id);
             let postBody = {
                 trailID: this.trailMap[this.trail],
                 trailInstanceID: this.instance_id
