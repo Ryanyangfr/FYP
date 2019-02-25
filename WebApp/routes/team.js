@@ -224,8 +224,9 @@ router.get('/getAllTeamPoints', (req,res) => {
   let activeTrailInstanceID;
   utility.getActiveTrailInstanceID(conn, (instanceID) => {
     activeTrailInstanceID = instanceID;
+    console.log(`instance id : ${activeTrailInstanceID}`)
   });
-  console.log(`instance id : ${activeTrailInstanceID}`)
+  // console.log(`instance id : ${activeTrailInstanceID}`)
   const response = [];
   const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
 
