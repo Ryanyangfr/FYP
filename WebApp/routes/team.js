@@ -200,7 +200,7 @@ router.get('/getAllTeamsWithMembers', (req, res) => {
 
 router.post('/teamLocation', (req,res) => {
   console.log('location update');
-  console.log(req.body)
+  console.log(req.body);
   const io = req.app.get('socketio');
   const teamID = req.body.teamID;
   const long = req.body.long;
@@ -210,12 +210,39 @@ router.post('/teamLocation', (req,res) => {
 
   conn.query(locationQuery, [long,lat,teamID], (err,data) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      io.emit('updateLocation', { teamID: teamID, long: long, lat: lat })
+      io.emit('updateLocation', { teamID: teamID, long: long, lat: lat });
       res.send(JSON.stringify({ success: 'true' }));
     }
-  })
-})
+  });
+
+  router.get('/getAllTeamPoints', (req,res) => {
+    // get current trail instance
+    const activeTrailInstanceID = utility.getActiveTrailInstanceID();
+    const response = [];
+    const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
+
+    conn.query(getActiveTrailInstance, (err, data) => {
+      const teamPointsQuery = 'SELECT TEAM.TEAM_ID, TEAM.TEAM_POINTS, COUNT(ISCOMPLETED) AS COUNT FROM TEAM LEFT OUTER JOIN TEAM_HOTSPOT_STATUS ON TEAM.TRAIL_INSTANCE_ID = TEAM_HOTSPOT_STATUS.TRAIL_INSTANCE_ID AND TEAM.TEAM_ID = TEAM_HOTSPOT_STATUS.TEAM_ID AND ISCOMPLETED=1 WHERE TEAM.TRAIL_INSTANCE_ID = ? GROUP BY TEAM_ID ORDER BY COUNT DESC';
+
+      conn.query(teamPointsQuery, activeTrailInstanceID, (err, teams) => {
+        if (err) {
+          console.log(err);
+          res.send(response);
+        } else {
+          console.log('Team data: ');
+          console.log(teams);
+
+          teams.forEach((team) => {
+            response.push({ team: team.TEAM_ID, points: team.TEAM_POINTS, hotspots_completed: team.COUNT });
+          });
+
+          res.send(response);
+        }
+      });
+    });
+  });
+});
 module.exports = router;
