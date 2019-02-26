@@ -512,24 +512,24 @@ INSERT INTO TEAM VALUES
 (3,0,'1.2953', '103.8506','175239');
 
 INSERT INTO TEAM_HOTSPOT_STATUS VALUES
-('Lee Kong Chian School of Business', '175239', 1, 0),
-('Lee Kong Chian School of Business', '175239', 2, 0),
-('Lee Kong Chian School of Business', '175239', 3, 0),
-('School of Accountancy', '175239', 1, 0),
-('School of Accountancy', '175239', 2, 0),
-('School of Accountancy', '175239', 3, 0),
-('School of Economics/School of Social Sciences', '175239', 1, 0),
-('School of Economics/School of Social Sciences', '175239', 2, 0),
-('School of Economics/School of Social Sciences', '175239', 3, 0),
-('School of Information Systems', '175239', 1, 0),
-('School of Information Systems', '175239', 2, 0),
-('School of Information Systems', '175239', 3, 0),
-('School of Law', '175239', 1, 0),
-('School of Law', '175239', 2, 0),
-('School of Law', '175239', 3, 0),
-('Li Ka Shing Library', '175239', 1, 0),
-('Li Ka Shing Library', '175239', 2, 0),
-('Li Ka Shing Library', '175239', 3, 0);
+('Lee Kong Chian School of Business', '175239', 1, 0, null),
+('Lee Kong Chian School of Business', '175239', 2, 0, null),
+('Lee Kong Chian School of Business', '175239', 3, 0, null),
+('School of Accountancy', '175239', 1, 0, null),
+('School of Accountancy', '175239', 2, 0, null),
+('School of Accountancy', '175239', 3, 0, null),
+('School of Economics/School of Social Sciences', '175239', 1, 0, null),
+('School of Economics/School of Social Sciences', '175239', 2, 0, null),
+('School of Economics/School of Social Sciences', '175239', 3, 0, null),
+('School of Information Systems', '175239', 1, 0, null),
+('School of Information Systems', '175239', 2, 0, null),
+('School of Information Systems', '175239', 3, 0, null),
+('School of Law', '175239', 1, 0, null),
+('School of Law', '175239', 2, 0, null),
+('School of Law', '175239', 3, 0, null),
+('Li Ka Shing Library', '175239', 1, 0, null),
+('Li Ka Shing Library', '175239', 2, 0, null),
+('Li Ka Shing Library', '175239', 3, 0, null);
 
 INSERT INTO DRAG_AND_DROP VALUES
 (1,'Match the words', 18);
