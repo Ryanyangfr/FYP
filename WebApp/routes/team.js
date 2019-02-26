@@ -257,4 +257,30 @@ router.get('/getAllTeamPoints', (req,res) => {
     }
   });
 });
+
+router.get('/activityFeed', (req,res) => {
+  let response = []
+  const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
+
+  conn.query(getActiveTrailInstance, (err, data) => {
+    if (err) {
+      console.log(`get active trail instance error retrieve activity feed: ${err}`);
+      res.send(response);
+    } else {
+      const activityFeedQuery = 'SELECT * FROM TRAIL_HOTSPOT_STATUS WHERE ISCOMPLETED = 1 ORDER BY TIME_COMPLETED DESC';
+      //{ time: time, team: team_id, hotspot: hotspot }
+      conn.query(activityFeedQuery, (err, data) => {
+        if (err) {
+          console.log(err)
+          res.send(response);
+        } else {
+          data.forEach(row => {
+            response.push({time:row.TIME_COMPLETED, team: row.TEAM_ID, hotspot: row.HOTSPOT_NAME});
+          });
+          res.send(response);
+        }
+      });
+    }
+});
+
 module.exports = router;
