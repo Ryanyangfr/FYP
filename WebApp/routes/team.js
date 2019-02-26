@@ -267,7 +267,7 @@ router.get('/activityFeed', (req,res) => {
       console.log(`get active trail instance error retrieve activity feed: ${err}`);
       res.send(response);
     } else {
-      const activityFeedQuery = 'SELECT * FROM TRAIL_HOTSPOT_STATUS WHERE ISCOMPLETED = 1 ORDER BY TIME_COMPLETED DESC';
+      const activityFeedQuery = 'SELECT * FROM TEAM_HOTSPOT_STATUS WHERE ISCOMPLETED = 1 ORDER BY TIME_COMPLETED DESC';
       //{ time: time, team: team_id, hotspot: hotspot }
       conn.query(activityFeedQuery, (err, data) => {
         if (err) {
