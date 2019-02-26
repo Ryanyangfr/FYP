@@ -59,4 +59,17 @@ router.get('/getAllTrailInstances', (req,res) => {
   })
 });
 
+router.get('/getCurrentTrailInstanceID', (req,res) => {
+  const query = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1'
+
+  conn.query(query, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send({});
+    } else {
+      res.send({id: data[0].TRAIL_INSTANCE_ID});
+    }
+  })
+})
+
 module.exports = router;
