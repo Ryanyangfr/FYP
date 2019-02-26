@@ -268,6 +268,13 @@ CONSTRAINT WORDSEARCH_WORD_FK1 FOREIGN KEY (WORDSEARCH_TITLE)
 REFERENCES WORDSEARCH(WORDSEARCH_TITLE)
 );
 
+CREATE TABLE ACTIVITY_FEED
+(
+ID INT NOT NULL,
+MESSAGE VARCHAR(1000) NOT NULL,
+CONSTRAINT ACTIVITY_FEED_PK PRIMARY KEY (ID)
+);
+
 INSERT INTO NARRATIVE VALUES
 (1, 'LKCSB NARRATIVE','In 2000, SMU commenced its curriculum with the School of Business, welcoming its first batch of cohort in August. The SMU School of Business and university-wide scholars programme was named in perpetuity after Dr Lee Kong Chian in recognition of the Lee Foundation generous contribution of S$50 million to SMU in 2004. Dr Lee Kong Chain is a well-known Southeast Asia businessmen, philanthropist and community leader. SMU school of business is therefore known as LKCSB (Lee Kong Chian School of Business)'),
 (2, 'SOA NARRATIVE','School of Accountancy (SOA) is the second largest school in SMU, with its humble beginnings going way back to 2000. The first Dean then was Professor Pang Yang Hoong, who was also part of the planning team at SMU. A lecture hall lies within SOA, being the only school to have a lecture hall. It was set up by the Chinese immigrants in the late 19th century, naming it after the charitable foundation Ngee Ann Kongsi - Ngee Ann Kongsi Auditorium.'),
