@@ -42,7 +42,7 @@ router.get('/completedHotspots', (req,res) => {
   });
 });
 
-router.get('/allTrailInstances', (req,res) => {
+router.get('/getAllTrailInstances', (req,res) => {
   const response = [];
   const query = 'SELECT DISTINCT(TRAIL_INSTANCE_ID) FROM TRAIL_INSTANCE';
 
