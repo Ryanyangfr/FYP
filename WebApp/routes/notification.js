@@ -11,17 +11,6 @@ const conn = mysql.createConnection(databaseConfig);
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
-let id = 1;
-const idQuery = 'SELECT MAX(ID) as MAX FROM ACTIVITY_FEED';
-
-conn.query(idQuery, (err,data) => {
-  if (err) {
-    console.log(err);
-  } else if (data[0].MAX !== undefined) {
-    id = data[0].MAX;
-  }
-})
-
 router.post('/sendNotification', (req,res) => {
   const io = req.app.get('socketio');
   const message = req.body.message;
