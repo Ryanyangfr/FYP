@@ -30,7 +30,7 @@ router.get('/getAllTeams', (req, res) => {
 router.get('/getAllTeamsInCurrentActiveTrail', (req, res) => {
   // const trail_instance_id = req.query.trail_instance_id;
 
-  const getActiveTrailQuery = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 AND HASSTARTED = 1';
+  const getActiveTrailQuery = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
   const response = [];
   conn.query(getActiveTrailQuery, (err, trails) => {
     if (err) {
