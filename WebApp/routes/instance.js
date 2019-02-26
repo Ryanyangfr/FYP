@@ -67,6 +67,10 @@ router.get('/getCurrentTrailInstanceID', (req,res) => {
       console.log(err);
       res.send({});
     } else {
+      if (data.length < 1) {
+        res.send({});
+        return;
+      }
       res.send({id: data[0].TRAIL_INSTANCE_ID});
     }
   })
