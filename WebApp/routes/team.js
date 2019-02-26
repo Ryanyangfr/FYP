@@ -30,7 +30,7 @@ router.get('/getAllTeams', (req, res) => {
 router.get('/getAllTeamsInCurrentActiveTrail', (req, res) => {
   // const trail_instance_id = req.query.trail_instance_id;
 
-  const getActiveTrailQuery = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 AND HASSTARTED = 1';
+  const getActiveTrailQuery = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
   const response = [];
   conn.query(getActiveTrailQuery, (err, trails) => {
     if (err) {
@@ -101,9 +101,9 @@ router.post('/updateScore', (req, res) => {
       const points = team[0].TEAM_POINTS + update;
       console.log(`points: ${points}`);
       const queryUpdate = 'UPDATE TEAM SET TEAM_POINTS = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
-      const queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1 WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
+      const queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1, TIME_COMPLETED = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
 
-      conn.query(queryUpdate_hotspot, [team_id, instance_id, hotspot], (err, row) => {
+      conn.query(queryUpdate_hotspot, [time, team_id, instance_id, hotspot], (err, row) => {
         if (err) {
           console.log(err);
         } else {
@@ -229,9 +229,19 @@ router.get('/getAllTeamPoints', (req,res) => {
       console.log(`get active trail instance error: ${err}`);
     } else {
       console.log(data[0]);
-      let activeTrailInstanceID = data[0].TRAIL_INSTANCE_ID;
+      let activeTrailInstanceID = 0;
+
+      if (data.length > 0) {
+        activeTrailInstanceID = data[0].TRAIL_INSTANCE_ID;
+      }
+
       if (instanceID !== undefined) {
         activeTrailInstanceID = instanceID;
+      }
+
+      if (activeTrailInstanceID === 0) {
+        res.send([]);
+        return;
       }
       console.log(instanceID);
       console.log(`instance id : ${activeTrailInstanceID}`)
@@ -257,4 +267,31 @@ router.get('/getAllTeamPoints', (req,res) => {
     }
   });
 });
+
+router.get('/activityFeed', (req,res) => {
+  let response = []
+  const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
+
+  conn.query(getActiveTrailInstance, (err, data) => {
+    if (err) {
+      console.log(`get active trail instance error retrieve activity feed: ${err}`);
+      res.send(response);
+    } else {
+      const activityFeedQuery = 'SELECT * FROM TEAM_HOTSPOT_STATUS WHERE ISCOMPLETED = 1 ORDER BY TIME_COMPLETED DESC';
+      //{ time: time, team: team_id, hotspot: hotspot }
+      conn.query(activityFeedQuery, (err, data) => {
+        if (err) {
+          console.log(err)
+          res.send(response);
+        } else {
+          data.forEach((row) => {
+            response.push({ time:row.TIME_COMPLETED, team: row.TEAM_ID, hotspot: row.HOTSPOT_NAME });
+          });
+          res.send(response);
+        }
+      });
+    }
+  });
+});
+
 module.exports = router;

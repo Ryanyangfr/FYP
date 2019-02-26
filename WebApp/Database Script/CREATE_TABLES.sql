@@ -197,6 +197,7 @@ HOTSPOT_NAME VARCHAR(50) NOT NULL,
 TRAIL_INSTANCE_ID VARCHAR(10) NOT NULL,
 TEAM_ID INT NOT NULL,
 ISCOMPLETED TINYINT NOT NULL,
+TIME_COMPLETED VARCHAR(50),
 CONSTRAINT TEAM_HOTSPOT_STATUS_PK PRIMARY KEY (HOTSPOT_NAME, TRAIL_INSTANCE_ID, TEAM_ID),
 CONSTRAINT TEAM_HOTSPOT_STATUS_FK1 FOREIGN KEY (HOTSPOT_NAME)
 REFERENCES HOTSPOT(HOTSPOT_NAME),
@@ -511,24 +512,24 @@ INSERT INTO TEAM VALUES
 (3,0,'1.2953', '103.8506','175239');
 
 INSERT INTO TEAM_HOTSPOT_STATUS VALUES
-('Lee Kong Chian School of Business', '175239', 1, 0),
-('Lee Kong Chian School of Business', '175239', 2, 0),
-('Lee Kong Chian School of Business', '175239', 3, 0),
-('School of Accountancy', '175239', 1, 0),
-('School of Accountancy', '175239', 2, 0),
-('School of Accountancy', '175239', 3, 0),
-('School of Economics/School of Social Sciences', '175239', 1, 0),
-('School of Economics/School of Social Sciences', '175239', 2, 0),
-('School of Economics/School of Social Sciences', '175239', 3, 0),
-('School of Information Systems', '175239', 1, 0),
-('School of Information Systems', '175239', 2, 0),
-('School of Information Systems', '175239', 3, 0),
-('School of Law', '175239', 1, 0),
-('School of Law', '175239', 2, 0),
-('School of Law', '175239', 3, 0),
-('Li Ka Shing Library', '175239', 1, 0),
-('Li Ka Shing Library', '175239', 2, 0),
-('Li Ka Shing Library', '175239', 3, 0);
+('Lee Kong Chian School of Business', '175239', 1, 0, null),
+('Lee Kong Chian School of Business', '175239', 2, 0, null),
+('Lee Kong Chian School of Business', '175239', 3, 0, null),
+('School of Accountancy', '175239', 1, 0, null),
+('School of Accountancy', '175239', 2, 0, null),
+('School of Accountancy', '175239', 3, 0, null),
+('School of Economics/School of Social Sciences', '175239', 1, 0, null),
+('School of Economics/School of Social Sciences', '175239', 2, 0, null),
+('School of Economics/School of Social Sciences', '175239', 3, 0, null),
+('School of Information Systems', '175239', 1, 0, null),
+('School of Information Systems', '175239', 2, 0, null),
+('School of Information Systems', '175239', 3, 0, null),
+('School of Law', '175239', 1, 0, null),
+('School of Law', '175239', 2, 0, null),
+('School of Law', '175239', 3, 0, null),
+('Li Ka Shing Library', '175239', 1, 0, null),
+('Li Ka Shing Library', '175239', 2, 0, null),
+('Li Ka Shing Library', '175239', 3, 0, null);
 
 INSERT INTO DRAG_AND_DROP VALUES
 (1,'Match the words', 18);
