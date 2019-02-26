@@ -26,16 +26,7 @@ router.post('/sendNotification', (req,res) => {
   const io = req.app.get('socketio');
   const message = req.body.message;
   console.log(message)
-  const addActivityFeedQuery = 'INSERT INTO ACTIVITY_FEED VALUES (?,?)';
-
-  conn.query(addActivityFeedQuery, [id,message], (err,data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('added activity feed');
-      id += 1;
-    }
-  })
+  
   io.emit('notification', {message:message});
   if (message.length > 0) {
     res.send(JSON.stringify({ success: 'true' }));

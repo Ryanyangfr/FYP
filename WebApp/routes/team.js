@@ -101,9 +101,9 @@ router.post('/updateScore', (req, res) => {
       const points = team[0].TEAM_POINTS + update;
       console.log(`points: ${points}`);
       const queryUpdate = 'UPDATE TEAM SET TEAM_POINTS = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
-      const queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1 WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
+      const queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1, TIME_COMPLETED = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
 
-      conn.query(queryUpdate_hotspot, [team_id, instance_id, hotspot], (err, row) => {
+      conn.query(queryUpdate_hotspot, [time, team_id, instance_id, hotspot], (err, row) => {
         if (err) {
           console.log(err);
         } else {
