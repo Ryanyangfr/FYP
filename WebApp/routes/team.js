@@ -274,13 +274,14 @@ router.get('/activityFeed', (req,res) => {
           console.log(err)
           res.send(response);
         } else {
-          data.forEach(row => {
-            response.push({time:row.TIME_COMPLETED, team: row.TEAM_ID, hotspot: row.HOTSPOT_NAME});
+          data.forEach((row) => {
+            response.push({ time:row.TIME_COMPLETED, team: row.TEAM_ID, hotspot: row.HOTSPOT_NAME });
           });
           res.send(response);
         }
       });
     }
+  });
 });
 
 module.exports = router;
