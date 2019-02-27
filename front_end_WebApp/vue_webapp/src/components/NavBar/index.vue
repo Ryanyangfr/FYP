@@ -65,7 +65,7 @@ export default{
             var passTime =  this.$store.state.instanceStartTime - now;
             // console.log(passTime)
             this.calcTime(passTime);
-            if (this.seconds == 0) {
+            if (this.seconds == 0 && this.hours == 0 && this.minutes == 0) {
                 alert("Trail has ended");
             }
         }
