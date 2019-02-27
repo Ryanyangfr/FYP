@@ -317,7 +317,7 @@ router.get('/getAllSubmissionURL', (req, res) => {
   console.log(`team: ${team}`);
   console.log(`instance_id: ${instance_id}`);
 
-  const query = 'SELECT SUBMISSION_ID, SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME FROM SUBMISSION AS S,SUBMISSION_QUESTION AS SQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.SUBMISSION_QUESTION_ID = SQ.QUESTION_ID AND TH.MISSION_ID = SQ.MISSION_ID';
+  const query = 'SELECT SUBMISSION_ID, SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME, S.SUBMISSION_STATUS FROM SUBMISSION AS S,SUBMISSION_QUESTION AS SQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.SUBMISSION_QUESTION_ID = SQ.QUESTION_ID AND TH.MISSION_ID = SQ.MISSION_ID';
 
   conn.query(query, [team, instance_id], (err, rows) => {
     if (err) {
@@ -326,10 +326,10 @@ router.get('/getAllSubmissionURL', (req, res) => {
       console.log(rows);
       rows.forEach((row) => {
         console.log('submission');
-        response.push({ submissionID: row.SUBMISSION_ID, submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
+        response.push({ submissionID: row.SUBMISSION_ID, submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION, status: row.SUBMISSION_STATUS });
       });
 
-      const drawing_query = 'SELECT SUBMISSION_ID, SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME FROM SUBMISSION AS S, DRAWING_QUESTION AS DQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.DRAWING_QUESTION_ID = DQ.QUESTION_ID AND DQ.MISSION_ID = TH.MISSION_ID';
+      const drawing_query = 'SELECT SUBMISSION_ID, SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME, S.SUBMISSION_STATUS FROM SUBMISSION AS S, DRAWING_QUESTION AS DQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.DRAWING_QUESTION_ID = DQ.QUESTION_ID AND DQ.MISSION_ID = TH.MISSION_ID';
 
       conn.query(drawing_query, [team, instance_id], (err, data) => {
         if (err) {
@@ -338,7 +338,7 @@ router.get('/getAllSubmissionURL', (req, res) => {
           const num_submission_query = 'SELECT COUNT(*) AS COUNT FROM SUBMISSION WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
           data.forEach((row) => {
             console.log('drawing');
-            response.push({ submissionID: row.SUBMISSION_ID, submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
+            response.push({ submissionID: row.SUBMISSION_ID, submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION, status: row.SUBMISSION_STATUS });
           });
 
           // conn.query(num_submission_query, [team, instance_id], function(err, count_row){
