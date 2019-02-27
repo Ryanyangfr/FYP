@@ -88,7 +88,8 @@ export default {
             trailsList: [],
             trail: "",
             numTeams: 0,
-            trailMap: {}
+            trailMap: {},
+            trailTimeMap: {}
         }
     },
     components:{
@@ -98,6 +99,10 @@ export default {
     computed:{
         currentTrailID(){
             return this.$store.state.currentTrailID;
+        },
+
+        instanceStartTime(){
+            return this.$store.state.instanceStartTime;
         }
     },
 
@@ -140,6 +145,8 @@ export default {
                 let data = response.data;
                 console.log(data);
             })
+            
+            this.$store.commit('saveInstanceStartTime', new Date().getTime() + parseInt(this.trailTimeMap[this.trail])*60*1000);
         }
     },
     
@@ -157,6 +164,7 @@ export default {
                 console.log(data[row]);
                 this.trailsList.push({label: data[row].title, value: data[row].trailID});
                 this.trailMap[data[row].title] = data[row].trailID;
+                this.trailTimeMap[data[row].title] = data[row].totalTime;
                 // this.allTrailsInfoList.push({id: data[row].trailID, information: data[row]})
             }
         })
