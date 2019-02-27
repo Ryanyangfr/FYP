@@ -4,124 +4,128 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-    state: {
-        // hasActiveTrail: false,
-        currentTrailID: "-",
-        showSidebar: false,
-        selectedQuizID: 0,
-        selectedQuizTitle: "",
-        selectedWefieTitle:"",
-        selectedWefieID:0,
-        selectedWefieQuestion:"",
-        selectedTrailID:"",
-        selectedNarrativeID: 0,
-        selectedNarrativeTitle:"",
-        selectedNarrative:"",
-        selectedHotspotName: "",
-        selectedLat: "",
-        selectedLng: "",
-        selectedDragAndDropID: "",
-        selectedDragAndDropMissionID: "",
-        selectedDragAndDropTitle: "",
-        selectedDragAndDropQuestion: "",
-        selectedDrawingTitle:"",
-        selectedDrawingID:0,
-        selectedDrawingQuestion:""
+  state: {
+    // hasActiveTrail: false,
+    currentTrailID: '-',
+    showSidebar: false,
+    selectedQuizID: 0,
+    selectedQuizTitle: '',
+    selectedWefieTitle: '',
+    selectedWefieID: 0,
+    selectedWefieQuestion: '',
+    selectedTrailID: '',
+    selectedNarrativeID: 0,
+    selectedNarrativeTitle: '',
+    selectedNarrative: '',
+    selectedHotspotName: '',
+    selectedLat: '',
+    selectedLng: '',
+    selectedDragAndDropID: '',
+    selectedDragAndDropMissionID: '',
+    selectedDragAndDropTitle: '',
+    selectedDragAndDropQuestion: '',
+    selectedDrawingTitle: '',
+    selectedDrawingID: 0,
+    selectedDrawingQuestion: '',
+    instanceStartTime: ''
 
-    },
+  },
     
-    mutations: {
-        saveCurrentTrailID(state, trailID) {
-            state.currentTrailID = trailID;
-        },
+  mutations: {
+    saveCurrentTrailID (state, trailID) {
+      state.currentTrailID = trailID;
+    },
 
-        // changeHasActiveTrailState(state){
-        //     state.hasActiveTrail = !(state.hasActiveTrail)
-        // },
+    // changeHasActiveTrailState(state){
+    //     state.hasActiveTrail = !(state.hasActiveTrail)
+    // },
 
-        changeSideBarState(state) {
-            state.showSidebar = !(state.showSidebar)
-        },
+    changeSideBarState (state) {
+      state.showSidebar = !(state.showSidebar)
+    },
 
-        resetSideBar(state){
-            state.showSidebar = false;
-        },
+    resetSideBar (state) {
+      state.showSidebar = false;
+    },
 
-        saveSelectedQuizID(state, missionid){
-            state.selectedQuizID = missionid;
-        },
+    saveSelectedQuizID (state, missionid) {
+      state.selectedQuizID = missionid;
+    },
 
-        saveSelectedQuizTitle(state, missiontitle){
-            state.selectedQuizTitle = missiontitle;
-        },
+    saveSelectedQuizTitle (state, missiontitle) {
+      state.selectedQuizTitle = missiontitle;
+    },
 
-        saveSelectedWefieTitle(state, wefieTitle){
-            state.selectedWefieTitle = wefieTitle
-        },
+    saveSelectedWefieTitle (state, wefieTitle) {
+      state.selectedWefieTitle = wefieTitle
+    },
 
-        saveSelectedWefieID(state, wefieID){
-            state.selectedWefieID = wefieID
-        },
+    saveSelectedWefieID (state, wefieID) {
+      state.selectedWefieID = wefieID
+    },
 
-        saveSelectedWefieQuestion(state, wefieQuestion){
-            state.selectedWefieQuestion = wefieQuestion
-        },
+    saveSelectedWefieQuestion (state, wefieQuestion) {
+      state.selectedWefieQuestion = wefieQuestion
+    },
 
-        saveSelectedTrailID(state, trailID){
-            state.selectedTrailID = trailID
-        },
+    saveSelectedTrailID (state, trailID) {
+      state.selectedTrailID = trailID
+    },
 
-        saveSelectedNarrativeID(state, narrativeID){
-            state.selectedNarrativeID = narrativeID;
-        },
+    saveSelectedNarrativeID (state, narrativeID) {
+      state.selectedNarrativeID = narrativeID
+    },
         
-        saveSelectedNarrativeTitle(state, narrativeTitle){
-            state.selectedNarrativeTitle = narrativeTitle
-        },
+    saveSelectedNarrativeTitle (state, narrativeTitle) {
+      state.selectedNarrativeTitle = narrativeTitle
+    },
 
-        saveSelectedNarrative(state, narrative){
-            state.selectedNarrative = narrative
-        },
+    saveSelectedNarrative (state, narrative) {
+      state.selectedNarrative = narrative
+    },
 
-        saveSelectedHotspotName(state, hotspotName){
-            state.selectedHotspotName = hotspotName;
-        },
+    saveSelectedHotspotName (state, hotspotName) {
+      state.selectedHotspotName = hotspotName
+    },
         
-        saveSelectedLat(state, lat){
-            state.selectedLat = lat
-        },
+    saveSelectedLat (state, lat) {
+      state.selectedLat = lat
+    },
 
-        saveSelectedLng(state, lng){
-            state.selectedLng = lng
-        },
+    saveSelectedLng (state, lng) {
+      state.selectedLng = lng
+    },
 
-        saveSelectedDragAndDropID(state, id){
-            state.selectedDragAndDropID = id;
-        },
+    saveSelectedDragAndDropID (state, id) {
+      state.selectedDragAndDropID = id
+    },
 
-        saveSelectedDragAndDropQuestion(state, question){
-            state.selectedDragAndDropQuestion = question;
-        },
+    saveSelectedDragAndDropQuestion (state, question) {
+      state.selectedDragAndDropQuestion = question
+    },
 
-        saveSelectedDragAndDropTitle(state, title){
-            state.selectedDragAndDropTitle = title;
-        },
+    saveSelectedDragAndDropTitle (state, title) {
+      state.selectedDragAndDropTitle = title
+    },
 
-        saveSelectedDragAndDropMissionID(state, missionID){
-            state.selectedDragAndDropMissionID = missionID;
-        },
+    saveSelectedDragAndDropMissionID (state, missionID) {
+      state.selectedDragAndDropMissionID = missionID
+    },
 
-        saveSelectedDrawingTitle(state, drawingTitle){
-            state.selectedDrawingTitle = drawingTitle
-        },
+    saveSelectedDrawingTitle (state, drawingTitle) {
+      state.selectedDrawingTitle = drawingTitle
+    },
 
-        saveSelectedDrawingID(state, drawingID){
-            state.selectedDrawingID = drawingID
-        },
+    saveSelectedDrawingID (state, drawingID) {
+      state.selectedDrawingID = drawingID
+    },
 
-        saveSelectedDrawingQuestion(state, drawingQuestion){
-            state.selectedDrawingQuestion = drawingQuestion
-        },
+    saveSelectedDrawingQuestion (state, drawingQuestion) {
+      state.selectedDrawingQuestion = drawingQuestion
+    },
 
+    saveInstanceStartTime (state, startTime) {
+      state.instanceStartTime = startTime
     }
+  }
 });
