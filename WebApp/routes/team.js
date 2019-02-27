@@ -326,7 +326,7 @@ router.post('/updateScoreAdmin', (req,res) => {
         }
       })
     }
-
-})
+  });
+});
 
 module.exports = router;
