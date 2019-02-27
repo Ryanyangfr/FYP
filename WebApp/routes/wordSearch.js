@@ -28,21 +28,21 @@ router.get('/getWordSearchWords', (req, res) => {
           if (err) {
             console.log(err);
           } else {
-            let temp = [];
+            // let temp = [];
             let currentTitle = data[0].WORDSEARCH_TITLE;
-            temp.push({ hotspot: hotspot_name });
+            // temp.push({ hotspot: hotspot_name });
             let tempWords = [];
             data.forEach((wordSearch) => {
               console.log(wordSearch);
               if (currentTitle === wordSearch.WORDSEARCH_TITLE) {
                 tempWords.push(wordSearch.WORD);
               } else {
-                temp.push({ words: tempWords });
-                response.push(temp);
-                temp = [];
+                // temp.push({ words: tempWords });
+                response.push({ hotspot: hotspot_name, words: tempWords, title: currentTitle });
+                // temp = [];
                 tempWords = [];
                 currentTitle = wordSearch.WORDSEARCH_TITLE;
-                temp.push({ title: currentTitle });
+                // temp.push({ title: currentTitle });
               }
             });
             temp.push({ words: tempWords });
