@@ -352,11 +352,13 @@ router.post('/updateScoreSubmission', (req,res) => {
       res.send(JSON.stringify({ success: 'false' }))
     } else {
       const trailInstanceID = data[0].TRAIL_INSTANCE_ID
+      console.log(`trail instance id: ${trailInstanceID}`);
       conn.query(getCurrentTeamScore, [team, trailInstanceID], (err,data2) => {
         if (err) {
           console.log(`get current team score: ${err}`);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
+          console.log(data2);
           let currTeamPoints = parseInt(data2[0].TEAM_POINTS);
           currTeamPoints += addedPoints;
           conn.query(updateTeamScoreQuery, [currTeamPoints, team, trailInstanceID], (err, data3) => {
