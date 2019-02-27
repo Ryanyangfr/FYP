@@ -74,8 +74,14 @@ export default{
                 text: 'Click to view submissions'
             }
         }
-    }
-    ,
+    },
+
+    computed:{
+        currentTrailID(){
+            return this.$store.state.currentTrailID;
+        }
+    },
+
     methods:{
         retrieveAllTeams(){
             this.teamList = [];

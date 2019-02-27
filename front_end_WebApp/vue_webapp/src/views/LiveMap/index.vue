@@ -90,7 +90,7 @@ export default {
         .then (response => {
             
             let data = response.data;
-            this.infowindow = new google.maps.InfoWindow();
+            let infowindow = new google.maps.InfoWindow();
             data.forEach((team) => {
                 this.team_markers.push({ team:team.team_id, lat: parseFloat(team.latitude), lng: parseFloat(team.longtitude) })
             })
@@ -100,16 +100,17 @@ export default {
                 let team_marker = new google.maps.Marker({
                     position: {lat:marker.lat, lng:marker.lng},
                     map: this.map,
-                    title: 'team ' + marker.team
+                    title: 'team ' + marker.team,
+                    icon: 'http://maps.google.com/mapfiles/kml/paddle/'+marker.team+'.png'
                 });
-                
-                this.currentMarkersInMap.push(team_marker)
 
                 google.maps.event.addListener(team_marker, 'click', function() {
-                    this.infowindow.open(this.map,team_marker);
-                    this.infowindow.setContent(team_marker.title)
+                    infowindow.open(this.map,team_marker);
+                    infowindow.setContent(team_marker.title)
                     // console.log(marker)
                 });
+
+                this.currentMarkersInMap.push(team_marker)
             })
         })
 
@@ -125,7 +126,7 @@ export default {
         console.log(this.team_markers)
         this.socket.on('updateLocation', (location) => {
             console.log(location);
-
+            let infowindow = new google.maps.InfoWindow();
             // this.map = new google.maps.Map(document.getElementById('gmap-view'), {
             //     center: this.center,
             //     scrollwheel: false,
@@ -150,16 +151,16 @@ export default {
             let team_marker = new google.maps.Marker({
                 position: {lat:parseFloat(lat), lng:parseFloat(long)},
                 map: this.map,
-                title: 'team ' + teamID
+                title: 'team ' + teamID,
+                icon: 'http://maps.google.com/mapfiles/kml/paddle/'+marker.team+'.png'
             })
 
-            this.currentMarkersInMap[teamID-1] = team_marker;
-            
             google.maps.event.addListener(team_marker, 'click', () => {
                 infowindow.open(this.map,team_marker);
                 infowindow.setContent(team_marker.title)
                 console.log(team_marker)
             });
+            this.currentMarkersInMap[teamID-1] = team_marker;
             // this.team_markers.forEach((marker) => {
             //     console.log(marker)
             //     let team_marker = new google.maps.Marker({

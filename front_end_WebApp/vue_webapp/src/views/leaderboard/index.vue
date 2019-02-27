@@ -106,11 +106,11 @@ export default {
         }
     },
 
-    computed:{
-        currentTrailID(){
-            return this.$store.state.currentTrailID;
-        }
-    },
+    // computed:{
+    //     currentTrailID(){
+    //         return this.$store.state.currentTrailID;
+    //     }
+    // },
 
     methods: {
         getData() {

@@ -124,21 +124,21 @@ export default{
     }
 
     .sideBar .setup-header{
-        margin-left: -20px;
+        margin-left: -18px;
         font-size: 18px;
         font-weight: 600
     }
 
     .sideBar .ingame-header{
         margin-top: 10px;
-        margin-left: -20px;
+        margin-left: -18px;
         font-size: 18px;
         font-weight: 600
     }
 
     .sideBar ul li{
         list-style-type: none;
-        margin-left: 30px;
+        margin-left: 28px;
         margin-top:25px;
         float: left;
         display: flex;
