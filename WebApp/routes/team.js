@@ -277,14 +277,14 @@ router.get('/activityFeed', (req,res) => {
       console.log(`get active trail instance error retrieve activity feed: ${err}`);
       res.send(response);
     } else {
-      const activityFeedQuery = 'SELECT * FROM TEAM_HOTSPOT_STATUS WHERE ISCOMPLETED = 1 ORDER BY TIME_COMPLETED DESC';
+      const activityFeedQuery = 'SELECT * FROM TEAM_HOTSPOT_STATUS WHERE ISCOMPLETED = 1 AND TRAIL_INSTANCE_ID = ? ORDER BY TIME_COMPLETED DESC';
       //{ time: time, team: team_id, hotspot: hotspot }
-      conn.query(activityFeedQuery, (err, data) => {
+      conn.query(activityFeedQuery, data[0].TRAIL_INSTANCE_ID, (err, data2) => {
         if (err) {
           console.log(err)
           res.send(response);
         } else {
-          data.forEach((row) => {
+          data2.forEach((row) => {
             response.push({ time:row.TIME_COMPLETED, team: row.TEAM_ID, hotspot: row.HOTSPOT_NAME });
           });
           res.send(response);
