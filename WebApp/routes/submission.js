@@ -114,7 +114,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
               console.log(`question id: ${question_id}`);
 
 
-              conn.query(query, [submission_id, new_image_path, team_id, trail_instance_id, null, question_id, 0], (err, data) => {
+              conn.query(query, [submission_id, new_image_path, team_id, trail_instance_id, null, question_id, 'no grade'], (err, data) => {
                 if (err) {
                   console.log(err);
                 } else {
@@ -172,7 +172,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
           console.log(`question id: ${question_id}`);
 
 
-          conn.query(query, [submission_id, new_image_path, team_id, trail_instance_id, question_id, null, 0], (err, data) => {
+          conn.query(query, [submission_id, new_image_path, team_id, trail_instance_id, question_id, null, 'no grade'], (err, data) => {
             if (err) {
               console.log(err);
             } else {
