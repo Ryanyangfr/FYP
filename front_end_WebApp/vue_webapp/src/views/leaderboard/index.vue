@@ -13,7 +13,7 @@
                     <button type="submit" class="search-btn"><i class="ti-search"></i></button> 
                 </form>
 
-                <table v-if="isLeaderboard">
+                <table class="leaderboard-table" v-if="isLeaderboard">
                     <tr class="leaderboard-table-header">
                         <td>Team</td>
                         <td>Points</td>
@@ -28,6 +28,13 @@
                         <td>{{item.hotspots_completed}}</td>
                         <td></td>
                         <td><button @click="editLeaderboard(item.team,item.points,item.hotspots_completed)"><i class="ti-pencil-alt"></i></button></td>
+                    </tr>
+                </table>
+
+                <table v-if="isFeed" class="feed-table">
+                    <tr class = "feed-data" v-for="activity in activityList" :key="activity.timestamp">
+                        <td class="activity-data">{{activity.activity}}</td>
+                        <td class="timestamp-data">{{activity.timestamp}}</td>
                     </tr>
                 </table>
                 
@@ -94,7 +101,8 @@ export default {
             curr_team_num:0,
             curr_points: 0,
             isLeaderboard: true,
-            isFeed: false
+            isFeed: false,
+            activityList: []
         }
     },
 
@@ -146,13 +154,13 @@ export default {
         },
 
         showLeaderboard(){
-            isLeaderboard = true;
-            isFeed = false
+            this.isLeaderboard = true;
+            this.isFeed = false
         },
 
         showFeed(){
-            isLeaderboard = false;
-            isFeed = true
+            this.isLeaderboard = false;
+            this.isFeed = true
         },
 
         closeEdit(){
@@ -179,6 +187,16 @@ export default {
             for(var row in data){
                 console.log(data[row])
                 this.trail_instance_id  = data[row]
+            }
+        })
+
+        axios.get('http://54.255.245.23:3000/team/activityFeed')
+        .then(response => {
+            let data = response.data;
+            for(var row in data){
+                console.log(data[row])
+                let activity = "Team " + data[row].team + " completed their mission at " + data[row].hotspot
+                this.activityList.push({activity: activity, timestamp: data[row].time});
             }
         })
     //data received [
@@ -286,33 +304,33 @@ export default {
         border-bottom:2px solid #645cdd;
     }
 
-    .card table{
+    .leaderboard-table{
         margin: 18px;
         font-size: 20px;
         font-family: "Roboto", sans-serif;
        
     }
 
-    .card table td{
+    .leaderboard-table td{
         text-align: center;
     }
 
     
-    tr:nth-child(even) {
+    .leaderboard-table tr:nth-child(even) {
         background-color: #f2f2f2;
         border-top: 1px solid #DEE2E6;
         border-bottom: 1px solid #DEE2E6;
     }
 
-    tr:nth-child(2){
+    .leaderboard-table tr:nth-child(2){
         background-color: #FFA90B
     }
 
-    tr:nth-child(3) {
-       background-color: #F8FAFB
+    .leaderboard-table tr:nth-child(3) {
+       background-color: #CeCeCe
     }
 
-    tr:nth-child(4) {
+    .leaderboard-table tr:nth-child(4) {
        background-color: #ED9D5D
     }
 
@@ -334,7 +352,7 @@ export default {
         color: black
     }
 
-     .leaderboard-data a{
+    .leaderboard-data a{
         font-size: 20px;
         color: #536479
     }
@@ -352,13 +370,25 @@ export default {
         min-width: 200px;
     }
 
+    .timestamp-data{
+        padding: 18px;
+        font-style: italic;
+        font-size: 17px
+    }
+
+    .activity-data{
+        text-align: left;
+        padding-left: 100px;
+        font-size: 18px;
+    }
+
     .leaderboard-feed-btns{
         display: flex;
         flex-direction: row;
         float: right;
         margin-top: 10px;
         margin-right: 10px;
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .leaderboard-btn{
@@ -366,15 +396,26 @@ export default {
         border: 1px solid #645cdd;
         color: #645cdd;
         border-radius: 5px 0 0 5px;
-        padding-left: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
         font-family: 'Roboto', sans-serif;
         cursor: pointer;
+        height:40px
+    }
+
+    .leaderboard-btn:focus, .leaderboard-btn:hover, .leaderboard-btn:active,
+    .feed-btn:focus, .feed-btn:hover, .feed-btn:active{
+        background-color: #645cdd;
+        box-shadow: 0 0 4px #5A52C4;
+        color: white;
     }
 
     .feed-btn{
         border:none;
-        padding-right: 18px;
+        padding-left: 10px;
+        padding-right: 10px;
         background-color: white;
+        color: #645cdd;
         border: 1px solid #645cdd;
         border-radius: 0 5px 5px 0;
         font-family: 'Roboto', sans-serif;

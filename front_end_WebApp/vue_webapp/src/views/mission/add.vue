@@ -51,10 +51,10 @@
                                         </option> 
                                     </select>
                                 </div>
-                                <div class="add-mission-input">
+                                <!-- <div class="add-mission-input">
                                     <label for="points-input">Points</label>
                                     <input name="points-input" type="text" placeholder="Enter points for this question" v-model="input.points"> 
-                                </div>
+                                </div> -->
                                 <div class="delete-quiz-question-area">
                                     <button type="button" class="delete-quiz-question" @click="deleteRow(index)">Delete</button>
                                 </div>
@@ -78,10 +78,10 @@
                             <label for="add-wefie-instruction-input">Instruction</label>
                             <input name="add-wefie-instruction-input" type="text" placeholder="Wefie Instruction" v-model="wefie_instruction"> 
                         </div> 
-                        <div class="add-mission-input">
+                        <!-- <div class="add-mission-input">
                             <label for="points-input">Points</label>
                             <input name="points-input" type="text" placeholder="Enter points for this question" v-model="wefie_points"> 
-                        </div>
+                        </div> -->
                         <div class="submit-btn-area">
                             <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
                             <button class="submit-btn" type="submit">Create</button>
@@ -115,10 +115,10 @@
                             </div>
 
                         </div>
-                        <div class="add-mission-input">
+                        <!-- <div class="add-mission-input">
                             <label for="points-input">Points</label>
                             <input name="points-input" type="text" placeholder="Enter points for this question" v-model="dragdrop_points"> 
-                        </div>
+                        </div> -->
                         <div class="submit-btn-area">
                             <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
                             <button class="submit-btn" type="submit">Create</button>
@@ -138,10 +138,10 @@
                             <label for="add-drawing-instruction-input">Instruction</label>
                             <input name="add-drawing-instruction-input" type="text" placeholder="Drawing Instruction" v-model="drawing_instruction"> 
                         </div> 
-                        <div class="add-mission-input">
+                        <!-- <div class="add-mission-input">
                             <label for="points-input">Points</label>
                             <input name="points-input" type="text" placeholder="Enter points for this question" v-model="drawing_points"> 
-                        </div>
+                        </div> -->
                         <div class="submit-btn-area">
                             <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
                             <button class="submit-btn" type="submit">Create</button>
@@ -191,7 +191,7 @@ export default {
                 option3: "",
                 option4: "",
                 answer:"",
-                points:""
+                // points:""
             })
         },
 

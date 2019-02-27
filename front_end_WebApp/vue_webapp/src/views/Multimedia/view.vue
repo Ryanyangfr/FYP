@@ -1,5 +1,5 @@
 <template>
-    <div class="Submissions"> 
+    <div class="Submissions">
         <form class="search-bar" @submit.prevent="retrieveAllTeams">
             <input type="text" placeholder="Enter Trail ID" v-model="trailID" required>
             <button class="search-btn"><i class="ti-search"></i></button> 
@@ -24,6 +24,10 @@
                     <div class="submission-details">
                         {{questions[index]}}
                     </div> 
+                    <div class="acknowledge">
+                        <div class="approve"><button><i class="ti-check"></i></button></div>
+                        <div class="disapprove"><button><i class="ti-close"></i></button></div>
+                    </div>
                 </div>
             </div>
             
@@ -127,7 +131,7 @@ export default{
             .then(response=>{
                 let data = response.data
                 let size = Object.keys(data).length
-                // console.log(response.data)
+                console.log(response.data)
                 // this.path = [];
                 if (size === 0) {
                     this.paths = [];
@@ -151,8 +155,8 @@ export default{
                 }
 
                 // this.retrieveAllUrl(teamID);
-                // console.log('paths: ')
-                // console.log(this.paths)
+                console.log('paths: ')
+                console.log(this.paths)
                 // this.question = [];
                 let updatedQn = [];
                 this.images = []
@@ -272,6 +276,7 @@ export default{
         transition: all 0.3s ease 0s;
         position: fixed;
         z-index:1;
+        width: 95%
     }
 
     .search-bar input{
@@ -406,6 +411,34 @@ export default{
         display: flex;
         flex-direction: column;
         background-color: white;
+    }
+
+    .acknowledge{
+        display: flex;
+        flex-direction: row;
+        justify-content: center
+    }
+
+    .submission-card button{
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        margin-top: 10px;
+        margin-bottom: 10px
+    }
+
+    .approve button:hover, .disapprove button:hover{
+        font-size: 30px;
+    }
+
+    .approve button{
+        color: green;
+        margin-right: 30px;
+    }
+
+    .disapprove button{
+        color: red;
     }
 
     .submission-card .image-area{
