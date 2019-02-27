@@ -336,9 +336,9 @@ router.post('/updateScoreSubmission', (req,res) => {
   let status;
 
   if (addedPoints > 0) {
-    status = 'approved';
+    status = 'Approved';
   } else {
-    status = 'rejected';
+    status = 'Rejected';
   }
 
   const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
