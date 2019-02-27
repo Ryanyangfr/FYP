@@ -44,7 +44,7 @@ export default {
         this.map = new google.maps.Map(document.getElementById('gmap-view'), {
             center: this.center,
             scrollwheel: false,
-            zoom: 17
+            zoom: 18
             
         }),
 
@@ -171,7 +171,7 @@ export default {
 
     #gmap-view{
         width:100%;
-        height: 500px;
+        height: 1000px;
 
     }
 

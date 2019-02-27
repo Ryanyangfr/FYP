@@ -5,20 +5,32 @@
                 {{$route.name}}
             </div>
             <div class="trail-id-area">
-                Current Trail ID: 
-                {{this.$store.state.currentTrailID}}
+                Current Trail ID: {{this.trail_instance_id}}
             </div>
         <!-- </div> -->
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default{
     name: 'Navigation',
-    computed:{
-        currentTrailID(){
-            return this.$store.state.currentTrailID;
+    data(){
+        return{
+            trail_instance_id:"-"
         }
+    },
+
+    mounted() {
+        axios.get('http://54.255.245.23:3000/getCurrentTrailInstanceID')
+        .then(response => {
+            let data = response.data;
+            for(var row in data){
+                console.log(data[row])
+                this.trail_instance_id  = data[row]
+            }
+        })
     }
 }
 </script>

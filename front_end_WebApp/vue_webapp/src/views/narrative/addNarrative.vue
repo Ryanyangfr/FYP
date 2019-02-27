@@ -97,10 +97,12 @@ export default {
         position: relative;
         min-width: 98%;
         overflow: hidden;
+        /* background-color: pink */
     }
 
     .input-area label{
         margin-right: 100px;
+        overflow: hidden;
         font-size: 14px;
         font-weight: 600;
         pointer-events: none;
@@ -111,7 +113,7 @@ export default {
         /*background-color: pink;*/
         height: inherit;
         align-items: center;
-        min-width: 12%
+        min-width: 13%
     }
 
     .AddNarrative .input-area input{
@@ -122,7 +124,8 @@ export default {
         border-radius: 4px;
         padding: 10px;
         font-size: 17px;
-        min-width:75%;
+        width:75%;
+        max-width: 75%;
         font-family: 'Roboto', sans-serif;
     }
 
@@ -139,7 +142,8 @@ export default {
         border-radius: 4px;
         padding: 10px;
         font-size: 17px;
-        min-width: 75%;
+        width: 75%;
+        max-width: 75%;
         font-family: 'Roboto', sans-serif;
     }
 

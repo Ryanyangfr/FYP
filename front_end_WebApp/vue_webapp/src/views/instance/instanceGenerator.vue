@@ -95,11 +95,11 @@ export default {
       vSelect
     },
 
-    computed:{
-        currentTrailID(){
-            return this.$store.state.currentTrailID;
-        }
-    },
+    // computed:{
+    //     currentTrailID(){
+    //         return this.$store.state.currentTrailID;
+    //     }
+    // },
 
     methods: {
         makeID(){
@@ -110,6 +110,7 @@ export default {
                 id += possible.charAt(Math.floor(Math.random()* possible.length))
             }
             this.instance_id = id
+            // this.$store.commit('saveCurrentTrailID', this.instance_id);
         },
 
         toggleGenerate(){
@@ -130,7 +131,6 @@ export default {
         },
 
         startTrail(){
-            this.$store.commit('saveCurrentTrailID', this.instance_id);
             let postBody = {
                 trailID: this.trailMap[this.trail],
                 trailInstanceID: this.instance_id
@@ -202,16 +202,31 @@ export default {
         position: relative;
         min-width: 98%;
         overflow: hidden;
-        /*background-color: red*/
+        /* background-color: pink */
     }
     
     .select-trail-area select{
+        display: flex;
         height: 40px;
+        outline: none;
         border: 1px solid #CED4DA;
         border-radius: 4px;
-        font-size: 14px;
-        min-width:75%;
-        padding: 5px;
+        padding: 10px;
+        font-size: 17px;
+        width:75%;
+        max-width: 75%;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .select-team-num-area input{
+        height: 40px;
+        outline: none;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 17px;
+        width:75%;
+        max-width: 75%;
         font-family: 'Roboto', sans-serif;
     }
 
@@ -227,34 +242,19 @@ export default {
         font-weight: 600;
         pointer-events: none;
         transition: all 0.3s ease 0s;
-        white-space: nowrap;
         float: left;
         display: flex;
         /*background-color: pink;*/
         height: inherit;
         align-items: center;
-        min-width: 12%
-
+        min-width: 15%;
+        text-align: left;
     }
 
     .select-trail-area select:focus{
         outline: none !important;
         border:1px solid #6200EE;
         box-shadow: 0 0 2px #645cdd;
-    }
-
-    
-
-    .select-team-num-area input{
-        /*margin-left: 100px;*/
-        height: 40px;
-        outline: none;
-        border: 1px solid #CED4DA;
-        border-radius: 4px;
-        padding: 10px;
-        font-size: 14px;
-        min-width:75%;
-        font-family: 'Roboto', sans-serif;
     }
 
     .generate-trail-instance-area{

@@ -321,7 +321,8 @@ export default {
         border: 1px solid #CED4DA;
         border-radius: 4px;
         font-size: 17px;
-        min-width:75%;
+        width:75%;
+        max-width: 75%;
         padding: 5px;
         font-family: 'Roboto', sans-serif;
     }
@@ -358,7 +359,7 @@ export default {
         /*background-color: pink*/
     }
 
-    .edit-hotspot-input input, .add-mission-input input, .add-mission-input select{
+    .add-mission-input input, .add-mission-input select{
         /*margin-left: 100px;*/
         height: 45px;
         outline: none;
@@ -366,7 +367,8 @@ export default {
         border-radius: 4px;
         padding: 10px;
         font-size: 17px;
-        min-width:75%;
+        width:75%;
+        max-width: 75%;
         font-family: 'Roboto', sans-serif;
     }
 
@@ -381,6 +383,7 @@ export default {
     .add-question-body{
         border-top: 1px solid #CED4DA;
         padding-top: 25px;
+        overflow: hidden;
     }
 
     .add-quiz-options{
@@ -393,7 +396,7 @@ export default {
         margin-left:18px;
         display: flex;
         flex-direction: row;
-        min-width: 100%;
+        width: 100%;
         /*background-color: pink;*/
     }
 
@@ -405,7 +408,8 @@ export default {
         border-radius: 4px;
         padding: 10px;
         font-size: 17px;
-        min-width:75%;
+        width:75%;
+        max-width: 75%;
         font-family: 'Roboto', sans-serif;
     }
 

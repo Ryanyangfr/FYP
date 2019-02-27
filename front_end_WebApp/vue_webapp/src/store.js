@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        currentTrailID: "No Active Trail",
+        // hasActiveTrail: false,
+        // currentTrailID: "-",
         showSidebar: false,
         selectedQuizID: 0,
         selectedQuizTitle: "",
@@ -30,9 +31,13 @@ export const store = new Vuex.Store({
     },
     
     mutations: {
-        saveCurrentTrailID(state, trailID) {
-            state.currentTrailID = trailID;
-        },
+        // saveCurrentTrailID(state, trailID) {
+        //     state.currentTrailID = trailID;
+        // },
+
+        // changeHasActiveTrailState(state){
+        //     state.hasActiveTrail = !(state.hasActiveTrail)
+        // },
 
         changeSideBarState(state) {
             state.showSidebar = !(state.showSidebar)

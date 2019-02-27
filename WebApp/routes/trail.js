@@ -211,7 +211,7 @@ router.post('/initializeTrail', (req, res) => {
             });
           }
 
-          const updateTeamHotspotStatusQuery = 'INSERT INTO TEAM_HOTSPOT_STATUS VALUES(?,?,?,?)';
+          const updateTeamHotspotStatusQuery = 'INSERT INTO TEAM_HOTSPOT_STATUS VALUES(?,?,?,?,?)';
           const retrieveHotspotsInTrail = 'SELECT HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = ?';
 
           //retrieve all hotspots in trail
@@ -221,7 +221,7 @@ router.post('/initializeTrail', (req, res) => {
             } else {
               hotspots.forEach((hotspot) => {
                 for (let teamID=0; teamID<numTeams; teamID++) {
-                  conn.query(updateTeamHotspotStatusQuery, [hotspot.HOTSPOT_NAME, trailInstanceID, teamID+1, 0], (err, data) => {
+                  conn.query(updateTeamHotspotStatusQuery, [hotspot.HOTSPOT_NAME, trailInstanceID, teamID+1, 0, null], (err, data) => {
                     if (err) {
                       console.log(err);
                     } else {
