@@ -323,6 +323,7 @@ router.get('/getAllSubmissionURL', (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      console.log(rows);
       rows.forEach((row) => {
         console.log('submission');
         response.push({ submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
