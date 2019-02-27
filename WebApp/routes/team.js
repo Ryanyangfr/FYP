@@ -296,7 +296,7 @@ router.get('/activityFeed', (req,res) => {
 
 router.post('/updateScoreAdmin', (req,res) => {
   const team = req.body.team;
-  const addedPoints = req.body.points;
+  const addedPoints = parseInt(req.body.points);
 
   const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
   const getCurrentTeamScore = 'SELECT TEAM_POINTS FROM TEAM WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
@@ -313,7 +313,7 @@ router.post('/updateScoreAdmin', (req,res) => {
           console.log(`get current team score: ${err}`);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          let currTeamPoints = data2[0].TEAM_POINTS;
+          let currTeamPoints = parseInt(data2[0].TEAM_POINTS);
           currTeamPoints += addedPoints;
           conn.query(updateTeamScoreQuery, [currTeamPoints, team, trailInstanceID], (err, data3) => {
             if (err) {
