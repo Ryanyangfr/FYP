@@ -245,6 +245,15 @@ export default{
             console.log("check")
             this.$router.push('/')
         }
+
+        axios.get('http://54.255.245.23:3000/getCurrentTrailInstanceID')
+        .then(response => {
+            let data = response.data;
+            for(var row in data){
+                console.log(data[row])
+                this.trailID = data[row]
+            }
+        })
     }
 }
 </script>
@@ -254,12 +263,15 @@ export default{
     @import '../../assets/themify-icons.css';
 
     .search-bar{
+        top: 130px;
         display: flex;
         flex-direction: row;
-        margin: 25px 35px 25px 35px;
+        margin: 0px 35px 25px 35px;
         height:60px;
         align-self: center;
         transition: all 0.3s ease 0s;
+        position: fixed;
+        z-index:1;
     }
 
     .search-bar input{
@@ -309,8 +321,14 @@ export default{
     .submissions-row{
         display: flex;
         flex-direction: row;
+        flex:3;
+        width:100%;
+        flex-wrap: wrap;
         margin-right: 18px;
         margin-left: 18px;
+        margin-top: 200px;
+        position: relative;
+        
         /*background-color: pink;*/
     }
 

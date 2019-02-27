@@ -3,13 +3,17 @@
         <div class="card">
             <div class="card-title">
                 <h5>Leaderboard</h5>
+                <div class="leaderboard-feed-btns">
+                    <button class="leaderboard-btn" @click="showLeaderboard()">Leaderboard</button>
+                     <button class ="feed-btn" @click="showFeed()">Activity Feed</button>
+                </div>
             </div>
                 <form @submit.prevent="getData" class="search-bar">
                     <input type="text" placeholder="Enter Trail ID" v-model="trail_instance_id" required>
                     <button type="submit" class="search-btn"><i class="ti-search"></i></button> 
                 </form>
 
-                <table>
+                <table v-if="isLeaderboard">
                     <tr class="leaderboard-table-header">
                         <td>Team</td>
                         <td>Points</td>
@@ -51,19 +55,19 @@
                 
                 <form class="edit-leaderboard-body" @submit.prevent="onSubmitToEdit">
                     <div class="edit-leaderboard-input">
-                        <input type="text" id="team-num-input" v-model="curr_team_num" readonly>
+                        <input type="text" id="team-num-input" v-model="curr_team_num" disabled>
                         <label for="team-num-input">Team</label>
                     </div>
                     <div class="edit-leaderboard-input">
                         <input type="text" id="points-input" v-model="curr_points" required>
-                        <label for="points-input">Points</label>
+                        <label for="points-input">Points to be added</label>
                     </div>
                     <div class="edit-leaderboard-input">
-                        <input type="text-area" id="hotspots-input" v-model="curr_hotspots" readonly>
+                        <input type="text-area" id="hotspots-input" v-model="curr_hotspots" disabled>
                         <label for="curr_hotspots">Hotspots</label>
                     </div>
                     <div class="edit-leaderboard-input">
-                        <input type="text" id="timing-input" v-model="curr_timing" readonly>
+                        <input type="text" id="timing-input" v-model="curr_timing">
                         <label for="curr_timing">Timing</label>
                     </div>
                     <div>
@@ -86,6 +90,11 @@ export default {
             items: [],
             trail_instance_id: '',
             showEdit: false,
+            curr_hotspots: 0,
+            curr_team_num:0,
+            curr_points: 0,
+            isLeaderboard: true,
+            isFeed: false
         }
     },
 
@@ -103,6 +112,59 @@ export default {
                 console.log(response);
                 this.items = response.data;
             })
+        },
+
+        editLeaderboard(team_num, points, hotspots_completed){
+            if(this.showEdit){
+                this.showEdit = false;
+            } else{
+                this.showEdit = true;
+            }
+
+            this.curr_hotspots = hotspots_completed;
+            this.curr_team_num = team_num;
+            this.currpoints = points;
+        },
+
+        onSubmitToEdit(){
+            var postBody = {
+                "team": this.curr_team_num,
+                "points": this.curr_points
+                // "narrative_id": this.narrative_dictionary[this.curr_narrative]
+            }
+            console.log("post body: ");
+            console.log(postBody)
+
+            axios.post('http://54.255.245.23:3000/team/updateScoreAdmin', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                this.$router.go();
+               
+            })
+
+        },
+
+        showLeaderboard(){
+            isLeaderboard = true;
+            isFeed = false
+        },
+
+        showFeed(){
+            isLeaderboard = false;
+            isFeed = true
+        },
+
+        closeEdit(){
+            if(this.showEdit){
+                this.showEdit = false;
+            } else{
+                this.showEdit = true;
+            }
+
+            this.curr_hotspots = "";
+            this.curr_team_num = "";
+            this.currpoints = "";    
         }
     },
     mounted(){
@@ -111,7 +173,7 @@ export default {
             this.$router.push('/')
         }
 
-         axios.get('http://54.255.245.23:3000/getCurrentTrailInstanceID')
+        axios.get('http://54.255.245.23:3000/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -226,7 +288,7 @@ export default {
 
     .card table{
         margin: 18px;
-        font-size: 17px;
+        font-size: 20px;
         font-family: "Roboto", sans-serif;
        
     }
@@ -260,10 +322,6 @@ export default {
         padding: 15px;
     }
 
-    .points-data, .team-data{
-        font-size: 20px
-    }
-
     .leaderboard-data button{
         background: none;
         border: none;
@@ -272,7 +330,8 @@ export default {
 
     .leaderboard-data i{
         font-size: 20px;
-        color: #536479
+        /* color: #536479 */
+        color: black
     }
 
      .leaderboard-data a{
@@ -291,6 +350,147 @@ export default {
 
     .leaderboard-title-header{
         min-width: 200px;
+    }
+
+    .leaderboard-feed-btns{
+        display: flex;
+        flex-direction: row;
+        float: right;
+        margin-top: 10px;
+        margin-right: 10px;
+        font-size: 20px;
+    }
+
+    .leaderboard-btn{
+        background-color: white;
+        border: 1px solid #645cdd;
+        color: #645cdd;
+        border-radius: 5px 0 0 5px;
+        padding-left: 20px;
+        font-family: 'Roboto', sans-serif;
+        cursor: pointer;
+    }
+
+    .feed-btn{
+        border:none;
+        padding-right: 18px;
+        background-color: white;
+        border: 1px solid #645cdd;
+        border-radius: 0 5px 5px 0;
+        font-family: 'Roboto', sans-serif;
+        cursor: pointer;
+    }
+
+    /* edit leaderboard starts */
+    .black-blur-bg{
+        width:100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0, 0.7);
+        position: fixed;
+        top:0;
+        z-index: 2;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .edit-leaderboard-form{
+        width:50%;
+        height:85%;
+        background:white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        
+    }
+
+    .edit-leaderboard-header{
+        max-width: 100%;
+        padding:18px;
+    }
+
+    .edit-leaderboard-form h5{
+        display: flex;
+        float: left;
+    }
+
+    .close-edit-leaderboard{
+        background: none;
+        border: none;
+        color: #868686;
+        cursor: pointer;
+        float: right;
+        font-size: 18px;
+    }
+
+    .edit-leaderboard-input{
+        float: left;
+        display: flex;
+        margin-left: 30px;
+        margin-bottom: 45px;
+        font-family: 'Lato', sans-serif;
+        position: relative;
+    }
+
+    .edit-leaderboard-body{
+        padding-top: 25px;
+        display: flex;
+        flex-direction: column;
+        width:100%;
+    }
+
+    .edit-leaderboard-input label{
+        top: -25px;
+        position: absolute;
+        font-size: 13px;
+        pointer-events: none;
+        transition: all 0.3s ease 0s;
+    }
+
+    .edit-leaderboard-input input:focus ~ label,
+    .edit-leaderboard-input input:valid ~ label,
+    .edit-leaderboard-input input:-webkit-autofill + label{
+        font-size: 14px
+    }
+
+    .edit-leaderboard-input input{
+        margin-left: 5px;
+        height: 40px;
+        outline: none;
+        border: 1px solid #CED4DA;
+        border-radius: 4px;
+        padding: 10px;
+        font-size: 14px;
+        width:90%;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    .edit-leaderboard-input input:focus{
+        outline: none !important;
+        border:1px solid #6200EE;
+        box-shadow: 0 0 2px #645cdd;
+    }
+
+    .edit-leaderboard-submit{
+        background-color: #6200EE;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size:15px;
+        display: flex;
+        float: right;
+        padding:10px 20px 10px 20px;
+        margin-right: 25px;
+        margin-bottom: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-items: center;
+        position: relative;
+        font-family: "Roboto", sans-serif
+        
     }
 </style>
 

@@ -245,7 +245,7 @@ export default {
     }
 
     .create-hotspot-btn{
-        background-color: #645cdd;;
+        background-color: #645cdd;
         border: none;
         border-radius: 5px;
         color: white;

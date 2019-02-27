@@ -5,7 +5,9 @@
                 {{$route.name}}
             </div>
             <div class="trail-id-area">
-                Current Trail ID: {{this.trail_instance_id}}
+                Current Trail ID: 
+                <div v-if="this.$store.state.currentTrailID==='-'">{{this.trail_instance_id}}</div>
+                <div v-else>{{this.$store.state.currentTrailID}}</div>
             </div>
         <!-- </div> -->
     </div>
@@ -21,6 +23,12 @@ export default{
             trail_instance_id:"-"
         }
     },
+
+    computed: {
+        currentTrailID(){
+            return this.$store.state.currentTrailID;
+        }
+    },   
 
     mounted() {
         axios.get('http://54.255.245.23:3000/getCurrentTrailInstanceID')

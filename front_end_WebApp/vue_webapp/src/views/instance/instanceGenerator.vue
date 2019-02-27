@@ -95,11 +95,11 @@ export default {
       vSelect
     },
 
-    // computed:{
-    //     currentTrailID(){
-    //         return this.$store.state.currentTrailID;
-    //     }
-    // },
+    computed:{
+        currentTrailID(){
+            return this.$store.state.currentTrailID;
+        }
+    },
 
     methods: {
         makeID(){
@@ -110,7 +110,7 @@ export default {
                 id += possible.charAt(Math.floor(Math.random()* possible.length))
             }
             this.instance_id = id
-            // this.$store.commit('saveCurrentTrailID', this.instance_id);
+            this.$store.commit('saveCurrentTrailID', this.instance_id);
         },
 
         toggleGenerate(){
