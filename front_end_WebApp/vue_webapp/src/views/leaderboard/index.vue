@@ -230,6 +230,7 @@ export default {
         .then(response => {
             console.log(response);
             this.items = response.data;
+            this.items.sort((a,b) => b.points-a.points);
         })
     }
 }
