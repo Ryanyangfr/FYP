@@ -140,6 +140,8 @@ export default {
                 let data = response.data;
                 console.log(data);
             })
+
+            this.$router.push({ path: this.redirect || '/map' })
         }
     },
     
