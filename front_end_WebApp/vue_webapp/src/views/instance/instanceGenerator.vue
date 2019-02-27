@@ -147,6 +147,7 @@ export default {
             })
             
             this.$store.commit('saveInstanceStartTime', new Date().getTime() + parseInt(this.trailTimeMap[this.trail])*60*1000);
+            this.$router.push({ path: this.redirect || '/map' })
         }
     },
     

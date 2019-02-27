@@ -1,6 +1,10 @@
 <template>
   <div class="Livemap">
       <div class="card">
+        <div class="card-title">
+            <h5 v-if="this.$store.state.currentTrailID==='-'">ONGOING TRAIL: {{this.trail_instance_id}}</h5>
+            <h5 v-else>ONGOING TRAIL: {{this.$store.state.currentTrailID}}</h5>
+        </div>
         <div id="gmap-view" >
         </div>
       </div>
@@ -24,10 +28,18 @@ export default {
             currentPlace: null,
             socket : io('http://54.255.245.23:3000'),
             map: '',
-            currentMarkersInMap: []
+            currentMarkersInMap: [],
+            trail_instance_id: ""
             
         };
     },
+
+    computed:{
+        currentTrailID(){
+            return this.$store.state.currentTrailID;
+        }
+    },
+
     method: {
         setMapOnAll(map) {
             for (var i = 0; i < this.team_markers.length; i++) {
@@ -101,6 +113,15 @@ export default {
             })
         })
 
+        axios.get('http://54.255.245.23:3000/getCurrentTrailInstanceID')
+        .then(response => {
+            let data = response.data;
+            for(var row in data){
+                console.log(data[row])
+                this.trail_instance_id  = data[row]
+            }
+        })
+
         console.log(this.team_markers)
         this.socket.on('updateLocation', (location) => {
             console.log(location);
@@ -164,9 +185,21 @@ export default {
         margin: 18px;      
         border-radius: 3px;
         border: none;
-        font-family: 'Roboto Condensed', sans-serif; 
+        font-family: 'Roboto', sans-serif; 
         background-color: white;
         
+    }
+
+    .card .card-title{
+        /*display: flex;*/
+        /*float: left;*/
+        font-size: 20px;
+        font-weight: 600
+    }
+
+    .card-title h5{
+        display: flex;
+        float: left;
     }
 
     #gmap-view{
