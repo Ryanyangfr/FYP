@@ -114,7 +114,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
               console.log(`question id: ${question_id}`);
 
 
-              conn.query(query, [submission_id, new_image_path, team_id, trail_instance_id, null, question_id], (err, data) => {
+              conn.query(query, [submission_id, new_image_path, team_id, trail_instance_id, null, question_id, 0], (err, data) => {
                 if (err) {
                   console.log(err);
                 } else {
@@ -324,6 +324,7 @@ router.get('/getAllSubmissionURL', (req, res) => {
       console.log(err);
     } else {
       rows.forEach((row) => {
+        console.log('submission');
         response.push({ submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
       });
 
@@ -335,6 +336,7 @@ router.get('/getAllSubmissionURL', (req, res) => {
         } else {
           const num_submission_query = 'SELECT COUNT(*) AS COUNT FROM SUBMISSION WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
           data.forEach((row) => {
+            console.log('drawing');
             response.push({ submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
           });
 
