@@ -294,4 +294,39 @@ router.get('/activityFeed', (req,res) => {
   });
 });
 
+router.post('/updateScoreAdmin', (req,res) => {
+  const team = req.body.team;
+  const addedPoints = parseInt(req.body.points);
+
+  const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
+  const getCurrentTeamScore = 'SELECT TEAM_POINTS FROM TEAM WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
+  const updateTeamScoreQuery = 'UPDATE TEAM SET TEAM_POINTS = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
+
+  conn.query(getActiveTrailInstance, (err, data) => {
+    if (err) {
+      console.log(`get active trail instance error retrieve update score admin: ${err}`);
+      res.send(JSON.stringify({ success: 'false' }))
+    } else {
+      const trailInstanceID = data[0].TRAIL_INSTANCE_ID
+      conn.query(getCurrentTeamScore, [team, trailInstanceID], (err,data2) => {
+        if (err) {
+          console.log(`get current team score: ${err}`);
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          let currTeamPoints = parseInt(data2[0].TEAM_POINTS);
+          currTeamPoints += addedPoints;
+          conn.query(updateTeamScoreQuery, [currTeamPoints, team, trailInstanceID], (err, data3) => {
+            if (err) {
+              console.log(`update current team score: ${err}`);
+              res.send(JSON.stringify({ success: 'false' }));
+            } else {
+              res.send(JSON.stringify({ success: 'true' }));
+            }
+          })
+        }
+      })
+    }
+  });
+});
+
 module.exports = router;
