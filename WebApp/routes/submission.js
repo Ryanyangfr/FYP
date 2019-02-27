@@ -105,7 +105,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
                 console.log(err);
               });
 
-              const query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID) VALUES (?,?,?,?,?,?)';
+              const query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID, ISAPPROVED) VALUES (?,?,?,?,?,?,?)';
 
               console.log(`submission: ${submission_id}`);
               console.log(`image url: ${new_image_path}`);
@@ -163,7 +163,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
             console.log(err);
           });
 
-          const query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID) VALUES (?,?,?,?,?,?)'
+          const query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID, ISAPPROVED) VALUES (?,?,?,?,?,?,?)'
 
           console.log(`submission: ${submission_id}`);
           console.log(`image url: ${new_image_path}`);
