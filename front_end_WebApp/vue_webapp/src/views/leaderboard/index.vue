@@ -90,6 +90,7 @@
 
 <script>
 import axios from 'axios'
+import io from 'socket.io-client';
 
 export default {
     data() {
@@ -102,7 +103,8 @@ export default {
             curr_points: 0,
             isLeaderboard: true,
             isFeed: false,
-            activityList: []
+            activityList: [],
+            socket : io('http://54.255.245.23:3000')
         }
     },
 
@@ -199,6 +201,12 @@ export default {
                 this.activityList.push({activity: activity, timestamp: data[row].time});
             }
         })
+
+        this.socket.on('activityFeed', (data) => {
+            console.log(data);
+            let activity = "Team " + data.team + " completed their mission at " + data.hotspot
+            this.activityList.unshift({activity: activity, timestamp: data.time});
+        })
     //data received [
     //     {
     //         "team": 1,
@@ -222,6 +230,7 @@ export default {
         .then(response => {
             console.log(response);
             this.items = response.data;
+            this.items.sort((a,b) => b.points-a.points);
         })
     }
 }

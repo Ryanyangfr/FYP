@@ -105,7 +105,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
                 console.log(err);
               });
 
-              const query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID, ISAPPROVED) VALUES (?,?,?,?,?,?,?)';
+              const query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID, SUBMISSION_STATUS) VALUES (?,?,?,?,?,?,?)';
 
               console.log(`submission: ${submission_id}`);
               console.log(`image url: ${new_image_path}`);
@@ -114,7 +114,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
               console.log(`question id: ${question_id}`);
 
 
-              conn.query(query, [submission_id, new_image_path, team_id, trail_instance_id, null, question_id, 0], (err, data) => {
+              conn.query(query, [submission_id, new_image_path, team_id, trail_instance_id, null, question_id, 'no grade'], (err, data) => {
                 if (err) {
                   console.log(err);
                 } else {
@@ -163,7 +163,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
             console.log(err);
           });
 
-          const query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID, ISAPPROVED) VALUES (?,?,?,?,?,?,?)'
+          const query = 'INSERT INTO SUBMISSION(SUBMISSION_ID, SUBMISSION_IMAGE_URL, TEAM_ID, TRAIL_INSTANCE_ID, SUBMISSION_QUESTION_ID, DRAWING_QUESTION_ID, SUBMISSION_STATUS) VALUES (?,?,?,?,?,?,?)'
 
           console.log(`submission: ${submission_id}`);
           console.log(`image url: ${new_image_path}`);
@@ -172,7 +172,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
           console.log(`question id: ${question_id}`);
 
 
-          conn.query(query, [submission_id, new_image_path, team_id, trail_instance_id, question_id, null, 0], (err, data) => {
+          conn.query(query, [submission_id, new_image_path, team_id, trail_instance_id, question_id, null, 'no grade'], (err, data) => {
             if (err) {
               console.log(err);
             } else {
@@ -317,28 +317,30 @@ router.get('/getAllSubmissionURL', (req, res) => {
   console.log(`team: ${team}`);
   console.log(`instance_id: ${instance_id}`);
 
-  const query = 'SELECT SUBMISSION_ID, SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME FROM SUBMISSION AS S,SUBMISSION_QUESTION AS SQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.SUBMISSION_QUESTION_ID = SQ.QUESTION_ID AND TH.MISSION_ID = SQ.MISSION_ID';
-
-  conn.query(query, [team, instance_id], (err, rows) => {
+  // const query = 'SELECT SUBMISSION_ID, SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME, S.SUBMISSION_STATUS FROM SUBMISSION AS S,SUBMISSION_QUESTION AS SQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.SUBMISSION_QUESTION_ID = SQ.QUESTION_ID AND TH.MISSION_ID = SQ.MISSION_ID';
+  const query = 'SELECT SUBMISSION_ID, TEAM_ID, SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME, S.SUBMISSION_STATUS FROM SUBMISSION AS S, SUBMISSION_QUESTION AS SQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TRAIL_INSTANCE_ID = ? AND S.SUBMISSION_QUESTION_ID = SQ.QUESTION_ID AND TH.MISSION_ID = SQ.MISSION_ID;'
+  
+  conn.query(query, [team, instance_id, instance_id], (err, rows) => {
     if (err) {
       console.log(err);
     } else {
       console.log(rows);
       rows.forEach((row) => {
         console.log('submission');
-        response.push({ submissionID: row.SUBMISSION_ID, submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
+        response.push({ submissionID: row.SUBMISSION_ID, submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION, status: row.SUBMISSION_STATUS });
       });
 
-      const drawing_query = 'SELECT SUBMISSION_ID, SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME FROM SUBMISSION AS S, DRAWING_QUESTION AS DQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.DRAWING_QUESTION_ID = DQ.QUESTION_ID AND DQ.MISSION_ID = TH.MISSION_ID';
+      //const drawing_query = 'SELECT SUBMISSION_ID, SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME, S.SUBMISSION_STATUS FROM SUBMISSION AS S, DRAWING_QUESTION AS DQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND S.DRAWING_QUESTION_ID = DQ.QUESTION_ID AND DQ.MISSION_ID = TH.MISSION_ID';
+      const drawing_query = 'SELECT SUBMISSION_ID, SUBMISSION_IMAGE_URL, QUESTION, HOTSPOT_NAME, S.SUBMISSION_STATUS FROM SUBMISSION AS S, DRAWING_QUESTION AS DQ, TRAIL_HOTSPOT AS TH WHERE TEAM_ID = ? AND TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TRAIL_INSTANCE_ID = ? AND S.DRAWING_QUESTION_ID = DQ.QUESTION_ID AND DQ.MISSION_ID = TH.MISSION_ID';
 
-      conn.query(drawing_query, [team, instance_id], (err, data) => {
+      conn.query(drawing_query, [team, instance_id, instance_id], (err, data) => {
         if (err) {
           console.log(err);
         } else {
           const num_submission_query = 'SELECT COUNT(*) AS COUNT FROM SUBMISSION WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
           data.forEach((row) => {
             console.log('drawing');
-            response.push({ submissionID: row.SUBMISSION_ID, submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION });
+            response.push({ submissionID: row.SUBMISSION_ID, submissionURL: row.SUBMISSION_IMAGE_URL, hotspot: row.HOTSPOT_NAME, question: row.QUESTION, status: row.SUBMISSION_STATUS });
           });
 
           // conn.query(num_submission_query, [team, instance_id], function(err, count_row){
