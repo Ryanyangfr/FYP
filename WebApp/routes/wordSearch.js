@@ -45,8 +45,9 @@ router.get('/getWordSearchWords', (req, res) => {
                 // temp.push({ title: currentTitle });
               }
             });
-            temp.push({ words: tempWords });
-            response.push(temp);
+            response.push({ hotspot: hotspot_name, words: tempWords, title: currentTitle });
+            // temp.push({ words: tempWords });
+            // response.push(temp);
             console.log(response);
             res.send(response);
           }
