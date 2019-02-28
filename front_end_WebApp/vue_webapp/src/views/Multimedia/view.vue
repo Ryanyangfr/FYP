@@ -1,9 +1,11 @@
 <template>
     <div class="Submissions">
-        <form class="search-bar" @submit.prevent="retrieveAllTeams">
-            <input type="text" placeholder="Enter Trail ID" v-model="trailID" required>
-            <button class="search-btn"><i class="ti-search"></i></button> 
-        </form>
+        <div v-bind:class="{ shift: this.$store.state.showSidebar }">
+            <form class="search-bar" @submit.prevent="retrieveAllTeams">
+                <input type="text" placeholder="Enter Trail ID" v-model="trailID" required>
+                <button class="search-btn"><i class="ti-search"></i></button> 
+            </form>
+        </div>
         <div class="submissions-row">
             <div class= "container" v-for="team in teamList" :key="team.team_id">
                 <button class="grp-card" @click="showSubmissions(team.team_id)">
@@ -90,6 +92,11 @@ export default{
     computed:{
         currentTrailID(){
             return this.$store.state.currentTrailID;
+        },
+
+        showSidebar(){
+            return this.$store.state.showSidebar;
+      
         }
     },
 
@@ -331,6 +338,7 @@ export default{
         transition: all 0.3s ease 0s;
         position: fixed;
         z-index:1;
+        overflow-x: hidden;
         width: 95%
     }
 
@@ -519,6 +527,15 @@ export default{
         font-family: 'Lato', sans-serif;
         
     }
+
+    // .shift{
+    //     margin-left: 15%;
+    //     animation-name: pushRight;
+    //     animation-duration: 0.5s;
+    //     animation-direction: normal;
+    //     animation-delay: 0s;
+    //     transition: 0.5s ease-in-out;
+    // }
 
 
 

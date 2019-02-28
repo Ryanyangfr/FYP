@@ -18,16 +18,16 @@
                         <td>Team</td>
                         <td>Points</td>
                         <td>Hotspots Completed</td>
-                        <td>Timing</td>
-                        <td>Actions</td>
+                        <!-- <td>Timing</td> -->
+                        <!-- <td>Actions</td> -->
                     </tr>
 
                     <tr class = "leaderboard-data" v-for="item in items" :key="item.team">
                         <td class="team-data">{{item.team}}</td>
                         <td class="points-data">{{item.points}}</td>
                         <td>{{item.hotspots_completed}}</td>
-                        <td></td>
-                        <td><button @click="editLeaderboard(item.team,item.points,item.hotspots_completed)"><i class="ti-pencil-alt"></i></button></td>
+                        <!-- <td></td> -->
+                        <!-- <td><button @click="editLeaderboard(item.team,item.points,item.hotspots_completed)"><i class="ti-pencil-alt"></i></button></td> -->
                     </tr>
                 </table>
 
@@ -438,7 +438,7 @@ export default {
         background-color: rgb(0, 0, 0, 0.7);
         position: fixed;
         top:0;
-        z-index: 2;
+        z-index: 4;
         display:flex;
         align-items: center;
         justify-content: center;

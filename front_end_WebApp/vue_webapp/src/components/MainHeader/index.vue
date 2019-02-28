@@ -25,7 +25,7 @@
                     <div class="ingame-header"><li>In-Game</li></div>
                     <li @click="showOrHide()"><router-link to="/generateInstanceID">Start Trail</router-link></li>
                     <li @click="showOrHide()"><router-link to="/map">Live Map</router-link></li>
-                    <li @click="showOrHide()"><router-link to="/leaderboard">Leaderboard</router-link></li>
+                    <li @click="showOrHide()"><router-link to="/leaderboard">Leaderboard/ Activity Feed</router-link></li>
                     <li @click="showOrHide()"><router-link to='/viewSubmissions'>Submissions</router-link></li>
                 </ul>
             </div>
@@ -138,10 +138,12 @@ export default{
 
     .sideBar ul li{
         list-style-type: none;
-        margin-left: 28px;
+        margin-left: 20px;
+        margin-right: 10px;
         margin-top:25px;
         float: left;
         display: flex;
+        text-align: left;
         /*position: relative;*/
     }
 
