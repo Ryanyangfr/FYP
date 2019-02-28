@@ -496,7 +496,7 @@ INSERT INTO TRAIL_INSTANCE VALUES
 
 INSERT INTO TRAIL_HOTSPOT VALUES
 (1, 'Lee Kong Chian School of Business', 1, 3),
-(1, 'School of Accountancy', 2, 21),
+(1, 'School of Accountancy', 2, 4),
 -- (1, 'School of Economics/School of Social Sciences', 3, 2),
 -- (1, 'School of Information Systems', 4, 1),
 (1, 'School of Law', 5, 6),
