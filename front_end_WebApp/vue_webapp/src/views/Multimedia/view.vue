@@ -172,6 +172,8 @@ export default{
                         console.log('entered')
                         this.paths = []
                         this.questions = []
+                        this.submissionIDs = []
+                        this.submissionStatuses = []
                     }
                     let temp = data[i]
                     // console.log(temp)
