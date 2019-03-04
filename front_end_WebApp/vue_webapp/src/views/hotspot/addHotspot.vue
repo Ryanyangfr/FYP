@@ -9,14 +9,15 @@
                     <label for="add-hotspot-input">Location Name</label>
                     <input name="add-hotspot-input" type="text" placeholder="Hotspot Name" v-model="name" required> 
                 </div> 
-                <div class="input-area">
+                <!-- <div class="input-area">
                     <label for="add-hotspot-input">Latitude</label>
                     <input name="add-hotspot-input" type="text" placeholder="Latitude" v-model="lat" required> 
                 </div> 
                 <div class="input-area">
                     <label for="add-hotspot-input">Longitude</label>
                     <input name="add-hotspot-input" type="text" placeholder="Longitude" v-model="lng" required> 
-                </div>                  
+                </div> -->
+                <div id="gmap-view" ></div>
                 <div class="submit-btn-area">
                     <button class="cancel-btn" type="button"><router-link to='/viewHotspots'>Cancel</router-link></button>
                     <button class="submit-btn" type="submit">Create</button>
@@ -35,7 +36,11 @@ export default {
         return{
             name: "",
             lat: "",
-            lng: ""
+            lng: "",
+            map: undefined,
+            center: { lat: 1.2962, lng: 103.8501 },
+            currentMarker: '',
+            position: ''
 
         }  
     },
@@ -44,8 +49,8 @@ export default {
         hotspotOnSubmitToAdd(){
             var postBody = {
                 "hotspot_name": this.name,
-                "latitude": this.lat,
-                "longtitude": this.lng,
+                "latitude": this.map.lat,
+                "longtitude": this.map.lng,
             }
             console.log("post body: ");
             console.log(postBody)
@@ -56,8 +61,43 @@ export default {
                 this.$router.push({ path: this.redirect || '/viewHotspots' })
             })
             
-        }
-    }      
+        }, 
+    },
+    
+    mounted() {
+        // console.log("map: ", google.maps)
+        this.map = new google.maps.Map(document.getElementById('gmap-view'), {
+            center: this.center,
+            scrollwheel: false,
+            zoom: 18
+            
+        })
+        
+        console.log(`map: ${this.map}`)
+        console.log(this.map)
+        var marker;
+        this.map.addListener('click', function(e) {
+            this.position = e.latLng;
+            this.lat = e.latLng.lat();
+            this.lng = e.latLng.lng();
+
+            if (marker == null) {
+                marker = new google.maps.Marker({
+                    position: e.latLng,
+                    map: this
+                }); 
+            } else {   
+                marker.setPosition(e.latLng); 
+            }
+            // marker = new google.maps.Marker({
+            //     position: e.latLng,
+            //     map: this
+            // });
+            // console.log(this.marker)
+            // console.log(this.map)
+            this.panTo(this.position);
+        });
+    }
         
 }
 </script>
@@ -222,5 +262,11 @@ export default {
     .AddHotspot .cancel-btn a{
         text-decoration: none!important;
         color: white
+    }
+
+    #gmap-view{
+        width:100%;
+        height: 1000px;
+
     }
 </style>
