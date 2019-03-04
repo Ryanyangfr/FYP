@@ -19,7 +19,6 @@ router.get('/getDragAndDrop',function(req,res){
     }else{
       // console.log(missions);
       missions.forEach(function(missionRow){
-        count += 1;
         var mission = missionRow.MISSION_ID;
         var hotspot_name = missionRow.HOTSPOT_NAME;
         console.log(mission)
@@ -32,6 +31,7 @@ router.get('/getDragAndDrop',function(req,res){
             console.log(err);
             // number = number + 1;
           } else{
+            count += 1;
             // console.log(drag_and_drop_details);
             drag_and_drop_ = []
             if (drag_and_drop_details.length != 0){
