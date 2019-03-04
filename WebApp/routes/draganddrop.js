@@ -45,6 +45,8 @@ router.get('/getDragAndDrop',function(req,res){
               // console.log('count: ' + typeof count);
               // console.log('mission length: ' + typeof missions.length);                            
             }
+            console.log(`count: ${count}`);
+            console.log(`missions: ${missions.length}`);
             if(count == missions.length){
               res.end(JSON.stringify(response, null, 3));
               console.log('count: ' + count);
