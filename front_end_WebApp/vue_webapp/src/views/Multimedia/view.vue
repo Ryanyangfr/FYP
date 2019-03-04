@@ -3,7 +3,7 @@
         <div v-bind:class="{ shift: this.$store.state.showSidebar }">
             <form class="search-bar" @submit.prevent="retrieveAllTeams">
                 <input type="text" placeholder="Enter Trail ID" v-model="trailID" required>
-                <button class="search-btn"><i class="ti-search"></i></button> 
+                <button type="submit" class="search-btn"><i class="ti-search"></i></button> 
             </form>
         </div>
         <div class="submissions-row">
@@ -391,9 +391,6 @@ export default{
     .submissions-row{
         display: flex;
         flex-direction: row;
-        flex:3;
-        width:100%;
-        flex-wrap: wrap;
         margin-right: 18px;
         margin-left: 18px;
         margin-top: 200px;
@@ -442,6 +439,7 @@ export default{
     .grp-submission-row{
         display: flex;
         // background-color: blue;
+        flex-wrap: wrap;
         min-height:400px;
         margin: 20px;
         animation-name: grow;
@@ -465,7 +463,9 @@ export default{
 
     .grp-submission-row .container{
         // background-color: pink;
-        max-width: 32%;
+        // max-width: 400px;
+        max-width: 30%;
+        flex-basis: 30%;
         height: inherit;
         margin-right: 18px;
     }
