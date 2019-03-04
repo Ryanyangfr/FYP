@@ -295,21 +295,21 @@ INSERT INTO MISSION VALUES
 (4, 'title 4'),
 (5, 'title 5'),
 (6, 'title 6'),
--- (7, 'title 7'),
--- (8, 'title 8'),
--- (9, 'title 9'),
--- (10, 'title 10'),
--- (11, 'title 11'),
--- (12, 'title 12'),
+(7, 'SIS Quiz'),
+(8, 'LKCSB Wefie'),
+(9, 'LKSL Drag And Drop'),
+(10, 'SOE/SOSS Word Search'),
+(11, 'SOL Anagram'),
+(12, 'SOA Drawing');
 -- (13, 'title 13'),
 -- (14, 'title 14'),
 -- (15, 'title 15'),
 -- (16, 'title 16'),
 -- (17, 'title 17'),
-(18, 'title 18'),
+-- (18, 'title 18'),
 -- (19, 'title 19'),
-(20, 'title 20'),
-(21, 'title 21');
+-- (20, 'title 20'),
+-- (21, 'title 21');
 
 INSERT INTO QUIZ VALUES
 (1, 'Which of the following lab is not located in School of Information Systems?', 'SAS Lab', 1),
@@ -320,7 +320,11 @@ INSERT INTO QUIZ VALUES
 (6, 'When you are hungry at SOA where is the nearest food place to go', 'SwissBake', 4),
 (7, 'As an admin and research staff, how many books/items can we borrow from the SMU Libraries', '40', 5),
 (8, 'Which level can you find dedicated exhibition space in Li Ka Shing Library', '4', 5),
-(9, 'The Investment Studio is a dedicated space on Level 3 of Li Ka Shing Library which allows users to access finance terminals under one roof. Which floor is the Investment Studio located', '3', 5);
+(9, 'The Investment Studio is a dedicated space on Level 3 of Li Ka Shing Library which allows users to access finance terminals under one roof. Which floor is the Investment Studio located', '3', 5),
+(10, 'Which of the following lab is not located at School of Information Systems?', 'SAS Labs', 7),
+(11, 'Which floor is the General Office located at?', '5', 7),
+(12, 'Locate the gym at SIS and find out which faculty works out the most.', 'Lee Kong Chian School of Business', 7);
+
 -- (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
 -- (2,'In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 1),
 -- (3,'In the CIRCLE values, what does the alphabet \'R\' represent?', 'Responsibility', 1),
@@ -379,7 +383,19 @@ INSERT INTO QUIZ_OPTION VALUES
 (9,32,'2'),
 (9,33,'3'),
 (9,34,'4'),
-(9,35,'5');
+(9,35,'5'),
+(10,36,'Live Labs'),
+(10,37,'Living Analytics Research Centre (LARC)'),
+(10,38,'SMU-TCS ICity Labs'),
+(10,39,'SAS Labs'),
+(11,40,'2'),
+(11,41,'3'),
+(11,42,'4'),
+(11,43,'5'),
+(12,44,'School of Economics'),
+(12,45,'School of Law'),
+(12,46,'Lee Kong Chian School of Business'),
+(12,47,'School of Information Systems');
 
 
 -- (1,1, 'Commitment'),
@@ -461,7 +477,8 @@ INSERT INTO QUIZ_OPTION VALUES
 INSERT INTO SUBMISSION_QUESTION VALUES
 (1, 'Take a group photo at Tea Party while pretending to be slurping their DELICIOUS noodles', 2),
 (2, 'Locate Lee Kong Chian School of Business mission statement and take a wefie', 3),
-(3, 'Explore the roof top at School of Law and take a fun group picure', 6);
+(3, 'Explore the roof top at School of Law and take a fun group picure', 6),
+(4, 'Locate LKSCB Mission Statement and take a wefie!', 8);
 -- (1, 'Find the Mission Statement and take a wefie!', 8),
 -- (2, 'Find the Mission Statement and take a wefie!', 9),
 -- (3, 'Find Le Suantio Gallery and take a wefie!', 10),
@@ -476,11 +493,13 @@ INSERT INTO SUBMISSION_QUESTION VALUES
 -- -- (12, 'Locate the Campus Green and take a wefie together with Bernar Venet’s Sculpture “97.5° Arc x 8”!', 18);
 
 INSERT INTO DRAWING_QUESTION VALUES
-(1, 'Draw Smoo Smoo', 20);
+-- (1, 'Draw Smoo Smoo', 20);
+(1, 'Find out the color that represents this faculty and draw something related to the colour.',12);
 
 INSERT INTO TRAIL VALUES
 (1,'test trail',45),
-(2, 'wet weather trail', 45);
+(2, 'wet weather trail', 45),
+(3, 'Live Trail 1', 45);
 
 INSERT INTO TRAIL_INSTANCE VALUES
 (1,1,0,0),
@@ -502,7 +521,14 @@ INSERT INTO TRAIL_HOTSPOT VALUES
 (1, 'School of Law', 5, 6),
 (2, 'Li Ka Shing Library', 6, 5),
 (2, 'Lee Kong Chian School of Business', 1, 3),
-(2, 'School of Accountancy', 2, 4);
+(2, 'School of Accountancy', 2, 4),
+(3, 'School of Information Systems', 4, 7),
+(3, 'Lee Kong Chian School of Business', 1, 8),
+(3, 'Li Ka Shing Library', 6, 9),
+(3, 'School of Economics/School of Social Sciences', 3, 10),
+(3, 'School of Law', 5, 11),
+(3, 'School of Accountancy', 2, 12);
+
 
 INSERT INTO TEAM VALUES
 (1,0,'1.2953', '103.8506',1),
@@ -533,26 +559,32 @@ INSERT INTO TEAM_HOTSPOT_STATUS VALUES
 ('Li Ka Shing Library', '175239', 3, 0, null);
 
 INSERT INTO DRAG_AND_DROP VALUES
-(1,'Match the words', 18);
+-- (1,'Match the words', 18);
+(1, 'As an SMU Admin staff, how long are you able to loan the following items for?', 9);
 
 INSERT INTO DRAG_AND_DROP_OPTION VALUES
-(1,'I', 'Integrity'),
-(1,'R', 'Responsibility'),
-(1,'C', 'Collegiality'),
-(1,'L', 'Leadership');
+-- (1,'I', 'Integrity'),
+-- (1,'R', 'Responsibility'),
+-- (1,'C', 'Collegiality'),
+-- (1,'L', 'Leadership');
+(1,'Reserves', '28 days'),
+(1,'Magazines', '4 hours'),
+(1,'Books', '7 days'),
+(1,'Media Collections (Reserves)', '3 hours');
 
--- INSERT INTO ANAGRAM VALUES
--- (1,'kwageokchoo', 19);
+INSERT INTO ANAGRAM VALUES
+(1,'kwageokchoo', 11);
 
 INSERT INTO WORDSEARCH VALUES
-('Accountancy Word Search', 21);
+-- ('Accountancy Word Search', 21);
+('SOSS/SOE Word Search', 10)
 
 INSERT INTO WORDSEARCH_WORD VALUES
-('Accountancy Word Search', 'account'),
-('Accountancy Word Search', 'study'),
-('Accountancy Word Search', 'money'),
-('Accountancy Word Search', 'loss'),
-('Accountancy Word Search', 'profit');
+('SOSS/SOE Word Search', 'Psychology'),
+('SOSS/SOE Word Search', 'Sociology'),
+('SOSS/SOE Word Search', 'Socialism'),
+('SOSS/SOE Word Search', 'Economy'),
+('SOSS/SOE Word Search', 'Tax');
 
 INSERT INTO ADMIN VALUES
 ('admin', 'password');
