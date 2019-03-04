@@ -22,7 +22,7 @@ router.get('/getDragAndDrop',function(req,res){
         count += 1;
         var mission = missionRow.MISSION_ID;
         var hotspot_name = missionRow.HOTSPOT_NAME;
-        // console.log(mission)
+        console.log(mission)
         mission_query = 'SELECT DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION WHERE DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID AND MISSION_ID = ?';
 
         conn.query(mission_query, mission, function(err, drag_and_drop_details){
@@ -40,6 +40,7 @@ router.get('/getDragAndDrop',function(req,res){
               })
               // console.log(drag_and_drop_)
               response.push({hotspot: hotspot_name, question: drag_and_drop_details[0].DRAGANDDROP_QUESTION, drag_and_drop: drag_and_drop_});
+              console.log(`response: ${response}`);
               console.log('count: ' + typeof count);
               console.log('mission length: ' + typeof missions.length);                            
             }
