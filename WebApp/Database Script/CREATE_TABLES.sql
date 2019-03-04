@@ -577,7 +577,7 @@ INSERT INTO ANAGRAM VALUES
 
 INSERT INTO WORDSEARCH VALUES
 -- ('Accountancy Word Search', 21);
-('SOSS/SOE Word Search', 10)
+('SOSS/SOE Word Search', 10);
 
 INSERT INTO WORDSEARCH_WORD VALUES
 ('SOSS/SOE Word Search', 'Psychology'),
