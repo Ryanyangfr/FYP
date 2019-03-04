@@ -41,8 +41,9 @@ router.get('/getDragAndDrop',function(req,res){
               // console.log(drag_and_drop_)
               response.push({hotspot: hotspot_name, question: drag_and_drop_details[0].DRAGANDDROP_QUESTION, drag_and_drop: drag_and_drop_});
               console.log(`response: ${response}`);
-              console.log('count: ' + typeof count);
-              console.log('mission length: ' + typeof missions.length);                            
+              console.log(response);
+              // console.log('count: ' + typeof count);
+              // console.log('mission length: ' + typeof missions.length);                            
             }
             if(count == missions.length){
               res.end(JSON.stringify(response, null, 3));
