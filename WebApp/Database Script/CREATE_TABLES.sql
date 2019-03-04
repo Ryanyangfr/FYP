@@ -567,10 +567,10 @@ INSERT INTO DRAG_AND_DROP_OPTION VALUES
 -- (1,'R', 'Responsibility'),
 -- (1,'C', 'Collegiality'),
 -- (1,'L', 'Leadership');
-(1,'Reserves', '28 days'),
-(1,'Magazines', '4 hours'),
-(1,'Books', '7 days'),
-(1,'Media Collections (Reserves)', '3 hours');
+(1,'Reserves', '3 hours'),
+(1,'Magazines', '7 days'),
+(1,'Books', '28 days'),
+(1,'Media Collections (Reserves)', '4 hours');
 
 INSERT INTO ANAGRAM VALUES
 (1,'kwageokchoo', 11);
