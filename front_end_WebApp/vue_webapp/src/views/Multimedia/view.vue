@@ -321,6 +321,25 @@ export default{
                 console.log(data[row])
                 this.trailID = data[row]
             }
+
+            axios.get('http://54.255.245.23:3000/team/getAllTeams?trail_instance_id='+this.trailID)
+            .then(response => {
+                let data = response.data;
+                for(var row in data){
+                    console.log(data[row]);
+                    let team_id = data[row].team_id;
+                    axios.get('//54.255.245.23:3000/upload/getAllSubmissionURL?team='+team_id+'&trail_instance_id='+this.trailID)
+                    .then(res => {
+                        let submissionsURLs = res.data;
+                        let size = Object.keys(submissionsURLs).length;
+                        this.teamList.push({team_id: team_id, size: size}); 
+                        if(this.teamList.length === data.length){
+                            this.teamList.sort(function(a,b){ return a.team_id - b.team_id });
+                        }
+                    });
+                }
+                
+            });
         })
     }
 }
@@ -447,6 +466,7 @@ export default{
         animation-direction: normal;
         animation-delay: 0s;
         transform-origin: top left;
+       
     }
 
     @keyframes grow{
@@ -464,10 +484,11 @@ export default{
     .grp-submission-row .container{
         // background-color: pink;
         // max-width: 400px;
-        max-width: 30%;
-        flex-basis: 30%;
+        max-width: 31.333333333%;
+        flex-basis: 31.333333333%;
         height: inherit;
-        margin-right: 18px;
+        margin-left: 18px;
+        align-content: center
     }
 
     .submission-card{
