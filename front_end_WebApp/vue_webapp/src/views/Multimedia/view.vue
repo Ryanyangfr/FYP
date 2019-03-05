@@ -103,7 +103,7 @@ export default{
     methods:{
         retrieveAllTeams(){
             this.teamList = [];
-            axios.get('http://54.255.245.23:3000/team/getAllTeams?trail_instance_id='+this.trailID)
+            axios.get('http://13.229.115.32:3000/team/getAllTeams?trail_instance_id='+this.trailID)
             .then(response => {
                 let data = response.data;
                 for(var row in data){
@@ -314,7 +314,7 @@ export default{
             this.$router.push('/')
         }
 
-        axios.get('http://54.255.245.23:3000/getCurrentTrailInstanceID')
+        axios.get('http://13.229.115.32:3000/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -322,7 +322,7 @@ export default{
                 this.trailID = data[row]
             }
 
-            axios.get('http://54.255.245.23:3000/team/getAllTeams?trail_instance_id='+this.trailID)
+            axios.get('http://13.229.115.32:3000/team/getAllTeams?trail_instance_id='+this.trailID)
             .then(response => {
                 let data = response.data;
                 for(var row in data){

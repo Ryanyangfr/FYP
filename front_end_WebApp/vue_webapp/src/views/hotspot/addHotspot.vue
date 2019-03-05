@@ -54,7 +54,7 @@ export default {
             }
             console.log("post body: ");
             console.log(postBody)
-            axios.post('http://54.255.245.23:3000/add/addHotspot', postBody)
+            axios.post('http://13.229.115.32:3000/add/addHotspot', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -266,7 +266,7 @@ export default {
 
     #gmap-view{
         width:100%;
-        height: 1000px;
+        height: 500px;
 
     }
 </style>

@@ -104,7 +104,7 @@ export default {
             isLeaderboard: true,
             isFeed: false,
             activityList: [],
-            socket : io('http://54.255.245.23:3000')
+            socket : io('http://13.229.115.32:3000')
         }
     },
 
@@ -145,7 +145,7 @@ export default {
             console.log("post body: ");
             console.log(postBody)
 
-            axios.post('http://54.255.245.23:3000/team/updateScoreAdmin', postBody)
+            axios.post('http://13.229.115.32:3000/team/updateScoreAdmin', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -183,7 +183,7 @@ export default {
             this.$router.push('/')
         }
 
-        axios.get('http://54.255.245.23:3000/getCurrentTrailInstanceID')
+        axios.get('http://13.229.115.32:3000/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -192,7 +192,7 @@ export default {
             }
         })
 
-        axios.get('http://54.255.245.23:3000/team/activityFeed')
+        axios.get('http://13.229.115.32:3000/team/activityFeed')
         .then(response => {
             let data = response.data;
             for(var row in data){
