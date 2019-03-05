@@ -119,7 +119,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
                   console.log(err);
                 } else {
                   console.log('submission successfully loaded');
-                  queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1 WHERE TIME_COMPLETED = ?, TEAM_ID = ?, TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
+                  queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1, TIME_COMPLETED = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
 
                   conn.query(queryUpdate_hotspot, [time, team_id, trail_instance_id, hotspot], (err, row) => {
                     if (err) {
@@ -177,7 +177,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
               console.log(err);
             } else {
               console.log('submission successfully loaded');
-              const queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1 WHERE TIME_COMPLETED = ?, TEAM_ID = ?, TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
+              const queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1, TIME_COMPLETED = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
 
               conn.query(queryUpdate_hotspot, [time, team_id, trail_instance_id, hotspot], (err, row) => {
                 if (err) {
