@@ -17,10 +17,17 @@
                     <label for="add-hotspot-input">Longitude</label>
                     <input name="add-hotspot-input" type="text" placeholder="Longitude" v-model="lng" required> 
                 </div> -->
-                <div id="gmap-view" ></div>
-                <div class="submit-btn-area">
-                    <button class="cancel-btn" type="button"><router-link to='/viewHotspots'>Cancel</router-link></button>
-                    <button class="submit-btn" type="submit">Create</button>
+                <div class="choose-hotspot-area">
+                    <div id="gmap-view" ></div>
+                    <div class="instruction-submit-area">
+                        <div class="add-hotspot-instruction">
+                            <h5>Select the location on the map by adding a marker on the map. Then click "Create" to save the location</h5>
+                        </div>
+                        <div class="submit-btn-area">
+                            <button class="cancel-btn" type="button"><router-link to='/viewHotspots'>Cancel</router-link></button>
+                            <button class="submit-btn" type="submit">Create</button>
+                        </div>
+                    </div>
                 </div>
             </form>
             
@@ -208,12 +215,12 @@ export default {
     .AddHotspot .submit-btn-area{
         width: 100%;
         overflow: hidden;
-        float: right;
+        /* float: right; */
     }
 
     .AddHotspot .submit-btn{
         /*display: inline;*/
-        float:right;
+        /* float:right; */
         background: none;
         border: none;
         background-color: #645cdd;
@@ -237,7 +244,7 @@ export default {
 
 
      .AddHotspot .cancel-btn{
-         float:right;
+         /* float:right; */
          background-color: #ACACAC;
          color: white;
          border:none;
@@ -265,8 +272,23 @@ export default {
     }
 
     #gmap-view{
-        width:100%;
+        min-width:70%;
         height: 500px;
 
     }
+
+    .choose-hotspot-area{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .instruction-submit-area{
+        margin-top: 20px
+    }
+
+    .add-hotspot-instruction{
+        text-align: left;
+        margin-left: 12px;
+    }
+
 </style>
