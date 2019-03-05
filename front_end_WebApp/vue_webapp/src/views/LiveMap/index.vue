@@ -26,7 +26,7 @@ export default {
             hotspot_markers: [],
             team_markers: [],
             currentPlace: null,
-            socket : io('http://13.229.115.32:3000'),
+            socket : io('//13.229.115.32:3000'),
             map: '',
             currentMarkersInMap: [],
             trail_instance_id: ""
@@ -60,7 +60,7 @@ export default {
             
         }),
 
-        axios.get('http://13.229.115.32:3000/hotspot/getHotspots')
+        axios.get('//13.229.115.32:3000/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
             var infowindow = new google.maps.InfoWindow();
@@ -86,7 +86,7 @@ export default {
             }
         });
 
-        axios.get('http://13.229.115.32:3000/team/getAllTeamsInCurrentActiveTrail')
+        axios.get('//13.229.115.32:3000/team/getAllTeamsInCurrentActiveTrail')
         .then (response => {
             
             let data = response.data;
@@ -114,7 +114,7 @@ export default {
             })
         })
 
-        axios.get('http://13.229.115.32:3000/getCurrentTrailInstanceID')
+        axios.get('//13.229.115.32:3000/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;
             for(var row in data){

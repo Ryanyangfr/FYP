@@ -142,7 +142,7 @@ export default {
                 // "narrative_id": this.narrativeToBeDeleted.value,
                 "narrative_id": this.curr_narrative_id
             }
-            axios.post('http://13.229.115.32:3000/delete/deleteNarrative', postBody)
+            axios.post('//13.229.115.32:3000/delete/deleteNarrative', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -165,7 +165,7 @@ export default {
             console.log("check")
             this.$router.push('/')
         }
-        axios.get('http://13.229.115.32:3000/narrative/getNarratives')
+        axios.get('//13.229.115.32:3000/narrative/getNarratives')
         .then(response => {
             let data = response.data;
             // console.log(data)

@@ -128,7 +128,7 @@ export default {
                 numTeams: this.numTeams
             }
             console.log(postBody)
-            axios.post('http://13.229.115.32:3000/trail/initializeTrail', postBody)
+            axios.post('//13.229.115.32:3000/trail/initializeTrail', postBody)
             .then(response => {
                 let data = response.data;
                 console.log(data);
@@ -140,7 +140,7 @@ export default {
                 trailID: this.trailMap[this.trail],
                 trailInstanceID: this.instance_id
             }
-            axios.post('http://13.229.115.32:3000/trail/startTrail', postBody)
+            axios.post('//13.229.115.32:3000/trail/startTrail', postBody)
             .then(response => {
                 let data = response.data;
                 console.log(data);
@@ -158,7 +158,7 @@ export default {
             this.$router.push('/')
         }
 
-        axios.get('http://13.229.115.32:3000/trail/getAllTrails')
+        axios.get('//13.229.115.32:3000/trail/getAllTrails')
         .then(response => {
             let data = response.data;
             for(var row in data){
