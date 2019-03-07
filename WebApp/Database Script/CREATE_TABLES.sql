@@ -271,7 +271,7 @@ REFERENCES WORDSEARCH(WORDSEARCH_TITLE)
 );
 
 INSERT INTO NARRATIVE VALUES
-(1, 'LKCSB NARRATIVE','In 2000, SMU commenced its curriculum with the School of Business, welcoming its first batch of cohort in August. The SMU School of Business and university-wide scholars programme was named in perpetuity after Dr Lee Kong Chian in recognition of the Lee Foundation generous contribution of S$50 million to SMU in 2004. Dr Lee Kong Chain is a well-known Southeast Asia businessmen, philanthropist and community leader. SMU school of business is therefore known as LKCSB (Lee Kong Chian School of Business)'),
+(1, 'LKCSB NARRATIVE','In 2000, SMU commenced its curriculum with the School of Business, welcoming its first batch of cohort in August. The SMU School of Business and university-wide scholars programme was named in perpetuity after Dr Lee Kong Chian in recognition of the Lee Foundation generous contribution of S$50 million to SMU in 2004. Dr Lee Kong Chain is a well-known Southeast Asia businessman, philanthropist and community leader. SMU school of business is therefore known as LKCSB (Lee Kong Chian School of Business)'),
 (2, 'SOA NARRATIVE','School of Accountancy (SOA) is the second largest school in SMU, with its humble beginnings going way back to 2000. The first Dean then was Professor Pang Yang Hoong, who was also part of the planning team at SMU. A lecture hall lies within SOA, being the only school to have a lecture hall. It was set up by the Chinese immigrants in the late 19th century, naming it after the charitable foundation Ngee Ann Kongsi - Ngee Ann Kongsi Auditorium.'),
 (3, 'SOE NARRATIVE','The School of Economics and Social Science was established on 1 July 2002 under the Bachelor of Science degree. The Bachelor of Social Science undergraduate degree programme had 3 majors -Psychology, Sociology, and Political Science. In April 2007, the School of Economics and the School of Social Sciences were established as separate schools to better focus on the development of the undergraduate and graduate curricula and programmes, as well as faculty research in the respective disciplines. The current dean for School of Economics and School of Social Science are Prof Bryce Hool and Tan Yoo Guan respectively.'),
 (4, 'SIS NARRATIVE','Established in 2003, School of Information Systems is a dynamic school that is constantly seeking to lift our education and research to a higher level. It houses 10 institutes, centres, labs and initiatives (ICLIs) in SMU. These ICLIs have several areas of focus such as Analytics for Business, Consumer & Social Insights, Urban Management & Sustainability, Ageing & Healthcare Management, Finance & Financial Markets, and Cybersecurity Initiative.'),
@@ -298,7 +298,7 @@ INSERT INTO MISSION VALUES
 (7, 'SIS Quiz'),
 (8, 'LKCSB Wefie'),
 (9, 'LKSL Drag And Drop'),
-(10, 'SOE/SOSS Word Search'),
+(10, 'SOE/SOSS Quiz'),
 (11, 'SOL Anagram'),
 (12, 'SOA Drawing');
 -- (13, 'title 13'),
@@ -323,7 +323,10 @@ INSERT INTO QUIZ VALUES
 (9, 'The Investment Studio is a dedicated space on Level 3 of Li Ka Shing Library which allows users to access finance terminals under one roof. Which floor is the Investment Studio located', '3', 5),
 (10, 'Which of the following lab is not located at School of Information Systems?', 'SAS Labs', 7),
 (11, 'Which floor is the General Office located at?', '5', 7),
-(12, 'Locate the gym at SIS and find out which faculty works out the most.', 'Lee Kong Chian School of Business', 7);
+(12, 'Locate the gym at SIS and find out which faculty works out the most.', 'Lee Kong Chian School of Business', 7),
+(13, 'Look for Pacita’s Painted Bridge. What is made up of?', '2350 circles', 10),
+(14, 'Which floor is the SAS Enterprise Intelligence Laboratory located at?', '5', 10),
+(15, 'How many Group Study Rooms (GSR) are there at level 3', '18', 10);
 
 -- (1,'In the CIRCLE values, what does the first alphabet \'C\' represent?', 'Commitment', 1),
 -- (2,'In the CIRCLE values, what does the alphabet \'I\' represent?', 'Integrity', 1),
@@ -395,7 +398,19 @@ INSERT INTO QUIZ_OPTION VALUES
 (12,44,'School of Economics'),
 (12,45,'School of Law'),
 (12,46,'Lee Kong Chian School of Business'),
-(12,47,'School of Information Systems');
+(12,47,'School of Information Systems'),
+(13,48,'48 colours'),
+(13,49,'1200 liters of paint'),
+(13,50,'2350 circles'),
+(13,51,'56 squares'),
+(14,52,'2'),
+(14,53,'3'),
+(14,54,'4'),
+(14,55,'5'),
+(15,56,'18'),
+(15,57,'17'),
+(15,58,'16'),
+(15,59,'15');
 
 
 -- (1,1, 'Commitment'),
@@ -575,16 +590,16 @@ INSERT INTO DRAG_AND_DROP_OPTION VALUES
 INSERT INTO ANAGRAM VALUES
 (1,'kwageokchoo', 11);
 
-INSERT INTO WORDSEARCH VALUES
+-- INSERT INTO WORDSEARCH VALUES
 -- ('Accountancy Word Search', 21);
-('SOSS/SOE Word Search', 10);
+-- ('SOSS/SOE Word Search', 10);
 
-INSERT INTO WORDSEARCH_WORD VALUES
-('SOSS/SOE Word Search', 'Psychology'),
-('SOSS/SOE Word Search', 'Sociology'),
-('SOSS/SOE Word Search', 'Socialism'),
-('SOSS/SOE Word Search', 'Economy'),
-('SOSS/SOE Word Search', 'Tax');
+-- INSERT INTO WORDSEARCH_WORD VALUES
+-- ('SOSS/SOE Word Search', 'Psychology'),
+-- ('SOSS/SOE Word Search', 'Sociology'),
+-- ('SOSS/SOE Word Search', 'Socialism'),
+-- ('SOSS/SOE Word Search', 'Economy'),
+-- ('SOSS/SOE Word Search', 'Tax');
 
 INSERT INTO ADMIN VALUES
 ('admin', 'password');

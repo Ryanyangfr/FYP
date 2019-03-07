@@ -40,7 +40,7 @@ export default {
                 "narrative": this.narrative,
 	            "title": this.title
             }
-            axios.post('http://54.255.245.23:3000/add/addNarrative', postBody)
+            axios.post('//13.229.115.32:3000/add/addNarrative', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)

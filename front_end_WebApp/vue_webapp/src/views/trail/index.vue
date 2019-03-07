@@ -119,7 +119,7 @@ export default {
         console.log('entered')
         console.log(missionType)
         // console.log(hotspot)
-        axios.get('http://54.255.245.23:3000/mission/getMission' + missionType)
+        axios.get('//13.229.115.32:3000/mission/getMission' + missionType)
         .then(response =>{
             var data = response.data;
             // console.log(data)
@@ -160,7 +160,7 @@ export default {
         hotspotsAndMissions: this.hotspotsAndMissions
       }
       console.log(postBody);
-      axios.post('http://54.255.245.23:3000/trail/addTrail', postBody)
+      axios.post('//13.229.115.32:3000/trail/addTrail', postBody)
       .then(response => {
           let data = response.data
           console.log(data)
@@ -203,7 +203,7 @@ export default {
             hotspotsAndMissions: this.editedCurrHotspotsAndMissionsForUpdating
         }
         console.log(postBody);
-        axios.post('http://54.255.245.23:3000/trail/editTrail', postBody)
+        axios.post('//13.229.115.32:3000/trail/editTrail', postBody)
         .then(response => {
             let data = response.data
             console.log(data)
@@ -217,7 +217,7 @@ export default {
         this.$router.push('/')
     }
 
-    axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
+    axios.get('//13.229.115.32:3000/hotspot/getHotspots')
     .then(response => {
         let data = response.data;
         for(var row in data){
@@ -226,7 +226,7 @@ export default {
         }
     });
 
-    axios.get('http://54.255.245.23:3000/narrative/getNarratives')
+    axios.get('//13.229.115.32:3000/narrative/getNarratives')
     .then(response => {
         let data = response.data;
         for(var row in data){
@@ -238,7 +238,7 @@ export default {
         // console.log(this.narrative_dictionary);
     })
 
-    axios.get('http://54.255.245.23:3000/trail/getAllTrails')
+    axios.get('//13.229.115.32:3000/trail/getAllTrails')
     .then(response => {
         let data = response.data;
         for(var row in data){

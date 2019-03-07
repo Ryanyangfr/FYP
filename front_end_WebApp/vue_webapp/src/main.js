@@ -31,7 +31,7 @@ Vue.use(VueMaterial)
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);
 Vue.use(VueSession);
-// Vue.use(VueSocketio, 'http://54.255.245.23:3000/');
+// Vue.use(VueSocketio, '//13.229.115.32:3000/');
 /* eslint-disable no-new */
 
 // Vue.use(VueGoogleMaps, {

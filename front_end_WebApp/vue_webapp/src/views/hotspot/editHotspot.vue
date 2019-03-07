@@ -62,7 +62,7 @@ export default {
             console.log("post body: ");
             console.log(postBody)
 
-            axios.post('http://54.255.245.23:3000/edit/editHotspot', postBody)
+            axios.post('//13.229.115.32:3000/edit/editHotspot', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)

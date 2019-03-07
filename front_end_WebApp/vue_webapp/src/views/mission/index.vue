@@ -407,7 +407,7 @@ export default {
         fetchMissions(){
             // console.log('entered')
             this.missionList = [];
-            axios.get('http://54.255.245.23:3000/mission/getMissionQuiz')
+            axios.get('//13.229.115.32:3000/mission/getMissionQuiz')
             .then(response =>{
                 var data = response.data;
                 // console.log(data)
@@ -419,7 +419,7 @@ export default {
         },
 
         getMissionQuizQuestions(missionid, mission){
-            axios.get('http://54.255.245.23:3000/quiz/getQuizQuestion?mission=' + missionid)
+            axios.get('//13.229.115.32:3000/quiz/getQuizQuestion?mission=' + missionid)
                 .then(response =>{
                     // console.log(data[index].mission);
                     var data = response.data;
@@ -451,7 +451,7 @@ export default {
                 "mission_id": this.missionIDToBeDeleted
             }
             
-            axios.post('http://54.255.245.23:3000/delete/deleteQuiz', postBody)
+            axios.post('//13.229.115.32:3000/delete/deleteQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -518,7 +518,7 @@ export default {
                 "id": this.wefieIDToBeDeleted
             }
             
-            axios.post('http://54.255.245.23:3000/delete/deleteWefieQuestion', postBody)
+            axios.post('//13.229.115.32:3000/delete/deleteWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -568,7 +568,7 @@ export default {
 
             // console.log(postBody)
             
-            axios.post('http://54.255.245.23:3000/delete/deleteDragAndDrop', postBody)
+            axios.post('//13.229.115.32:3000/delete/deleteDragAndDrop', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -626,7 +626,7 @@ export default {
                 "id": this.drawingIDToBeDeleted
             }
             
-            axios.post('http://54.255.245.23:3000/delete/deleteDrawingQuestion', postBody)
+            axios.post('//13.229.115.32:3000/delete/deleteDrawingQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -673,7 +673,7 @@ export default {
             this.$router.push('/')
         }
 
-        // axios.get('http://54.255.245.23:3000/hotspot/getHotspots')
+        // axios.get('//13.229.115.32:3000/hotspot/getHotspots')
         // .then(response => {
         //     let data = response.data;
         //     for(var row in data){
@@ -682,7 +682,7 @@ export default {
         //     }
         // })
 
-        axios.get('http://54.255.245.23:3000/upload/getAllSubmissionQuestion')
+        axios.get('//13.229.115.32:3000/upload/getAllSubmissionQuestion')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -691,7 +691,7 @@ export default {
             }
         })
 
-        axios.get('http://54.255.245.23:3000/mission/getMissionQuiz')
+        axios.get('//13.229.115.32:3000/mission/getMissionQuiz')
         .then(response =>{
             let data = response.data;
             // console.log(data);
@@ -702,14 +702,14 @@ export default {
             }           
         })
 
-        axios.get('http://54.255.245.23:3000/draganddrop/getAllDragAndDrop')
+        axios.get('//13.229.115.32:3000/draganddrop/getAllDragAndDrop')
         .then(response =>{
             let data = response.data;
             console.log(data);
             this.dragAndDropList = data;      
         })
 
-        axios.get('http://54.255.245.23:3000/upload/getAllDrawingQuestion')
+        axios.get('//13.229.115.32:3000/upload/getAllDrawingQuestion')
         .then(response => {
             let data = response.data;
             for(var row in data){

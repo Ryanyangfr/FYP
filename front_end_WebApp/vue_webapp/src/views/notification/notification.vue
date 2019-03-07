@@ -17,7 +17,7 @@ export default {
     },
     methods: {
         sendNotification(){
-            axios.post('//54.255.245.23:3000/notification/sendNotification', {message: this.message})
+            axios.post('//13.229.115.32:3000/notification/sendNotification', {message: this.message})
             .then(response => {
                 let data = response.data;
                 if (data.success === 'true') {

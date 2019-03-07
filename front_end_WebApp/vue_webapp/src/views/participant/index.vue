@@ -57,7 +57,7 @@ export default {
             "userID": this.currTeamMember.id,
             "newTeam": this.newTeam
         }
-        axios.post('http://54.255.245.23:3000/edit/switchTeams', postBody)
+        axios.post('//13.229.115.32:3000/edit/switchTeams', postBody)
         .then(response => {
             let data = response.data;
             console.log(data);
@@ -68,7 +68,7 @@ export default {
         var postBody = {
             "userID": this.currTeamMember.id,
         }
-        axios.post('http://54.255.245.23:3000/delete/deleteParticipant', postBody)
+        axios.post('//13.229.115.32:3000/delete/deleteParticipant', postBody)
         .then(response => {
             let data = response.data;
             console.log(data);
@@ -77,7 +77,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('http://54.255.245.23:3000/team/getAllTeamsWithMembers')
+    axios.get('//13.229.115.32:3000/team/getAllTeamsWithMembers')
         .then(response => {
             let data = response.data;
             console.log(data);
