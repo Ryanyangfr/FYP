@@ -9,17 +9,25 @@
                     <label for="edit-hotspot-input">Hotspot Name</label>
                     <input name="edit-hotspot-input" type="text" placeholder="Hotspot Name" v-model="name" required> 
                 </div> 
-                <div class="input-area">
+                <!-- <div class="input-area">
                     <label for="edit-hotspot-input">Latitude</label>
                     <input name="edit-hotspot-input" type="text" placeholder="Latitude" v-model="lat" required> 
                 </div> 
                 <div class="input-area">
                     <label for="edit-hotspot-input">Longitude</label>
                     <input name="edit-hotspot-input" type="text" placeholder="Longitude" v-model="lng" required> 
-                </div>                  
-                <div class="submit-btn-area">
-                    <button class="cancel-btn" type="button"><router-link to='/viewHotspots'>Cancel</router-link></button>
-                    <button class="submit-btn" type="submit">Save</button>
+                </div>                   -->
+                <div class="choose-hotspot-area">
+                    <div id="gmap-view"></div>
+                    <div class="instruction-submit-area">
+                        <div class="add-hotspot-instruction">
+                            <h5>Select a new location on the map by adding a marker on the map. Click on the location on the map to add a new marker. Then click "Create" to save the location</h5>
+                        </div>
+                        <div class="submit-btn-area">
+                            <button class="cancel-btn" type="button"><router-link to='/viewHotspots'>Cancel</router-link></button>
+                            <button class="submit-btn" type="submit">Save</button>
+                        </div>
+                    </div>
                 </div>
             </form>
             
@@ -35,7 +43,11 @@ export default {
         return{
             name: "",
             lat: "",
-            lng: ""
+            lng: "",
+            map: undefined,
+            center: {},
+            currentMarker: [],
+            position: ''
 
         }  
     },
@@ -44,8 +56,8 @@ export default {
         hotspotOnSubmitToEdit(){
             var postBody = {
                 "hotspot_name": this.name,
-                "latitude": this.lat,
-                "longtitude": this.lng,
+                "latitude": this.map.lat,
+                "longtitude": this.map.lng,
             }
             console.log("post body: ");
             console.log(postBody)
@@ -69,6 +81,54 @@ export default {
         this.name = this.$store.state.selectedHotspotName;  
         this.lat = this.$store.state.selectedLat;  
         this.lng = this.$store.state.selectedLng;
+
+        this.center["lat"] = parseFloat(this.lat);
+        this.center["lng"] = parseFloat(this.lng);
+
+        this.map = new google.maps.Map(document.getElementById('gmap-view'), {
+            center: this.center,
+            scrollwheel: false,
+            zoom: 18
+            
+        })
+
+        var infowindow = new google.maps.InfoWindow();
+        var latlng = {lat: parseFloat(this.lat), lng: parseFloat(this.lng)};
+
+        let marker = new google.maps.Marker({
+            position: latlng,
+            map: this.map
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(this.map,marker);
+            infowindow.setContent(marker.title)
+            // console.log(marker)
+        });
+        
+        console.log(`map: ${this.map}`)
+        console.log(this.map)
+        this.map.addListener('click', function(e) {
+            this.position = e.latLng;
+            this.lat = e.latLng.lat();
+            this.lng = e.latLng.lng();
+
+            if (marker == null) {
+                marker = new google.maps.Marker({
+                    position: e.latLng,
+                    map: this
+                }); 
+            } else {   
+                marker.setPosition(e.latLng); 
+            }
+            // marker = new google.maps.Marker({
+            //     position: e.latLng,
+            //     map: this
+            // });
+            // console.log(this.marker)
+            // console.log(this.map)
+            this.panTo(this.position);
+        });
     }      
         
 }
@@ -185,12 +245,12 @@ export default {
 
     .EditHotspot .submit-btn{
         /*display: inline;*/
-        float:right;
+        /* float:right; */
         background: none;
         border: none;
         background-color: #645cdd;
         border-radius: 4px;
-        min-width: 8%;
+        min-width: 18%;
         min-height: 40px;
         padding:8px 10px 8px 10px;
         margin-right: 20px;
@@ -209,11 +269,11 @@ export default {
 
 
      .EditHotspot .cancel-btn{
-         float:right;
-         background-color: #ACACAC;
-         color: white;
-         border:none;
-         border-radius: 4px;
+        /* float:right; */
+        background-color: #ACACAC;
+        color: white;
+        border:none;
+        border-radius: 4px;
         min-width: 8%;
         min-height: 40px;
         padding:8px 10px 8px 10px;
@@ -234,5 +294,24 @@ export default {
     .EditHotspot .cancel-btn a{
         text-decoration: none!important;
         color: white
+    }
+
+    #gmap-view{
+        min-width: 70%;
+        height: 500px;
+    }
+
+    .choose-hotspot-area{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .instruction-submit-area{
+        margin-top: 20px
+    }
+
+    .add-hotspot-instruction{
+        text-align: left;
+        margin-left: 12px;
     }
 </style>
