@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-title">
                 <h5>Trail List</h5>
-                <button class="create-trail-btn"><i class="ti-plus"></i><router-link to='/addTrail'>ADD NEW</router-link></button>
+                <button class="create-trail-btn"><router-link to='/addTrail'><i class="ti-plus"></i>ADD NEW</router-link></button>
             </div>
 
             <!--table for trail begins-->

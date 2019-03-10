@@ -27,6 +27,9 @@ export const store = new Vuex.Store({
     selectedDrawingTitle: '',
     selectedDrawingID: 0,
     selectedDrawingQuestion: '',
+    selectedAnagramTitle:'',
+    selectedAnagramWord:'',
+    selectedAnagramID: 0,
     instanceStartTime: ''
 
   },
@@ -122,6 +125,18 @@ export const store = new Vuex.Store({
 
     saveSelectedDrawingQuestion (state, drawingQuestion) {
       state.selectedDrawingQuestion = drawingQuestion
+    },
+
+    saveSelectedAnagramTitle (state, anagramTitle){
+      state.selectedAnagramTitle = anagramTitle
+    },
+
+    saveSelectedAnagramWord(state, word){
+      state.selectedAnagramWord = word
+    },
+
+    saveSelectedAnagramID(state, anagramID){
+      state.selectedAnagramID = anagramID
     },
 
     saveInstanceStartTime (state, startTime) {

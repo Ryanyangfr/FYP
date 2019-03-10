@@ -149,6 +149,29 @@
                     </form>
                 </div>
                 <!--add drawing ends-->
+
+                <!--add anagram begins-->
+                <div v-if="missionType == allMissionTypes[4]">
+                    <form @submit.prevent="anagramOnSubmitToAdd" class="add-mission-body">
+                        <div class="add-mission-input">
+                            <label for="add-mission-title-input">Title</label>
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                        </div> 
+                        <div class="add-mission-input">
+                            <label for="add-anagram-word-input">Word</label>
+                            <input name="add-anagram-word-input" type="text" placeholder="Add word" v-model="anagram_word"> 
+                        </div> 
+                        <!-- <div class="add-mission-input">
+                            <label for="points-input">Points</label>
+                            <input name="points-input" type="text" placeholder="Enter points for this question" v-model="drawing_points"> 
+                        </div> -->
+                        <div class="submit-btn-area">
+                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                            <button class="submit-btn" type="submit">Create</button>
+                        </div>
+                    </form>
+                </div>
+                <!--add anagram ends-->
             </form>
             
         </div>
@@ -161,7 +184,7 @@ export default {
     name: "addMission",
     data() {
         return{
-            allMissionTypes: ["Quiz", "Wefie", "Drag And Drop", "Drawing"],
+            allMissionTypes: ["Quiz", "Wefie", "Drag And Drop", "Drawing", "Anagram"],
             missionType: "",
             title: "",
             quiz: [],
@@ -176,7 +199,10 @@ export default {
 
             //drawing
             drawing_instruction: "",
-            drawing_points:0
+            drawing_points:0,
+
+            //anagram
+            anagram_word:""
 
         }  
     },
@@ -281,10 +307,19 @@ export default {
                 console.log(data)
                 this.$router.push({ path: this.redirect || '/mission' })
             })
-            // this.hotspot = "";
-            // this.quiz = [];
-            // location.reload();
-            // this.$router.go();
+        },
+
+        anagramOnSubmitToAdd(){
+            var postBody = {
+                "word": this.anagram_word,
+                "title": this.title
+            }
+            axios.post('//54.255.245.23:3000/add/addAnagramQuestion', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                this.$router.push({ path: this.redirect || '/mission' })
+            })
         },
     }       
         

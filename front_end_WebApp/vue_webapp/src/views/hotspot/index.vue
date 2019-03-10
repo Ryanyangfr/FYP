@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-title">
                 <h5>Location List</h5>
-                <button class="create-hotspot-btn"><i class="ti-plus"></i><router-link to='/addHotspot'>ADD NEW</router-link></button>
+                <button class="create-hotspot-btn"><router-link to='/addHotspot'><i class="ti-plus"></i>ADD NEW</router-link></button>
             </div>
             <table>
                 <tr class="hotspot-table-header">

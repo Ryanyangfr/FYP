@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-title">
                 <h5>Missions List</h5>
-                <button class="create-mission-btn"><i class="ti-plus"></i><router-link to='/addMission'>ADD MISSION</router-link></button>
+                <button class="create-mission-btn"><router-link to='/addMission'><i class="ti-plus"></i>ADD MISSION</router-link></button>
             </div>
 
             <!--table for mission: quiz begins-->
@@ -118,6 +118,29 @@
                 </tr>
             </table>
             <!-- table for mission: drawing ends -->
+
+            <!-- table for anagram: anagram starts -->
+                <table>
+                <tr class="mission-table-header">
+                    <td>Anagram Title</td>
+                    <td>Word</td>
+                    <td colspan="2">Actions</td>
+                </tr>
+                <tr class = "anagram-data" v-for="anagram in anagramList" :key="anagram.anagram_id">
+                    <td>{{anagram.title}}</td>
+                    <td>{{anagram.word}}</td>
+                    <td>
+                        <button @click="saveSelectedAnagram(anagram.title, anagram.word, anagram.anagram_id)">
+                            <router-link to='/editAnagram'>
+                            <i class="ti-pencil-alt"></i>
+                            </router-link>
+                        </button>
+                    </td>
+                    <td><button @click="deleteAnagram(anagram.title, anagram.anagram_id)"><i class="ti-trash"></i></button></td>
+                </tr>
+            </table>
+            <!-- table for mission: anagram ends -->
+            
         </div>
 
         <!--delete quiz popup begins-->
@@ -262,6 +285,42 @@
             </div>
         </div>
         <!--delete drawing popup ends-->
+
+        <!--delete anagram popup begins-->
+        <!--shows when user clicks on delete icon for anagram. showDeleteAnagram = true-->
+        <div class="black-blur-bg" v-if="showDeleteAnagram"> 
+            <div class="delete-anagram-popup">
+                <div class="delete-anagram-header">
+                    <h5>Delete</h5>
+                    <button class="close-delete-anagram" @click="closeDeleteAnagram()"><font-awesome-icon icon="times"/></button>
+                </div>
+                <!--<hr>-->
+                <form class="delete-anagram-body" @submit="onSubmitToDeleteAnagram">
+                    <div class="delete-anagram-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
+                    <!--<div><hr></div>-->
+                    <div class="delete-anagram-btm">
+                        <button type="button" class="cancel-delete" @click="closeDeleteAnagram()">Cancel</button>
+                        <button type="submit" class="delete-anagram-btn">Delete</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+
+        <div class="black-blur-bg" v-if="anagramDeleteMessage.length > 0"> 
+            <div class="delete-quiz-popup">
+                <!--<hr>-->
+                
+                <div class="delete-quiz-content"><h6>{{anagramDeleteMessage}}</h6></div>
+                <!--<div><hr></div>-->
+                <div class="delete-quiz-btm">
+                    <button class="delete-quiz-btn" @click="anagramCloseDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+               
+            </div>
+        </div>
+        <!--delete anagram popup ends-->
     </div>
 </template>
 
@@ -321,6 +380,19 @@ export default {
         selectedDrawingQuestion(){
             return this.$store.state.selectedDrawingQuestion
         },
+
+        selectedAnagramTitle(){
+            return this.$store.state.selectedAnagramTitle
+        },
+
+        selectedAnagramWord(){
+            return this.$store.state.selectedAnagramWord
+        },
+
+        selectedAnagramID(){
+            return this.$store.state.selectedAnagramID
+        }
+
         
 
     }, 
@@ -346,6 +418,9 @@ export default {
 
             //drawing
             drawingQuestionList: [],
+
+            //anagram
+            anagramList: [],
             
             //delete variables
             showDeleteQuiz: false,
@@ -367,7 +442,10 @@ export default {
             showDeleteDrawing: false,
             drawingDeleteMessage:"",
             drawingCloseMessage: false,
-
+            showDeleteAnagram:false,
+            anagramDeleteMessage:"",
+            anagramCloseMessage: false,
+            anagramIDToBeDeleted:""
         }
     }, 
     components:{
@@ -387,10 +465,10 @@ export default {
         },
 
         saveSelectedDragAndDrop(mission_title, missionID, question, id){
-            console.log(mission_title)
-            console.log(missionID)
-            console.log(id)
-            console.log(question)
+            // console.log(mission_title)
+            // console.log(missionID)
+            // console.log(id)
+            // console.log(question)
             this.$store.commit('saveSelectedDragAndDropTitle', mission_title);
             this.$store.commit('saveSelectedDragAndDropQuestion', question);
             this.$store.commit('saveSelectedDragAndDropID', id);
@@ -401,6 +479,12 @@ export default {
             this.$store.commit('saveSelectedDrawingTitle', drawing_title);
             this.$store.commit('saveSelectedDrawingQuestion', drawing_question);
             this.$store.commit('saveSelectedDrawingID', drawing_id);
+        },
+
+        saveSelectedAnagram(anagram_title, anagram_word, anagram_id){
+            this.$store.commit('saveSelectedAnagramTitle', anagram_title);
+            this.$store.commit('saveSelectedAnagramID', anagram_id);
+            this.$store.commit('saveSelectedAnagramWord', anagram_word);
         },
         //store to vuex store methods ends 
         
@@ -549,7 +633,7 @@ export default {
         },
 
         deleteDragAndDrop(draganddrop_title, dragdrop_mission_id, draganddrop_id){
-            this.dragDropTitleToDeleted = draganddrop_title;
+            this.titleToBeDeleted = draganddrop_title;
             this.dragDropMissionIDToBeDeleted = dragdrop_mission_id;
             this.dragDropIDToBeDeleted = draganddrop_id;
 
@@ -608,6 +692,35 @@ export default {
             this.dragAndDropDeleteMessage = "";
         },
 
+        deleteAnagram(anagram_title, anagram_id){
+            this.titleToBeDeleted = anagram_title;
+            this.anagramIDToBeDeleted = anagram_id;
+
+            if(this.showDeleteAnagram){
+                this.showDeleteAnagram = false;
+            } else{
+                this.showDeleteAnagram = true;
+            }
+        },
+
+        closeDeleteAnagram(){
+             if(this.showDeleteAnagram){
+                this.showDeleteAnagram = false;
+            } else{
+                this.showDeleteAnagram = true;
+            }
+        },
+
+        anagramDeleteMessage(){
+            this.showDeleteAnagram = false;
+            this.anagramCloseMessage = true;
+            if( this.anagramDeleteMessage === "Anagram Word Successfully Deleted") {
+                this.anagramDeleteMessage = "";
+                this.$router.go();
+            }
+            this.anagramDeleteMessage = "";
+        },
+
         deleteDrawing(drawing_title, drawing_id){
             this.drawingIDToBeDeleted = drawing_id;
             this.titleToBeDeleted = drawing_title;
@@ -648,7 +761,7 @@ export default {
             // location.reload();
         },
 
-        closeDeleteWefie(){
+        closeDeleteDrawing(){
              if(this.showDeleteDrawing){
                 this.showDeleteDrawing = false;
             } else{
@@ -715,6 +828,15 @@ export default {
             for(var row in data){
                 console.log(data[row])
                 this.drawingQuestionList.push({title:data[row].title, mission_id: data[row].mission, drawing_question: data[row].question, drawing_id: data[row].id})
+            }
+        })
+
+        axios.get('//54.255.245.23:3000/anagram/getAllAnagrams')
+        .then(response => {
+            let data = response.data;
+            for(var row in data){
+                console.log(data[row])
+                this.anagramList.push({title:data[row].title, word: data[row].word, anagram_id: data[row].id})
             }
         })
     }
@@ -799,20 +921,20 @@ export default {
         border-bottom: 1px solid #DEE2E6;
     }
 
-    .wefie-data td, .quiz-data td, .draganddrop-data td, .drawing-data td{
+    .wefie-data td, .quiz-data td, .draganddrop-data td, .drawing-data td, .anagram-data td{
         /*max-height: 10px;*/
         max-width: 700px;
         padding: 15px;
     }
 
-    .quiz-data a, .draganddrop-data a, .wefie-data a, .drawing-data a{
+    .quiz-data a, .draganddrop-data a, .wefie-data a, .drawing-data a, .anagram-data a{
         text-decoration: none!important;
         font-size: 14px;
         font-family: "Roboto", sans-serif;
         /*color: #536479;*/
     }
 
-    .wefie-data button, .quiz-data button, .draganddrop-data button, .drawing-data button{
+    .wefie-data button, .quiz-data button, .draganddrop-data button, .drawing-data button, .anagram-data button{
         background: none;
         border: none;
         cursor: pointer;
@@ -827,7 +949,7 @@ export default {
         float: left;
     }
 
-    .wefie-data i, .quiz-data i, .draganddrop-data i, .drawing-data i{
+    .wefie-data i, .quiz-data i, .draganddrop-data i, .drawing-data i, .anagram-data i{
         font-size: 20px;
         color: #536479;
     }
@@ -859,7 +981,7 @@ export default {
         overflow: hidden;
     }
 
-    .delete-quiz-popup, .delete-dragdrop-popup, .delete-wefie-popup, .delete-drawing-popup{
+    .delete-quiz-popup, .delete-dragdrop-popup, .delete-wefie-popup, .delete-drawing-popup, .delete-anagram-popup{
         min-width: 30%;
         min-height: 23%;
         background-color: white;
@@ -874,7 +996,7 @@ export default {
         position: relative;
     }
     
-    .delete-quiz-body, .delete-dragdrop-body, .delete-wefie-body, .delete-drawing-body{
+    .delete-quiz-body, .delete-dragdrop-body, .delete-wefie-body, .delete-drawing-body, .delete-anagram-body{
         width: 100%;
         overflow: hidden;
         text-align: center;
@@ -885,19 +1007,19 @@ export default {
         flex: 10;
     }
 
-    .delete-quiz-content, .delete-wefie-content, .delete-dragdrop-content, .delete-drawing-content{
+    .delete-quiz-content, .delete-wefie-content, .delete-dragdrop-content, .delete-drawing-content, .delete-anagram-content{
         flex: 4;
         padding: 12px;
     }
 
-    .delete-quiz-header, .delete-dragdrop-header, .delete-wefie-header, .delete-drawing-header{
+    .delete-quiz-header, .delete-dragdrop-header, .delete-wefie-header, .delete-drawing-header, .delete-anagram-header{
         flex: 1;
         width: 100%;
         padding:10px; 
         border-bottom: 1px solid #C6C4BC;
     }
 
-    .delete-quiz-body h6, .delete-dragdrop-body h6, .delete-wefie-body h6, .delete-drawing-body h6{
+    .delete-quiz-body h6, .delete-dragdrop-body h6, .delete-wefie-body h6, .delete-drawing-body h6, .delete-anagram-body h6{
         display: flex;
         flex: 9;
         float: left;
@@ -910,7 +1032,7 @@ export default {
         flex-direction: column;
     }
 
-    .delete-quiz-btm, .delete-dragdrop-btm, .delete-wefie-btm, .delete-drawing-btm{
+    .delete-quiz-btm, .delete-dragdrop-btm, .delete-wefie-btm, .delete-drawing-btm, .delete-anagram-btm{
         margin-bottom: 0px;
         /*flex: 4;*/
         margin-top: 10px;
@@ -936,7 +1058,7 @@ export default {
         color: #666666;
     }
 
-    .delete-quiz-btn, .delete-dragdrop-btn, .delete-wefie-btn, .delete-drawing-btn{
+    .delete-quiz-btn, .delete-dragdrop-btn, .delete-wefie-btn, .delete-drawing-btn, .delete-anagram-btn{
         background: none;
         border: none;
         background-color: #F15E5E;
@@ -954,7 +1076,7 @@ export default {
         color: white;
     }
 
-    .close-delete-quiz, .close-delete-dragdrop, .close-delete-wefie, .close-delete-drawing{
+    .close-delete-quiz, .close-delete-dragdrop, .close-delete-wefie, .close-delete-drawing, .close-delete-anagram{
         background: none;
         border: none;
         color: #868686;
@@ -963,7 +1085,7 @@ export default {
         font-size: 18px;
     }
 
-    .delete-quiz-popup h5, .delete-dragdrop-popup h5, .delete-wefie-popup h5, .delete-drawing-popup h5{
+    .delete-quiz-popup h5, .delete-dragdrop-popup h5, .delete-wefie-popup h5, .delete-drawing-popup h5, .delete-anagram-popup h5{
         display: flex;
         float: left;
     }

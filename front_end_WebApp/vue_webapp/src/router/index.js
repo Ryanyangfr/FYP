@@ -131,6 +131,18 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/editDragAndDrop',
+      name: 'Edit Drag And Drop',
+      component: ()=> import('@/views/mission/editDragAndDrop'),
+      hidden: true
+    },
+    {
+      path: '/editAnagram',
+      name: 'Edit Anagram',
+      component: ()=> import('@/views/mission/editAnagram'),
+      hidden: true
+    },
+    {
       path: '/participant',
       name: 'participant',
       component: ()=> import('@/views/participant/index'),
@@ -158,12 +170,6 @@ export default new Router({
       path: '/editTrail',
       name: 'Edit Trail',
       component: ()=> import('@/views/trail/editTrail'),
-      hidden: true
-    },
-    {
-      path: '/editDragAndDrop',
-      name: 'Edit Drag And Drop',
-      component: ()=> import('@/views/mission/editDragAndDrop'),
       hidden: true
     },
     {

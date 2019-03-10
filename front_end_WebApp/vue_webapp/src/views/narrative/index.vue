@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-title">
                 <h5>Narrative List</h5>
-                <button class="create-narrative-btn"><i class="ti-plus"></i><router-link to='/addNarrative'>ADD NEW</router-link></button>
+                <button class="create-narrative-btn"><router-link to='/addNarrative'><i class="ti-plus"></i>ADD NEW</router-link></button>
             </div>
             <table>
                 <tr class="narrative-table-header">

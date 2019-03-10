@@ -1,19 +1,19 @@
 <template>
-    <div class="EditWefie">
+    <div class="EditAnagram">
        <div class="card">
             <div class="card-title">
-                <h5>Edit Wefie</h5>
+                <h5>Edit Anagram</h5>
             </div>
             <!--{{quiz}}-->
-            <form @submit.prevent="wefieOnSubmitToEdit">
-                <div class="edit-wefie-body">
+            <form @submit.prevent="anagramOnSubmitToEdit">
+                <div class="edit-anagram-body">
                     <!--<div class="edit-wefie-input">
                         <label for="edit-wefie-title-input">Title</label>
                         <input name="edit-wefie-title-input" type="text" placeholder="Title" v-model="wefie_title"> 
                     </div>  -->
-                    <div class="edit-wefie-input">
-                        <label for="edit-wefie-title-input">Wefie Question</label>
-                        <input name="edit-wefie-title-input" type="text" placeholder="Question" v-model="wefie_question"> 
+                    <div class="edit-anagram-input">
+                        <label for="edit-anagram-input">Word</label>
+                        <input name="edit-anagram-input" type="text" placeholder="Word" v-model="anagram_word"> 
                     </div>  
                     <div class="submit-btn-area">
                         <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
@@ -30,41 +30,41 @@
 <script>  
 import axios from 'axios'
 export default {
-    name: "editWefie",
+    name: "editAnagram",
     data() {
         return{
-            wefie_title: "",
-            wefie_question: "",
-            wefie_ID: 0
+            anagram_title: "",
+            anagram_word: "",
+            anagram_ID: 0
             
         }  
     },
 
     computed: {
-         selectedWefieTitle(){
-            return this.$store.state.selectedWefieTitle
+         selectedAnagramTitle(){
+            return this.$store.state.selectedAnagramTitle
         },
 
-        selectedWefieID(){
-            return this.$store.state.selectedWefieID
+        selectedAnagramID(){
+            return this.$store.state.selectedAnagramID
         },
 
-        selectedWefieQuestion(){
-            return this.$store.state.selectedWefieQuestion
+        selectedAnagramWord(){
+            return this.$store.state.selectedAnagramWord
         }
 
     }, 
 
     methods:{
 
-        wefieOnSubmitToEdit() {
+        anagramOnSubmitToEdit() {
             var postBody = {
-                "id": this.wefie_ID,
-                "question": this.wefie_question,
+                "id": this.anagram_ID,
+                "word": this.anagram_word,
             }
 
             // console.log(this.quiz);
-            axios.post('//54.255.245.23:3000/edit/editWefieQuestion', postBody)
+            axios.post('//54.255.245.23:3000/edit/editAnagramQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -80,9 +80,9 @@ export default {
             this.$router.push('/')
         }
 
-        this.wefie_title = this.$store.state.selectedWefieTitle;
-        this.wefie_ID = this.$store.state.selectedWefieID;
-        this.wefie_question = this.$store.state.selectedWefieQuestion;
+        this.anagram_title = this.$store.state.selectedAnagramTitle;
+        this.anagram_ID = this.$store.state.selectedAnagramID;
+        this.anagram_word = this.$store.state.selectedAnagramWord;
         
     }           
 }
@@ -96,7 +96,7 @@ export default {
         font-family: 'lato', sans-serif
     }
 
-    .EditWefie .card{
+    .EditAnagram .card{
         padding: 18px;
         margin: 18px;
         border-radius: 3px;
@@ -116,7 +116,7 @@ export default {
         float: left;
     }
 
-   .edit-wefie-input label{
+   .edit-anagram-input label{
         margin-right: 90px;
         font-size: 14px;
         font-weight: 600;
@@ -132,7 +132,7 @@ export default {
 
     }
 
-    .edit-wefie-input{
+    .edit-anagram-input{
         float: left;
         display: flex;
         margin-left: 30px;
@@ -141,7 +141,7 @@ export default {
         position: relative;
     }
 
-    .edit-wefie-input input{
+    .edit-anagram-input input{
         /*margin-left: 100px;*/
         height: 40px;
         outline: none;
@@ -153,7 +153,7 @@ export default {
         font-family: 'Roboto', sans-serif;
     }
 
-    .edit-wefie-body{
+    .edit-anagram-body{
         display: flex;
         flex-direction: column;
         width:100%;
@@ -163,7 +163,7 @@ export default {
         width: 100%;
     }
 
-    .EditWefie .submit-btn{
+    .EditAnagram .submit-btn{
         /*display: flex;*/
         float:right;
         background: none;
@@ -183,11 +183,11 @@ export default {
         margin-top: 50px;
     }
 
-     .EditWefie .submit-btn:hover{
+     .EditAnagram .submit-btn:hover{
         background-color: #5a52c4;
      }
 
-     .EditWefie .cancel-btn{
+     .EditAnagram .cancel-btn{
          float:right;
          background-color: #ACACAC;
          color: white;
@@ -206,11 +206,11 @@ export default {
         margin-top: 50px;
     }
 
-    .EditWefie .cancel-btn:hover{
+    .EditAnagram .cancel-btn:hover{
         background-color: #b2a7a7
     }
 
-    .EditWefie .cancel-btn a{
+    .EditAnagram .cancel-btn a{
         text-decoration: none!important;
         color: white
     }

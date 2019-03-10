@@ -16,7 +16,7 @@
                         <input name="edit-drawing-title-input" type="text" placeholder="Question" v-model="drawing_question"> 
                     </div>  
                     <div class="submit-btn-area">
-                        <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                        <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                         <button class="submit-btn" type="submit">Save</button>
                     </div>  
                 </div>
