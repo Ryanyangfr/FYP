@@ -59,4 +59,22 @@ router.get('/getAnagrams', function(req,res){
     })
 })
 
+router.get('/getAllAnagrams', (req,res) => {
+    const query = 'SELECT * FROM ANAGRAM, MISSION WHERE ANAGRAM.MISSION_ID = MISSION.MISSION_ID';
+    const response = [];
+
+    conn.query(query, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            data.forEach((row) => {
+                response.push({id: row.ANAGRAM_ID, word: row.ANAGRAM_WORD, title: row.MISSION_TITLE})
+            });
+            console.log(`anagram: `);
+            console.log(response);
+            res.send(response);
+        }
+    })
+})
+
 module.exports=router;
