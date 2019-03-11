@@ -61,4 +61,38 @@ router.get('/getWordSearchWords', (req, res) => {
   });
 });
 
+router.get('/getAllWordSearchWords', (req,res) => {
+  const response = [];
+  const wordSearchQuery = 'SELECT WORDSEARCH.WORDSEARCH_TITLE, WORD FROM WORDSEARCH, WORDSEARCH_WORD WHERE WORDSEARCH.WORDSEARCH_TITLE = WORDSEARCH_WORD.WORDSEARCH_TITLE';
+
+  conn.query(wordSearchQuery, mission, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // let temp = [];
+      let currentTitle = data[0].WORDSEARCH_TITLE;
+      // temp.push({ hotspot: hotspot_name });
+      let tempWords = [];
+      data.forEach((wordSearch) => {
+        console.log(wordSearch);
+        if (currentTitle === wordSearch.WORDSEARCH_TITLE) {
+          tempWords.push(wordSearch.WORD);
+        } else {
+          // temp.push({ words: tempWords });
+          response.push({ hotspot: hotspot_name, words: tempWords, title: currentTitle });
+          // temp = [];
+          tempWords = [];
+          currentTitle = wordSearch.WORDSEARCH_TITLE;
+          // temp.push({ title: currentTitle });
+        }
+      });
+      response.push({ hotspot: hotspot_name, words: tempWords, title: currentTitle });
+      // temp.push({ words: tempWords });
+      // response.push(temp);
+      console.log(response);
+      res.send(response);
+    }
+  });
+});
+})
 module.exports = router;
