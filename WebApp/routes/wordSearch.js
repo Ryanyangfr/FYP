@@ -65,7 +65,7 @@ router.get('/getAllWordSearchWords', (req,res) => {
   const response = [];
   const wordSearchQuery = 'SELECT WORDSEARCH.WORDSEARCH_TITLE, WORD FROM WORDSEARCH, WORDSEARCH_WORD WHERE WORDSEARCH.WORDSEARCH_TITLE = WORDSEARCH_WORD.WORDSEARCH_TITLE';
 
-  conn.query(wordSearchQuery, mission, (err, data) => {
+  conn.query(wordSearchQuery, (err, data) => {
     if (err) {
       console.log(err);
     } else {
