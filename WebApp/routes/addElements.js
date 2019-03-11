@@ -361,7 +361,7 @@ router.post('/addAnagram', (req,res) => {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      const currAnagramID = data[0].ID;
+      const currAnagramID = data[0].ID + 1;
       conn.query(ms_query, [mission_id, title], (err, data2) => {
         if (err) {
           console.log(err);
