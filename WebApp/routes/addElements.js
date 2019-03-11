@@ -348,4 +348,38 @@ router.post('/addDrawingQuestion', (req,res) => {
   });
 });
 
+router.post('/addAnagram', (req,res) => {
+  const word = req.body.word;
+  const title = req.body.title;
+
+  const anagramIDQuery = 'SELECT MAX(ANAGRAM_ID) AS ID FROM ANAGRAM';
+  const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
+  const anagramQuery = 'INSERT INTO ANAGRAM VALUES (?,?,?);'
+
+  conn.query(anagramIDQuery, (err,data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      const currAnagramID = data[0].ID;
+      conn.query(ms_query, [mission_id, title], (err, data2) => {
+        if (err) {
+          console.log(err);
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          conn.query(anagramQuery, [currAnagramID, word, mission_id], (err, data3) => {
+            if (err) {
+              console.log(err);
+              res.send(JSON.stringify({ success: 'false' }));
+            } else {
+              res.send(JSON.stringify({ success: 'true' }));
+              mission_id += 1;
+            }
+          })
+        }
+      })
+    }
+  })
+});
+
 module.exports = router;
