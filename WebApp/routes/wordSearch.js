@@ -94,5 +94,4 @@ router.get('/getAllWordSearchWords', (req,res) => {
     }
   });
 });
-})
 module.exports = router;
