@@ -175,4 +175,17 @@ router.post('/deleteDrawingQuestion', (req, res) => {
   });
 });
 
+router.post('/deleteAnagram', (req, res) => {
+  const anagramID = req.body.id;
+  const query = 'DELETE FROM ANAGRAM WHERE ANAGRAM_ID = ?';
+
+  conn.query(query, anagramID, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      res.send(JSON.stringify({ success: 'true' }));
+    }
+  });
+});
 module.exports = router;
