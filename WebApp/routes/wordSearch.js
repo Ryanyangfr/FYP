@@ -70,6 +70,10 @@ router.get('/getAllWordSearchWords', (req,res) => {
       console.log(err);
     } else {
       // let temp = [];
+      if( data.length === 0) {
+        res.send(response);
+        return;
+      }
       let currentTitle = data[0].WORDSEARCH_TITLE;
       // temp.push({ hotspot: hotspot_name });
       let tempWords = [];
