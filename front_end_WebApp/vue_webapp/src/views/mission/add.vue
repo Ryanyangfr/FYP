@@ -184,7 +184,10 @@
                             <div class="add-mission-body">
                                 <div class="add-mission-input">
                                     <label for="add-mission-title-input">Word {{index+1}}</label>
-                                    <input name="option" type="text" placeholder="word" v-model="input.word">
+                                    <div class="word-input">
+                                        <input name="option" type="text" placeholder="max character length: 20" :maxlength="wordMaxChar" v-model="input.word">
+                                        <div class="text-length" v-text="(wordMaxChar - input.word.length)"></div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -229,7 +232,8 @@ export default {
             anagram_word:"",
 
             //wordsearch
-            words: [{word: ""}, {word: ""}, {word: ""}, {word: ""}, {word: ""}]
+            words: [{word: ""}, {word: ""}, {word: ""}, {word: ""}, {word: ""}],
+            wordMaxChar: 20
 
         }  
     },
@@ -451,7 +455,7 @@ export default {
         margin-bottom: 25px;
         font-family: 'Lato', sans-serif;
         position: relative;
-        /*background-color: pink*/
+        /* background-color: pink; */
     }
 
     .add-mission-input input, .add-mission-input select{
@@ -465,6 +469,46 @@ export default {
         width:75%;
         max-width: 75%;
         font-family: 'Roboto', sans-serif;
+        
+    }
+
+    .word-input{
+        width: 75%;
+        max-width: 75%;
+        height: 45px;
+        font-size: 17px;
+        display: flex;
+        flex-direction: row;
+        /* background-color: pink; */
+        font-family: 'Roboto', sans-serif;
+
+    }
+
+    .word-input input{
+        min-width:95%;
+        max-width:95%;
+        border-left: 1px solid #CED4DA;
+        border-top: 1px solid #CED4DA;
+        border-bottom: 1px solid #CED4DA;
+        border-right: 0;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .text-length{
+        border:none;
+        min-width: 5%;
+        max-width: 5%;
+        /* padding-right: 18px; */
+        background-color: #8e7ff8;
+        color:white;
+        font-size: 18px;
+        border: 1px solid #ededed;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        /* background-color: pink; */
+        text-align: center;
+        padding: 10px;
+        overflow: hidden;
     }
 
     .add-question-body, .add-mission-body{
@@ -621,5 +665,7 @@ export default {
         text-decoration: none!important;
         color: white
     }
+
+    
 
 </style>
