@@ -300,8 +300,8 @@ INSERT INTO MISSION VALUES
 (9, 'LKSL Drag And Drop'),
 (10, 'SOE/SOSS Quiz'),
 (11, 'SOL Anagram'),
-(12, 'SOA Drawing');
--- (13, 'title 13'),
+(12, 'SOA Drawing'),
+(13, 'title 13');
 -- (14, 'title 14'),
 -- (15, 'title 15'),
 -- (16, 'title 16'),
@@ -540,7 +540,7 @@ INSERT INTO TRAIL_HOTSPOT VALUES
 (3, 'School of Information Systems', 4, 7),
 (3, 'Lee Kong Chian School of Business', 1, 8),
 (3, 'Li Ka Shing Library', 6, 9),
-(3, 'School of Economics/School of Social Sciences', 3, 10),
+(3, 'School of Economics/School of Social Sciences', 3, 13),
 (3, 'School of Law', 5, 11),
 (3, 'School of Accountancy', 2, 12);
 
@@ -590,16 +590,16 @@ INSERT INTO DRAG_AND_DROP_OPTION VALUES
 INSERT INTO ANAGRAM VALUES
 (1,'kwageokchoo', 11);
 
--- INSERT INTO WORDSEARCH VALUES
+INSERT INTO WORDSEARCH VALUES
 -- ('Accountancy Word Search', 21);
--- ('SOSS/SOE Word Search', 10);
+('SOSS/SOE Word Search', 13);
 
--- INSERT INTO WORDSEARCH_WORD VALUES
--- ('SOSS/SOE Word Search', 'Psychology'),
--- ('SOSS/SOE Word Search', 'Sociology'),
--- ('SOSS/SOE Word Search', 'Socialism'),
--- ('SOSS/SOE Word Search', 'Economy'),
--- ('SOSS/SOE Word Search', 'Tax');
+INSERT INTO WORDSEARCH_WORD VALUES
+('SOSS/SOE Word Search', 'Psychology'),
+('SOSS/SOE Word Search', 'Sociology'),
+('SOSS/SOE Word Search', 'Socialism'),
+('SOSS/SOE Word Search', 'Economy'),
+('SOSS/SOE Word Search', 'Tax');
 
 INSERT INTO ADMIN VALUES
 ('admin', 'password');
