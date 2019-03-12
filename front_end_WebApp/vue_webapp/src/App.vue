@@ -109,6 +109,7 @@ a{
 
 .main{
   margin-left: 15%;
+  z-index: 3;
   animation-name: pushRight;
   animation-duration: 0.5s;
   animation-direction: normal;

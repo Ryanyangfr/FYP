@@ -140,6 +140,30 @@
                 </tr>
             </table>
             <!-- table for mission: anagram ends -->
+
+            <!-- table for wordsearch: wordsearch starts -->
+                <table>
+                <tr class="mission-table-header">
+                    <td>Wordsearch Title</td>
+                    <td>Words</td>
+                    <td colspan="2">Actions</td>
+                </tr>
+                <tr class = "wordsearch-data" v-for="wordsearch in wordsearchList" :key="wordsearch.title">
+                    <td>{{wordsearch.title}}</td>
+                    <td>
+                        <div v-for="wordsearchWord in wordsearch.words" :key="wordsearchWord.word">{{wordsearchWord.word}}</div>
+                    </td>
+                    <td>
+                        <button @click="saveSelectedWordsearch(wordsearch.title, wordsearch.words, wordsearch.wordsearch_id)">
+                            <router-link to='/editWordsearch'>
+                            <i class="ti-pencil-alt"></i>
+                            </router-link>
+                        </button>
+                    </td>
+                    <td><button @click="deleteWordsearch(wordsearch.title, wordsearch.wordsearch_ID)"><i class="ti-trash"></i></button></td>
+                </tr>
+            </table>
+            <!-- table for mission: wordsearch ends -->
             
         </div>
 
@@ -174,7 +198,6 @@
                     <button class="delete-quiz-btn" @click="quizCloseDeleteMessage()">Close</button>
                     <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
-               
             </div>
         </div>
         <!--delete quiz popup ends-->
@@ -321,6 +344,41 @@
             </div>
         </div>
         <!--delete anagram popup ends-->
+
+        <!--delete wordsearch popup begins-->
+        <!--shows when user clicks on delete icon for wordsearch. showDeleteWordsearch = true-->
+        <div class="black-blur-bg" v-if="showDeleteWordsearch"> 
+            <div class="delete-wordsearch-popup">
+                <div class="delete-wordsearch-header">
+                    <h5>Delete</h5>
+                    <button class="close-delete-wordsearch" @click="closeDeleteWordsearch()"><font-awesome-icon icon="times"/></button>
+                </div>
+                <!--<hr>-->
+                <form class="delete-wordsearch-body" @submit="onSubmitToDeleteWordsearch">
+                    <div class="delete-wordsearch-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
+                    <!--<div><hr></div>-->
+                    <div class="delete-wordsearch-btm">
+                        <button type="button" class="cancel-delete" @click="closeDeleteWordsearch()">Cancel</button>
+                        <button type="submit" class="delete-wordsearch-btn">Delete</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+
+        <div class="black-blur-bg" v-if="wordsearchDeleteMessage.length > 0"> 
+            <div class="delete-quiz-popup">
+                <!--<hr>-->
+                
+                <div class="delete-quiz-content"><h6>{{wordsearchDeleteMessage}}</h6></div>
+                <!--<div><hr></div>-->
+                <div class="delete-quiz-btm">
+                    <button class="delete-quiz-btn" @click="wordsearchCloseDeleteMessage()">Close</button>
+                </div>
+               
+            </div>
+        </div>
+        <!--delete wordsearch popup ends-->
     </div>
 </template>
 
@@ -391,6 +449,18 @@ export default {
 
         selectedAnagramID(){
             return this.$store.state.selectedAnagramID
+        },
+
+        selectedWordsearchTitle(){
+            return this.$store.state.selectedWordsearchTitle
+        },
+
+        selectedWords(){
+            return this.$store.state.selectedWords
+        },
+
+        selectedWordsearchID(){
+            return this.$store.state.selectedWordsearchID
         }
 
         
@@ -421,13 +491,16 @@ export default {
 
             //anagram
             anagramList: [],
+
+            //wordsearch
+            wordsearchList: [],
             
             //delete variables
             showDeleteQuiz: false,
-            missionIDToBeDeleted:"",
+            missionIDToBeDeleted:0,
             titleToBeDeleted:"",
             showDeleteWefie: false,
-            wefieIDToBeDeleted:"",
+            wefieIDToBeDeleted:0,
             quizDeleteMessage: "",
             quizCloseMessage: false,
             wefieDeleteMessage: "",
@@ -436,16 +509,19 @@ export default {
             dragAndDropDeleteMessage: "",
             dragAndDropCloseMessage:false,
             showDeleteDragDrop: false,
-            dragDropMissionIDToBeDeleted:"",
-            dragDropIDToBeDeleted:"",
-            drawingIDToBeDeleted:"",
+            dragDropMissionIDToBeDeleted:0,
+            dragDropIDToBeDeleted:0,
+            drawingIDToBeDeleted:0,
             showDeleteDrawing: false,
             drawingDeleteMessage:"",
             drawingCloseMessage: false,
             showDeleteAnagram:false,
             anagramDeleteMessage:"",
             anagramCloseMessage: false,
-            anagramIDToBeDeleted:""
+            anagramIDToBeDeleted:0,
+            showDeleteWordsearch: false,
+            wordsearchDeleteMessage:"",
+            wordsearchIDToBeDeleted:0,
         }
     }, 
     components:{
@@ -485,6 +561,12 @@ export default {
             this.$store.commit('saveSelectedAnagramTitle', anagram_title);
             this.$store.commit('saveSelectedAnagramID', anagram_id);
             this.$store.commit('saveSelectedAnagramWord', anagram_word);
+        },
+
+        saveSelectedWordsearch(wordsearch_title, wordsearch_words, wordsearch_id){
+            this.$store.commit('saveSelectedWordsearchTitle', wordsearch_title);
+            this.$store.commit('saveSelectedWords', wordsearch_words);
+            this.$store.commit('saveSelectedWordsearchID', wordsearch_id);
         },
         //store to vuex store methods ends 
         
@@ -703,6 +785,33 @@ export default {
             }
         },
 
+        onSubmitToDeleteAnagram(){
+            var postBody = {
+                "id": this.anagramIDToBeDeleted
+            }
+            
+            axios.post('//54.255.245.23:3000/delete/deleteAnagram', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                if (data.success === "true") {
+                    this.anagramDeleteMessage ="Anagram Question Successfully Deleted"
+                    // this.$router.go();
+                } else {
+                    this.anagramDeleteMessage = "Error Please Remove Anagram Question From All Existing Trails";
+                }
+                // this.$router.go();
+            })
+        
+            if(this.showDeleteAnagram){
+                this.showDeleteAnagram = false;
+            } else{
+                this.showDeleteAnagram = true;
+            }
+            
+            // location.reload();
+        },
+
         closeDeleteAnagram(){
              if(this.showDeleteAnagram){
                 this.showDeleteAnagram = false;
@@ -711,14 +820,12 @@ export default {
             }
         },
 
-        anagramDeleteMessage(){
-            this.showDeleteAnagram = false;
-            this.anagramCloseMessage = true;
-            if( this.anagramDeleteMessage === "Anagram Word Successfully Deleted") {
-                this.anagramDeleteMessage = "";
-                this.$router.go();
+        anagramCloseDeleteMessage(){
+             if(this.showDeleteAnagram){
+                this.showDeleteAnagram = false;
+            } else{
+                this.showDeleteAnagram = true;
             }
-            this.anagramDeleteMessage = "";
         },
 
         deleteDrawing(drawing_title, drawing_id){
@@ -779,6 +886,63 @@ export default {
             this.drawingDeleteMessage = "";
         },
 
+        onSubmitToDeleteWordsearch(){
+            var postBody = {
+                "id": this.wordsearchIDToBeDeleted
+            }
+            
+            axios.post('//54.255.245.23:3000/delete/deleteWordsearch', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                if (data.success === "true") {
+                    this.wordsearchDeleteMessage ="Wordsearch Question Successfully Deleted"
+                    // this.$router.go();
+                } else {
+                    this.wordsearchDeleteMessage = "Error Please Remove Wordsearch Question From All Existing Trails";
+                }
+                // this.$router.go();
+            })
+        
+            if(this.showDeleteWordsearch){
+                this.showDeleteWordsearch = false;
+            } else{
+                this.showDeleteWordsearch = true;
+            }
+            
+            // location.reload();
+        },
+
+        deleteWordsearch(wordsearch_title, wordsearch_ID){
+            this.titleToBeDeleted = wordsearch_title;
+            this.wordsearchIDToBeDeleted = wordsearch_ID
+
+            if(this.showDeleteWordsearch){
+                this.showDeleteWordsearch = false;
+            } else{
+                this.showDeleteWordsearch = true;
+            }
+        },
+
+        closeDeleteWordsearch(){
+             if(this.showDeleteWordsearch){
+                this.showDeleteWordsearch = false;
+            } else{
+                this.showDeleteWordsearch = true;
+            }
+        },
+
+        wordsearchCloseDeleteMessage(){
+            this.showDeleteWordsearch = false;
+            this.wordsearchCloseMessage = true;
+            if( this.wordsearchDeleteMessage === "Drawing Question Successfully Deleted") {
+                this.wordsearchDeleteMessage = "";
+                this.$router.go();
+            }
+            this.wordsearchDeleteMessage = "";
+        },
+
+
     },
     mounted(){
         if (!this.$session.exists()) {
@@ -837,6 +1001,23 @@ export default {
             for(var row in data){
                 console.log(data[row])
                 this.anagramList.push({title:data[row].title, word: data[row].word, anagram_id: data[row].id})
+            }
+        })
+
+        axios.get('//54.255.245.23:3000/wordsearch/getAllWordSearchWords')
+        .then(response => {
+            let data = response.data;
+             let wordsearchWords = []
+            for(var row in data){
+                console.log(data[row])
+                let wordsList = data[row].words;
+
+                for(var index in wordsList){
+                    wordsearchWords.push({word: wordsList[index]})
+                }
+                // console.log("woof woof woof");
+                // console.log(data[row].id);
+                this.wordsearchList.push({title:data[row].title, words: wordsearchWords, wordsearch_id: data[row].id})
             }
         })
     }
@@ -921,20 +1102,20 @@ export default {
         border-bottom: 1px solid #DEE2E6;
     }
 
-    .wefie-data td, .quiz-data td, .draganddrop-data td, .drawing-data td, .anagram-data td{
+    .wefie-data td, .quiz-data td, .draganddrop-data td, .drawing-data td, .anagram-data td, .wordsearch-data td{
         /*max-height: 10px;*/
         max-width: 700px;
         padding: 15px;
     }
 
-    .quiz-data a, .draganddrop-data a, .wefie-data a, .drawing-data a, .anagram-data a{
+    .quiz-data a, .draganddrop-data a, .wefie-data a, .drawing-data a, .anagram-data a, .wordsearch-data a{
         text-decoration: none!important;
         font-size: 14px;
         font-family: "Roboto", sans-serif;
         /*color: #536479;*/
     }
 
-    .wefie-data button, .quiz-data button, .draganddrop-data button, .drawing-data button, .anagram-data button{
+    .wefie-data button, .quiz-data button, .draganddrop-data button, .drawing-data button, .anagram-data button, .wordsearch-data button{
         background: none;
         border: none;
         cursor: pointer;
@@ -949,7 +1130,7 @@ export default {
         float: left;
     }
 
-    .wefie-data i, .quiz-data i, .draganddrop-data i, .drawing-data i, .anagram-data i{
+    .wefie-data i, .quiz-data i, .draganddrop-data i, .drawing-data i, .anagram-data i, .wordsearch-data i{
         font-size: 20px;
         color: #536479;
     }
@@ -974,14 +1155,14 @@ export default {
         background-color: rgb(0, 0, 0, 0.7);
         position: fixed;
         top:0;
-        z-index: 2;
+        z-index: 4;
         display:flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
     }
 
-    .delete-quiz-popup, .delete-dragdrop-popup, .delete-wefie-popup, .delete-drawing-popup, .delete-anagram-popup{
+    .delete-quiz-popup, .delete-dragdrop-popup, .delete-wefie-popup, .delete-drawing-popup, .delete-anagram-popup, .delete-wordsearch-popup{
         min-width: 30%;
         min-height: 23%;
         background-color: white;
@@ -996,7 +1177,7 @@ export default {
         position: relative;
     }
     
-    .delete-quiz-body, .delete-dragdrop-body, .delete-wefie-body, .delete-drawing-body, .delete-anagram-body{
+    .delete-quiz-body, .delete-dragdrop-body, .delete-wefie-body, .delete-drawing-body, .delete-anagram-body, .delete-wordsearch-body{
         width: 100%;
         overflow: hidden;
         text-align: center;
@@ -1007,12 +1188,12 @@ export default {
         flex: 10;
     }
 
-    .delete-quiz-content, .delete-wefie-content, .delete-dragdrop-content, .delete-drawing-content, .delete-anagram-content{
+    .delete-quiz-content, .delete-wefie-content, .delete-dragdrop-content, .delete-drawing-content, .delete-anagram-content, .delete-wordsearch-content{
         flex: 4;
         padding: 12px;
     }
 
-    .delete-quiz-header, .delete-dragdrop-header, .delete-wefie-header, .delete-drawing-header, .delete-anagram-header{
+    .delete-quiz-header, .delete-dragdrop-header, .delete-wefie-header, .delete-drawing-header, .delete-anagram-header, .delete-wordsearch-header{
         flex: 1;
         width: 100%;
         padding:10px; 
@@ -1032,7 +1213,7 @@ export default {
         flex-direction: column;
     }
 
-    .delete-quiz-btm, .delete-dragdrop-btm, .delete-wefie-btm, .delete-drawing-btm, .delete-anagram-btm{
+    .delete-quiz-btm, .delete-dragdrop-btm, .delete-wefie-btm, .delete-drawing-btm, .delete-anagram-btm, .delete-wordsearch-btm{
         margin-bottom: 0px;
         /*flex: 4;*/
         margin-top: 10px;
@@ -1058,7 +1239,7 @@ export default {
         color: #666666;
     }
 
-    .delete-quiz-btn, .delete-dragdrop-btn, .delete-wefie-btn, .delete-drawing-btn, .delete-anagram-btn{
+    .delete-quiz-btn, .delete-dragdrop-btn, .delete-wefie-btn, .delete-drawing-btn, .delete-anagram-btn, .delete-wordsearch-btn{
         background: none;
         border: none;
         background-color: #F15E5E;
@@ -1076,7 +1257,7 @@ export default {
         color: white;
     }
 
-    .close-delete-quiz, .close-delete-dragdrop, .close-delete-wefie, .close-delete-drawing, .close-delete-anagram{
+    .close-delete-quiz, .close-delete-dragdrop, .close-delete-wefie, .close-delete-drawing, .close-delete-anagram, .close-delete-wordsearch{
         background: none;
         border: none;
         color: #868686;
@@ -1085,7 +1266,7 @@ export default {
         font-size: 18px;
     }
 
-    .delete-quiz-popup h5, .delete-dragdrop-popup h5, .delete-wefie-popup h5, .delete-drawing-popup h5, .delete-anagram-popup h5{
+    .delete-quiz-popup h5, .delete-dragdrop-popup h5, .delete-wefie-popup h5, .delete-drawing-popup h5, .delete-anagram-popup h5, .delete-wordsearch-popup h5{
         display: flex;
         float: left;
     }

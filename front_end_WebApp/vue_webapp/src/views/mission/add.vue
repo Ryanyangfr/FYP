@@ -172,6 +172,30 @@
                     </form>
                 </div>
                 <!--add anagram ends-->
+
+                <!--add wordsearch begins-->
+                <div v-if="missionType == allMissionTypes[5]">
+                    <form @submit.prevent="wordsearchOnSubmitToAdd" class="add-mission-body">
+                        <div class="add-mission-input">
+                            <label for="add-mission-title-input">Title</label>
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                        </div> 
+                        <div v-for="(input, index) in words" :key="index" class="add-question-body">
+                            <div class="add-mission-body">
+                                <div class="add-mission-input">
+                                    <label for="add-mission-title-input">Word {{index+1}}</label>
+                                    <input name="option" type="text" placeholder="word" v-model="input.word">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="submit-btn-area">
+                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                            <button class="submit-btn" type="submit">Create</button>
+                        </div>
+                    </form>
+                </div>
+                <!--add wordsearch ends-->
             </form>
             
         </div>
@@ -184,7 +208,7 @@ export default {
     name: "addMission",
     data() {
         return{
-            allMissionTypes: ["Quiz", "Wefie", "Drag And Drop", "Drawing", "Anagram"],
+            allMissionTypes: ["Quiz", "Wefie", "Drag And Drop", "Drawing", "Anagram","Wordsearch"],
             missionType: "",
             title: "",
             quiz: [],
@@ -202,7 +226,10 @@ export default {
             drawing_points:0,
 
             //anagram
-            anagram_word:""
+            anagram_word:"",
+
+            //wordsearch
+            words: [{word: ""}, {word: ""}, {word: ""}, {word: ""}, {word: ""}]
 
         }  
     },
@@ -315,6 +342,19 @@ export default {
                 "title": this.title
             }
             axios.post('//54.255.245.23:3000/add/addAnagramQuestion', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                this.$router.push({ path: this.redirect || '/mission' })
+            })
+        },
+
+        wordsearchOnSubmitToAdd(){
+            var postBody = {
+                "words": this.words,
+                "title": this.title
+            }
+            axios.post('//54.255.245.23:3000/add/addWordsearchQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -436,8 +476,6 @@ export default {
     /* add question body: whole question body for quiz and options and answer for drag and drop.
     Add a diver between each question/ option and answer */
     .add-question-body{
-        border-top: 1px solid #CED4DA;
-        padding-top: 25px;
         overflow: hidden;
     }
 

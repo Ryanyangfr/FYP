@@ -30,6 +30,9 @@ export const store = new Vuex.Store({
     selectedAnagramTitle:'',
     selectedAnagramWord:'',
     selectedAnagramID: 0,
+    selectedWordsearchTitle:'',
+    selectedWords:[],
+    selectedWordsearchID:0,
     instanceStartTime: ''
 
   },
@@ -137,6 +140,18 @@ export const store = new Vuex.Store({
 
     saveSelectedAnagramID(state, anagramID){
       state.selectedAnagramID = anagramID
+    },
+
+    saveSelectedWordsearchTitle(state, wordsearchTitle){
+      state.selectedWordsearchTitle = wordsearchTitle
+    },
+
+    saveSelectedWords(state,words){
+      state.selectedWords = words
+    },
+
+    saveSelectedWordsearchID(state,wordsearchID){
+      state.selectedWordsearchID = wordsearchID
     },
 
     saveInstanceStartTime (state, startTime) {

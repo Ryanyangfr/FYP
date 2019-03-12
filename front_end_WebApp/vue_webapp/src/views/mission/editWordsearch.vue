@@ -1,33 +1,24 @@
 <template>
-    <div class="EditDragAndDrop">
+    <div class="EditWordsearch">
        <div class="card">
             <div class="card-title">
-                <h5>Edit Quiz</h5>
+                <h5>Edit Wordsearch</h5>
             </div>
             <!--{{quiz}}-->
-            <form @submit.prevent="dragAndDropOnSubmitToEdit">
+            <form @submit.prevent="wordsearchOnSubmitToEdit">
                 <div>
                     <div class="view-mission-body">
                         <div class="view-mission-input">
                             <label for="add-mission-title-input">Title</label>
-                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="draganddrop_title"> 
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="wordsearch_title"> 
                         </div>
 
-                          <div class="view-mission-input">
-                            <label for="add-mission-title-input">Question</label>
-                            <input name="question-input" type="text" placeholder="Question" v-model="draganddrop_question"> 
-                        </div>
-
-                        <div v-for="option in options" :key="option.option" class="view-options-and-answers"> 
+                          <div v-for="(input, index) in words" :key="index" class="words-body">
                             <div class="view-mission-input">
-                                <label>Option</label>
-                                <input name="question" id="question-input" type="text" placeholder="Option" v-model="option.option">
+                                    <label for="add-mission-title-input">Word {{index+1}}</label>
+                                    <input name="add-mission-title-input" type="text" placeholder="word" v-model="input.word">
                             </div>
 
-                            <div class="view-mission-input">
-                                <label>Answer</label>
-                                <input name="question" id="question-input" type="text" placeholder="Option" v-model="option.answer">
-                            </div>
                         </div>
 
                         <div class="submit-btn-area">
@@ -35,9 +26,7 @@
                             <button class="submit-btn" type="submit">Save</button>
                         </div>  
                     </div>
-                </div>
-
-                
+                </div> 
             </form>
             
         </div>
@@ -50,50 +39,49 @@ export default {
     name: "editWefie",
     data() {
         return{
-            draganddrop_title: "",
-            draganddrop_question: "",
-            draganddrop_ID: 0,
-            draganddrop_missionID: 0,
-            options: []
+            wordsearch_title: "",
+            words: [],
+            wordsearch_ID: 0,
             
         }  
     },
 
     computed: {
-        selectedDragAndDropID(){
-          console.log(this.$store.state.selectedDragAndDropID)
-          return this.$store.state.selectedDragAndDropID
+        selectedWordsearchTitle(){
+          console.log(this.$store.state.selectedWordsearchTitle)
+          return this.$store.state.selectedWordsearchTitle
         },
 
-        selectedDragAndDropQuestion(){
-          console.log(this.$store.state.selectedDragAndDropQuestion)
-          return this.$store.state.selectedDragAndDropQuestion
+        selectedWords(){
+          console.log(this.$store.state.selectedWords)
+          return this.$store.state.selectedWords
         },
 
-        selectedDragAndDropTitle(){
-          console.log(this.$store.state.selectedDragAndDropTitle)
-          return this.$store.state.selectedDragAndDropTitle
-        },
-
-        selectedDragAndDropMissionID(){
-          console.log(this.$store.state.selectedDragAndDropMissionID)
-            return this.$store.state.selectedDragAndDropMissionID
+        selectedWordsearchID(){
+            console.log(this.$store.state.selectedWordsearchID)
+            return this.$store.state.selectedWordsearchID
         }
     },
 
     methods: {
-      dragAndDropOnSubmitToEdit(){
+      wordsearchOnSubmitToEdit(){
+        let wordsToBeSubmitted = []
+        for(var index in this.words){
+            console.log(this.words[index].word);
+            wordsToBeSubmitted.push(this.words[index].word);
+        }
+        console.log("pig")
+        console.log(wordsToBeSubmitted);
+
         let postBody = {
-          id: this.draganddrop_ID,
-          question: this.draganddrop_question,
-          options: this.options,
-          title: this.draganddrop_title,
-          missionID: this.draganddrop_missionID
+            id: this.wordsearch_ID,
+            title: this.wordsearch_title,
+            words: wordsToBeSubmitted,
         }
 
         console.log(postBody);
 
-        axios.post('//54.255.245.23:3000/edit/editDragAndDrop', postBody)
+        axios.post('//54.255.245.23:3000/edit/editWordsearch', postBody)
         .then(response => {
             let data = response.data
             console.log(data)
@@ -108,24 +96,14 @@ export default {
           this.$router.push('/')
       }
 
-      this.draganddrop_title = this.$store.state.selectedDragAndDropTitle
-      this.draganddrop_question = this.$store.state.selectedDragAndDropQuestion
-      this.draganddrop_ID = this.$store.state.selectedDragAndDropID
-      this.draganddrop_missionID = this.$store.state.selectedDragAndDropMissionID
+      this.wordsearch_title = this.$store.state.selectedWordsearchTitle
+      this.words = this.$store.state.selectedWords
+      this.wordsearch_ID = this.$store.state.selectedWordsearchID
 
-      console.log('check values drag and drop');
-      console.log(this.draganddrop_title);
-      console.log(this.draganddrop_question);
-      console.log(this.draganddrop_ID);
-      console.log(this.draganddrop_missionID);
-
-
-      axios.get('//54.255.245.23:3000/draganddrop/getDragAndDropByMission?missionID=' + this.draganddrop_missionID)
-      .then(response =>{
-          var data = response.data;
-          console.log(data)
-          this.options = data[0].options
-      })
+      console.log('check values wordsearch');
+      console.log(this.wordsearch_title);
+      console.log(this.words);
+      console.log(this.wordsearch_ID)
     }
 }
 </script>
@@ -138,7 +116,7 @@ export default {
         font-family: 'lato', sans-serif
     }
 
-    .EditDragAndDrop .card{
+    .EditWordsearch .card{
         padding: 18px;
         margin: 18px;
         border-radius: 3px;
@@ -158,9 +136,28 @@ export default {
         float: left;
     }
 
-    .ViewQuiz div{
+    .EditWordsearch div{
         min-width: inherit;
         /*background-color: blue*/
+    }
+
+    .words-body label{
+        margin-right: 90px;
+        font-size: 14px;
+        font-weight: 600;
+        pointer-events: none;
+        transition: all 0.3s ease 0s;
+        white-space: nowrap;
+        float: left;
+        display: flex;
+        /*background-color: pink;*/
+        height: inherit;
+        min-width: 11%
+    }
+
+    .words-body{
+        display: flex;
+        flex-direction: column;
     }
 
    .view-mission-input label{
@@ -177,20 +174,6 @@ export default {
         /*align-items: center;*/
         min-width: 11%
 
-    }
-
-    .add-quiz-options-body label{
-        margin-right: 90px;
-        font-size: 14px;
-        font-weight: 600;
-        pointer-events: none;
-        transition: all 0.3s ease 0s;
-        white-space: nowrap;
-        float: left;
-        display: flex;
-        /*background-color: pink;*/
-        height: inherit;
-        min-width: 11%
     }
 
     .view-mission-input{
@@ -220,50 +203,13 @@ export default {
         width:100%;
     }
 
-    .add-quiz-options{
-        display: flex;
-        flex-direction: column;
-        float: left;
-        width: 100%;
-        /*background-color: blue;*/
-    }
-
-
-    .add-quiz-options-body{
-        margin-left:30px;
-        display: flex;
-        flex-direction: row;
-        /*background-color: pink;*/
-    }
-
-    .view-options-and-answers{
-        border-top: 1px solid #CED4DA;
-        padding-top: 25px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .option input{
-        display: flex;
-        float: left;
-        margin-bottom: 25px;
-        height: 40px;
-        outline: none;
-        border: 1px solid #CED4DA;
-        border-radius: 4px;
-        padding: 10px;
-        font-size: 14px;
-        min-width:75%;
-        font-family: 'Roboto', sans-serif;
-    }
-
     .submit-btn-area{
         width: 100%;
         overflow: hidden;
         float: right;
     }
 
-    .EditDragAndDrop .submit-btn{
+    .EditWordsearch .submit-btn{
         /*display: flex;*/
         float:right;
         background: none;
@@ -283,11 +229,11 @@ export default {
         margin-top: 50px;
     }
 
-     .EditDragAndDrop .submit-btn:hover{
+     .EditWordsearch .submit-btn:hover{
         background-color: #5a52c4;
      }
 
-     .EditDragAndDrop .cancel-btn{
+     .EditWordsearch .cancel-btn{
          float:right;
          background-color: #ACACAC;
          color: white;
@@ -306,11 +252,11 @@ export default {
         margin-top: 50px;
     }
 
-    .EditDragAndDrop .cancel-btn:hover{
+    .EditWordsearch .cancel-btn:hover{
         background-color: #b2a7a7
     }
 
-    .EditDragAndDrop .cancel-btn a{
+    .EditWordsearch .cancel-btn a{
         text-decoration: none!important;
         color: white
     }

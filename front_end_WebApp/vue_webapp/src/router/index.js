@@ -143,6 +143,12 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/editWordsearch',
+      name: 'Edit Wordsearch',
+      component: ()=> import('@/views/mission/editWordsearch'),
+      hidden: true
+    },
+    {
       path: '/participant',
       name: 'participant',
       component: ()=> import('@/views/participant/index'),
