@@ -38,14 +38,14 @@ router.get('/getWordSearchWords', (req, res) => {
                 tempWords.push(wordSearch.WORD);
               } else {
                 // temp.push({ words: tempWords });
-                response.push({ hotspot: hotspot_name, words: tempWords, title: currentID });
+                response.push({ hotspot: hotspot_name, words: tempWords });
                 // temp = [];
                 tempWords = [];
                 currentID = wordSearch.WORDSEARCH_ID;
                 // temp.push({ title: currentID });
               }
             });
-            response.push({ hotspot: hotspot_name, words: tempWords, title: currentID });
+            response.push({ hotspot: hotspot_name, words: tempWords });
             // temp.push({ words: tempWords });
             // response.push(temp);
             console.log(response);
