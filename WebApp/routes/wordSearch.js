@@ -22,30 +22,30 @@ router.get('/getWordSearchWords', (req, res) => {
         let mission = missionRow.MISSION_ID;
         let hotspot_name = missionRow.HOTSPOT_NAME;
 
-        const wordSearchQuery = 'SELECT WORDSEARCH.WORDSEARCH_TITLE, WORD FROM WORDSEARCH, WORDSEARCH_WORD WHERE MISSION_ID = ? AND WORDSEARCH.WORDSEARCH_TITLE = WORDSEARCH_WORD.WORDSEARCH_TITLE';
+        const wordSearchQuery = 'SELECT WORDSEARCH.WORDSEARCH_ID, WORD FROM WORDSEARCH, WORDSEARCH_WORD WHERE MISSION_ID = ? AND WORDSEARCH.WORDSEARCH_ID = WORDSEARCH_WORD.WORDSEARCH_ID';
 
         conn.query(wordSearchQuery, mission, (err, data) => {
           if (err) {
             console.log(err);
           } else {
             // let temp = [];
-            let currentTitle = data[0].WORDSEARCH_TITLE;
+            let currentID = data[0].WORDSEARCH_ID;
             // temp.push({ hotspot: hotspot_name });
             let tempWords = [];
             data.forEach((wordSearch) => {
               console.log(wordSearch);
-              if (currentTitle === wordSearch.WORDSEARCH_TITLE) {
+              if (currentID === wordSearch.WORDSEARCH_ID) {
                 tempWords.push(wordSearch.WORD);
               } else {
                 // temp.push({ words: tempWords });
-                response.push({ hotspot: hotspot_name, words: tempWords, title: currentTitle });
+                response.push({ hotspot: hotspot_name, words: tempWords });
                 // temp = [];
                 tempWords = [];
-                currentTitle = wordSearch.WORDSEARCH_TITLE;
-                // temp.push({ title: currentTitle });
+                currentID = wordSearch.WORDSEARCH_ID;
+                // temp.push({ title: currentID });
               }
             });
-            response.push({ hotspot: hotspot_name, words: tempWords, title: currentTitle });
+            response.push({ hotspot: hotspot_name, words: tempWords });
             // temp.push({ words: tempWords });
             // response.push(temp);
             console.log(response);
@@ -61,4 +61,43 @@ router.get('/getWordSearchWords', (req, res) => {
   });
 });
 
+router.get('/getAllWordSearchWords', (req,res) => {
+  const response = [];
+  const wordSearchQuery = 'SELECT WORDSEARCH.WORDSEARCH_ID, WORD, MISSION_TITLE FROM WORDSEARCH, WORDSEARCH_WORD, MISSION WHERE WORDSEARCH.WORDSEARCH_ID = WORDSEARCH_WORD.WORDSEARCH_ID AND MISSION.MISSION_ID = WORDSEARCH.MISSION_ID';
+
+  conn.query(wordSearchQuery, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // let temp = [];
+      if (data.length === 0) {
+        res.send(response);
+        return;
+      }
+      let currentID = data[0].WORDSEARCH_ID;
+      let currentTitle = data[0].MISSION_TITLE;
+      // temp.push({ hotspot: hotspot_name });
+      let tempWords = [];
+      data.forEach((wordSearch) => {
+        console.log(wordSearch);
+        if (currentID === wordSearch.WORDSEARCH_ID) {
+          tempWords.push(wordSearch.WORD);
+        } else {
+          // temp.push({ words: tempWords });
+          response.push({ words: tempWords, id: currentID, title: currentTitle });
+          // temp = [];
+          tempWords = [];
+          currentID = wordSearch.WORDSEARCH_ID;
+          currentTitle = wordSearch.MISSION_TITLE;
+          // temp.push({ title: currentID });
+        }
+      });
+      response.push({ words: tempWords, id: currentID, title: currentTitle });
+      // temp.push({ words: tempWords });
+      // response.push(temp);
+      console.log(response);
+      res.send(response);
+    }
+  });
+});
 module.exports = router;

@@ -341,7 +341,7 @@ export default {
                 "word": this.anagram_word,
                 "title": this.title
             }
-            axios.post('//54.255.245.23:3000/add/addAnagramQuestion', postBody)
+            axios.post('//54.255.245.23:3000/add/addAnagram', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)

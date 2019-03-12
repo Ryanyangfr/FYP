@@ -774,6 +774,25 @@ export default {
             this.dragAndDropDeleteMessage = "";
         },
 
+        onSubmitToDeleteAnagram(){
+            const postBody = {
+                id: this.anagramIDToBeDeleted
+            }
+
+            axios.post('//54.255.245.23:3000/delete/deleteAnagram', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                if (data.success === "true") {
+                    this.anagramDeleteMessage ="Anagram Word Successfully Deleted"
+                    // this.$router.go();
+                } else {
+                    this.anagramDeleteMessage = "Error Please Remove Drawing Question From All Existing Trails";
+                }
+                // this.$router.go();
+            })
+        },
+
         deleteAnagram(anagram_title, anagram_id){
             this.titleToBeDeleted = anagram_title;
             this.anagramIDToBeDeleted = anagram_id;
@@ -821,10 +840,11 @@ export default {
         },
 
         anagramCloseDeleteMessage(){
-             if(this.showDeleteAnagram){
-                this.showDeleteAnagram = false;
-            } else{
-                this.showDeleteAnagram = true;
+            this.showDeleteAnagram = false;
+            this.anagramCloseMessage = true;
+            if( this.anagramDeleteMessage === "Anagram Word Successfully Deleted") {
+                this.anagramDeleteMessage = "";
+                this.$router.go();
             }
         },
 

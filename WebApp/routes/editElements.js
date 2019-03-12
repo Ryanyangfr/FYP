@@ -305,4 +305,22 @@ function updateQuiz(quizID, answer, question, options, res, doneArray, counter) 
     }
   });
 }
+
+router.post('/editAnagram', (req, res) => {
+  const anagramID = req.body.id;
+  const word = req.body.word;
+  console.log('edit anagram called');
+
+  console.log(req.body)
+  const query = 'UPDATE ANAGRAM SET ANAGRAM_WORD = ? WHERE ANAGRAM_ID = ?';
+
+  conn.query(query, [word, anagramID], (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      res.send(JSON.stringify({ success: 'true' }));
+    }
+  });
+});
 module.exports = router;

@@ -128,7 +128,7 @@ router.get('/startingHotspot', (req, res) => {
   const query = 'SELECT TH.HOTSPOT_NAME, LATITUDE, LONGTITUDE, N.NARRATIVE FROM TRAIL_HOTSPOT AS TH, HOTSPOT AS H, NARRATIVE AS N WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND H.HOTSPOT_NAME = TH.HOTSPOT_NAME AND TH.NARRATIVE_ID = N.NARRATIVE_ID';
   const response = [];
   const io = req.app.get('socketio');
-  console.log('instance id: ' + instance_id);
+  console.log(`instance id: ${  instance_id}`);
 
   conn.query(query, instance_id, (err, row) => {
     if (err) {
@@ -285,7 +285,7 @@ router.get('/activityFeed', (req,res) => {
           res.send(response);
         } else {
           data2.forEach((row) => {
-            response.push({ time:row.TIME_COMPLETED, team: row.TEAM_ID, hotspot: row.HOTSPOT_NAME });
+            response.push({ time: row.TIME_COMPLETED, team: `${row.TEAM_ID}`, hotspot: row.HOTSPOT_NAME });
           });
           res.send(response);
         }
