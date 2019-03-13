@@ -188,4 +188,25 @@ router.post('/deleteAnagram', (req, res) => {
     }
   });
 });
+
+router.post('/deleteWordsearch', (req, res) => {
+  const wordSearchID = req.body.id;
+  const wordSearchQuery = 'DELETE FROM WORDSEARCH WHERE WORDSEARCH_ID = ?';
+  const wordSearchWordQuery = 'DELETE FROM WORDSEARCH_WORD WHERE WORDSEARCH_ID = ?';
+
+  conn.query(wordSearchWordQuery, wordSearchID, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      conn.query(wordSearchQuery, wordSearchID, (err,data) => {
+        if (err) {
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          res.send(JSON.stringify({ success: 'true' }));
+        }
+      })
+    }
+  })
+})
 module.exports = router;
