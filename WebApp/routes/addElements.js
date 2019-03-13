@@ -415,11 +415,11 @@ router.post('/addWordsearchQuestion', (req,res) => {
                     console.log(err);
                     res.send(JSON.stringify({ success: 'false' }));
                   } else {
+                    count += 1;
                     if (count === words.length) {
                       res.send(JSON.stringify({ success: 'true' }));
                       mission_id += 1;
                     }
-                    count += 1;
                   }
                 })
               })
