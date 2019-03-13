@@ -17,27 +17,17 @@ router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 const tokenGen = new TokenGenerator();
 
-const pusher = new Pusher({
-  appId: '650737',
-  key: '1721c662be60b9cbd43c',
-  secret: 'a14c63eaaa50c1a466ca',
-  cluster: 'ap1',
-  encrypted: true
-});
+// let numUsersEntered = 0;
 
-const channel = 'events_to_be_shown';
+// //check check for users already entered
 
-let numUsersEntered = 0;
-
-//check check for users already entered
-
-conn.query('SELECT COUNT(*) AS COUNT FROM PARTICIPANT', (err, numParticipants) => {
-  if (err) {
-    console.log(err);
-  } else {
-    numUsersEntered = numParticipants[0].COUNT;
-  }
-})
+// conn.query('SELECT COUNT(*) AS COUNT FROM PARTICIPANT', (err, numParticipants) => {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     numUsersEntered = numParticipants[0].COUNT;
+//   }
+// });
 
 // checks if user is valid
 // router.get('/loginCheck/', function(req,res){
@@ -85,51 +75,67 @@ router.get('/retrieveAllUser', (req,res) => {
 router.post('/register', (req, res) => {
   // gets parameters from post request
   // console.log(req.body);
-  let currentNumTeamsQuery = 'SELECT COUNT(*) AS COUNT FROM TEAM WHERE TRAIL_INSTANCE_ID = (SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1)'
+  let currentTrailInstanceIDQuery = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
+  let numUsersEnteredQuery = 'SELECT COUNT(*) AS COUNT FROM PARTICIPANT WHERE TRAIL_INSTANCE_ID = ?';
+  let currentNumTeamsQuery = 'SELECT COUNT(*) AS COUNT FROM TEAM WHERE TRAIL_INSTANCE_ID = (SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1)';
 
-  conn.query(currentNumTeamsQuery, (err, data) => {
+  conn.query(currentTrailInstanceIDQuery, (err, trailID) => {
     if (err) {
       console.log(err);
-    } else {
-      const numTeams = data[0].COUNT;
-      const username = req.body.username;
-      const user_id = numUsersEntered + 1;
-      const team_id = numUsersEntered % numTeams + 1;
-      numUsersEntered = numUsersEntered + 1;
-      let isLeader = 0;
-      if (user_id <= numTeams) {
-        isLeader = 1;
+      res.send('failed to update, check parameters');
+      return;
+    }
+    const currTrailInstanceID = trailID[0].TRAIL_INSTANCE_ID;
+    conn.query(numUsersEnteredQuery, currTrailInstanceID, (err, data2) => {
+      if (err) {
+        console.log(err);
+        res.send('failed to update, check parameters');
+        return;
       }
-      console.log(numTeams);
-      const event = {
-        team_id: team_id,
-        id: crypto.randomBytes(16).toString('hex').substring(0,4),
-      };
-
-      // console.log('request: ' + req);
-      // console.log('*****************************************************************')
-      // console.log('body: ' + req.body)
-      // console.log('*****************************************************************')
-
-      console.log(`username: ${username}`);
-      console.log(`user_id: ${user_id}`);
-      console.log(`team: ${team_id}`);
-      console.log(`user entered: ${numUsersEntered}`);
-      const query = 'INSERT INTO PARTICIPANT (USER_ID,USERNAME,TEAM_ID, isLeader) VALUES (?,?,?,?)';
-      // updates database
-      conn.query(query,[user_id,username,team_id, isLeader], (err,results) => {
+      const numUsersEntered = data2[0].COUNT;
+      conn.query(currentNumTeamsQuery, (err, data) => {
         if (err) {
           console.log(err);
-          res.send('failed to update, check parameters');
         } else {
-          pusher.trigger(channel, 'created', event);
-          res.send(event);
+          const numTeams = data[0].COUNT;
+          const username = req.body.username;
+          const user_id = numUsersEntered + 1;
+          const team_id = numUsersEntered % numTeams + 1;
+          // numUsersEntered = numUsersEntered + 1;
+          let isLeader = 0;
+          if (user_id <= numTeams) {
+            isLeader = 1;
+          }
+          console.log(numTeams);
+          const event = {
+            team_id: team_id,
+            id: crypto.randomBytes(16).toString('hex').substring(0,4)
+          };
+    
+          // console.log('request: ' + req);
+          // console.log('*****************************************************************')
+          // console.log('body: ' + req.body)
+          // console.log('*****************************************************************')
+    
+          console.log(`username: ${username}`);
+          console.log(`user_id: ${user_id}`);
+          console.log(`team: ${team_id}`);
+          console.log(`user entered: ${numUsersEntered}`);
+          const query = 'INSERT INTO PARTICIPANT (USER_ID,USERNAME,TEAM_ID,TRAIL_INSTANCE_ID,isLeader) VALUES (?,?,?,?,?)';
+          // updates database
+          conn.query(query,[user_id,username,team_id,currTrailInstanceID,isLeader], (err,results) => {
+            if (err) {
+              console.log(err);
+              res.send('failed to update, check parameters');
+            } else {
+              // pusher.trigger(channel, 'created', event);
+              res.send(event);
+            }
+          });
         }
       });
-    }
-  })
-
-  
+    });
+  });
 });
 
 router.get('/getPassword', cors(), (req,res) => {
