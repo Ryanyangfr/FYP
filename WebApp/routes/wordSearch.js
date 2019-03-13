@@ -87,6 +87,7 @@ router.get('/getAllWordSearchWords', (req,res) => {
           response.push({ words: tempWords, id: currentID, title: currentTitle });
           // temp = [];
           tempWords = [];
+          tempWords.push(wordSearch.WORD);
           currentID = wordSearch.WORDSEARCH_ID;
           currentTitle = wordSearch.MISSION_TITLE;
           // temp.push({ title: currentID });
