@@ -410,7 +410,7 @@ router.post('/addWordsearchQuestion', (req,res) => {
             } else {
               let count = 0;
               words.forEach((word)=>{
-                conn.query(wordSearchWordsQuery, [currWordSearchID,word], (err, data4) => {
+                conn.query(wordSearchWordsQuery, [currWordSearchID,word.word], (err, data4) => {
                   if (err) {
                     console.log(err);
                     res.send(JSON.stringify({ success: 'false' }));
