@@ -54,7 +54,7 @@ const tokenGen = new TokenGenerator();
 
 // for getting all users
 router.get('/retrieveAllUser', (req,res) => {
-  const query = 'SELECT * FROM PARTICIPANT';
+  const query = 'SELECT * FROM PARTICIPANT WHERE TRAIL_INSTANCE_ID = (SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1)';
   console.log('User registered');
   conn.query(query, (err,result) => {
     const respond_message = [];
@@ -178,7 +178,7 @@ router.post('/changeAdminPassword', cors(), (req, res) => {
 });
 
 router.get('/retrieveAllUsers',(req,res) => {
-  const query = 'SELECT USERNAME FROM PARTICIPANT';
+  const query = 'SELECT USERNAME FROM PARTICIPANT WHERE TRAIL_INSTANCE_ID = (SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1)';
   const response = [];
   console.log('retrieveAllUsers called');
 
