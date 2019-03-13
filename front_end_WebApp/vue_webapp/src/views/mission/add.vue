@@ -185,7 +185,7 @@
                                 <div class="add-mission-input">
                                     <label for="add-mission-title-input">Word {{index+1}}</label>
                                     <div class="word-input">
-                                        <input name="option" type="text" placeholder="max character length: 20" :maxlength="wordMaxChar" v-model="input.word">
+                                        <input name="option" type="text" placeholder="max character length: 10" :maxlength="wordMaxChar" v-model="input.word">
                                         <div class="text-length" v-text="(wordMaxChar - input.word.length)"></div>
                                     </div>
                                 </div>
@@ -233,7 +233,7 @@ export default {
 
             //wordsearch
             words: [{word: ""}, {word: ""}, {word: ""}, {word: ""}, {word: ""}],
-            wordMaxChar: 20
+            wordMaxChar: 10
 
         }  
     },
