@@ -323,4 +323,37 @@ router.post('/editAnagram', (req, res) => {
     }
   });
 });
+
+router.post('/editWordsearch', (req,res) => {
+  const wordSearchID = req.body.id;
+  const words = req.body.words;
+
+  console.log('edit word search called');
+  console.log(req.body);
+
+  const deleteQuery = 'DELETE FROM WORDSEARCH_WORD WHERE WORDSEARCH_ID = ?';
+  const insertQuery = 'INSERT INTO WORDSEARCH_WORD VALUES (?,?)';
+
+  conn.query(deleteQuery, wordSearchID, (err,data) => {
+    if (err) {
+      console.log(err)
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      let count = 0;
+      words.forEach((word) => {
+        conn.query(insertQuery, [wordSearchID, word], (err, data2) => {
+          if (err) {
+            console.log(err);
+            res.send(JSON.stringify({ success: 'false' }));
+          } else {
+            count += 1;
+            if (count === words.length) {
+              res.send(JSON.stringify({ success: 'true' }));
+            }
+          }
+        })
+      })
+    }
+  })
+});
 module.exports = router;
