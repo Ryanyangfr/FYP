@@ -143,7 +143,7 @@ router.get('/startingHotspot', (req, res) => {
         for (let i = 0; i < numTeams; i++) {
           console.log('row: ');
           console.log(row[i]);
-          let num = i%row.length;
+          const num = i % row.length;
           response.push({ team: i + 1, startingHotspot: row[num].HOTSPOT_NAME, coordinates: [row[num].LATITUDE, row[num].LONGTITUDE], narrative: row[num].NARRATIVE });
         }
         console.log('response: ');
@@ -222,7 +222,7 @@ router.post('/teamLocation', (req,res) => {
 
 router.get('/getAllTeamPoints', (req,res) => {
   // get current trail instance
-  let instanceID = req.query.trail_instance_id;
+  const instanceID = req.query.trail_instance_id;
   const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
 
   conn.query(getActiveTrailInstance, (err, data) => {
@@ -270,7 +270,7 @@ router.get('/getAllTeamPoints', (req,res) => {
 });
 
 router.get('/activityFeed', (req,res) => {
-  let response = []
+  const response = []
   const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
 
   conn.query(getActiveTrailInstance, (err, data) => {
