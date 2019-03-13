@@ -382,4 +382,53 @@ router.post('/addAnagram', (req,res) => {
   })
 });
 
+router.post('/addWordsearchQuestion', (req,res) => {
+  const words = req.body.words;
+  const title = req.body.title;
+
+  const wordSearchIDQuery = 'SELECT MAX(WORDSEARCH_ID) AS ID FROM WORDSEARCH';
+  const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
+  const wordSearchQuery = 'INSERT INTO WORDSEARCH VALUES (?,?)';
+  const wordSearchWordsQuery = 'INSERT INTO WORDSEARCH_WORD VALUES (?,?)';
+
+
+  conn.query(wordSearchIDQuery, (err,data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      const currWordSearchID = data[0].ID + 1;
+      conn.query(ms_query, [mission_id, title], (err, data2) => {
+        if (err) {
+          console.log(err);
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          conn.query(wordSearchQuery, [currWordSearchID, mission_id], (err, data3) => {
+            if (err) {
+              console.log(err);
+              res.send(JSON.stringify({ success: 'false' }));
+            } else {
+              let count = 0;
+              words.forEach((word)=>{
+                conn.query(wordSearchWordsQuery, [currWordSearchID,word], (err, data4) => {
+                  if (err) {
+                    console.log(err);
+                    res.send(JSON.stringify({ success: 'false' }));
+                  } else {
+                    if (count === words.length) {
+                      res.send(JSON.stringify({ success: 'true' }));
+                      mission_id += 1;
+                    }
+                    count += 1;
+                  }
+                })
+              })
+            }
+          })
+        }
+      })
+    }
+  })
+});
+
 module.exports = router;
