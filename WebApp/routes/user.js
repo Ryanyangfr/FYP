@@ -93,7 +93,7 @@ router.post('/register', (req, res) => {
         return;
       }
       const numUsersEntered = data2[0].COUNT;
-      console.log(numUsersEntered);
+      console.log(`number users entered:  ${numUsersEntered}`);
       conn.query(currentNumTeamsQuery, (err, data) => {
         if (err) {
           console.log(err);
