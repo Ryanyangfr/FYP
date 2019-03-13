@@ -1031,7 +1031,7 @@ export default {
             for(var row in data){
                 console.log(data[row])
                 let wordsList = data[row].words;
-
+                wordsearchWords = []
                 for(var index in wordsList){
                     wordsearchWords.push({word: wordsList[index]})
                 }
