@@ -160,7 +160,7 @@
                             </router-link>
                         </button>
                     </td>
-                    <td><button @click="deleteWordsearch(wordsearch.title, wordsearch.wordsearch_ID)"><i class="ti-trash"></i></button></td>
+                    <td><button @click="deleteWordsearch(wordsearch.title, wordsearch.wordsearch_id)"><i class="ti-trash"></i></button></td>
                 </tr>
             </table>
             <!-- table for mission: wordsearch ends -->
@@ -509,19 +509,19 @@ export default {
             dragAndDropDeleteMessage: "",
             dragAndDropCloseMessage:false,
             showDeleteDragDrop: false,
-            dragDropMissionIDToBeDeleted:0,
-            dragDropIDToBeDeleted:0,
-            drawingIDToBeDeleted:0,
+            dragDropMissionIDToBeDeleted: 0,
+            dragDropIDToBeDeleted: 0,
+            drawingIDToBeDeleted: 0,
             showDeleteDrawing: false,
-            drawingDeleteMessage:"",
+            drawingDeleteMessage: "",
             drawingCloseMessage: false,
-            showDeleteAnagram:false,
-            anagramDeleteMessage:"",
+            showDeleteAnagram: false,
+            anagramDeleteMessage: "",
             anagramCloseMessage: false,
-            anagramIDToBeDeleted:0,
+            anagramIDToBeDeleted: 0,
             showDeleteWordsearch: false,
-            wordsearchDeleteMessage:"",
-            wordsearchIDToBeDeleted:0,
+            wordsearchDeleteMessage: "",
+            wordsearchIDToBeDeleted: 0,
         }
     }, 
     components:{
@@ -911,6 +911,7 @@ export default {
                 "id": this.wordsearchIDToBeDeleted
             }
             
+            console.log(postBody)
             axios.post('//54.255.245.23:3000/delete/deleteWordsearch', postBody)
             .then(response => {
                 let data = response.data
@@ -955,7 +956,7 @@ export default {
         wordsearchCloseDeleteMessage(){
             this.showDeleteWordsearch = false;
             this.wordsearchCloseMessage = true;
-            if( this.wordsearchDeleteMessage === "Drawing Question Successfully Deleted") {
+            if( this.wordsearchDeleteMessage === "Wordsearch Question Successfully Deleted") {
                 this.wordsearchDeleteMessage = "";
                 this.$router.go();
             }
