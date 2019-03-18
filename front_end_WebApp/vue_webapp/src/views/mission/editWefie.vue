@@ -64,7 +64,7 @@ export default {
             }
 
             // console.log(this.quiz);
-            axios.post('//54.255.245.23:3000/edit/editWefieQuestion', postBody)
+            axios.post('//13.229.115.32:3000/edit/editWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)

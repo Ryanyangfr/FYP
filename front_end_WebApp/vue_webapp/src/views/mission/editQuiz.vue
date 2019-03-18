@@ -75,7 +75,7 @@ export default {
     methods:{
 
         getQuizOptions(quiz_question, quiz_id, quiz_answer) {
-             axios.get('//54.255.245.23:3000/quiz/getQuizOptions?quizID=' + quiz_id)
+             axios.get('//13.229.115.32:3000/quiz/getQuizOptions?quizID=' + quiz_id)
             .then(response =>{
                 var data = response.data;
                 this.quiz.push({quiz_id:quiz_id, quiz_question:quiz_question, quiz_answer:quiz_answer, options: data})
@@ -92,7 +92,7 @@ export default {
             }
 
             // console.log(this.quiz);
-            axios.post('//54.255.245.23:3000/edit/editQuiz', postBody)
+            axios.post('//13.229.115.32:3000/edit/editQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -108,7 +108,7 @@ export default {
             this.$router.push('/')
         }
 
-        axios.get('//54.255.245.23:3000/quiz/getQuizQuestion?mission=' + this.$store.state.selectedQuizID)
+        axios.get('//13.229.115.32:3000/quiz/getQuizQuestion?mission=' + this.$store.state.selectedQuizID)
         .then(response =>{
             var data = response.data;
             console.log(data)
