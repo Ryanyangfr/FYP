@@ -126,12 +126,12 @@ export default{
         display:flex;
         float: right;
         font-weight: 500;
-        font-size: 18px;
+        font-size: 17px;
         padding-top: 5px;
         padding-bottom: 5px;
         padding-left: 5px;
         color:black;
-        font-family: 'Lato', sans-serif;
+        font-family: 'PT Sans', sans-serif;
         /* background-color: pink; */
         vertical-align: middle;
     }

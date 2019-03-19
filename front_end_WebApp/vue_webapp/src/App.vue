@@ -96,7 +96,9 @@ body{
 .Navigate{
   max-height: 45px;
   background-color: white;
-  border-bottom: 2px solid #e6e6e6;
+  /* border-bottom: 2px solid #e6e6e6; */
+  box-shadow: 0px 4px 3px -2px #e5e5e5;
+  /* box-shadow: 0 0 2px #e6e6e6; */
 }
 
 a{
@@ -110,7 +112,6 @@ a{
 .main{
   margin-left: 15%;
   z-index: 3;
-  animation-name: pushRight;
   animation-duration: 0.5s;
   animation-direction: normal;
   animation-delay: 0s;
@@ -128,5 +129,11 @@ a{
 
   
 }*/
+
+@media screen and (max-width: 900px){
+        .main{
+          margin-left: 0px
+        }
+    }
 
 </style>

@@ -4,7 +4,7 @@
             <div class="logo"> 
                 <button><router-link to='/landing'><img src="@/assets/titlelogo.png"></router-link></button>
             </div>
-            <div class="header-left">
+            <div class="header-right">
                 <div class = hamburger-menu> 
                     <button @click = "showOrHide()"><font-awesome-icon class = "hamburger-icon" icon="bars"  size="2x"/></button>
                 </div>
@@ -18,15 +18,15 @@
             <div class="sideBar" v-if="show">
                 <ul>
                     <div class="setup-header"><li>Setup</li></div>
-                    <li @click="showOrHide()"><router-link to='/viewHotspots'>Location</router-link></li>
-                    <li @click="showOrHide()"><router-link to='/viewNarrative'>Narrative</router-link></li>
-                    <li @click="showOrHide()"><router-link to='/mission'>Missions</router-link></li>
-                    <li @click="showOrHide()"><router-link to='/trail'>Trail</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/viewHotspots'><i class="ti-pin"></i>Location</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/viewNarrative'><i class="ti-book"></i>Narrative</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/mission'><i class="ti-flag"></i>Missions</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/trail'><i class="ti-map-alt"></i>Trail</router-link></li>
                     <div class="ingame-header"><li>In-Game</li></div>
-                    <li @click="showOrHide()"><router-link to="/generateInstanceID">Start Trail</router-link></li>
-                    <li @click="showOrHide()"><router-link to="/map">Live Map</router-link></li>
-                    <li @click="showOrHide()"><router-link to="/leaderboard">Leaderboard/ Activity Feed</router-link></li>
-                    <li @click="showOrHide()"><router-link to='/viewSubmissions'>Submissions</router-link></li>
+                    <li @click="showOrHide()"><router-link to="/generateInstanceID"><i class="ti-timer"></i>Start Trail</router-link></li>
+                    <li @click="showOrHide()"><router-link to="/map"><i class="ti-map"></i> Map</router-link></li>
+                    <li @click="showOrHide()"><router-link to="/leaderboard"><i class="ti-cup"></i>Leaderboard</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/viewSubmissions'><i class="ti-gallery"></i>Submissions</router-link></li>
                 </ul>
             </div>
         </transition>
@@ -81,18 +81,20 @@ export default{
 </script>
 
 <style>
-    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Poppins");
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Poppins|PT+Sans");
     @import '../../assets/themify-icons.css';
 
     .sideBar{
         position: absolute;
         background-color: white;
         width: 15%;
-        border-right: 1px solid #e6e6e6;
+        /* border-right: 1px solid #e6e6e6; */
         height: calc(100% - 65px);
         z-index: 1;
         position:fixed;
         overflow: hidden;
+        box-shadow: 0 0 2px #e5e5e5;
+        /* background-color: pink */
     }
 
     .slide-enter {
@@ -109,42 +111,63 @@ export default{
 
     .sideBar a {
         text-decoration: none!important;
-        font-size: 16px;
-        color:#536479;
+        font-size: 15px;
+        color:#3C4959;
+        width: 100%;
         font-family: 'Roboto Condensed', sans-serif;
+        margin-left: 25px;
+        margin-right: 20px;
+        padding-top: 15px
     }
 
-    .sideBar a:hover {
+    .sideBar li:hover{
         background-color: #f5f5f5
     }
 
     .sideBar ul{
         display: flex;
         flex-direction: column;
+        padding-left: 0px;
     }
 
     .sideBar .setup-header{
-        margin-left: -18px;
-        font-size: 18px;
-        font-weight: 600
+        font-size: 14px;
+        color: rgb(168, 174, 182);
+        font-family: 'PT Sans', sans-serif;
+        margin-top: 25px;
+        margin-left: 25px;
+        margin-right: 20px;
+        pointer-events: none
     }
 
-    .sideBar .ingame-header{
-        margin-top: 10px;
-        margin-left: -18px;
-        font-size: 18px;
-        font-weight: 600
+    .ingame-header{
+        font-size: 13px;
+        color: rgb(168, 174, 182);
+        font-family: 'PT Sans', sans-serif;
+        margin-top: 30px;
+        margin-left: 25px;
+        margin-right: 20px;
+        pointer-events: none
     }
 
     .sideBar ul li{
         list-style-type: none;
-        margin-left: 20px;
-        margin-right: 10px;
-        margin-top:25px;
-        float: left;
+        /* margin-left: 20px;
+        margin-right: 10px; */
+        /* margin-top:15px; */
+        height: 45px;
+        /* float: left; */
         display: flex;
         text-align: left;
+        align-content: center;
+        width: 100%;
+        vertical-align: middle;
+        /* background-color: pink */
         /*position: relative;*/
+    }
+
+    .sideBar ul li i{
+        margin-right: 25px
     }
 
     .container-horizontal{
@@ -168,6 +191,7 @@ export default{
         display: flex;        
         width: 15%;
         height: 100%;
+        float: right;
         align-items: center;
     }
 
@@ -205,7 +229,7 @@ export default{
         cursor: pointer;
     }
 
-    .header-left{
+    .header-right{
         min-width:85%;
         display: flex;
         align-items: center;
@@ -223,9 +247,16 @@ export default{
         cursor: pointer;
     }
     
-    @media screen and (max-width: 800px){
+    @media screen and (max-width: 900px){
         .logo{
             width: 0
+        }
+        .header-right{
+            min-width:100%
+        }
+
+        .sideBar{
+            width: 30%
         }
     }
 
