@@ -223,7 +223,11 @@ export default{
         cursor: pointer;
     }
     
-    
+    @media screen and (max-width: 800px){
+        .logo{
+            width: 0
+        }
+    }
 
 </style>
 
