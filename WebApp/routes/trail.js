@@ -194,11 +194,11 @@ router.post('/initializeTrail', (req, res) => {
           console.log(err)
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?,?,?)';
+          const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?,?,?,?)';
 
           for (let teamID = 0; teamID < numTeams; teamID++) {
             console.log('team: ' + teamID);
-            conn.query(updateTeamQuery, [teamID + 1, 0, '1.268', '103.8522', trailInstanceID], (err, data) => {
+            conn.query(updateTeamQuery, [teamID + 1, 0, '1.268', '103.8522', '', trailInstanceID], (err, data) => {
               if (err) {
                 console.log(err)
                 hasErr = true;
