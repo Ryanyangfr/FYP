@@ -32,8 +32,9 @@ export const store = new Vuex.Store({
     selectedAnagramID: 0,
     selectedWordsearchTitle:'',
     selectedWords:[],
-    selectedWordsearchID:0,
-    instanceStartTime: ''
+    selectedWordsearchID: 0,
+    instanceStartTime: '',
+    trailStartTime: ''
 
   },
     
@@ -130,32 +131,36 @@ export const store = new Vuex.Store({
       state.selectedDrawingQuestion = drawingQuestion
     },
 
-    saveSelectedAnagramTitle (state, anagramTitle){
+    saveSelectedAnagramTitle (state, anagramTitle) {
       state.selectedAnagramTitle = anagramTitle
     },
 
-    saveSelectedAnagramWord(state, word){
+    saveSelectedAnagramWord (state, word) {
       state.selectedAnagramWord = word
     },
 
-    saveSelectedAnagramID(state, anagramID){
+    saveSelectedAnagramID (state, anagramID) {
       state.selectedAnagramID = anagramID
     },
 
-    saveSelectedWordsearchTitle(state, wordsearchTitle){
+    saveSelectedWordsearchTitle (state, wordsearchTitle) {
       state.selectedWordsearchTitle = wordsearchTitle
     },
 
-    saveSelectedWords(state,words){
+    saveSelectedWords (state,words) {
       state.selectedWords = words
     },
 
-    saveSelectedWordsearchID(state,wordsearchID){
+    saveSelectedWordsearchID (state,wordsearchID) {
       state.selectedWordsearchID = wordsearchID
     },
 
     saveInstanceStartTime (state, startTime) {
       state.instanceStartTime = startTime
+    },
+
+    saveTrailStartTime (state, startTime) {
+      state.trailStartTime = startTime
     }
   }
 });

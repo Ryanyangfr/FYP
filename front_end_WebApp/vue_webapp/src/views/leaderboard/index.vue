@@ -18,7 +18,7 @@
                         <td>Team</td>
                         <td>Points</td>
                         <td>Hotspots Completed</td>
-                        <!-- <td>Timing</td> -->
+                        <td>Timing</td>
                         <!-- <td>Actions</td> -->
                     </tr>
 
@@ -26,7 +26,8 @@
                         <td class="team-data">{{item.team}}</td>
                         <td class="points-data">{{item.points}}</td>
                         <td>{{item.hotspots_completed}}</td>
-                        <!-- <td></td> -->
+                        <td><div v-if="item.timeEnded.length==0"><button @click="calcEndTime(item)">End</button></div>
+                            <div v-else>{{item.timeEnded}} </div></td>
                         <!-- <td><button @click="editLeaderboard(item.team,item.points,item.hotspots_completed)"><i class="ti-pencil-alt"></i></button></td> -->
                     </tr>
                 </table>
@@ -108,11 +109,14 @@ export default {
         }
     },
 
-    // computed:{
-    //     currentTrailID(){
-    //         return this.$store.state.currentTrailID;
-    //     }
-    // },
+    computed:{
+        // currentTrailID(){
+        //     return this.$store.state.currentTrailID;
+        // }
+        trailStartTime(){
+            return this.$store.state.trailStartTime;
+        }
+    },
 
     methods: {
         getData() {
@@ -121,6 +125,9 @@ export default {
             .then(response => {
                 console.log(response);
                 this.items = response.data;
+
+                // console.log(items);
+
             })
         },
 
@@ -175,6 +182,30 @@ export default {
             this.curr_hotspots = "";
             this.curr_team_num = "";
             this.currpoints = "";    
+        },
+
+        calcEndTime(item) {
+            let now = new Date().getTime();
+            item.timeEnded = now - this.$store.state.trailStartTime;
+            let hours = Math.floor((item.timeEnded % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((item.timeEnded % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((item.timeEnded % (1000 * 60)) / 1000);
+            console.log(item.timeEnded)
+            
+            item.timeEnded = hours + ":" + minutes + ":" + seconds;
+
+             var postBody = {
+                "team": item.team,
+                "timeEnded": item.timeEnded
+                // "narrative_id": this.narrative_dictionary[this.curr_narrative]
+            }
+            console.log("post body: ");
+            console.log(postBody);
+
+            axios.post('//54.255.245.23:3000/team/updateTeamEndTime', postBody)
+            .then(response => {
+                console.log(response);
+            });
         }
     },
     mounted(){

@@ -103,6 +103,10 @@ export default {
 
         instanceStartTime(){
             return this.$store.state.instanceStartTime;
+        },
+
+        trailStartTime(){
+            return this.$store.state.trailStartTime;
         }
     },
 
@@ -147,6 +151,7 @@ export default {
             })
             
             this.$store.commit('saveInstanceStartTime', new Date().getTime() + parseInt(this.trailTimeMap[this.trail])*60*1000);
+            this.$store.commit('saveTrailStartTime', new Date().getTime());
             // this.$router.push({ path: this.redirect || '/map' })
         }
     },
