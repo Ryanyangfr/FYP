@@ -395,7 +395,7 @@ router.post('/updateTeamEndTime', (req,res) => {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      const trailInstanceID = data[0].TRAIL_INSTANCE_ID;
+      const trailInstanceID = data1[0].TRAIL_INSTANCE_ID;
       conn.query(updateTeamEndTimeQuery, [timeEnded, team,trailInstanceID], (err, data2) => {
         if (err) {
           console.log(err);
