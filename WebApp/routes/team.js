@@ -350,7 +350,7 @@ router.post('/updateScoreSubmission', (req,res) => {
   conn.query(getActiveTrailInstance, (err, data) => {
     if (err) {
       console.log(`get active trail instance error retrieve update score admin: ${err}`);
-      res.send(JSON.stringify({ success: 'false' }))
+      res.send(JSON.stringify({ success: 'false' }));
     } else {
       const trailInstanceID = data[0].TRAIL_INSTANCE_ID
       console.log(`trail instance id: ${trailInstanceID}`);
@@ -382,5 +382,30 @@ router.post('/updateScoreSubmission', (req,res) => {
     }
   });
 });
+
+router.post('/updateTeamEndTime', (req,res) => {
+  const team = req.body.team;
+  const timeEnded = req.body.timeEnded;
+  
+  const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
+  const updateTeamEndTimeQuery = 'UPDATE TEAM SET TIME_ENDED = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
+
+  conn.query(getActiveTrailInstance, (err,data1) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      const trailInstanceID = data[0].TRAIL_INSTANCE_ID;
+      conn.query(updateTeamEndTimeQuery, [timeEnded, team,trailInstanceID], (err, data2) => {
+        if (err) {
+          console.log(err);
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          res.send(JSON.stringify({ success: 'true' }));
+        }
+      });
+    }
+  })
+})
 
 module.exports = router;
