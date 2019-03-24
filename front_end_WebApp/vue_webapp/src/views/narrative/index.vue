@@ -29,11 +29,11 @@
                     <h5>Delete</h5>
                     <button class="close-delete-narrative" @click="closeDelete()"><font-awesome-icon icon="times"/></button>
                 </div>
-                <hr>
+                <!-- <hr> -->
                 
                 <form class="delete-narrative-body" @submit.prevent="onSubmitToDelete">
-                    <div><h6>Are you sure you want to delete "{{this.curr_narrative_title}}"?</h6></div>
-                    <div><hr></div>
+                    <div class="delete-narrative-content"><h6>Are you sure you want to delete "{{this.curr_narrative_title}}"?</h6></div>
+                    <!-- <div><hr></div> -->
                     <div class="delete-narrative-btm">
                         <button class="cancel-delete" @click="closeDelete()">Cancel</button>
                         <button type="submit" class="delete-narrative-btn">Delete</button>
@@ -292,9 +292,22 @@ export default {
         min-width: 200px;
     }
 
+    .black-blur-bg{
+        width:100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0, 0.7);
+        position: fixed;
+        top:0;
+        z-index: 4;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
     .delete-narrative-popup{
         min-width: 30%;
-        min-height: 33%;
+        min-height: 23%;
         background-color: white;
         opacity: 100%;
         z-index: 500;
@@ -302,31 +315,68 @@ export default {
         font-family: 'Roboto', sans-serif;
         font-weight: 600;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .delete-narrative-popup h5{
+        display: flex;
+        float: left;
+    }
+
+    .close-delete-narrative{
+        background: none;
+        border: none;
+        color: #868686;
+        cursor: pointer;
+        float: right;
+        font-size: 18px;
     }
     
     .delete-narrative-body{
-        width:100%;
-        height: 130px;
+        width: 100%;
         overflow: hidden;
         text-align: center;
         display: flex;
         flex-direction: column;
         padding-top: 10px;
+        /*background-color: pink;*/
+        flex: 10;
+    }
+
+    .delete-narrative-content{
+        flex: 4;
+        padding: 12px;
     }
 
     .delete-narrative-body h6{
         display: flex;
+        flex: 9;
         float: left;
         height: 100%;
         width: 100%;
+        align-items: flex-start;
         font-size: 15px;
         margin-left: 20px;
-        margin-bottom: 10px;
+        /*margin-bottom: 10px;*/
+        flex-direction: column;
+    }
+
+    .delete-narrative-header{
+        flex: 1;
+        width: 100%;
+        padding:10px; 
+        border-bottom: 1px solid #C6C4BC;
     }
 
     .delete-narrative-btm{
-        margin-bottom: 10px;
+        margin-bottom: 0px;
+        /*flex: 4;*/
         margin-top: 10px;
+        border-top: 1px solid #C6C4BC;
+        padding: 10px;
+        position: relative;
     
     }
 
