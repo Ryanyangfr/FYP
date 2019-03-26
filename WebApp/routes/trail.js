@@ -170,7 +170,7 @@ router.post('/initializeTrail', (req, res) => {
   console.log('number of teams: ' + numTeams);
   console.log(trailID);
   console.log('initialize trail')
-  const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?,?)'
+  const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?,?)';
 
   const checkIfAnyActiveTrailQuery = 'SELECT * FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 OR HASSTARTED = 1';
 
