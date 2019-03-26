@@ -259,6 +259,7 @@ router.post('/startTrail', (req, res) => {
     } else {
       let missionID = data1[0].COUNT + 1;
       missionID = duplicateAnagram(trailInstanceID, missionID, insertMissionHistoryQuery);
+      console.log(missionID);
     }
   });
 
