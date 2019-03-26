@@ -323,6 +323,7 @@ function duplicateAnagram(trailInstanceID, missionID, insertMissionHistoryQuery)
                 console.log(data2.length);
                 console.log(numberOfiterations);
                 if (numberOfiterations === data2.length) {
+                  console.log(missionID);
                   return missionID;
                 }
               }
