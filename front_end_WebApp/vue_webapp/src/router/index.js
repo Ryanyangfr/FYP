@@ -183,6 +183,12 @@ export default new Router({
       name: 'Notification',
       component: ()=> import('@/views/notification/notification'),
       hidden: true
+    },
+    {
+      path: '/summary',
+      name: 'Summary Report',
+      component: ()=> import('@/views/summary/summary'),
+      hidden: true
     }
   ],
 

@@ -14,8 +14,8 @@
                 </div>
             </div>
             <div class="trail-id-area">
-                Current Trail ID: 
-                <div v-if="this.$store.state.currentTrailID==='-'">{{this.trail_instance_id}}</div>
+                 
+                <div v-if="this.$store.state.currentTrailID==='-'">Current Trail ID: {{this.trail_instance_id}}</div>
                 <div v-else>{{this.$store.state.currentTrailID}}</div>
             </div>
         <!-- </div> -->

@@ -15,6 +15,7 @@
 
                 <table class="leaderboard-table" v-if="isLeaderboard">
                     <tr class="leaderboard-table-header">
+                        <td>Position</td>
                         <td>Team</td>
                         <td>Points</td>
                         <td>Hotspots Completed</td>
@@ -22,8 +23,9 @@
                         <!-- <td>Actions</td> -->
                     </tr>
 
-                    <tr class = "leaderboard-data" v-for="item in items" :key="item.team">
-                        <td class="team-data">{{item.team}}</td>
+                    <tr class = "leaderboard-data" v-for="(item,index) in items" :key="index">
+                        <td>{{index+1}}</td>
+                        <td class="team-data">Team {{item.team}}</td>
                         <td class="points-data">{{item.points}}</td>
                         <td>{{item.hotspots_completed}}</td>
                         <td><div v-if="item.timeEnded=='0:0:0'"><button @click="calcEndTime(item)">End</button></div>
@@ -373,15 +375,15 @@ export default {
     }
 
     .leaderboard-table tr:nth-child(2){
-        background-color: #FFA90B
+        /* background-color: #FFA90B */
     }
 
     .leaderboard-table tr:nth-child(3) {
-       background-color: #CeCeCe
+       /* background-color: #CeCeCe */
     }
 
     .leaderboard-table tr:nth-child(4) {
-       background-color: #ED9D5D
+       /* background-color: #ED9D5D */
     }
 
     .leaderboard-data td{
@@ -391,9 +393,20 @@ export default {
     }
 
     .leaderboard-data button{
-        background: none;
-        border: none;
         cursor: pointer;
+        background-color: #645cdd;;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size:15px;
+        padding:12px;
+        text-align: center;
+        cursor: pointer;
+        min-width: 60px
+    }
+
+    .leaderboard-data button:hover{
+        background-color: #6200EE;
     }
 
     .leaderboard-data i{

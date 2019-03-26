@@ -141,7 +141,7 @@
             </table>
             <!-- table for mission: anagram ends -->
 
-            <!-- table for wordsearch: wordsearch starts -->
+            <!-- table for mission: wordsearch starts -->
                 <table>
                 <tr class="mission-table-header">
                     <td>Wordsearch Title</td>

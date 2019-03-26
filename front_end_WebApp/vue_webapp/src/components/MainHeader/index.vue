@@ -15,18 +15,22 @@
         </div>
         
         <transition name="slide">
+            
             <div class="sideBar" v-if="show">
                 <ul>
+                    
                     <div class="setup-header"><li>Setup</li></div>
                     <li @click="showOrHide()"><router-link to='/viewHotspots'><i class="ti-pin"></i>Location</router-link></li>
                     <li @click="showOrHide()"><router-link to='/viewNarrative'><i class="ti-book"></i>Narrative</router-link></li>
                     <li @click="showOrHide()"><router-link to='/mission'><i class="ti-flag"></i>Missions</router-link></li>
                     <li @click="showOrHide()"><router-link to='/trail'><i class="ti-map-alt"></i>Trail</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/summary'><i class="ti-file"></i>Summary Report</router-link></li>
                     <div class="ingame-header"><li>In-Game</li></div>
                     <li @click="showOrHide()"><router-link to="/generateInstanceID"><i class="ti-timer"></i>Start Trail</router-link></li>
                     <li @click="showOrHide()"><router-link to="/map"><i class="ti-map"></i> Map</router-link></li>
                     <li @click="showOrHide()"><router-link to="/leaderboard"><i class="ti-cup"></i>Leaderboard</router-link></li>
                     <li @click="showOrHide()"><router-link to='/viewSubmissions'><i class="ti-gallery"></i>Submissions</router-link></li>
+                
                 </ul>
             </div>
         </transition>
@@ -35,6 +39,7 @@
 </template>
 
 <script>
+import VueScrollbar from 'vue2-scrollbar';
 
 export default{ 
     name: 'MainHeader',
@@ -44,6 +49,8 @@ export default{
             show: false,
         }
     },
+
+    components: { VueScrollbar },
 
     computed: {
         showSidebar(){
@@ -89,11 +96,12 @@ export default{
         background-color: white;
         width: 15%;
         /* border-right: 1px solid #e6e6e6; */
-        height: calc(100% - 65px);
+        min-height: calc(100% - 65px);
         z-index: 1;
         position:fixed;
-        overflow: hidden;
+        overflow-x: hidden;
         box-shadow: 0 0 2px #e5e5e5;
+        padding-bottom: 10px
         /* background-color: pink */
     }
 
@@ -117,7 +125,7 @@ export default{
         font-family: 'Roboto Condensed', sans-serif;
         margin-left: 25px;
         margin-right: 20px;
-        padding-top: 15px
+        padding-top: 12px
     }
 
     .sideBar li:hover{
