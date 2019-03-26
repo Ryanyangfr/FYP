@@ -281,6 +281,7 @@ function duplicateAnagram(trailInstanceID, missionID, insertMissionHistoryQuery)
   const anagramQuery = 'SELECT HOTSPOT_NAME, MISSION.MISSION_ID, MISSION_TITLE, ANAGRAM_ID, ANAGRAM_WORD FROM TRAIL_HOTSPOT,MISSION,ANAGRAM WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND ANAGRAM.MISSION_ID = MISSION.MISSION_ID';
   const anagramHistoryInsertQuery = 'INSERT INTO ANAGRAM_HISTORY VALUES (?,?,?)';
   const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
+  let numberOfiterations = 0;
 
   conn.query('SELECT COUNT(*) as count FROM ANAGRAM_HISTORY', (err, data1) => {
     if (err) {
@@ -292,6 +293,7 @@ function duplicateAnagram(trailInstanceID, missionID, insertMissionHistoryQuery)
           console.log(err);
         } else {
           data2.forEach((row) => {
+            numberOfiterations += 1;
             const hotspot = row.HOTSPOT_NAME;
             const title = row.MISSION_TITLE;
             const word = row.ANAGRAM_WORD;
@@ -318,6 +320,9 @@ function duplicateAnagram(trailInstanceID, missionID, insertMissionHistoryQuery)
                   }
                 });
                 missionID += 1;
+                if (numberOfiterations === data2.length) {
+                  return missionID;
+                }
               }
             });
           });
@@ -325,7 +330,5 @@ function duplicateAnagram(trailInstanceID, missionID, insertMissionHistoryQuery)
       });
     }
   });
-  console.log(missionID);
-  return missionID;
 }
 module.exports = router;
