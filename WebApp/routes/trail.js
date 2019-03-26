@@ -164,12 +164,13 @@ router.post('/initializeTrail', (req, res) => {
   const trailID = req.body.trailID
   const trailInstanceID = req.body.trailInstanceID;
   const numTeams = req.body.numTeams;
+  const date = req.body.date;
   let hasErr = false;
 
   console.log('number of teams: ' + numTeams);
   console.log(trailID);
   console.log('initialize trail')
-  const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?)'
+  const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?,?)'
 
   const checkIfAnyActiveTrailQuery = 'SELECT * FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 OR HASSTARTED = 1';
 
@@ -189,7 +190,7 @@ router.post('/initializeTrail', (req, res) => {
         });
       });
 
-      conn.query(query, [trailInstanceID, trailID, 1, 0], (err, data) => {
+      conn.query(query, [trailInstanceID, trailID, 1, 0, date], (err, data) => {
         if (err) {
           console.log(err)
           res.send(JSON.stringify({ success: 'false' }));
