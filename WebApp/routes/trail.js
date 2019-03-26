@@ -325,6 +325,7 @@ function duplicateAnagram(trailInstanceID, missionID, insertMissionHistoryQuery)
       });
     }
   });
+  console.log(missionID);
   return missionID;
 }
 module.exports = router;
