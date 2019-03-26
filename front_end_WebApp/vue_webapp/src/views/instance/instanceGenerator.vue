@@ -126,11 +126,21 @@ export default {
             this.generate_id = true
             this.makeID()
 
+            let currentDate = new Date();
+
+            let date = currentDate.getDate();
+            let month = currentDate.getMonth(); //Be careful! January is 0 not 1
+            let year = currentDate.getFullYear();
+
+            let dateString = date + '/' +(month + 1) + '/' + year;
+
             let postBody = {
                 trailID: this.trailMap[this.trail],
                 trailInstanceID: this.instance_id,
-                numTeams: this.numTeams
+                numTeams: this.numTeams,
+                date: dateString
             }
+
             console.log(postBody)
             axios.post('//54.255.245.23:3000/trail/initializeTrail', postBody)
             .then(response => {
