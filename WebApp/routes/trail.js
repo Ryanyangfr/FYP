@@ -34,7 +34,7 @@ router.get('/getAllTrails', (req, res) => {
       }
       let temp = [];
       let currTrailID = data[0].TRAIL_ID;
-      let currTrailTitle = data[0].TITLE
+      let currTrailTitle = data[0].TITLE;
       let currTrailTotalTime = data[0].TOTAL_TIME;
       data.forEach((row) => {
         console.log(row.TRAIL_ID === currTrailID);
@@ -55,7 +55,7 @@ router.get('/getAllTrails', (req, res) => {
       res.send(response);
     }
   });
-})
+});
 
 router.post('/addTrail', (req, res) => {
   trailID += 1;
@@ -76,9 +76,9 @@ router.post('/addTrail', (req, res) => {
       console.log(err);
     } else {
       const trailHotspotsCreationQuery = 'INSERT INTO TRAIL_HOTSPOT VALUES (?,?,?,?)';
-      
+
       hotspotsAndMissions.forEach((hotspotAndMission) => {
-        console.log(hotspotAndMission)
+        console.log(hotspotAndMission);
         conn.query(trailHotspotsCreationQuery, [trailID, hotspotAndMission.hotspot, hotspotAndMission.narrative, hotspotAndMission.mission], (err, result) => {
           if (err) {
             res.send(JSON.stringify({ success: 'false' }));
@@ -117,7 +117,7 @@ router.post('/addTrail', (req, res) => {
 });
 
 router.post('/editTrail', (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const trailID = req.body.trailID;
   const trailTitle = req.body.title;
   const totalTime = req.body.totalTime;
@@ -139,7 +139,7 @@ router.post('/editTrail', (req, res) => {
         } else {
           const trailHotspotsCreationQuery = 'INSERT INTO TRAIL_HOTSPOT VALUES (?,?,?,?)';
           hotspotsAndMissions.forEach((hotspotAndMission) => {
-            console.log(hotspotAndMission)
+            console.log(hotspotAndMission);
             conn.query(trailHotspotsCreationQuery, [trailID, hotspotAndMission.hotspot, hotspotAndMission.narrative, hotspotAndMission.mission], (err, result) => {
               if (err) {
                 res.send(JSON.stringify({ success: 'false' }));
@@ -161,7 +161,7 @@ router.post('/editTrail', (req, res) => {
 });
 
 router.post('/initializeTrail', (req, res) => {
-  const trailID = req.body.trailID
+  const trailID = req.body.trailID;
   const trailInstanceID = req.body.trailInstanceID;
   const numTeams = req.body.numTeams;
   const date = req.body.date;
@@ -169,7 +169,7 @@ router.post('/initializeTrail', (req, res) => {
 
   console.log('number of teams: ' + numTeams);
   console.log(trailID);
-  console.log('initialize trail')
+  console.log('initialize trail');
   const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?,?)';
 
   const checkIfAnyActiveTrailQuery = 'SELECT * FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 OR HASSTARTED = 1';
@@ -177,7 +177,7 @@ router.post('/initializeTrail', (req, res) => {
   conn.query(checkIfAnyActiveTrailQuery, (err, data) => {
     if (err) {
       hasErr = true;
-      console.log(err)
+      console.log(err);
     } else {
       const updateQuery = 'UPDATE TRAIL_INSTANCE SET ISACTIVE = 0, HASSTARTED = 0 WHERE TRAIL_ID = ? AND TRAIL_INSTANCE_ID = ?';
       data.forEach((row) => {
@@ -185,14 +185,14 @@ router.post('/initializeTrail', (req, res) => {
         const activatedTrailInstanceID = row.TRAIL_INSTANCE_ID;
         conn.query(updateQuery, [activatedTrailID, activatedTrailInstanceID], (err, data) => {
           if (err) {
-            console.log(err)
+            console.log(err);
           }
         });
       });
 
       conn.query(query, [trailInstanceID, trailID, 1, 0, date], (err, data) => {
         if (err) {
-          console.log(err)
+          console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
           const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?,?,?,?)';
@@ -201,7 +201,7 @@ router.post('/initializeTrail', (req, res) => {
             console.log('team: ' + teamID);
             conn.query(updateTeamQuery, [teamID + 1, 0, '1.268', '103.8522', '', trailInstanceID], (err, data) => {
               if (err) {
-                console.log(err)
+                console.log(err);
                 hasErr = true;
                 res.send(JSON.stringify({ success: 'false' }));
               } else {
@@ -215,10 +215,10 @@ router.post('/initializeTrail', (req, res) => {
           const updateTeamHotspotStatusQuery = 'INSERT INTO TEAM_HOTSPOT_STATUS VALUES(?,?,?,?,?)';
           const retrieveHotspotsInTrail = 'SELECT HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = ?';
 
-          //retrieve all hotspots in trail
+          // retrieve all hotspots in trail
           conn.query(retrieveHotspotsInTrail, trailID, (err, hotspots) => {
             if (err) {
-              console.log(err)
+              console.log(err);
             } else {
               hotspots.forEach((hotspot) => {
                 for (let teamID=0; teamID<numTeams; teamID++) {
@@ -230,11 +230,11 @@ router.post('/initializeTrail', (req, res) => {
                         res.send(JSON.stringify({ success: 'true' }));
                       }
                     }
-                  })
+                  });
                 }
-              })
+              });
             }
-          })
+          });
         }
       });
     }
@@ -247,16 +247,83 @@ router.post('/startTrail', (req, res) => {
 
   const io = req.app.get('socketio');
 
+  const insertMissionHistoryQuery = 'INSERT INTO MISSION_HISTORY VALUES (?,?,?)';
+
   const query = 'UPDATE TRAIL_INSTANCE SET HASSTARTED = 1 WHERE TRAIL_INSTANCE_ID = ? AND TRAIL_ID = ?';
+
+  const quizQuery = 'SELECT HOTSPOT_NAME, MISSION.MISSION_ID, MISSION_TITLE, QUIZ.QUIZ_ID, QUIZ_QUESTION, QUIZ_ANSWER,  QUIZ_OPTION  FROM TRAIL_HOTSPOT,MISSION,QUIZ,QUIZ_OPTION WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = 726774) AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND QUIZ.MISSION_ID = MISSION.MISSION_ID AND QUIZ.QUIZ_ID = QUIZ_OPTION.QUIZ_ID';
+
+  conn.query('SELECT COUNT(*) AS COUNT FROM MISSION', (err, data1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let missionID = data1[0].COUNT + 1;
+      missionID = duplicateAnagram(trailInstanceID, missionID, insertMissionHistoryQuery);
+    }
+  });
+
 
   conn.query(query, [trailInstanceID, trailID], (err, data) => {
     if (err) {
-      console.log(err)
+      console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
       io.emit('startTrail', { trail_instance_id: trailInstanceID });
       res.send(JSON.stringify({ success: 'true' }));
     }
   });
-})
+});
+
+/** *********************************************************** methods **************************************************************************** */
+
+function duplicateAnagram(trailInstanceID, missionID, insertMissionHistoryQuery) {
+  const anagramQuery = 'SELECT HOTSPOT_NAME, MISSION.MISSION_ID, MISSION_TITLE, ANAGRAM_ID, ANAGRAM_WORD FROM TRAIL_HOTSPOT,MISSION,ANAGRAM WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND ANAGRAM.MISSION_ID = MISSION.MISSION_ID';
+  const anagramHistoryInsertQuery = 'INSERT INTO ANAGRAM_HISTORY VALUES (?,?,?)';
+  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
+
+  conn.query('SELECT COUNT(*) as count FROM ANAGRAM_HISTORY', (err, data1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const anagramHistoryID = data1[0].count + 1;
+      conn.query(anagramQuery, trailInstanceID, (err, data2) => {
+        if (err) {
+          console.log(err);
+        } else {
+          data2.forEach((row) => {
+            const hotspot = row.HOTSPOT_NAME;
+            const title = row.MISSION_TITLE;
+            const word = row.ANAGRAM_WORD;
+
+            conn.query(insertMissionHistoryQuery, [missionID, title], (err,result) => {
+              if (err) {
+                console.log(err);
+              } else {
+                conn.query(anagramHistoryInsertQuery, [anagramHistoryID, word, missionID], (err, result2) => {
+                  if (err) {
+                    console.log(err);
+                  }
+                });
+                conn.query(summaryTableIDQuery, (err, result3) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    const summaryID = result3[0].COUNT + 1;
+                    conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                    });
+                  }
+                });
+                missionID += 1;
+              }
+            });
+          });
+        }
+      });
+    }
+  });
+  return missionID;
+}
 module.exports = router;
