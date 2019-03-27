@@ -375,6 +375,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                       console.log(err);
                     } else if (currQuizID != quizID) {
                       summaryID += 1;
+                      console.log(`summary id: ${summaryID}`)
                       conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
                         if (err) {
                           console.log(err);
