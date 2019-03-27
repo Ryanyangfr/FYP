@@ -377,6 +377,8 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                   const quizQuestion = row.QUIZ_QUESTION;
                   const quizAnswer = row.QUIZ_ANSWER;
 
+                  console.log(`current mission id: ${currMissionID}`)
+                  console.log(`mission id: ${missionID}`)
                   if (currMissionID != missionID) {
                     missionHistoryID += 1;
                     currMissionID = missionID;
