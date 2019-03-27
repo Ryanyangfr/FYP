@@ -364,38 +364,40 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
               // let currQuizID = result3[0].QUIZ_ID;
               let currMissionID = -1;
               let rowIndex = -1;
+              conn.query(summaryTableIDQuery, (err, result3) => {
+                result3.forEach((row) => {
+                  rowIndex += 1;
+                  console.log(`row index top: ${rowIndex%4 === 0}`);
+                  if (rowIndex % 4 === 0) {
+                    console.log(`rowIndex: ${rowIndex}`);
+                    console.log(row);
+                    const hotspot = row.HOTSPOT_NAME;
+                    const missionID = row.MISSION_ID;
+                    const title = row.MISSION_TITLE;
+                    const quizID = row.QUIZ_ID;
+                    const quizOption1 = rows[rowIndex].QUIZ_OPTION;
+                    const quizOption2 = rows[rowIndex+1].QUIZ_OPTION;
+                    const quizOption3 = rows[rowIndex+2].QUIZ_OPTION;
+                    const quizOption4 = rows[rowIndex+3].QUIZ_OPTION;
+                    const quizQuestion = row.QUIZ_QUESTION;
+                    const quizAnswer = row.QUIZ_ANSWER;
 
-              result3.forEach((row) => {
-                rowIndex += 1;
-                console.log(`row index top: ${rowIndex%4 === 0}`);
-                if (rowIndex % 4 === 0) {
-                  console.log(`rowIndex: ${rowIndex}`);
-                  console.log(row);
-                  const hotspot = row.HOTSPOT_NAME;
-                  const missionID = row.MISSION_ID;
-                  const title = row.MISSION_TITLE;
-                  const quizID = row.QUIZ_ID;
-                  const quizOption1 = rows[rowIndex].QUIZ_OPTION;
-                  const quizOption2 = rows[rowIndex+1].QUIZ_OPTION;
-                  const quizOption3 = rows[rowIndex+2].QUIZ_OPTION;
-                  const quizOption4 = rows[rowIndex+3].QUIZ_OPTION;
-                  const quizQuestion = row.QUIZ_QUESTION;
-                  const quizAnswer = row.QUIZ_ANSWER;
-
-                  console.log(`current mission id: ${currMissionID}`);
-                  console.log(`mission id: ${missionID}`);
-                  if (currMissionID != missionID) {
-                    missionHistoryID += 1;
-                    currMissionID = missionID;
-                    numQuiz += 1;
-                    numQuizOption += 4;
-                    addQuizMission(insertMissionHistoryQuery, missionHistoryID, title, summaryTableIDQuery, trailInstanceID, hotspot, numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer);
-                  } else {
-                    numQuiz += 1;
-                    addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
-                    numQuizOption += 4;
+                    console.log(`current mission id: ${currMissionID}`);
+                    console.log(`mission id: ${missionID}`);
+                    if (currMissionID != missionID) {
+                      missionHistoryID += 1;
+                      currMissionID = missionID;
+                      addQuizMission(insertMissionHistoryQuery, missionHistoryID, title, summaryTableIDQuery, trailInstanceID, hotspot, numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, summaryID);
+                      numQuiz += 1;
+                      numQuizOption += 4;
+                      summaryID += 1;
+                    } else {
+                      numQuiz += 1;
+                      addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
+                      numQuizOption += 4;
+                    }
                   }
-                }
+                }); 
               });
               if (rowIndex === rows.length-1) {
                 duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
@@ -408,32 +410,22 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
   });
 }
 
-function addQuizMission(insertMissionHistoryQuery, missionHistoryID, title, summaryTableIDQuery, trailInstanceID, hotspot, numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer) {
+function addQuizMission(insertMissionHistoryQuery, missionHistoryID, title, summaryTableIDQuery, trailInstanceID, hotspot, numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, summaryID) {
   conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
     if (err) {
       console.log(err);
     } else {
-      
-      conn.query(summaryTableIDQuery, (err, result3) => {
+      summaryID += 1;
+      console.log(`summary id1: ${summaryID}`);
+      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
         if (err) {
           console.log(err);
-        } else {
-          const summaryID = result3[0].COUNT + 1;
-          console.log(`summary id1: ${summaryID}`);
-          conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
-            if (err) {
-              console.log(err);
-            }
-          });
         }
       });
-
       // currQuizID = quizID;
       // console.log(`curr quiz id: ${currQuizID}`);
-      
       numQuiz += 1;
       addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
-      numQuizOption += 4;
     }
   });
 }
