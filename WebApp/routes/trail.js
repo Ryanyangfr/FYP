@@ -698,9 +698,10 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
 
             missionHistoryID += 1;
             summaryID += 1;
+            submissionID += 1
 
             submissionInsertion(insertMissionHistoryQuery, missionHistoryID, title, summaryID, trailInstanceID, hotspot, submissionHistoryInsertQuery, submissionID, question);
-            
+
           });
         }
       });
