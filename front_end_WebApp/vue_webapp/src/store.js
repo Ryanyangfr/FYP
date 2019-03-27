@@ -34,7 +34,8 @@ export const store = new Vuex.Store({
     selectedWords:[],
     selectedWordsearchID: 0,
     instanceStartTime: '',
-    trailStartTime: ''
+    trailStartTime: '',
+    selectedMissionTrailID: 0
 
   },
     
@@ -161,6 +162,10 @@ export const store = new Vuex.Store({
 
     saveTrailStartTime (state, startTime) {
       state.trailStartTime = startTime
+    },
+    
+    saveMissionTrailID(state,missionTrailID){
+      state.selectedMissionTrailID = missionTrailID
     }
   }
 });

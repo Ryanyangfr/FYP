@@ -1036,8 +1036,6 @@ export default {
                 for(var index in wordsList){
                     wordsearchWords.push({word: wordsList[index]})
                 }
-                // console.log("woof woof woof");
-                // console.log(data[row].id);
                 this.wordsearchList.push({title:data[row].title, words: wordsearchWords, wordsearch_id: data[row].id})
             }
         })
