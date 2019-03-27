@@ -310,11 +310,7 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
                     console.log(err);
                   } else {
                     const summaryID = result3[0].COUNT + 1;
-                    conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
-                      if (err) {
-                        console.log(err);
-                      }
-                    });
+                    summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
                   }
                 });
                 // missionID += 1;
@@ -397,11 +393,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                           } else {
                             const summaryID = result3[0].COUNT + 1;
                             console.log(`summary id1: ${summaryID}`);
-                            conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
-                              if (err) {
-                                console.log(err);
-                              }
-                            });
+                            summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
                           }
                         });
 
@@ -523,11 +515,7 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
                     } else {
                       const summaryID = result3[0].COUNT + 1;
                       console.log(`summary id2: ${summaryID}`);
-                      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
-                        if (err) {
-                          console.log(err);
-                        }
-                      });
+                      summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
                     }
                   });
                   dragAndDropHistoryID += 1;
@@ -613,11 +601,7 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
                     } else {
                       const summaryID = result3[0].COUNT + 1;
                       console.log(`summary id3: ${summaryID}`);
-                      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
-                        if (err) {
-                          console.log(err);
-                        }
-                      });
+                      summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
                     }
                   });
                   wordSearchID += 1;
@@ -700,11 +684,7 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
                   } else {
                     const summaryID = result3[0].COUNT + 1;
                     console.log(`summary id4: ${summaryID}`);
-                    conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
-                      if (err) {
-                        console.log(err);
-                      }
-                    });
+                    summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
                   }
                   drawingID += 1;
                   conn.query(drawingHistoryInsertQuery, [drawingID, question, missionHistoryID], (err,result4) => {
@@ -757,11 +737,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
                   } else {
                     const summaryID = result3[0].COUNT + 1;
                     console.log(`summary id5: ${summaryID}`);
-                    conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
-                      if (err) {
-                        console.log(err);
-                      }
-                    });
+                    summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
                   }
                   submissionID += 1;
                   conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
@@ -777,6 +753,14 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
       })
     }
   })
+}
+
+function summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID) {
+  conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 }
 
 module.exports = router;
