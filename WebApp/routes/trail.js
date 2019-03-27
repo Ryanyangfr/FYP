@@ -665,10 +665,9 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
                       console.log(err);
                     }
                   })
-                });
-              }
+                }
+              });
             })
-          })
           duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID)
         }
       })
@@ -705,7 +704,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
               } else {
                   summaryID += 1
                   summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
-                  
+
                   submissionID += 1;
                   conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
                     if (err) {
