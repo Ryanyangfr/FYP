@@ -139,4 +139,23 @@ router.get('/getQuizOptions', function(req,res){
     })
 });
 
+router.get('/getQuizOptionsHistory', function(req,res){
+    var response = [];
+    var quizID = req.query.quizID;
+    // console.log('missionID: ' + missionID);
+    console.log('quiz id: ' + quizID);
+    var query = 'SELECT QUIZ_OPTION, QUIZ_OPTION_ID FROM QUIZ_OPTION_HISTORY WHERE QUIZ_ID = ?';
+
+    conn.query(query, quizID, function(err, options){
+        if (err){
+            console.log(err);
+        } else{
+            for(var index in options){
+                response.push({option: options[index].QUIZ_OPTION, option_id: options[index].QUIZ_OPTION_ID});
+            }
+            res.send(response);
+        }
+    })
+});
+
 module.exports = router;
