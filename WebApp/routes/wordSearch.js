@@ -101,4 +101,46 @@ router.get('/getAllWordSearchWords', (req,res) => {
     }
   });
 });
+
+router.get('/getWordSearchWordsHistory', (req,res) => {
+  const response = [];
+  const trailInstanceID = req.query.trailInstanceID;
+  const wordSearchQuery = 'SELECT WORDSEARCH_HISTORY.WORDSEARCH_ID, WORD, MISSION_TITLE FROM WORDSEARCH_HISTORY, WORDSEARCH_WORD_HISTORY, MISSION_HISTORY, SUMMARY_TABLE WHERE WORDSEARCH_HISTORY.WORDSEARCH_ID = WORDSEARCH_WORD_HISTORY.WORDSEARCH_ID AND MISSION_HISTORY.MISSION_ID = WORDSEARCH_HISTORY.MISSION_ID AND SUMMARY_TABLE.MISSION_ID = WORDSEARCH_HISTORY.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
+
+  conn.query(wordSearchQuery, trailInstanceID, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // let temp = [];
+      if (data.length === 0) {
+        res.send(response);
+        return;
+      }
+      let currentID = data[0].WORDSEARCH_ID;
+      let currentTitle = data[0].MISSION_TITLE;
+      // temp.push({ hotspot: hotspot_name });
+      let tempWords = [];
+      data.forEach((wordSearch) => {
+        console.log(wordSearch);
+        if (currentID === wordSearch.WORDSEARCH_ID) {
+          tempWords.push(wordSearch.WORD);
+        } else {
+          // temp.push({ words: tempWords });
+          response.push({ words: tempWords, id: currentID, title: currentTitle });
+          // temp = [];
+          tempWords = [];
+          tempWords.push(wordSearch.WORD);
+          currentID = wordSearch.WORDSEARCH_ID;
+          currentTitle = wordSearch.MISSION_TITLE;
+          // temp.push({ title: currentID });
+        }
+      });
+      response.push({ words: tempWords, id: currentID, title: currentTitle });
+      // temp.push({ words: tempWords });
+      // response.push(temp);
+      console.log(response);
+      res.send(response);
+    }
+  });
+});
 module.exports = router;
