@@ -399,7 +399,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                           console.log(err);
                         } else {
                           numQuizOption += 1;
-
+                          console.log('entered here');
                           conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption], (err, results6) => {
                             if (err) {
                               console.log(err);
