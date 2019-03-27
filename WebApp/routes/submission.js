@@ -400,7 +400,7 @@ router.get('/getAllDrawingQuestion', (req,res) => {
 router.get('/getSubmissionQuestionHistory', (req, res) => {
   const trailInstanceID = req.query.trailInstanceID;
   const response = [];
-  const getSubmissionMissionQuery = 'SELECT MISSION_ID FROM SUMMARY_TABLE, SUBMISSION_QUESTION_HISTORY WHERE SUMMARY_TABLE.MISSION_ID = SUBMISSION_QUESTION_HISTORY.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
+  const getSubmissionMissionQuery = 'SELECT MISSION.MISSION_ID FROM SUMMARY_TABLE, SUBMISSION_QUESTION_HISTORY WHERE SUMMARY_TABLE.MISSION_ID = SUBMISSION_QUESTION_HISTORY.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
   const query = 'SELECT * FROM SUBMISSION_QUESTION_HISTORY, MISSION_HISTORY WHERE MISSION_HISTORY.MISSION_ID = SUBMISSION_QUESTION_HISTORY.MISSION_ID WHERE MISSION_ID = ?';
 
   conn.query(getSubmissionMissionQuery, trailInstanceID, (err, data) => {
