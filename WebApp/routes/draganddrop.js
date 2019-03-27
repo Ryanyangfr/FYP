@@ -95,6 +95,41 @@ router.get('/getAllDragAndDrop', (req,res) => {
   });
 });
 
+router.get('/getDragAndDropHistory', (req,res) => {
+  const trailInstanceID = req.query.trailInstanceID;
+  const dragNDropQuery = 'SELECT MISSION_HISTORY.MISSION_ID, MISSION_TITLE, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER, DRAG_AND_DROP_HISTORY.DRAGANDDROP_ID FROM DRAG_AND_DROP_HISTORY, DRAG_AND_DROP_OPTION_HISTORY, MISSION_HISTORY, SUMMARY_TABLE WHERE DRAG_AND_DROP_HISTORY.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION_HISTORY.DRAGANDDROP_ID AND DRAG_AND_DROP_HISTORY.MISSION_ID = MISSION_HISTORY.MISSION_ID AND DRAG_AND_DROP_HISTORY.MISSION_ID = SUMMARY_TABLE.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
+  const response = [];
+
+  conn.query(dragNDropQuery, trailInstanceID, (err, data) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    options = [];
+    currentQuestion = data[0].DRAGANDDROP_QUESTION;
+    currentTitle = data[0].MISSION_TITLE;
+    currentID = data[0].DRAGANDDROP_ID;
+    currentMissionID = data[0].MISSION_ID
+    // currentAnswer = data[0].DRAGANDDROP_QUESTION_ANSWER;
+    if (data.length != 0) {
+      data.forEach((row) => {
+        if (row.DRAGANDDROP_QUESTION !== currentQuestion) {
+          response.push({id: currentID, question: currentQuestion, title: currentTitle, options: options, missionID: currentMissionID});
+          options = [];
+          currentQuestion = row.DRAGANDDROP_QUESTION;
+          currentTitle = row.MISSION_TITLE;
+          currentID = row.DRAGANDDROP_ID;
+          currentMissionID = row.MISSION_ID
+          // currentAnswer = row.DRAGANDDROP_QUESTION_ANSWER;
+        }
+        options.push({option: row.DRAGANDDROP_QUESTION_OPTION, answer: row.DRAGANDDROP_QUESTION_ANSWER});
+      });
+      response.push({id: currentID, question: currentQuestion, title:currentTitle, options: options, missionID: currentMissionID});
+    }
+    res.send(response);
+  });
+});
+
 router.get('/getDragAndDropByMission', (req,res) => {
   const missionID = req.query.missionID
   const dragNDropQuery = 'SELECT MISSION_TITLE, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER, DRAG_AND_DROP.DRAGANDDROP_ID FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION, MISSION WHERE DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID AND DRAG_AND_DROP.MISSION_ID = MISSION.MISSION_ID AND MISSION.MISSION_ID = ?';

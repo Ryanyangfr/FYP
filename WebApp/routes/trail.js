@@ -235,6 +235,18 @@ router.post('/initializeTrail', (req, res) => {
       });
     }
   });
+
+  const insertMissionHistoryQuery = 'INSERT INTO MISSION_HISTORY VALUES (?,?)';
+  conn.query('SELECT COUNT(*) AS COUNT FROM MISSION_HISTORY', (err, data1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(`trailInstanceID: ${trailInstanceID}`);
+      let missionID = data1[0].COUNT + 1;
+      duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery);
+    }
+  });
+
 });
 
 router.post('/startTrail', (req, res) => {
@@ -243,20 +255,7 @@ router.post('/startTrail', (req, res) => {
 
   const io = req.app.get('socketio');
 
-  const insertMissionHistoryQuery = 'INSERT INTO MISSION_HISTORY VALUES (?,?)';
-
   const query = 'UPDATE TRAIL_INSTANCE SET HASSTARTED = 1 WHERE TRAIL_INSTANCE_ID = ? AND TRAIL_ID = ?';
-
-  conn.query('SELECT COUNT(*) AS COUNT FROM MISSION_HISTORY', (err, data1) => {
-    if (err) {
-      console.log(err);
-    } else {
-      let missionID = data1[0].COUNT + 1;
-      missionID = duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery);
-      
-    }
-  });
-
 
   conn.query(query, [trailInstanceID, trailID], (err, data) => {
     if (err) {
@@ -288,6 +287,9 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
         if (err) {
           console.log(err);
         } else {
+          if (data2.length === 0) {
+            duplicateQuiz(trailInstanceID, missionID, insertMissionHistoryQuery, summaryID + 1);
+          }
           data2.forEach((row) => {
             numberOfiterations += 1;
             const hotspot = row.HOTSPOT_NAME;
@@ -307,7 +309,7 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
                   if (err) {
                     console.log(err);
                   } else {
-                    summaryID = result3[0].COUNT + 1;
+                    const summaryID = result3[0].COUNT + 1;
                     conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
                       if (err) {
                         console.log(err);
@@ -334,8 +336,6 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
   const quizQuery = 'SELECT HOTSPOT_NAME, MISSION.MISSION_ID, MISSION_TITLE, QUIZ.QUIZ_ID, QUIZ_QUESTION, QUIZ_ANSWER,  QUIZ_OPTION  FROM TRAIL_HOTSPOT,MISSION,QUIZ,QUIZ_OPTION WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND QUIZ.MISSION_ID = MISSION.MISSION_ID AND QUIZ.QUIZ_ID = QUIZ_OPTION.QUIZ_ID';
   const numQuizHistoryQuery = 'SELECT COUNT(*) AS COUNT FROM QUIZ_HISTORY';
   const numQuizOptionHistoryQuery = 'SELECT COUNT(*) AS COUNT FROM QUIZ_OPTION_HISTORY';
-  const quizQuestionHistoryInsertQuery = 'INSERT INTO QUIZ_HISTORY VALUES (?,?,?,?)';
-  const quizOptionHistoryInsertQuery = 'INSERT INTO QUIZ_OPTION_HISTORY VALUES (?,?,?)';
   const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
 
   conn.query(numQuizHistoryQuery, (err, result1) => {
@@ -354,6 +354,9 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
             if (err) {
               console.log(err);
             } else {
+              if (result3.length === 0) {
+                duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
+              }
               const rows = result3;
               // console.log(rows[0])
               // let currQuizID = result3[0].QUIZ_ID;
@@ -387,14 +390,14 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                       if (err) {
                         console.log(err);
                       } else {
-                        summaryID += 1;
-                        console.log(`summary id: ${summaryID}`);
+                        
                         conn.query(summaryTableIDQuery, (err, result3) => {
                           if (err) {
                             console.log(err);
                           } else {
-                            summaryID = result3[0].COUNT + 1;
-                            conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                            const summaryID = result3[0].COUNT + 1;
+                            console.log(`summary id1: ${summaryID}`);
+                            conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
                               if (err) {
                                 console.log(err);
                               }
@@ -405,97 +408,14 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                         // currQuizID = quizID;
                         // console.log(`curr quiz id: ${currQuizID}`);
                         numQuiz += 1;
-                        conn.query(quizQuestionHistoryInsertQuery, [numQuiz, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            numQuizOption += 1;
-                            console.log(`row index: ${rowIndex}`);
-                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption1], (err, results6) => {
-                              if (err) {
-                                console.log(err);
-                              } else {
-                                console.log(`1: ${quizOption1}`);
-                              }
-                            });
-
-                            numQuizOption += 1;
-                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption2], (err, results6) => {
-                              if (err) {
-                                console.log(err);
-                              } else {
-                                console.log(`2: ${quizOption2}`);
-                              }
-                            });
-
-                            numQuizOption += 1;
-                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption3], (err, results6) => {
-                              if (err) {
-                                console.log(err);
-                              } else {
-                                console.log(`3: ${quizOption3}`);
-                              }
-                            });
-
-                            numQuizOption += 1;
-                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption4], (err, results6) => {
-                              if (err) {
-                                console.log(err);
-                              } else {
-                                console.log(`4: ${quizOption4}`);
-                              }
-                            });
-
-                          }
-                        });
+                        addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
+                        numQuizOption += 4;
                       }
-
                     });
                   } else {
                     numQuiz += 1;
-                    conn.query(quizQuestionHistoryInsertQuery, [numQuiz, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
-                      if (err) {
-                        console.log(err);
-                      } else {
-                        numQuizOption += 1;
-                        console.log(`row index: ${rowIndex}`);
-                        conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption1], (err, results6) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            console.log(`1: ${quizOption1}`);
-                          }
-                        });
-
-                        numQuizOption += 1;
-                        conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption2], (err, results6) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            console.log(`2: ${quizOption2}`);
-                          }
-                        });
-
-                        numQuizOption += 1;
-                        conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption3], (err, results6) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            console.log(`3: ${quizOption3}`);
-                          }
-                        });
-
-                        numQuizOption += 1;
-                        conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption4], (err, results6) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            console.log(`4: ${quizOption4}`);
-                          }
-                        });
-
-                      }
-                    });
+                    addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
+                    numQuizOption += 4;
                   }
                 }
               });
@@ -504,6 +424,52 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
               }
             }
           });
+        }
+      });
+    }
+  });
+}
+
+function addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID) {
+  const quizQuestionHistoryInsertQuery = 'INSERT INTO QUIZ_HISTORY VALUES (?,?,?,?)';
+  const quizOptionHistoryInsertQuery = 'INSERT INTO QUIZ_OPTION_HISTORY VALUES (?,?,?)';
+  conn.query(quizQuestionHistoryInsertQuery, [numQuiz, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
+    if (err) {
+      console.log(err);
+    } else {
+      numQuizOption += 1;
+      conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption1], (err, results6) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`1: ${quizOption1}`);
+        }
+      });
+
+      numQuizOption += 1;
+      conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption2], (err, results6) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`2: ${quizOption2}`);
+        }
+      });
+
+      numQuizOption += 1;
+      conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption3], (err, results6) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`3: ${quizOption3}`);
+        }
+      });
+
+      numQuizOption += 1;
+      conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption4], (err, results6) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`4: ${quizOption4}`);
         }
       });
     }
@@ -550,14 +516,14 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
                 if (err) {
                   console.log(err);
                 } else {
-                  summaryID += 1;
-                  console.log(`summary id: ${summaryID}`);
+                  
                   conn.query(summaryTableIDQuery, (err, result3) => {
                     if (err) {
                       console.log(err);
                     } else {
-                      summaryID = result3[0].COUNT + 1;
-                      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                      const summaryID = result3[0].COUNT + 1;
+                      console.log(`summary id2: ${summaryID}`);
+                      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
                         if (err) {
                           console.log(err);
                         }
@@ -598,10 +564,9 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
               });
             }
           });
-          duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID)
+          duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
         }
       });
-
     }
   });
 }
@@ -641,22 +606,21 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
               conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
                 if (err) {
                   console.log(err);
-                } else {
-                  summaryID += 1;
-                  console.log(`summary id: ${summaryID}`);
+                } else {                  
                   conn.query(summaryTableIDQuery, (err, result3) => {
                     if (err) {
                       console.log(err);
                     } else {
-                      summaryID = result3[0].COUNT + 1;
-                      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                      const summaryID = result3[0].COUNT + 1;
+                      console.log(`summary id3: ${summaryID}`);
+                      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
                         if (err) {
                           console.log(err);
                         }
                       });
                     }
                   });
-                  wordSearchID += 1
+                  wordSearchID += 1;
                   conn.query(wordSearchHistoryInsertQuery, [wordSearchID, missionHistoryID], (err, result5) => {
                     if (err) {
                       console.log(err);
@@ -691,11 +655,99 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
                         }
                       });
                     }
-                  })
+                  });
                 }
               });
-              
             }
+          });
+          duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
+        }
+      });
+    }
+  });
+}
+
+function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
+  const drawingQuestionQuery = 'SELECT QUESTION, MISSION.MISSION_ID, HOTSPOT_NAME, MISSION_TITLE FROM DRAWING_QUESTION, MISSION, TRAIL_HOTSPOT WHERE DRAWING_QUESTION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?)';
+  const numDrawingQuery = 'SELECT COUNT(*) AS COUNT FROM DRAWING_QUESTION_HISTORY';
+  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
+  const drawingHistoryInsertQuery = 'INSERT INTO DRAWING_QUESTION_HISTORY VALUES (?,?,?)';
+
+  conn.query(numDrawingQuery, (err,result1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let drawingID = result1[0].COUNT;
+      conn.query(drawingQuestionQuery, trailInstanceID, (err, result2) => {
+        if (err) {
+          console.log(err);
+        } else {
+          result2.forEach((row) => {
+            const question = row.QUESTION;
+            const hotspot = row.HOTSPOT_NAME;
+            const missionID = row.MISSION_ID;
+            const title = row.MISSION_TITLE;
+
+            missionHistoryID += 1;
+
+            conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+              if (err) {
+                console.log(err);
+              } else {                
+                conn.query(summaryTableIDQuery, (err, result3) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    const summaryID = result3[0].COUNT + 1;
+                    console.log(`summary id4: ${summaryID}`);
+                    conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                    });
+                  }
+                  drawingID += 1;
+                  conn.query(drawingHistoryInsertQuery, [drawingID, question, missionHistoryID], (err,result4) => {
+                    if (err) {
+                      console.log(err);
+                    }
+                  })
+                });
+              }
+            })
+          })
+          duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID)
+        }
+      })
+    }
+  })
+}
+
+function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
+  const submissionQuestionQuery = 'SELECT QUESTION, MISSION.MISSION_ID, HOTSPOT_NAME, MISSION_TITLE FROM SUBMISSION_QUESTION, MISSION, TRAIL_HOTSPOT WHERE SUBMISSION_QUESTION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?)';
+  const numSubmissionQuery = 'SELECT COUNT(*) AS COUNT FROM SUBMISSION_QUESTION_HISTORY';
+  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
+  const submissionHistoryInsertQuery = 'INSERT INTO SUBMISSION_QUESTION_HISTORY VALUES (?,?,?)';
+
+  conn.query(numSubmissionQuery, (err,result1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let submissionID = result1[0].COUNT;
+      conn.query(submissionQuestionQuery, trailInstanceID, (err, result2) => {
+        if (err) {
+          console.log(err);
+        } else {
+          let counter = 0;
+          result2.forEach((row) => {
+            const question = row.QUESTION;
+            const hotspot = row.HOTSPOT_NAME;
+            const missionID = row.MISSION_ID;
+            const title = row.MISSION_TITLE;
+
+            missionHistoryID += 1;
+            insertMission(submissionHistoryInsertQuery, missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question);
+            submissionID += 1
           })
         }
       })
@@ -703,4 +755,40 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
   })
 }
 
+// function summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID) {
+//   conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//   });
+// }
+
+function insertMission(submissionHistoryInsertQuery, missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question) {
+  conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+    if (err) {
+      console.log(err);
+    } else {
+        
+      conn.query(summaryTableIDQuery, (err, result3) => {
+        if (err) {
+          console.log(err);
+        } else {
+          const summaryID = result3[0].COUNT + 1;
+          console.log(`summary id5: ${summaryID}`);
+          conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
+            if (err) {
+              console.log(err);
+            }
+          });
+        }
+        submissionID += 1;
+        conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      });
+    }
+  })
+}
 module.exports = router;

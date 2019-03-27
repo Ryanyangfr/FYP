@@ -195,6 +195,12 @@ export default new Router({
       name: 'Summary Report > Trail Missions',
       component: ()=> import('@/views/summary/trailMissions'),
       hidden: true
+    },
+    {
+      path: '/viewQuizHistory',
+      name: 'Summary Report > Trail Missions',
+      component: ()=> import('@/views/summary/viewQuiz'),
+      hidden: true
     }
 
   ],

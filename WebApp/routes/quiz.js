@@ -102,12 +102,49 @@ router.get('/getQuizQuestion', function(req,res){
     })
 });
 
+router.get('/getQuizQuestionHistory', function(req,res){
+    var response = [];
+    var missionID = req.query.mission;
+    console.log('missionID: ' + missionID);
+    var query = 'SELECT QUIZ_ID, QUIZ_QUESTION, QUIZ_ANSWER FROM QUIZ_HISTORY WHERE MISSION_ID = ?';
+
+    conn.query(query, missionID, function(err, questions){
+        if (err){
+            console.log(err);
+        } else{
+            for(var index in questions){
+                response.push({question: questions[index].QUIZ_QUESTION, quiz_id: questions[index].QUIZ_ID, quiz_answer: questions[index].QUIZ_ANSWER});
+            }
+            res.send(response);
+        }
+    })
+});
+
 router.get('/getQuizOptions', function(req,res){
     var response = [];
     var quizID = req.query.quizID;
     // console.log('missionID: ' + missionID);
     console.log('quiz id: ' + quizID);
     var query = 'SELECT QUIZ_OPTION, QUIZ_OPTION_ID FROM QUIZ_OPTION WHERE QUIZ_ID = ?';
+
+    conn.query(query, quizID, function(err, options){
+        if (err){
+            console.log(err);
+        } else{
+            for(var index in options){
+                response.push({option: options[index].QUIZ_OPTION, option_id: options[index].QUIZ_OPTION_ID});
+            }
+            res.send(response);
+        }
+    })
+});
+
+router.get('/getQuizOptionsHistory', function(req,res){
+    var response = [];
+    var quizID = req.query.quizID;
+    // console.log('missionID: ' + missionID);
+    console.log('quiz id: ' + quizID);
+    var query = 'SELECT QUIZ_OPTION, QUIZ_OPTION_ID FROM QUIZ_OPTION_HISTORY WHERE QUIZ_ID = ?';
 
     conn.query(query, quizID, function(err, options){
         if (err){
