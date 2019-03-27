@@ -20,7 +20,7 @@
                     <td><button class="view-trail-btn" @click="saveSelectedTrail(trail.trail_ID)"><router-link to='/viewTrail'>View full details</router-link></button></td>
                     <td>
                         <button @click="saveSelectedTrail(trail.trail_ID)"><router-link to='/editTrail'><i class="ti-pencil-alt"></i></router-link></button>
-                        <button><i class="ti-trash"></i></button>
+                        <button @click="deleteTrail(trail.trail_ID,trail.trail_title)"><i class="ti-trash"></i></button>
                     </td>
                 </tr>
             </table>
@@ -56,162 +56,225 @@
 import vSelect from 'vue-select'
 import axios from 'axios'
 export default {
-  name: "team",
-  data() {
-      return{
-        functionsAvailable: ["Add", "Edit", "Delete"],
-        func: "Add",
-        missionTypesAvailable: ["Quiz", "Wefie"],
-        hotspotList: [],
-        narrativeList: [],
-        trailsList: [],
-        title: "",
-        duration: 0,
-        numTeams: 0,
-        missions: [],
-        hotspots: [],
-        hotspotsAndMissions: [{hotspot: "", mission: "", missionList:[],  missionType: "Quiz", narrative: ""}],
-        trailID: 0,
-        allTrailsInfoList: [],
-        currTrailTitle: "",
-        currTrailTotalTime: 0,
-        currHotspotsAndMissions: [],
-        editedCurrHotspotsAndMissionsForUpdating: []
-      }
-  }, 
+    name: "team",
+    data() {
+        return{
+            functionsAvailable: ["Add", "Edit", "Delete"],
+            func: "Add",
+            missionTypesAvailable: ["Quiz", "Wefie"],
+            hotspotList: [],
+            narrativeList: [],
+            trailsList: [],
+            title: "",
+            duration: 0,
+            numTeams: 0,
+            missions: [],
+            hotspots: [],
+            hotspotsAndMissions: [{hotspot: "", mission: "", missionList:[],  missionType: "Quiz", narrative: ""}],
+            trailID: 0,
+            allTrailsInfoList: [],
+            currTrailTitle: "",
+            currTrailTotalTime: 0,
+            currHotspotsAndMissions: [],
+            editedCurrHotspotsAndMissionsForUpdating: [],
 
-  components:{
-      vSelect
-  },
+            //delete
+            curr_trail_id: 0,
+            trailTitleToBeDeleted: "",
+            showDeleteTrail: false,
+            trailCloseMessage: false
+        }
+    }, 
 
-  computed:{
-    selectedTrailID(){
-            return this.$store.state.selectedTrailID;
-            // console.log(this.$store.state.selectedQuiz);
+    components:{
+        vSelect
     },
-  },
 
-  methods : {
-    // store in vuex store begins
-    saveSelectedTrail(trailID){
+    computed:{
+        selectedTrailID(){
+                return this.$store.state.selectedTrailID;
+                // console.log(this.$store.state.selectedQuiz);
+        },
+    },
+
+    methods : {
+        // store in vuex store begins
+        saveSelectedTrail(trailID){
             this.$store.commit('saveSelectedTrailID', trailID);
         },
 
-    //store in vuex store ends 
+        //store in vuex store ends 
 
-    addRow(){
-        this.hotspotsAndMissions.push({
-           hotspot: "",
-           mission: "",
-           missionType: this.missionTypesAvailable[0],
-           missionList: [],
-           narrative: ""
-        })
-    },
-    deleteRow(index){
-      this.$delete(this.hotspotsAndMissions, index);
-    },
-    fetchMissions(missionList, missionType){
-        while (missionList.length > 0) {
-            missionList.pop();
-        }
-
-        console.log('entered')
-        console.log(missionType)
-        // console.log(hotspot)
-        axios.get('//54.255.245.23:3000/mission/getMission' + missionType)
-        .then(response =>{
-            var data = response.data;
-            // console.log(data)
-            for(var index in data){
-              // console.log(index)
-              missionList.push({label: data[index].title, value: data[index].mission});
-            //   console.log(missionList);
+        addRow(){
+            this.hotspotsAndMissions.push({
+            hotspot: "",
+            mission: "",
+            missionType: this.missionTypesAvailable[0],
+            missionList: [],
+            narrative: ""
+            })
+        },
+        deleteRow(index){
+        this.$delete(this.hotspotsAndMissions, index);
+        },
+        fetchMissions(missionList, missionType){
+            while (missionList.length > 0) {
+                missionList.pop();
             }
-        });
-        // console.log(missionList)
-    },
-    populateCurrentTrailInfo(){
-        console.log('test')
-        this.allTrailsInfoList.forEach((information) => {
-            // console.log(this.trailID);
-            console.log(information.id === this.trailID.value)
-            if(information.id === this.trailID.value){
-                console.log(information);
-                this.currTrailTitle = information.information.title;
-                this.currTrailTotalTime = information.information.totalTime;
-                this.currHotspotsAndMissions = information.information.hotspotsAndMissions;
-            }
-        })
-        // let information = this.allTrailsInfoList[this.trailID]
-        // this.currTrailTitle = information.title;
-        // this.currTrailTotalTime = information.totalTime;
-        // this.currHotspotsAndMissions = information.hotspotsAndMissions;
-    },
-    trailOnSubmitToAdd(){
-      // this.hotspotsAndMissions.forEach((row) => {
-      //   this.hotspots.push(row.hotspot.label);
-      //   this.missions.push(row.mission.value);
-      // });
-      var postBody = {
-        title: this.title,
-        totalTime: this.duration,
-        numTeams: this.numTeams,
-        hotspotsAndMissions: this.hotspotsAndMissions
-      }
-      console.log(postBody);
-      axios.post('//54.255.245.23:3000/trail/addTrail', postBody)
-      .then(response => {
-          let data = response.data
-          console.log(data)
-          // this.$router.go();
-      })
-    },
-    trailOnSubmitToEdit(){
-      // this.hotspotsAndMissions.forEach((row) => {
-      //   this.hotspots.push(row.hotspot.label);
-      //   this.missions.push(row.mission.value);
-      // });
-      this.currHotspotsAndMissions.forEach((hotspotAndMission) => {
-          let hotspot = hotspotAndMission.hotspot;
-          let mission = hotspotAndMission.missionTitle;
-          let narrative = hotspotAndMission.narrativeTitle;
 
-          if (hotspot.label != undefined) {
-              hotspot = hotspot.label;
-          }
-
-          if (mission.label != undefined) {
-              mission = mission.value
-          } else {
-              mission = hotspotAndMission.mission;
-          }
-
-          if (narrative.label != undefined) {
-              narrative = narrative.value;
-          } else {
-              narrative = hotspotAndMission.narrativeID;
-          }
-
-          this.editedCurrHotspotsAndMissionsForUpdating.push({hotspot: hotspot, narrative: narrative, mission: mission })
-      })
-        console.log(this.currTrailTitle);
+            console.log('entered')
+            console.log(missionType)
+            // console.log(hotspot)
+            axios.get('//54.255.245.23:3000/mission/getMission' + missionType)
+            .then(response =>{
+                var data = response.data;
+                // console.log(data)
+                for(var index in data){
+                // console.log(index)
+                missionList.push({label: data[index].title, value: data[index].mission});
+                //   console.log(missionList);
+                }
+            });
+            // console.log(missionList)
+        },
+        populateCurrentTrailInfo(){
+            console.log('test')
+            this.allTrailsInfoList.forEach((information) => {
+                // console.log(this.trailID);
+                console.log(information.id === this.trailID.value)
+                if(information.id === this.trailID.value){
+                    console.log(information);
+                    this.currTrailTitle = information.information.title;
+                    this.currTrailTotalTime = information.information.totalTime;
+                    this.currHotspotsAndMissions = information.information.hotspotsAndMissions;
+                }
+            })
+            // let information = this.allTrailsInfoList[this.trailID]
+            // this.currTrailTitle = information.title;
+            // this.currTrailTotalTime = information.totalTime;
+            // this.currHotspotsAndMissions = information.hotspotsAndMissions;
+        },
+        trailOnSubmitToAdd(){
+        // this.hotspotsAndMissions.forEach((row) => {
+        //   this.hotspots.push(row.hotspot.label);
+        //   this.missions.push(row.mission.value);
+        // });
         var postBody = {
-            trailID: this.trailID.value,
-            title: this.trailID.label,
-            totalTime: this.currTrailTotalTime,
-            hotspotsAndMissions: this.editedCurrHotspotsAndMissionsForUpdating
+            title: this.title,
+            totalTime: this.duration,
+            numTeams: this.numTeams,
+            hotspotsAndMissions: this.hotspotsAndMissions
         }
         console.log(postBody);
-        axios.post('//54.255.245.23:3000/trail/editTrail', postBody)
+        axios.post('//54.255.245.23:3000/trail/addTrail', postBody)
         .then(response => {
             let data = response.data
             console.log(data)
             // this.$router.go();
-      })
-    }
-  },
-  mounted(){
+        })
+        },
+        trailOnSubmitToEdit(){
+        // this.hotspotsAndMissions.forEach((row) => {
+        //   this.hotspots.push(row.hotspot.label);
+        //   this.missions.push(row.mission.value);
+        // });
+        this.currHotspotsAndMissions.forEach((hotspotAndMission) => {
+            let hotspot = hotspotAndMission.hotspot;
+            let mission = hotspotAndMission.missionTitle;
+            let narrative = hotspotAndMission.narrativeTitle;
+
+            if (hotspot.label != undefined) {
+                hotspot = hotspot.label;
+            }
+
+            if (mission.label != undefined) {
+                mission = mission.value
+            } else {
+                mission = hotspotAndMission.mission;
+            }
+
+            if (narrative.label != undefined) {
+                narrative = narrative.value;
+            } else {
+                narrative = hotspotAndMission.narrativeID;
+            }
+
+            this.editedCurrHotspotsAndMissionsForUpdating.push({hotspot: hotspot, narrative: narrative, mission: mission })
+        })
+            console.log(this.currTrailTitle);
+            var postBody = {
+                trailID: this.trailID.value,
+                title: this.trailID.label,
+                totalTime: this.currTrailTotalTime,
+                hotspotsAndMissions: this.editedCurrHotspotsAndMissionsForUpdating
+            }
+            console.log(postBody);
+            axios.post('//54.255.245.23:3000/trail/editTrail', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                // this.$router.go();
+        })
+        },
+
+        deleteTrail(trail_id, trail_title){
+            this.curr_trail_id = trail_id;
+            this.trailTitleToBeDeleted = trail_title;
+
+            if(this.showDeleteTrail){
+                this.showDeleteTrail = false;
+            } else{
+                this.showDeleteTrail = true;
+            }
+        },
+
+        closeDeleteTrail(){
+            if(this.showDeleteTrail){
+                this.showDeleteTrail = false;
+            } else{
+                this.showDeleteTrail = true;
+            }
+        },
+
+        trailCloseDeleteMessage(){
+            this.showDeleteTrail = false;
+            this.trailCloseMessage = true;
+            if( this.trailDeleteMessage === "Trail Successfully Deleted") {
+                this.trailDeleteMessage = "";
+                this.$router.go();
+            }
+            this.trailDeleteMessage = "";
+        },
+
+        onSubmitToDeleteTrail(){
+            var postBody = {
+                "id": this.curr_trail_id
+            }
+            
+            axios.post('//54.255.245.23:3000/delete/deleteTrail', postBody)
+            .then(response => {
+                let data = response.data
+                console.log(data)
+                if (data.success === "true") {
+                    this.trailDeleteMessage ="Trail Successfully Deleted"
+                    // this.$router.go();
+                } else {
+                    this.trailDeleteMessage = "Error Please Try Again";
+                }
+                // this.$router.go();
+            })
+        
+            if(this.showDeleteTrail){
+                this.showDeleteTrail = false;
+            } else{
+                this.showDeleteTrail = true;
+            }
+            
+            // location.reload();
+        },
+    },
+
+    mounted(){
     if (!this.$session.exists()) {
         console.log("check")
         this.$router.push('/')

@@ -30,6 +30,7 @@
                     <li @click="showOrHide()"><router-link to="/map"><i class="ti-map"></i> Map</router-link></li>
                     <li @click="showOrHide()"><router-link to="/leaderboard"><i class="ti-cup"></i>Leaderboard</router-link></li>
                     <li @click="showOrHide()"><router-link to='/viewSubmissions'><i class="ti-gallery"></i>Submissions</router-link></li>
+                    <!-- <li @click="showOrHide()"><router-link to='/notification'><i class="ti-bell"></i>Notification</router-link></li> -->
                 
                 </ul>
             </div>
