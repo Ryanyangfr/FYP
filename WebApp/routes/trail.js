@@ -598,7 +598,7 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
               });
             }
           });
-          duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID)
+          duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
         }
       });
 
@@ -656,7 +656,7 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
                       });
                     }
                   });
-                  wordSearchID += 1
+                  wordSearchID += 1;
                   conn.query(wordSearchHistoryInsertQuery, [wordSearchID, missionHistoryID], (err, result5) => {
                     if (err) {
                       console.log(err);
@@ -691,16 +691,72 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
                         }
                       });
                     }
-                  })
+                  });
                 }
               });
               
             }
+          });
+          duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
+        }
+      });
+    }
+  });
+}
+
+function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
+  const drawingQuestionQuery = 'SELECT QUESTION, MISSION.MISSION_ID, HOTSPOT_NAME, MISSION_TITLE FROM DRAWING_QUESTION, MISSION, TRAIL_HOTSPOT WHERE DRAWING_QUESTION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?)';
+  const numDrawingQuery = 'SELECT COUNT(*) AS COUNT FROM DRAWING_QUESTION_HISTORY';
+  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
+  const drawingHistoryInsertQuery = 'INSERT INTO DRAWING_QUESTION_HISTORY VALUES (?,?,?)';
+  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
+
+  conn.query(numDrawingQuery, (err,result1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let drawingID = result1[0].COUNT;
+      conn.query(drawingQuestionQuery, trailInstanceID, (err, result2) => {
+        if (err) {
+          console.log(err);
+        } else {
+          result2.forEach((row) => {
+            const question = row.QUESTION;
+
+            missionHistoryID += 1;
+
+            conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+              if (err) {
+                console.log(err);
+              } else {
+                summaryID += 1;
+                console.log(`summary id: ${summaryID}`);
+                conn.query(summaryTableIDQuery, (err, result3) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    summaryID = result3[0].COUNT + 1;
+                    conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                    });
+                  }
+                  drawingID += 1;
+                  conn.query(drawingHistoryInsertQuery, [drawingID, question, missionHistoryID], (err,result4) => {
+                    if (err) {
+                      console.log(err);
+                    }
+                  })
+                });
+              }
+            })
           })
         }
       })
     }
   })
+
 }
 
 module.exports = router;
