@@ -355,117 +355,102 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
               console.log(err);
             } else {
 
-              let currQuizID = -1;
-              let currMissionID = -1;
+              let currQuizID = result3[0].QUIZ_ID;
+              let currMissionID = result3[0].MISSION_ID;
+              let rowIndex = -1;
 
               result3.forEach((row) => {
-                console.log(row);
-                const hotspot = row.HOTSPOT_NAME;
-                const missionID = row.MISSION_ID;
-                const title = row.MISSION_TITLE;
-                const quizID = row.QUIZ_ID;
-                const quizOption = row.QUIZ_OPTION;
-                const quizQuestion = row.QUIZ_QUESTION;
-                const quizAnswer = row.QUIZ_ANSWER;
+                rowIndex += 1;
+                if (rowIndex % 4 == 0) {
+                  console.log(row);
+                  const hotspot = row.HOTSPOT_NAME;
+                  const missionID = row.MISSION_ID;
+                  const title = row.MISSION_TITLE;
+                  const quizID = row.QUIZ_ID;
+                  const quizOption = row.QUIZ_OPTION;
+                  const quizQuestion = row.QUIZ_QUESTION;
+                  const quizAnswer = row.QUIZ_ANSWER;
 
-                if (currMissionID != missionID) {
-                  missionHistoryID += 1;
-                  currMissionID = missionID;
-                  
-                  conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
-                    if (err) {
-                      console.log(err);
-                    } else if (currQuizID != quizID) {
-                      summaryID += 1;
-                      console.log(`summary id: ${summaryID}`);
-                      conn.query(summaryTableIDQuery, (err, result3) => {
-                        if (err) {
-                          console.log(err);
-                        } else {
-                          summaryID = result3[0].COUNT + 1;
-                          conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
-                            if (err) {
-                              console.log(err);
-                            }
-                          });
-                        }
-                      });
+                  if (currMissionID != missionID) {
+                    missionHistoryID += 1;
+                    currMissionID = missionID;
+                    
+                    conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        summaryID += 1;
+                        console.log(`summary id: ${summaryID}`);
+                        conn.query(summaryTableIDQuery, (err, result3) => {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            summaryID = result3[0].COUNT + 1;
+                            conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                              if (err) {
+                                console.log(err);
+                              }
+                            });
+                          }
+                        });
 
-                      currQuizID = quizID;
-                      console.log(`curr quiz id: ${currQuizID}`);
-                      numQuiz += 1;
-                      conn.query(quizQuestionHistoryInsertQuery, [numQuiz, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
-                        if (err) {
-                          console.log(err);
-                        } else {
-                          numQuizOption += 1;
-                          console.log('entered here');
-                          conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption], (err, results6) => {
-                            if (err) {
-                              console.log(err);
-                            } else {
-                              console.log(`1: ${quizOption}`);
-                            }
-                          });
+                        currQuizID = quizID;
+                        console.log(`curr quiz id: ${currQuizID}`);
+                        numQuiz += 1;
+                        conn.query(quizQuestionHistoryInsertQuery, [numQuiz, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            numQuizOption += 1;
+                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, results3[rowIndex].QUIZ_OPTION], (err, results6) => {
+                              if (err) {
+                                console.log(err);
+                              } else {
+                                console.log(`1: ${quizOption}`);
+                              }
+                            });
 
-                        }
-                      });
-                    } else {
-                      numQuizOption += 1;
+                            numQuizOption += 1;
+                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, results3[rowIndex+1].QUIZ_OPTION], (err, results6) => {
+                              if (err) {
+                                console.log(err);
+                              } else {
+                                console.log(`1: ${quizOption}`);
+                              }
+                            });
 
-                      conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption], (err, results6) => {
-                        if (err) {
-                          console.log(err);
-                        } else {
-                          console.log(`2: ${quizOption}`);
-                        }
-                      });
+                            numQuizOption += 1;
+                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, results3[rowIndex+2].QUIZ_OPTION], (err, results6) => {
+                              if (err) {
+                                console.log(err);
+                              } else {
+                                console.log(`1: ${quizOption}`);
+                              }
+                            });
 
-                    }
-                  });
+                            numQuizOption += 1;
+                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, results3[rowIndex+3].QUIZ_OPTION], (err, results6) => {
+                              if (err) {
+                                console.log(err);
+                              } else {
+                                console.log(`1: ${quizOption}`);
+                              }
+                            });
 
-                } else if (currQuizID != quizID) {
-                  currQuizID = quizID;
-                  numQuiz += 1;
-                  conn.query(quizQuestionHistoryInsertQuery, [numQuiz, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
-                    if (err) {
-                      console.log(err);
-                    } else {
-                      numQuizOption += 1;
+                          }
+                        });
+                      }
 
-                      conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption], (err, results6) => {
-                        if (err) {
-                          console.log(err);
-                        } else {
-                          console.log(`3: ${quizOption}`);
-                        }
-                      });
-
-                    }
-                  });
-                } else {
-                  numQuizOption += 1;
-
-                  conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption], (err, results6) => {
-                    if (err) {
-                      console.log(err);
-                    } else {
-                      console.log(`4: ${quizOption}`);
-                    }
-                  });
-
+                    });
+                  }
                 }
-
               });
 
             }
           });
-
         }
       });
-
     }
-
   });
 }
 
