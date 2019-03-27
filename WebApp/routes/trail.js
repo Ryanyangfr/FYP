@@ -341,13 +341,13 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
     if (err) {
       console.log(err);
     } else {
-      const numQuiz = result1[0].COUNT;
+      let numQuiz = result1[0].COUNT;
       
       conn.query(numQuizOptionHistoryQuery, (err, result2) => {
         if (err) {
           console.log(err);
         } else {
-          const numQuizOption = result2[0].COUNT;
+          let numQuizOption = result2[0].COUNT;
 
           conn.query(quizQuery, trailInstanceID, (err, result3) => {
             if (err) {
