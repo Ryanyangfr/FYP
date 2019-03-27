@@ -387,33 +387,9 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                   if (currMissionID != missionID) {
                     missionHistoryID += 1;
                     currMissionID = missionID;
-                    
-                    conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
-                      if (err) {
-                        console.log(err);
-                      } else {
-                        
-                        conn.query(summaryTableIDQuery, (err, result3) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            const summaryID = result3[0].COUNT + 1;
-                            console.log(`summary id1: ${summaryID}`);
-                            conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
-                              if (err) {
-                                console.log(err);
-                              }
-                            });
-                          }
-                        });
-
-                        // currQuizID = quizID;
-                        // console.log(`curr quiz id: ${currQuizID}`);
-                        numQuiz += 1;
-                        addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
-                        numQuizOption += 4;
-                      }
-                    });
+                    numQuiz += 1;
+                    numQuizOption += 4;
+                    addQuizMission(insertMissionHistoryQuery, missionHistoryID, title, summaryTableIDQuery, trailInstanceID, hotspot, numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer);
                   } else {
                     numQuiz += 1;
                     addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
@@ -428,6 +404,36 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
           });
         }
       });
+    }
+  });
+}
+
+function addQuizMission(insertMissionHistoryQuery, missionHistoryID, title, summaryTableIDQuery, trailInstanceID, hotspot, numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer) {
+  conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+    if (err) {
+      console.log(err);
+    } else {
+      
+      conn.query(summaryTableIDQuery, (err, result3) => {
+        if (err) {
+          console.log(err);
+        } else {
+          const summaryID = result3[0].COUNT + 1;
+          console.log(`summary id1: ${summaryID}`);
+          conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
+            if (err) {
+              console.log(err);
+            }
+          });
+        }
+      });
+
+      // currQuizID = quizID;
+      // console.log(`curr quiz id: ${currQuizID}`);
+      
+      numQuiz += 1;
+      addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
+      numQuizOption += 4;
     }
   });
 }
