@@ -738,7 +738,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
         if (err) {
           console.log(err);
         } else {
-          for(let i = 0; i<result2.length; i++){
+          for (let i = 0; i<result2.length; i++) {
             let row = result2[i];
             const question = row.QUESTION;
             const hotspot = row.HOTSPOT_NAME;
@@ -773,7 +773,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
                 });
               }
             })
-          })
+          }
         }
       })
     }
