@@ -383,6 +383,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                       });
 
                       currQuizID = quizID;
+                      console.log(`curr quiz id: ${currQuizID}`);
                       numQuiz += 1;
                       conn.query(quizQuestionHistoryInsertQuery, [numQuiz, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
                         if (err) {
@@ -393,6 +394,8 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                           conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption], (err, results6) => {
                             if (err) {
                               console.log(err);
+                            } else {
+                              console.log(`1: ${quizOption}`);
                             }
                           });
 
@@ -422,6 +425,8 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                       conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption], (err, results6) => {
                         if (err) {
                           console.log(err);
+                        } else {
+                          console.log(`2: ${quizOption}`);
                         }
                       });
 
@@ -433,6 +438,8 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                   conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption], (err, results6) => {
                     if (err) {
                       console.log(err);
+                    } else {
+                      console.log(`3: ${quizOption}`);
                     }
                   });
 
