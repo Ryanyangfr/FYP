@@ -282,7 +282,7 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
     if (err) {
       console.log(err);
     } else {
-      summaryID = result[0].COUNT
+      summaryID = result[0].COUNT;
       conn.query('SELECT COUNT(*) as count FROM ANAGRAM_HISTORY', (err, data1) => {
         if (err) {
           console.log(err);
@@ -312,7 +312,7 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
                     });
                     
                     summaryID += 1;
-                    summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
+                    summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
                     // missionID += 1;
                     console.log(data2.length);
                     console.log(numberOfiterations);
@@ -327,7 +327,7 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
         }
       });
     }
-  })
+  });
 }
 
 function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
@@ -389,7 +389,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                         console.log(err);
                       } else {  
                         summaryID += 1;
-                        summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
+                        summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
                         // currQuizID = quizID;
                         // console.log(`curr quiz id: ${currQuizID}`);
                         numQuiz += 1;
@@ -502,7 +502,7 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
                   console.log(err);
                 } else {
                   
-                  summaryID += 1
+                  summaryID += 1;
                   summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
                   dragAndDropHistoryID += 1;
                   conn.query(dragAndDropHistoryInsertQuery, [dragAndDropHistoryID, question, missionHistoryID], (err,data) => {
@@ -581,8 +581,8 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
                 if (err) {
                   console.log(err);
                 } else {                  
-                  cummaryID += 1
-                  summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
+                  cummaryID += 1;
+                  summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
                   wordSearchID += 1;
                   conn.query(wordSearchHistoryInsertQuery, [wordSearchID, missionHistoryID], (err, result5) => {
                     if (err) {
@@ -657,22 +657,22 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
               if (err) {
                 console.log(err);
               } else {                
-                  summaryID += 1
-                  summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
-                  drawingID += 1;
-                  conn.query(drawingHistoryInsertQuery, [drawingID, question, missionHistoryID], (err,result4) => {
-                    if (err) {
-                      console.log(err);
-                    }
-                  })
-                }
-              });
-            })
-          duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID)
+                summaryID += 1;
+                summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
+                drawingID += 1;
+                conn.query(drawingHistoryInsertQuery, [drawingID, question, missionHistoryID], (err,result4) => {
+                  if (err) {
+                    console.log(err);
+                  }
+                });
+              }
+            });
+          });
+          duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
         }
-      })
+      });
     }
-  })
+  });
 }
 
 function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
@@ -702,23 +702,22 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
               if (err) {
                 console.log(err);
               } else {
-                  summaryID += 1
-                  summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
+                summaryID += 1;
+                summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
 
-                  submissionID += 1;
-                  conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
-                    if (err) {
-                      console.log(err);
-                    }
-                  })
+                submissionID += 1;
+                conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
+                  if (err) {
+                    console.log(err);
+                  }
                 });
               }
-            })
-          })
+            });
+          });
         }
-      })
+      });
     }
-  })
+  });
 }
 
 function summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID) {
