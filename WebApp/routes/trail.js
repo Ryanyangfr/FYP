@@ -364,7 +364,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
               // let currQuizID = result3[0].QUIZ_ID;
               let currMissionID = -1;
               let rowIndex = -1;
-              conn.query(summaryTableIDQuery, (err, result3) => {
+              conn.query(summaryTableIDQuery, (err, result) => {
                 result3.forEach((row) => {
                   rowIndex += 1;
                   console.log(`row index top: ${rowIndex%4 === 0}`);
@@ -381,6 +381,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                     const quizOption4 = rows[rowIndex+3].QUIZ_OPTION;
                     const quizQuestion = row.QUIZ_QUESTION;
                     const quizAnswer = row.QUIZ_ANSWER;
+                    let summaryID = result[0].COUNT;
 
                     console.log(`current mission id: ${currMissionID}`);
                     console.log(`mission id: ${missionID}`);
