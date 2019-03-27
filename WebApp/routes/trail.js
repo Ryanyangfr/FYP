@@ -432,7 +432,6 @@ function addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOp
       console.log(err);
     } else {
       numQuizOption += 1;
-      console.log(`row index: ${rowIndex}`);
       conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption1], (err, results6) => {
         if (err) {
           console.log(err);
