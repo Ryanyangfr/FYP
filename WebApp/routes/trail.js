@@ -362,9 +362,9 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
 
               result3.forEach((row) => {
                 rowIndex += 1;
-                console.log(`row index top: ${rowIndex%4 === 0}`)
+                console.log(`row index top: ${rowIndex%4 === 0}`);
                 if (rowIndex % 4 === 0) {
-                  console.log(`rowIndex: ${rowIndex}`)
+                  console.log(`rowIndex: ${rowIndex}`);
                   console.log(row);
                   const hotspot = row.HOTSPOT_NAME;
                   const missionID = row.MISSION_ID;
@@ -377,8 +377,8 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                   const quizQuestion = row.QUIZ_QUESTION;
                   const quizAnswer = row.QUIZ_ANSWER;
 
-                  console.log(`current mission id: ${currMissionID}`)
-                  console.log(`mission id: ${missionID}`)
+                  console.log(`current mission id: ${currMissionID}`);
+                  console.log(`mission id: ${missionID}`);
                   if (currMissionID != missionID) {
                     missionHistoryID += 1;
                     currMissionID = missionID;
@@ -499,13 +499,208 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                   }
                 }
               });
-
+              if (rowIndex === rows.length-1) {
+                duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
+              }
             }
           });
         }
       });
     }
   });
+}
+
+function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
+  const draganddropQuery = ' SELECT DRAG_AND_DROP.DRAGANDDROP_ID, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER, DRAG_AND_DROP.MISSION_ID, MISSION_TITLE, HOTSPOT_NAME FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION, TRAIL_HOTSPOT, MISSION WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TRAIL_HOTSPOT.MISSION_ID = DRAG_AND_DROP.MISSION_ID AND TRAIL_HOTSPOT.MISSION_ID = MISSION.MISSION_ID AND DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID';
+  const numDragAndDropQuery = 'SELECT COUNT(*) AS COUNT FROM DRAG_AND_DROP_HISTORY';
+  const dragAndDropHistoryInsertQuery = 'INSERT INTO DRAG_AND_DROP_HISTORY VALUES (?,?,?)';
+  const dragAndDropOptionHistoryInsertQuery = 'INSERT INTO DRAG_AND_DROP_OPTION_HISTORY VALUES (?,?,?)';
+  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
+
+  conn.query(numDragAndDropQuery, (err, result1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let dragAndDropHistoryID = result1[0].COUNT;
+      let rowIndex = -1;
+
+      conn.query(draganddropQuery, trailInstanceID, (err, result3) => {
+        if (err) {
+          console.log(err);
+        } else {
+          result3.forEach((row) => {
+            rowIndex += 1;
+            if (rowIndex % 4 === 0) {
+              const hotspot = row.HOTSPOT_NAME;
+              const missionID = row.MISSION_ID;
+              const title = row.MISSION_TITLE;
+              const question = row.DRAGANDDROP_QUESTION;
+              const option1 = result3[rowIndex].DRAGANDDROP_QUESTION_OPTION;
+              const answer1 = result3[rowIndex].DRAGANDDROP_QUESTION_ANSWER;
+              const option2 = result3[rowIndex+1].DRAGANDDROP_QUESTION_OPTION;
+              const answer2 = result3[rowIndex+1].DRAGANDDROP_QUESTION_ANSWER;
+              const option3 = result3[rowIndex+2].DRAGANDDROP_QUESTION_OPTION;
+              const answer3 = result3[rowIndex+2].DRAGANDDROP_QUESTION_ANSWER;
+              const option4 = result3[rowIndex+3].DRAGANDDROP_QUESTION_OPTION;
+              const answer4 = result3[rowIndex+3].DRAGANDDROP_QUESTION_ANSWER;
+
+              missionHistoryID += 1;
+
+              conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  summaryID += 1;
+                  console.log(`summary id: ${summaryID}`);
+                  conn.query(summaryTableIDQuery, (err, result3) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      summaryID = result3[0].COUNT + 1;
+                      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+                    }
+                  });
+                  dragAndDropHistoryID += 1;
+                  conn.query(dragAndDropHistoryInsertQuery, [dragAndDropHistoryID, question, missionHistoryID], (err,data) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option1, answer1], (err,data) => {
+                        if (err) {
+                          console.log(err);
+                        } 
+                      });
+
+                      conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option2, answer2], (err,data) => {
+                        if (err) {
+                          console.log(err);
+                        } 
+                      });
+
+                      conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option3, answer3], (err,data) => {
+                        if (err) {
+                          console.log(err);
+                        } 
+                      });
+
+                      conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option4, answer4], (err,data) => {
+                        if (err) {
+                          console.log(err);
+                        } 
+                      });
+                    }
+                  });
+                }
+              });
+            }
+          });
+          duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID)
+        }
+      });
+
+    }
+  });
+}
+
+function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
+  const wordSearchQuery = 'SELECT WORDSEARCH.WORDSEARCH_ID, WORD, HOTSPOT_NAME, MISSION.MISSION_ID, MISSION_TITLE FROM WORDSEARCH, WORDSEARCH_WORD, TRAIL_HOTSPOT, MISSION WHERE WORDSEARCH.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND WORDSEARCH.WORDSEARCH_ID = WORDSEARCH_WORD.WORDSEARCH_ID AND TRAIL_HOTSPOT.MISSION_ID = MISSION.MISSION_ID AND TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?)';
+  const numWordSearchQuery = 'SELECT COUNT(*) AS COUNT FROM WORDSEARCH_HISTORY';
+  const wordSearchHistoryInsertQuery = 'INSERT INTO WORDSEARCH_HISTORY VALUES (?,?)';
+  const wordSearchWordHistoryInsertQuery = 'INSERT INTO WORDSEARCH_WORD_HISTORY VALUES (?,?)';
+  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
+
+  conn.query(numWordSearchQuery, (err, result1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let wordSearchID = result1[0].COUNT;
+      let rowIndex = -1;
+
+      conn.query(wordSearchQuery, trailInstanceID, (err, result2) => {
+        if (err) {
+          console.log(err);
+        } else {
+          result2.forEach((row) => {
+            rowIndex += 1;
+            if (rowIndex % 5 == 0) {
+              const hotspot = row.HOTSPOT_NAME;
+              const missionID = row.MISSION_ID;
+              const title = row.MISSION_TITLE;
+              const word1 = result2[rowIndex].WORD;
+              const word2 = result2[rowIndex+1].WORD;
+              const word3 = result2[rowIndex+2].WORD;
+              const word4 = result2[rowIndex+3].WORD;
+              const word5 = result2[rowIndex+4].WORD;
+
+              missionHistoryID += 1;
+
+              conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  summaryID += 1;
+                  console.log(`summary id: ${summaryID}`);
+                  conn.query(summaryTableIDQuery, (err, result3) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      summaryID = result3[0].COUNT + 1;
+                      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+                    }
+                  });
+                  wordSearchID += 1
+                  conn.query(wordSearchHistoryInsertQuery, [wordSearchID, missionHistoryID], (err, result5) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      conn.query(wordSearchWordHistoryInsertQuery, [wordSearchID, word1], (err, result6) => {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+
+                      conn.query(wordSearchWordHistoryInsertQuery, [wordSearchID, word2], (err, result6) => {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+
+                      conn.query(wordSearchWordHistoryInsertQuery, [wordSearchID, word3], (err, result6) => {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+
+                      conn.query(wordSearchWordHistoryInsertQuery, [wordSearchID, word4], (err, result6) => {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+
+                      conn.query(wordSearchWordHistoryInsertQuery, [wordSearchID, word5], (err, result6) => {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+                    }
+                  })
+                }
+              });
+              
+            }
+          })
+        }
+      })
+    }
+  })
 }
 
 module.exports = router;
