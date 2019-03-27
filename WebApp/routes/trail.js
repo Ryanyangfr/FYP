@@ -362,9 +362,9 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
 
               result3.forEach((row) => {
                 rowIndex += 1;
-                console.log(`row index top: ${rowIndex%4 === 0}`)
+                console.log(`row index top: ${rowIndex%4 === 0}`);
                 if (rowIndex % 4 === 0) {
-                  console.log(`rowIndex: ${rowIndex}`)
+                  console.log(`rowIndex: ${rowIndex}`);
                   console.log(row);
                   const hotspot = row.HOTSPOT_NAME;
                   const missionID = row.MISSION_ID;
@@ -377,8 +377,8 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                   const quizQuestion = row.QUIZ_QUESTION;
                   const quizAnswer = row.QUIZ_ANSWER;
 
-                  console.log(`current mission id: ${currMissionID}`)
-                  console.log(`mission id: ${missionID}`)
+                  console.log(`current mission id: ${currMissionID}`);
+                  console.log(`mission id: ${missionID}`);
                   if (currMissionID != missionID) {
                     missionHistoryID += 1;
                     currMissionID = missionID;
@@ -499,13 +499,117 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                   }
                 }
               });
-
+              if (rowIndex === rows.length-1) {
+                duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
+              }
             }
           });
         }
       });
     }
   });
+}
+
+function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
+  const draganddropQuery = ' SELECT DRAG_AND_DROP.DRAGANDDROP_ID, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER, DRAG_AND_DROP.MISSION_ID, MISSION_TITLE, HOTSPOT_NAME FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION, TRAIL_HOTSPOT, MISSION WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TRAIL_HOTSPOT.MISSION_ID = DRAG_AND_DROP.MISSION_ID AND TRAIL_HOTSPOT.MISSION_ID = MISSION.MISSION_ID AND DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID';
+  const numDragAndDropQuery = 'SELECT COUNT(*) AS COUNT FROM DRAG_AND_DROP_HISTORY';
+  const numDragAndDropOptionQuery = 'SELECT COUNT(*) AS COUNT FROM DRAG_AND_DROP_OPTION_HISTORY';
+  const dragAndDropHistoryInsertQuery = 'INSERT INTO DRAG_AND_DROP_HISTORY VALUES (?,?,?)';
+  const dragAndDropOptionHistoryInsertQuery = 'INSERT INTO DRAG_AND_DROP_OPTION VALUES (?,?,?)';
+  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
+
+  conn.query(numDragAndDropQuery, (err, result1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let dragAndDropHistoryID = result1[0].COUNT;
+      let currID = -1;
+      let currMissionID = -1;
+      let rowIndex = -1;
+
+      conn.query(draganddropQuery, trailInstanceID, (err, result3) => {
+        if (err) {
+          console.log(err);
+        } else {
+          result3.forEach((row) => {
+            rowIndex += 1;
+            if (rowIndex % 4 === 0) {
+              const hotspot = row.HOTSPOT_NAME;
+              const missionID = row.MISSION_ID;
+              const title = row.MISSION_TITLE;
+              const question = row.DRAGANDDROP_QUESTION;
+              const option1 = result3[index].DRAGDNDDROP_QUESTION_OPTION;
+              const answer1 = result3[index].DRAGANDDROP_QUESTION_ANSWER;
+              const option2 = result3[index+1].DRAGDNDDROP_QUESTION_OPTION;
+              const answer2 = result3[index+1].DRAGANDDROP_QUESTION_ANSWER;
+              const option3 = result3[index+2].DRAGDNDDROP_QUESTION_OPTION;
+              const answer3 = result3[index+2].DRAGANDDROP_QUESTION_ANSWER;
+              const option4 = result3[index+3].DRAGDNDDROP_QUESTION_OPTION;
+              const answer5 = result3[index+3].DRAGANDDROP_QUESTION_ANSWER;
+
+              if (currMissionID != missionID) {
+                missionHistoryID += 1;
+
+                conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    summaryID += 1;
+                    console.log(`summary id: ${summaryID}`);
+                    conn.query(summaryTableIDQuery, (err, result3) => {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        summaryID = result3[0].COUNT + 1;
+                        conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                          if (err) {
+                            console.log(err);
+                          }
+                        });
+                      }
+                    });
+                    dragAndDropHistoryID += 1;
+                    conn.query(dragAndDropHistoryInsertQuery, [dragAndDropHistoryID, question, missionHistoryID], (err,data) => {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option1, answer1], (err,data) => {
+                          if (err) {
+                            console.log(err);
+                          } 
+                        });
+
+                        conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option2, answer2], (err,data) => {
+                          if (err) {
+                            console.log(err);
+                          } 
+                        });
+
+                        conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option3, answer3], (err,data) => {
+                          if (err) {
+                            console.log(err);
+                          } 
+                        });
+
+                        conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option4, answer4], (err,data) => {
+                          if (err) {
+                            console.log(err);
+                          } 
+                        });
+                      }
+                    });
+                  }
+                });
+              }
+            }
+          });
+        }
+      });
+
+    }
+  });
+
+
 }
 
 module.exports = router;
