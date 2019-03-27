@@ -241,6 +241,7 @@ router.post('/initializeTrail', (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      console.log(`trailInstanceID: ${trailInstanceID}`);
       let missionID = data1[0].COUNT + 1;
       duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery);
     }
