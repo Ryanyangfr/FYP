@@ -75,6 +75,25 @@ router.get('/getAllAnagrams', (req,res) => {
             res.send(response);
         }
     })
-})
+});
+
+router.get('/getAnagramsHistory', (req,res) => {
+    const trailInstanceID = req.query.trailInstanceID;
+    const query = 'SELECT * FROM ANAGRAM_HISTORY, MISSION_HISTORY, SUMMARY_TABLE WHERE ANAGRAM_HISTORY.MISSION_ID = MISSION_HISTORY.MISSION_ID AND ANAGRAM_HISTORY.MISSION_ID = SUMMARY_TABLE.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
+    const response = [];
+
+    conn.query(query, trailInstanceID, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            data.forEach((row) => {
+                response.push({id: row.ANAGRAM_ID, word: row.ANAGRAM_WORD, title: row.MISSION_TITLE})
+            });
+            console.log(`anagram: `);
+            console.log(response);
+            res.send(response);
+        }
+    })
+});
 
 module.exports=router;
