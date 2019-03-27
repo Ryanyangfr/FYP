@@ -309,7 +309,7 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
                   if (err) {
                     console.log(err);
                   } else {
-                    summaryID = result3[0].COUNT + 1;
+                    const summaryID = result3[0].COUNT + 1;
                     conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
                       if (err) {
                         console.log(err);
@@ -390,13 +390,13 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                       if (err) {
                         console.log(err);
                       } else {
-                        summaryID += 1;
-                        console.log(`summary id1: ${summaryID}`);
+                        
                         conn.query(summaryTableIDQuery, (err, result3) => {
                           if (err) {
                             console.log(err);
                           } else {
-                            summaryID = result3[0].COUNT + 1;
+                            const summaryID = result3[0].COUNT + 1;
+                            console.log(`summary id1: ${summaryID}`);
                             conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
                               if (err) {
                                 console.log(err);
@@ -516,13 +516,13 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
                 if (err) {
                   console.log(err);
                 } else {
-                  summaryID += 1;
-                  console.log(`summary id2: ${summaryID}`);
+                  
                   conn.query(summaryTableIDQuery, (err, result3) => {
                     if (err) {
                       console.log(err);
                     } else {
-                      summaryID = result3[0].COUNT + 1;
+                      const summaryID = result3[0].COUNT + 1;
+                      console.log(`summary id2: ${summaryID}`);
                       conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
                         if (err) {
                           console.log(err);
@@ -606,14 +606,13 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
               conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
                 if (err) {
                   console.log(err);
-                } else {
-                  summaryID += 1;
-                  console.log(`summary id3: ${summaryID}`);
+                } else {                  
                   conn.query(summaryTableIDQuery, (err, result3) => {
                     if (err) {
                       console.log(err);
                     } else {
-                      summaryID = result3[0].COUNT + 1;
+                      const summaryID = result3[0].COUNT + 1;
+                      console.log(`summary id3: ${summaryID}`);
                       conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
                         if (err) {
                           console.log(err);
@@ -694,14 +693,13 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
             conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
               if (err) {
                 console.log(err);
-              } else {
-                summaryID += 1;
-                console.log(`summary id4: ${summaryID}`);
+              } else {                
                 conn.query(summaryTableIDQuery, (err, result3) => {
                   if (err) {
                     console.log(err);
                   } else {
-                    summaryID = result3[0].COUNT + 1;
+                    const summaryID = result3[0].COUNT + 1;
+                    console.log(`summary id4: ${summaryID}`);
                     conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
                       if (err) {
                         console.log(err);
@@ -752,13 +750,13 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
               if (err) {
                 console.log(err);
               } else {
-                summaryID += 1;
-                console.log(`summary id5: ${summaryID}`);
+                
                 conn.query(summaryTableIDQuery, (err, result3) => {
                   if (err) {
                     console.log(err);
                   } else {
-                    summaryID = result3[0].COUNT + 1;
+                    const summaryID = result3[0].COUNT + 1;
+                    console.log(`summary id5: ${summaryID}`);
                     conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
                       if (err) {
                         console.log(err);
