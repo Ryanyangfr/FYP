@@ -189,7 +189,14 @@ export default new Router({
       name: 'Summary Report',
       component: ()=> import('@/views/summary/summary'),
       hidden: true
+    },
+    {
+      path: '/viewTrailMissions',
+      name: 'Summary Report > Trail Missions',
+      component: ()=> import('@/views/summary/trailMissions'),
+      hidden: true
     }
+
   ],
 
   scrollBehavior (to, from, savedPosition) {

@@ -18,7 +18,7 @@
                     <td>{{summary.trail_id}}</td>
                     <td>{{summary.participants}}</td>
                     <td><div v-for="(location,index) in summary.hotspots" :key="index">{{index+1}}. {{location}}</div></td>
-                    <td><div v-for="(mission, index) in summary.missions" :key="index">{{index+1}}. {{mission}}</div></td>
+                    <td><router-link to='/viewTrailMissions'><button class="view-missions-btn" @click="goToMission(summary.trail_id)">View Missions</button></router-link></td>
                 </tr>
                 
             </table>
@@ -35,11 +35,24 @@ export default {
     name: "summaryReport",
     data() {
         return{
-            summaryList: [{date:"11/05/2019", trail_id:"175239", participants: 26, hotspots: ["ryan's house", "thian's house", "rydora's house"], missions: ["draw ryan face", "where is meow?"]}]
+            summaryList: [{date:"11/05/2019", trail_id:"658335", participants: 26, hotspots: ["ryan's house", "thian's house", "rydora's house"], missions: ["draw ryan face", "where is meow?"]}],
+            selectedTrailID:"658335"
         }
     },
     components:{
         vSelect
+    },
+
+    computed: {
+        selectedMissionTrailID(){
+            return this.$store.state.selectedMissionTrailID;
+        },
+    },
+
+    methods:{
+        goToMission(trailID){
+            this.$store.commit('saveMissionTrailID', trailID);
+        }
     },
 
     mounted(){
@@ -110,6 +123,24 @@ export default {
 
     .summary-trailid-header{
         min-width: 200px;
+    }
+
+    .view-missions-btn{
+        cursor: pointer;
+        background-color: #645cdd;;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size:15px;
+        padding:12px;
+        text-align: center;
+        cursor: pointer;
+        min-width: 60px;
+        align-self: center
+    }
+
+    .view-missions-btn:hover{
+        background-color: #6200EE;
     }
     
 </style>
