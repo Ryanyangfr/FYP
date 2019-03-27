@@ -537,13 +537,13 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
               const missionID = row.MISSION_ID;
               const title = row.MISSION_TITLE;
               const question = row.DRAGANDDROP_QUESTION;
-              const option1 = result3[rowIndex].DRAGDNDDROP_QUESTION_OPTION;
+              const option1 = result3[rowIndex].DRAGANDDROP_QUESTION_OPTION;
               const answer1 = result3[rowIndex].DRAGANDDROP_QUESTION_ANSWER;
-              const option2 = result3[rowIndex+1].DRAGDNDDROP_QUESTION_OPTION;
+              const option2 = result3[rowIndex+1].DRAGANDDROP_QUESTION_OPTION;
               const answer2 = result3[rowIndex+1].DRAGANDDROP_QUESTION_ANSWER;
-              const option3 = result3[rowIndex+2].DRAGDNDDROP_QUESTION_OPTION;
+              const option3 = result3[rowIndex+2].DRAGANDDROP_QUESTION_OPTION;
               const answer3 = result3[rowIndex+2].DRAGANDDROP_QUESTION_ANSWER;
-              const option4 = result3[rowIndex+3].DRAGDNDDROP_QUESTION_OPTION;
+              const option4 = result3[rowIndex+3].DRAGANDDROP_QUESTION_OPTION;
               const answer4 = result3[rowIndex+3].DRAGANDDROP_QUESTION_ANSWER;
 
               if (currMissionID != missionID) {
