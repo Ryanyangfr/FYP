@@ -308,7 +308,7 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
                     console.log(err);
                   } else {
                     summaryID = result3[0].COUNT + 1;
-                    conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
+                    conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
                       if (err) {
                         console.log(err);
                       }
