@@ -253,7 +253,6 @@ router.post('/startTrail', (req, res) => {
     } else {
       let missionID = data1[0].COUNT + 1;
       missionID = duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery);
-      
     }
   });
 
@@ -405,99 +404,12 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                         // currQuizID = quizID;
                         // console.log(`curr quiz id: ${currQuizID}`);
                         numQuiz += 1;
-                        const currQuizID = numQuiz;
-                        conn.query(quizQuestionHistoryInsertQuery, [currQuizID, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            numQuizOption += 1;
-                            console.log(`row index: ${rowIndex}`);
-                            conn.query(quizOptionHistoryInsertQuery, [currQuizID, numQuizOption, quizOption1], (err, results6) => {
-                              if (err) {
-                                console.log(err);
-                              } else {
-                                console.log(`1: ${quizOption1}`);
-                              }
-                            });
-
-                            numQuizOption += 1;
-                            conn.query(quizOptionHistoryInsertQuery, [currQuizID, numQuizOption, quizOption2], (err, results6) => {
-                              if (err) {
-                                console.log(err);
-                              } else {
-                                console.log(`2: ${quizOption2}`);
-                              }
-                            });
-
-                            numQuizOption += 1;
-                            conn.query(quizOptionHistoryInsertQuery, [currQuizID, numQuizOption, quizOption3], (err, results6) => {
-                              if (err) {
-                                console.log(err);
-                              } else {
-                                console.log(`3: ${quizOption3}`);
-                              }
-                            });
-
-                            numQuizOption += 1;
-                            conn.query(quizOptionHistoryInsertQuery, [currQuizID, numQuizOption, quizOption4], (err, results6) => {
-                              if (err) {
-                                console.log(err);
-                              } else {
-                                console.log(`4: ${quizOption4}`);
-                              }
-                            });
-
-                          }
-                        });
+                        addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
                       }
-
                     });
                   } else {
                     numQuiz += 1;
-                    const currQuizID = numQuiz;
-                    conn.query(quizQuestionHistoryInsertQuery, [currQuizID, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
-                      if (err) {
-                        console.log(err);
-                      } else {
-                        numQuizOption += 1;
-                        console.log(`row index: ${rowIndex}`);
-                        conn.query(quizOptionHistoryInsertQuery, [currQuizID, numQuizOption, quizOption1], (err, results6) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            console.log(`1: ${quizOption1}`);
-                          }
-                        });
-
-                        numQuizOption += 1;
-                        conn.query(quizOptionHistoryInsertQuery, [currQuizID, numQuizOption, quizOption2], (err, results6) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            console.log(`2: ${quizOption2}`);
-                          }
-                        });
-
-                        numQuizOption += 1;
-                        conn.query(quizOptionHistoryInsertQuery, [currQuizID, numQuizOption, quizOption3], (err, results6) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            console.log(`3: ${quizOption3}`);
-                          }
-                        });
-
-                        numQuizOption += 1;
-                        conn.query(quizOptionHistoryInsertQuery, [currQuizID, numQuizOption, quizOption4], (err, results6) => {
-                          if (err) {
-                            console.log(err);
-                          } else {
-                            console.log(`4: ${quizOption4}`);
-                          }
-                        });
-
-                      }
-                    });
+                    addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID)
                   }
                 }
               });
@@ -506,6 +418,51 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
               }
             }
           });
+        }
+      });
+    }
+  });
+}
+
+function addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID) {
+  conn.query(quizQuestionHistoryInsertQuery, [numQuiz, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
+    if (err) {
+      console.log(err);
+    } else {
+      numQuizOption += 1;
+      console.log(`row index: ${rowIndex}`);
+      conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption1], (err, results6) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`1: ${quizOption1}`);
+        }
+      });
+
+      numQuizOption += 1;
+      conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption2], (err, results6) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`2: ${quizOption2}`);
+        }
+      });
+
+      numQuizOption += 1;
+      conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption3], (err, results6) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`3: ${quizOption3}`);
+        }
+      });
+
+      numQuizOption += 1;
+      conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption4], (err, results6) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`4: ${quizOption4}`);
         }
       });
     }
@@ -603,7 +560,6 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
           duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
         }
       });
-
     }
   });
 }
@@ -696,7 +652,6 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
                   });
                 }
               });
-              
             }
           });
           duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
@@ -817,7 +772,6 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
       })
     }
   })
-
 }
 
 module.exports = router;
