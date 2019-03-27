@@ -238,7 +238,7 @@ export default {
             this.dragAndDropList = data;      
         })
 
-        axios.get('//54.255.245.23:3000/upload/getDrawingQuestion?trailInstanceID=' + this.trailID)
+        axios.get('//54.255.245.23:3000/upload/getDrawingQuestionHistory?trailInstanceID=' + this.trailID)
         .then(response => {
             let data = response.data;
             for(var row in data){
