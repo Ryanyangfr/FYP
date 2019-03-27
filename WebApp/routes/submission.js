@@ -401,7 +401,7 @@ router.get('/getSubmissionQuestionHistory', (req, res) => {
   const trailInstanceID = req.query.trailInstanceID;
   const response = [];
   const getSubmissionMissionQuery = 'SELECT SUMMARY_TABLE.MISSION_ID FROM SUMMARY_TABLE, SUBMISSION_QUESTION_HISTORY WHERE SUMMARY_TABLE.MISSION_ID = SUBMISSION_QUESTION_HISTORY.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
-  const query = 'SELECT * FROM SUBMISSION_QUESTION_HISTORY, MISSION_HISTORY WHERE MISSION_HISTORY.MISSION_ID = SUBMISSION_QUESTION_HISTORY.MISSION_ID WHERE MISSION_ID = ?';
+  const query = 'SELECT * FROM SUBMISSION_QUESTION_HISTORY, MISSION_HISTORY WHERE MISSION_HISTORY.MISSION_ID = SUBMISSION_QUESTION_HISTORY.MISSION_ID AND MISSION_ID = ?';
 
   conn.query(getSubmissionMissionQuery, trailInstanceID, (err, data) => {
     if (err) {
@@ -409,7 +409,7 @@ router.get('/getSubmissionQuestionHistory', (req, res) => {
     } else {
       let count = 0;
       data.forEach((row) => {
-        let mission = row.MISSION_ID;
+        const mission = row.MISSION_ID;
         conn.query(query, mission, (err, questions) => {
           if (err) {
             console.log(err);
