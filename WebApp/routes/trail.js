@@ -363,7 +363,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
               result3.forEach((row) => {
                 rowIndex += 1;
                 if (rowIndex % 4 == 0) {
-                  console.log(row);
+                  // console.log(row);
                   const hotspot = row.HOTSPOT_NAME;
                   const missionID = row.MISSION_ID;
                   const title = row.MISSION_TITLE;
@@ -403,7 +403,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                             console.log(err);
                           } else {
                             numQuizOption += 1;
-                            console.log(rowIndex);
+                            console.log(`row index: ${rowIndex}`);
                             conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, rows[rowIndex].QUIZ_OPTION], (err, results6) => {
                               if (err) {
                                 console.log(err);
