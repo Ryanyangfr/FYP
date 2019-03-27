@@ -9,7 +9,7 @@ const conn = mysql.createConnection(databaseConfig);
 
 router.get('/getSummaryReport', (req,res) => {
   const response = [];
-  const query ='SELECT * FROM SUMMARY_TABLE';
+  const query ='SELECT * FROM SUMMARY_TABLE GROUP BY TRAIL_INSTANCE_ID';
   const getDateQuery = 'SELECT DATE_STARTED FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?';
   const getNumParticipantsQuery = 'SELECT COUNT(*) AS COUNT FROM PARTICIPANT WHERE TRAIL_INSTANCE_ID = ?';
   let count = 0;
