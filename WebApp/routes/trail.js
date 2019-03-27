@@ -738,8 +738,9 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
         if (err) {
           console.log(err);
         } else {
-          for (let i = 0; i<result2.length; i++) {
-            let row = result2[i];
+          let counter = 0;
+          result2.forEach((row) => {
+            counter += 1;
             const question = row.QUESTION;
             const hotspot = row.HOTSPOT_NAME;
             const missionID = row.MISSION_ID;
@@ -756,7 +757,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
                   if (err) {
                     console.log(err);
                   } else {
-                    const summaryID = result3[0].COUNT + 1;
+                    const summaryID = result3[0].COUNT + counter;
                     console.log(`summary id5: ${summaryID}`);
                     conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
                       if (err) {
@@ -773,7 +774,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
                 });
               }
             })
-          }
+          })
         }
       })
     }
