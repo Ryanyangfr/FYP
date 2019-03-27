@@ -721,7 +721,6 @@ function submissionInsertion(insertMissionHistoryQuery, missionHistoryID, title,
     if (err) {
       console.log(err);
     } else {
-      summaryID += 1;
       summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
 
       submissionID += 1;
