@@ -359,6 +359,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
               let currMissionID = -1;
 
               result3.forEach((row) => {
+                console.log(row);
                 const hotspot = row.HOTSPOT_NAME;
                 const missionID = row.MISSION_ID;
                 const title = row.MISSION_TITLE;
@@ -376,7 +377,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                       console.log(err);
                     } else if (currQuizID != quizID) {
                       summaryID += 1;
-                      console.log(`summary id: ${summaryID}`)
+                      console.log(`summary id: ${summaryID}`);
                       conn.query(summaryTableIDQuery, (err, result3) => {
                         if (err) {
                           console.log(err);
