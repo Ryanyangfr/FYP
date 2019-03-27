@@ -22,7 +22,7 @@
                             
                         </div>  
                     </td>
-                    <td><button class="view-quiz-btn" @click="saveSelectedQuiz(quiz.mission_id, quiz.mission_title)"><router-link to='/viewQuiz'>View full details</router-link></button></td>
+                    <td><button class="view-quiz-btn" @click="saveSelectedQuiz(quiz.mission_id, quiz.mission_title)"><router-link to='/viewQuizHistory'>View full details</router-link></button></td>
                 </tr>
             </table>
             <!--table for mission: quiz ends-->
@@ -178,7 +178,7 @@ export default {
         fetchMissions(){
             // console.log('entered')
             this.missionList = [];
-            axios.get('//54.255.245.23:3000/mission/getMissionQuiz')
+            axios.get('//54.255.245.23:3000/mission/getMissionQuizHistory')
             .then(response =>{
                 var data = response.data;
                 // console.log(data)
@@ -190,7 +190,7 @@ export default {
         },
 
         getMissionQuizQuestions(missionid, mission){
-            axios.get('//54.255.245.23:3000/quiz/getQuizQuestion?mission=' + missionid)
+            axios.get('//54.255.245.23:3000/quiz/getQuizQuestionHistory?mission=' + missionid)
                 .then(response =>{
                     // console.log(data[index].mission);
                     var data = response.data;

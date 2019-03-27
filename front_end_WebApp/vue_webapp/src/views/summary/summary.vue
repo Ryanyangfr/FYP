@@ -60,6 +60,29 @@ export default {
             this.$router.push('/')
         }
         
+        axios.get('//54.255.245.23:3000/summary/getSummaryReport')
+        .then(response => {
+            let data = response.data
+            console.log('response: ');
+            console.log(response);
+            let hotspots = []
+            let currTrailInstance = data[0].trailInstanceID;
+            let currDate = data[0].date;
+            let currParticipant = data[0].participants;
+            data.forEach((row) => {
+                let trailInstance = row.trailInstanceID;
+                if (trailInstance === currTrailInstance) {
+                    hotspots.push(row.hotspot);
+                } else {
+                    this.summaryList.push({date: currDate, trail_id: currTrailInstance, participants: currParticipant, hotspots})
+                    hotspots = [];
+                    currTrailInstance = row.trailInstanceID;
+                    currDate = row.date;
+                    currParticipant = row.participants;
+                }
+            });
+            this.summaryList.push({date: currDate, trail_id: currTrailInstance, participants: currParticipant, hotspots})
+        })
     }
 }
 </script>
