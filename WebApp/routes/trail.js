@@ -751,7 +751,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
                 const title = row.MISSION_TITLE;
 
                 missionHistoryID += 1;
-                insertMission(submissionHistoryInsertQuery, missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question);
+                insertMission(submissionHistoryInsertQuery, missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question, summaryID);
                 submissionID += 1;
                 summaryID += 1;
               });
