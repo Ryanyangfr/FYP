@@ -355,7 +355,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
               console.log(err);
             } else {
               const rows = result3;
-              console.log(rows[0])
+              // console.log(rows[0])
               // let currQuizID = result3[0].QUIZ_ID;
               let currMissionID = -1;
               let rowIndex = -1;
