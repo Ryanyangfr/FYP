@@ -724,7 +724,7 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
             const hotspot = row.HOTSPOT_NAME;
             const missionID = row.MISSION_ID;
             const title = row.MISSION_TITLE;
-            
+
             missionHistoryID += 1;
 
             conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
@@ -746,6 +746,63 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
                   }
                   drawingID += 1;
                   conn.query(drawingHistoryInsertQuery, [drawingID, question, missionHistoryID], (err,result4) => {
+                    if (err) {
+                      console.log(err);
+                    }
+                  })
+                });
+              }
+            })
+          })
+          duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID)
+        }
+      })
+    }
+  })
+}
+
+function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
+  const submissionQuestionQuery = 'SELECT QUESTION, MISSION.MISSION_ID, HOTSPOT_NAME, MISSION_TITLE FROM SUBMISSION_QUESTION, MISSION, TRAIL_HOTSPOT WHERE DRAWING_QUESTION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?)';
+  const numSubmissionQuery = 'SELECT COUNT(*) AS COUNT FROM SUBMISSION_QUESTION_HISTORY';
+  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
+  const submissionHistoryInsertQuery = 'INSERT INTO SUBMISSION_QUESTION_HISTORY VALUES (?,?,?)';
+
+  conn.query(numSubmissionQuery, (err,result1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let submissionID = result1[0].COUNT;
+      conn.query(submissionQuestionQuery, trailInstanceID, (err, result2) => {
+        if (err) {
+          console.log(err);
+        } else {
+          result2.forEach((row) => {
+            const question = row.QUESTION;
+            const hotspot = row.HOTSPOT_NAME;
+            const missionID = row.MISSION_ID;
+            const title = row.MISSION_TITLE;
+
+            missionHistoryID += 1;
+
+            conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+              if (err) {
+                console.log(err);
+              } else {
+                summaryID += 1;
+                console.log(`summary id: ${summaryID}`);
+                conn.query(summaryTableIDQuery, (err, result3) => {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    summaryID = result3[0].COUNT + 1;
+                    conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                    });
+                  }
+                  submissionID += 1;
+                  conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
                     if (err) {
                       console.log(err);
                     }
