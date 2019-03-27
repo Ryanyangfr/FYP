@@ -721,7 +721,10 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
         } else {
           result2.forEach((row) => {
             const question = row.QUESTION;
-
+            const hotspot = row.HOTSPOT_NAME;
+            const missionID = row.MISSION_ID;
+            const title = row.MISSION_TITLE;
+            
             missionHistoryID += 1;
 
             conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
