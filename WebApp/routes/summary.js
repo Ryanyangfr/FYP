@@ -16,6 +16,7 @@ router.get('/getSummaryReport', (req,res) => {
   conn.query(query, (err,data) => {
     if (err) {
       console.log(err);
+      res.send(response);
     } else {
       data.forEach((row) => {
         let trailInstanceID = row.TRAIL_INSTANCE_ID;
@@ -23,9 +24,14 @@ router.get('/getSummaryReport', (req,res) => {
         conn.query(getDateQuery, trailInstanceID, (err,data2) => {
           if (err) {
             console.log(err)
+            res.send(response);
           } else {
             let date = data2[0].DATE_STARTED;
             response.push({trailInstanceID, hotspot, date});
+            count += 1;
+            if(count === data.length){
+              res.send(response);
+            }
           }
         })
       })
