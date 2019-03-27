@@ -235,6 +235,17 @@ router.post('/initializeTrail', (req, res) => {
       });
     }
   });
+
+  const insertMissionHistoryQuery = 'INSERT INTO MISSION_HISTORY VALUES (?,?)';
+  conn.query('SELECT COUNT(*) AS COUNT FROM MISSION_HISTORY', (err, data1) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let missionID = data1[0].COUNT + 1;
+      duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery);
+    }
+  });
+
 });
 
 router.post('/startTrail', (req, res) => {
@@ -243,19 +254,7 @@ router.post('/startTrail', (req, res) => {
 
   const io = req.app.get('socketio');
 
-  const insertMissionHistoryQuery = 'INSERT INTO MISSION_HISTORY VALUES (?,?)';
-
   const query = 'UPDATE TRAIL_INSTANCE SET HASSTARTED = 1 WHERE TRAIL_INSTANCE_ID = ? AND TRAIL_ID = ?';
-
-  conn.query('SELECT COUNT(*) AS COUNT FROM MISSION_HISTORY', (err, data1) => {
-    if (err) {
-      console.log(err);
-    } else {
-      let missionID = data1[0].COUNT + 1;
-      missionID = duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery);
-    }
-  });
-
 
   conn.query(query, [trailInstanceID, trailID], (err, data) => {
     if (err) {
