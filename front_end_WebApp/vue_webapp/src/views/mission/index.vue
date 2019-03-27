@@ -1070,7 +1070,7 @@ export default {
     }
 
     .create-mission-btn{
-        background-color: #645cdd;;
+        background-color: #645cdd;
         border: none;
         border-radius: 5px;
         color: white;
