@@ -760,6 +760,7 @@ function summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
 }
 
 function submissionQuestionInsertion(submissionID, question, missionHistoryID) {
+  const submissionHistoryInsertQuery = 'INSERT INTO SUBMISSION_QUESTION_HISTORY VALUES (?,?,?)';
   conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
     if (err) {
       console.log(err);
