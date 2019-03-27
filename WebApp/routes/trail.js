@@ -743,7 +743,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
             if (err) {
               console.log(err);
             } else {
-              const summaryID = result3[0].COUNT + 1;
+              let summaryID = result3[0].COUNT + 1;
               result2.forEach((row) => {
                 const question = row.QUESTION;
                 const hotspot = row.HOTSPOT_NAME;
