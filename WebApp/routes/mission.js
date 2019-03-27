@@ -23,6 +23,23 @@ router.get('/getMissionQuiz', function(req,res){
     });
 });
 
+router.get('/getMissionQuizHistory', function(req,res){
+    var response = [];
+    const trailInstanceID = req.query.trailInstanceID;
+    // var hotspot = req.query.hotspot;
+    var query = 'SELECT * FROM MISSION_HISTORY,SUMMARY_TABLE WHERE MISSION.MISSION_ID IN (SELECT MISSION_ID FROM QUIZ_HISTORY) AND MISSION_HISTORY.ID = SUMMARY_TABLE.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
+    conn.query(query, trailInstanceID, function(err, data){
+        if(err){
+            console.log(err);
+        }else {
+            for(var index in data){
+                response.push({mission: data[index].MISSION_ID, title: data[index].MISSION_TITLE});
+            }
+            res.send(response);
+        }
+    });
+});
+
 router.get('/getMissionWefie', function(req,res){
     var response = [];
     // var hotspot = req.query.hotspot;
