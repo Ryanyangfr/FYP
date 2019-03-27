@@ -428,4 +428,36 @@ router.get('/getSubmissionQuestionHistory', (req, res) => {
   })
   
 });
+
+router.get('/getDrawingQuestionHistory', (req, res) => {
+  const trailInstanceID = req.query.trailInstanceID;
+  const response = [];
+  const getDrawingMissionQuery = 'SELECT SUMMARY_TABLE.MISSION_ID FROM SUMMARY_TABLE, DRAWING_QUESTION_HISTORY WHERE SUMMARY_TABLE.MISSION_ID = DRAWING_QUESTION_HISTORY.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
+  const query = 'SELECT * FROM DRAWING_QUESTION_HISTORY, MISSION_HISTORY WHERE MISSION_HISTORY.MISSION_ID = DRAWING_QUESTION_HISTORY.MISSION_ID AND MISSION_HISTORY.MISSION_ID = ?';
+
+  conn.query(getDrawingMissionQuery, trailInstanceID, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let count = 0;
+      data.forEach((row) => {
+        const mission = row.MISSION_ID;
+        conn.query(query, mission, (err, questions) => {
+          if (err) {
+            console.log(err);
+          } else {
+            questions.forEach((question) => {
+              response.push({ id: question.QUESTION_ID, question: question.QUESTION, mission: question.MISSION_ID, title: question.MISSION_TITLE});
+            });
+            count += 1;
+            if(count === data.length){
+              res.send(response);
+            }
+          }
+        });
+      })
+    }
+  })
+  
+});
 module.exports = router;
