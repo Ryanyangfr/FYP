@@ -611,6 +611,7 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
   const numWordSearchQuery = 'SELECT COUNT(*) AS COUNT FROM WORDSEARCH_HISTORY';
   const wordSearchHistoryInsertQuery = 'INSERT INTO WORDSEARCH_HISTORY VALUES (?,?)';
   const wordSearchWordHistoryInsertQuery = 'INSERT INTO WORDSEARCH_WORD_HISTORY VALUES (?,?)';
+  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
 
   conn.query(numWordSearchQuery, (err, result1) => {
     if (err) {
