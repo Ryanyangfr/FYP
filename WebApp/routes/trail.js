@@ -709,7 +709,6 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
   const numDrawingQuery = 'SELECT COUNT(*) AS COUNT FROM DRAWING_QUESTION_HISTORY';
   const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
   const drawingHistoryInsertQuery = 'INSERT INTO DRAWING_QUESTION_HISTORY VALUES (?,?,?)';
-  const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
 
   conn.query(numDrawingQuery, (err,result1) => {
     if (err) {
