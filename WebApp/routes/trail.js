@@ -546,60 +546,59 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
               const option4 = result3[rowIndex+3].DRAGANDDROP_QUESTION_OPTION;
               const answer4 = result3[rowIndex+3].DRAGANDDROP_QUESTION_ANSWER;
 
-              if (currMissionID != missionID) {
-                missionHistoryID += 1;
+              missionHistoryID += 1;
 
-                conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
-                  if (err) {
-                    console.log(err);
-                  } else {
-                    summaryID += 1;
-                    console.log(`summary id: ${summaryID}`);
-                    conn.query(summaryTableIDQuery, (err, result3) => {
-                      if (err) {
-                        console.log(err);
-                      } else {
-                        summaryID = result3[0].COUNT + 1;
-                        conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
-                          if (err) {
-                            console.log(err);
-                          }
-                        });
-                      }
-                    });
-                    dragAndDropHistoryID += 1;
-                    conn.query(dragAndDropHistoryInsertQuery, [dragAndDropHistoryID, question, missionHistoryID], (err,data) => {
-                      if (err) {
-                        console.log(err);
-                      } else {
-                        conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option1, answer1], (err,data) => {
-                          if (err) {
-                            console.log(err);
-                          } 
-                        });
+              conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  summaryID += 1;
+                  console.log(`summary id: ${summaryID}`);
+                  conn.query(summaryTableIDQuery, (err, result3) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      summaryID = result3[0].COUNT + 1;
+                      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionID], (err, result4) => {
+                        if (err) {
+                          console.log(err);
+                        }
+                      });
+                    }
+                  });
+                  dragAndDropHistoryID += 1;
+                  conn.query(dragAndDropHistoryInsertQuery, [dragAndDropHistoryID, question, missionHistoryID], (err,data) => {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option1, answer1], (err,data) => {
+                        if (err) {
+                          console.log(err);
+                        } 
+                      });
 
-                        conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option2, answer2], (err,data) => {
-                          if (err) {
-                            console.log(err);
-                          } 
-                        });
+                      conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option2, answer2], (err,data) => {
+                        if (err) {
+                          console.log(err);
+                        } 
+                      });
 
-                        conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option3, answer3], (err,data) => {
-                          if (err) {
-                            console.log(err);
-                          } 
-                        });
+                      conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option3, answer3], (err,data) => {
+                        if (err) {
+                          console.log(err);
+                        } 
+                      });
 
-                        conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option4, answer4], (err,data) => {
-                          if (err) {
-                            console.log(err);
-                          } 
-                        });
-                      }
-                    });
-                  }
-                });
-              }
+                      conn.query(dragAndDropOptionHistoryInsertQuery, [dragAndDropHistoryID, option4, answer4], (err,data) => {
+                        if (err) {
+                          console.log(err);
+                        } 
+                      });
+                    }
+                  });
+                }
+              });
+              
             }
           });
         }
