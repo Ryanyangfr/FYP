@@ -740,11 +740,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
                     summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
                   }
                   submissionID += 1;
-                  conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
-                    if (err) {
-                      console.log(err);
-                    }
-                  })
+                  submissionQuestionInsertion(submissionID, question, missionHistoryID)
                 });
               }
             })
@@ -761,6 +757,14 @@ function summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
       console.log(err);
     }
   });
+}
+
+function submissionQuestionInsertion(submissionID, question, missionHistoryID) {
+  conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
+    if (err) {
+      console.log(err);
+    }
+  })
 }
 
 module.exports = router;
