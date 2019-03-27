@@ -768,7 +768,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
                     if (err) {
                       console.log(err);
                     }
-                  })
+                  });
                 });
               }
             })
