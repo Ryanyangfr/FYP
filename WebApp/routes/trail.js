@@ -513,7 +513,6 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
 function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
   const draganddropQuery = ' SELECT DRAG_AND_DROP.DRAGANDDROP_ID, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER, DRAG_AND_DROP.MISSION_ID, MISSION_TITLE, HOTSPOT_NAME FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION, TRAIL_HOTSPOT, MISSION WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TRAIL_HOTSPOT.MISSION_ID = DRAG_AND_DROP.MISSION_ID AND TRAIL_HOTSPOT.MISSION_ID = MISSION.MISSION_ID AND DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID';
   const numDragAndDropQuery = 'SELECT COUNT(*) AS COUNT FROM DRAG_AND_DROP_HISTORY';
-  const numDragAndDropOptionQuery = 'SELECT COUNT(*) AS COUNT FROM DRAG_AND_DROP_OPTION_HISTORY';
   const dragAndDropHistoryInsertQuery = 'INSERT INTO DRAG_AND_DROP_HISTORY VALUES (?,?,?)';
   const dragAndDropOptionHistoryInsertQuery = 'INSERT INTO DRAG_AND_DROP_OPTION VALUES (?,?,?)';
   const summaryTableIDQuery = 'SELECT COUNT(*) AS COUNT FROM SUMMARY_TABLE';
@@ -538,14 +537,14 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
               const missionID = row.MISSION_ID;
               const title = row.MISSION_TITLE;
               const question = row.DRAGANDDROP_QUESTION;
-              const option1 = result3[index].DRAGDNDDROP_QUESTION_OPTION;
-              const answer1 = result3[index].DRAGANDDROP_QUESTION_ANSWER;
-              const option2 = result3[index+1].DRAGDNDDROP_QUESTION_OPTION;
-              const answer2 = result3[index+1].DRAGANDDROP_QUESTION_ANSWER;
-              const option3 = result3[index+2].DRAGDNDDROP_QUESTION_OPTION;
-              const answer3 = result3[index+2].DRAGANDDROP_QUESTION_ANSWER;
-              const option4 = result3[index+3].DRAGDNDDROP_QUESTION_OPTION;
-              const answer5 = result3[index+3].DRAGANDDROP_QUESTION_ANSWER;
+              const option1 = result3[rowIndex].DRAGDNDDROP_QUESTION_OPTION;
+              const answer1 = result3[rowIndex].DRAGANDDROP_QUESTION_ANSWER;
+              const option2 = result3[rowIndex+1].DRAGDNDDROP_QUESTION_OPTION;
+              const answer2 = result3[rowIndex+1].DRAGANDDROP_QUESTION_ANSWER;
+              const option3 = result3[rowIndex+2].DRAGDNDDROP_QUESTION_OPTION;
+              const answer3 = result3[rowIndex+2].DRAGANDDROP_QUESTION_ANSWER;
+              const option4 = result3[rowIndex+3].DRAGDNDDROP_QUESTION_OPTION;
+              const answer4 = result3[rowIndex+3].DRAGANDDROP_QUESTION_ANSWER;
 
               if (currMissionID != missionID) {
                 missionHistoryID += 1;
