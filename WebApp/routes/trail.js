@@ -413,7 +413,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                               if (err) {
                                 console.log(err);
                               } else {
-                                console.log(`1: ${quizOption}`);
+                                console.log(`1: ${quizOption1}`);
                               }
                             });
 
@@ -422,7 +422,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                               if (err) {
                                 console.log(err);
                               } else {
-                                console.log(`1: ${quizOption}`);
+                                console.log(`2: ${quizOption2}`);
                               }
                             });
 
@@ -431,7 +431,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                               if (err) {
                                 console.log(err);
                               } else {
-                                console.log(`1: ${quizOption}`);
+                                console.log(`3: ${quizOption3}`);
                               }
                             });
 
@@ -440,7 +440,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                               if (err) {
                                 console.log(err);
                               } else {
-                                console.log(`1: ${quizOption}`);
+                                console.log(`4: ${quizOption4}`);
                               }
                             });
 
