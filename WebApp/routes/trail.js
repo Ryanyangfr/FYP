@@ -204,7 +204,7 @@ router.post('/initializeTrail', (req, res) => {
                 console.log(err);
                 hasErr = true;
                 res.send(JSON.stringify({ success: 'false' }));
-              } else if (teamID === numTeams-1) {
+              } else if (teamID === numTeams - 1) {
                 // res.send(JSON.stringify({ success: 'true' }));
               }
             });
@@ -219,11 +219,11 @@ router.post('/initializeTrail', (req, res) => {
               console.log(err);
             } else {
               hotspots.forEach((hotspot) => {
-                for (let teamID=0; teamID<numTeams; teamID++) {
-                  conn.query(updateTeamHotspotStatusQuery, [hotspot.HOTSPOT_NAME, trailInstanceID, teamID+1, 0, null], (err, data) => {
+                for (let teamID = 0; teamID < numTeams; teamID++) {
+                  conn.query(updateTeamHotspotStatusQuery, [hotspot.HOTSPOT_NAME, trailInstanceID, teamID + 1, 0, null], (err, data) => {
                     if (err) {
                       console.log(err);
-                    } else if(hotspot.HOTSPOT_NAME === hotspots[hotspots.length-1].HOTSPOT_NAME && teamID === numTeams-1 && hasErr != true) {
+                    } else if(hotspot.HOTSPOT_NAME === hotspots[hotspots.length - 1].HOTSPOT_NAME && teamID === numTeams - 1 && hasErr != true) {
                       res.send(JSON.stringify({ success: 'true' }));
                     }
                   });
@@ -319,7 +319,7 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
                 console.log(data2.length);
                 console.log(numberOfiterations);
                 if (numberOfiterations === data2.length) {
-                  duplicateQuiz(trailInstanceID, missionID, insertMissionHistoryQuery, summaryID+1);
+                  duplicateQuiz(trailInstanceID, missionID, insertMissionHistoryQuery, summaryID + 1);
                 }
               }
             });
@@ -355,7 +355,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
               console.log(err);
             } else {
               const rows = result3;
-              console.log(rows)
+              console.log(rows[0])
               // let currQuizID = result3[0].QUIZ_ID;
               let currMissionID = -1;
               let rowIndex = -1;
@@ -403,6 +403,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                             console.log(err);
                           } else {
                             numQuizOption += 1;
+                            console.log(rowIndex);
                             conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, rows[rowIndex].QUIZ_OPTION], (err, results6) => {
                               if (err) {
                                 console.log(err);
@@ -412,7 +413,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                             });
 
                             numQuizOption += 1;
-                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, rows[rowIndex+1].QUIZ_OPTION], (err, results6) => {
+                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, rows[rowIndex + 1].QUIZ_OPTION], (err, results6) => {
                               if (err) {
                                 console.log(err);
                               } else {
@@ -421,7 +422,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                             });
 
                             numQuizOption += 1;
-                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, rows[rowIndex+2].QUIZ_OPTION], (err, results6) => {
+                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, rows[rowIndex + 2].QUIZ_OPTION], (err, results6) => {
                               if (err) {
                                 console.log(err);
                               } else {
@@ -430,7 +431,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                             });
 
                             numQuizOption += 1;
-                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, rows[rowIndex+3].QUIZ_OPTION], (err, results6) => {
+                            conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, rows[rowIndex + 3].QUIZ_OPTION], (err, results6) => {
                               if (err) {
                                 console.log(err);
                               } else {
