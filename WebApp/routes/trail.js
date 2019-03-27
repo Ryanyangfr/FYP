@@ -242,7 +242,7 @@ router.post('/initializeTrail', (req, res) => {
       console.log(err);
     } else {
       console.log(`trailInstanceID: ${trailInstanceID}`);
-      let missionID = data1[0].COUNT + 1;
+      let missionID = data1[0].COUNT;
       duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery);
     }
   });
@@ -289,6 +289,8 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
         } else {
           if (data2.length === 0) {
             duplicateQuiz(trailInstanceID, missionID, insertMissionHistoryQuery, summaryID + 1);
+          } else {
+            missionID += 1;
           }
           data2.forEach((row) => {
             numberOfiterations += 1;
