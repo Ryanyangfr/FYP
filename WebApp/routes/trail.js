@@ -746,7 +746,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
             const title = row.MISSION_TITLE;
 
             missionHistoryID += 1;
-            insertMission(missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question);
+            insertMission(submissionHistoryInsertQuery, missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question);
             submissionID += 1
           })
         }
@@ -763,7 +763,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
 //   });
 // }
 
-function insertMission(missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question) {
+function insertMission(submissionHistoryInsertQuery, missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question) {
   conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
     if (err) {
       console.log(err);
