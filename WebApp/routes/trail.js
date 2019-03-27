@@ -391,7 +391,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                         console.log(err);
                       } else {
                         summaryID += 1;
-                        console.log(`summary id: ${summaryID}`);
+                        console.log(`summary id1: ${summaryID}`);
                         conn.query(summaryTableIDQuery, (err, result3) => {
                           if (err) {
                             console.log(err);
@@ -517,7 +517,7 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
                   console.log(err);
                 } else {
                   summaryID += 1;
-                  console.log(`summary id: ${summaryID}`);
+                  console.log(`summary id2: ${summaryID}`);
                   conn.query(summaryTableIDQuery, (err, result3) => {
                     if (err) {
                       console.log(err);
@@ -608,7 +608,7 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
                   console.log(err);
                 } else {
                   summaryID += 1;
-                  console.log(`summary id: ${summaryID}`);
+                  console.log(`summary id3: ${summaryID}`);
                   conn.query(summaryTableIDQuery, (err, result3) => {
                     if (err) {
                       console.log(err);
@@ -696,7 +696,7 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
                 console.log(err);
               } else {
                 summaryID += 1;
-                console.log(`summary id: ${summaryID}`);
+                console.log(`summary id4: ${summaryID}`);
                 conn.query(summaryTableIDQuery, (err, result3) => {
                   if (err) {
                     console.log(err);
@@ -753,7 +753,7 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
                 console.log(err);
               } else {
                 summaryID += 1;
-                console.log(`summary id: ${summaryID}`);
+                console.log(`summary id5: ${summaryID}`);
                 conn.query(summaryTableIDQuery, (err, result3) => {
                   if (err) {
                     console.log(err);
