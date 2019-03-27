@@ -407,6 +407,8 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                       conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption], (err, results6) => {
                         if (err) {
                           console.log(err);
+                        } else {
+                          console.log(`2: ${quizOption}`);
                         }
                       });
 
@@ -426,7 +428,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                         if (err) {
                           console.log(err);
                         } else {
-                          console.log(`2: ${quizOption}`);
+                          console.log(`3: ${quizOption}`);
                         }
                       });
 
@@ -439,7 +441,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                     if (err) {
                       console.log(err);
                     } else {
-                      console.log(`3: ${quizOption}`);
+                      console.log(`4: ${quizOption}`);
                     }
                   });
 
