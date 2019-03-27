@@ -22,6 +22,7 @@ const mission = require('./routes/mission.js');
 const wordSearch = require('./routes/wordSearch.js');
 const trail = require('./routes/trail.js');
 const notification = require('./routes/notification.js');
+const summary = require('./routes/summary.js');
 
 
 // io.on('connection', function(socket){
@@ -62,5 +63,6 @@ app.use('/mission', mission);
 app.use('/wordsearch', wordSearch);
 app.use('/trail', trail);
 app.use('/notification', notification);
+app.use('/summary', summary);
 
 module.exports = app;
