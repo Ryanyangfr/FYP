@@ -105,6 +105,10 @@ router.get('/getDragAndDropHistory', (req,res) => {
       console.log(err);
       return;
     }
+    if (data.length === 0) {
+      res.send(response);
+      return;
+    }
     options = [];
     currentQuestion = data[0].DRAGANDDROP_QUESTION;
     currentTitle = data[0].MISSION_TITLE;
