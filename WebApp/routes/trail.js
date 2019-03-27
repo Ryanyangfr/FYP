@@ -449,6 +449,51 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                       }
 
                     });
+                  } else {
+                    numQuiz += 1;
+                    conn.query(quizQuestionHistoryInsertQuery, [numQuiz, quizQuestion, quizAnswer, missionHistoryID], (err, result5) => {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        numQuizOption += 1;
+                        console.log(`row index: ${rowIndex}`);
+                        conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption1], (err, results6) => {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            console.log(`1: ${quizOption1}`);
+                          }
+                        });
+
+                        numQuizOption += 1;
+                        conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption2], (err, results6) => {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            console.log(`2: ${quizOption2}`);
+                          }
+                        });
+
+                        numQuizOption += 1;
+                        conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption3], (err, results6) => {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            console.log(`3: ${quizOption3}`);
+                          }
+                        });
+
+                        numQuizOption += 1;
+                        conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption4], (err, results6) => {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            console.log(`4: ${quizOption4}`);
+                          }
+                        });
+
+                      }
+                    });
                   }
                 }
               });
