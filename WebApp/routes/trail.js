@@ -697,22 +697,10 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
             const title = row.MISSION_TITLE;
 
             missionHistoryID += 1;
+            summaryID += 1;
 
-            conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
-              if (err) {
-                console.log(err);
-              } else {
-                summaryID += 1;
-                summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
-
-                submissionID += 1;
-                conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
-                  if (err) {
-                    console.log(err);
-                  }
-                });
-              }
-            });
+            submissionInsertion(insertMissionHistoryQuery, missionHistoryID, title, summaryID, trailInstanceID, hotspot, submissionHistoryInsertQuery, submissionID, question);
+            
           });
         }
       });
@@ -728,4 +716,21 @@ function summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID)
   });
 }
 
+function submissionInsertion(insertMissionHistoryQuery, missionHistoryID, title, summaryID, trailInstanceID, hotspot, submissionHistoryInsertQuery, submissionID, question) {
+  conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
+    if (err) {
+      console.log(err);
+    } else {
+      
+      summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
+
+      submissionID += 1;
+      conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    }
+  });
+}
 module.exports = router;
