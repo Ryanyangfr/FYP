@@ -405,11 +405,13 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                         // console.log(`curr quiz id: ${currQuizID}`);
                         numQuiz += 1;
                         addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
+                        numQuizOption += 4;
                       }
                     });
                   } else {
                     numQuiz += 1;
-                    addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID)
+                    addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
+                    numQuizOption += 4;
                   }
                 }
               });
