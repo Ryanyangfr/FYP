@@ -287,6 +287,9 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
         if (err) {
           console.log(err);
         } else {
+          if (data2.length === 0) {
+            duplicateQuiz(trailInstanceID, missionID, insertMissionHistoryQuery, summaryID + 1);
+          }
           data2.forEach((row) => {
             numberOfiterations += 1;
             const hotspot = row.HOTSPOT_NAME;
@@ -351,6 +354,9 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
             if (err) {
               console.log(err);
             } else {
+              if (result3.length === 0) {
+                duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
+              }
               const rows = result3;
               // console.log(rows[0])
               // let currQuizID = result3[0].QUIZ_ID;
