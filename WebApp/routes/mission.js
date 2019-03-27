@@ -35,6 +35,7 @@ router.get('/getMissionQuizHistory', function(req,res){
             for(var index in data){
                 response.push({mission: data[index].MISSION_ID, title: data[index].MISSION_TITLE});
             }
+            console.log(response);
             res.send(response);
         }
     });
