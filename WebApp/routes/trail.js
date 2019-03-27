@@ -711,16 +711,16 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
                     if (err) {
                       console.log(err);
                     }
-                  })
+                  });
                 });
               }
-            })
-          })
-          duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID)
+            });
+          });
+          duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
         }
-      })
+      });
     }
-  })
+  });
 }
 
 function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID) {
@@ -739,20 +739,28 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
           console.log(err);
         } else {
           let counter = 0;
-          result2.forEach((row) => {
-            const question = row.QUESTION;
-            const hotspot = row.HOTSPOT_NAME;
-            const missionID = row.MISSION_ID;
-            const title = row.MISSION_TITLE;
+          conn.query(summaryTableIDQuery, (err, result3) => {
+            if (err) {
+              console.log(err);
+            } else {
+              const summaryID = result3[0].COUNT + 1;
+              result2.forEach((row) => {
+                const question = row.QUESTION;
+                const hotspot = row.HOTSPOT_NAME;
+                const missionID = row.MISSION_ID;
+                const title = row.MISSION_TITLE;
 
-            missionHistoryID += 1;
-            insertMission(submissionHistoryInsertQuery, missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question);
-            submissionID += 1
-          })
+                missionHistoryID += 1;
+                insertMission(submissionHistoryInsertQuery, missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question);
+                submissionID += 1;
+                summaryID += 1;
+              });
+            }
+          });
         }
-      })
+      });
     }
-  })
+  });
 }
 
 // function summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID) {
@@ -763,32 +771,23 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
 //   });
 // }
 
-function insertMission(submissionHistoryInsertQuery, missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question) {
+function insertMission(submissionHistoryInsertQuery, missionHistoryID, title, insertMissionHistoryQuery, summaryTableIDQuery, trailInstanceID, hotspot, submissionID, question, summaryID) {
   conn.query(insertMissionHistoryQuery, [missionHistoryID, title], (err, result4) => {
     if (err) {
       console.log(err);
     } else {
-        
-      conn.query(summaryTableIDQuery, (err, result3) => {
+      conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
         if (err) {
           console.log(err);
-        } else {
-          const summaryID = result3[0].COUNT + 1;
-          console.log(`summary id5: ${summaryID}`);
-          conn.query('INSERT INTO SUMMARY_TABLE VALUES (?,?,?,?)', [summaryID, trailInstanceID, hotspot, missionHistoryID], (err, result4) => {
-            if (err) {
-              console.log(err);
-            }
-          });
         }
-        submissionID += 1;
-        conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
-          if (err) {
-            console.log(err);
-          }
-        });
+      });
+      submissionID += 1;
+      conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
+        if (err) {
+          console.log(err);
+        }
       });
     }
-  })
+  });
 }
 module.exports = router;
