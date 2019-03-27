@@ -362,6 +362,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
 
               result3.forEach((row) => {
                 rowIndex += 1;
+                console.log(`row index top: ${rowIndex}`)
                 if (rowIndex % 4 == 0) {
                   // console.log(row);
                   const hotspot = row.HOTSPOT_NAME;
