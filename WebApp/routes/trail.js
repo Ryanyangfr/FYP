@@ -738,14 +738,14 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
                     const summaryID = result3[0].COUNT + 1;
                     console.log(`summary id5: ${summaryID}`);
                     summaryInsertion(summaryID, trailInstanceID, hotspot, missionHistoryID);
+                    submissionID += 1;
+                    conn.query(submissionHistoryInsertQuery, [submissionID, question, missionHistoryID], (err,result4) => {
+                      if (err) {
+                        console.log(err);
+                      }
+                    });
                   }
-                  conn.query(submissionHistoryInsertQuery, [submissionID+1, question, missionHistoryID], (err,result4) => {
-                    if (err) {
-                      console.log(err);
-                    } else {
-                      submissionID += 1;
-                    }
-                  })
+                  
                 });
               }
             })
