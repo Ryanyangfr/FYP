@@ -315,7 +315,7 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
                     });
                   }
                 });
-                missionID += 1;
+                // missionID += 1;
                 console.log(data2.length);
                 console.log(numberOfiterations);
                 if (numberOfiterations === data2.length) {
