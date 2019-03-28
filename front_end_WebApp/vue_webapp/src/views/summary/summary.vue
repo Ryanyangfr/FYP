@@ -13,7 +13,7 @@
                     <td>Missions Completed</td>                 
                 </tr>
 
-                <tr class = "summary-data" v-for="summary in summaryList" :key="summary.date">
+                <tr class = "summary-data" v-for="summary in summaryList" :key="summary.trail_id">
                     <td>{{summary.date}}</td>
                     <td>{{summary.trail_id}}</td>
                     <td>{{summary.participants}}</td>
