@@ -35,7 +35,7 @@ export default {
     name: "summaryReport",
     data() {
         return{
-            summaryList: [{date:"11/05/2019", trail_id:"658335", participants: 26, hotspots: ["ryan's house", "thian's house", "rydora's house"]}]
+            summaryList: []
         }
     },
     components:{
