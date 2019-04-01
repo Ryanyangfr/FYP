@@ -84,6 +84,7 @@ export default {
                 let data = response.data;
                 if (data.success === 'true') {
                     alert('Notification successfully sent');
+                    this.message = "";
                 } else {
                     alert('Please try again');
                 }
@@ -358,7 +359,7 @@ export default {
         height: 79%;
         /* background-color: pink; */
         margin-top: 25px;
-        overflow: auto;
+        /* overflow: auto; */
     }
 
     .activity-feed-area .activity-feed{
@@ -366,9 +367,9 @@ export default {
         flex-direction: column;
     }
 
-    .meow {
+    .activity-feed-scroll {
         overflow-y: auto;
-        height: 100%
+        height: 91%
     }
 
     .activity-feed .card{

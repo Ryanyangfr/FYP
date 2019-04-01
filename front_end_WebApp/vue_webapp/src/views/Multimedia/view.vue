@@ -349,6 +349,7 @@ export default{
     @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Lato|Permanent+Marker");
     @import '../../assets/themify-icons.css';
 
+
     .search-bar{
         top: 130px;
         display: flex;
@@ -414,7 +415,7 @@ export default{
         margin-left: 18px;
         margin-top: 200px;
         position: relative;
-        
+        overflow-y: auto;
         /*background-color: pink;*/
     }
 

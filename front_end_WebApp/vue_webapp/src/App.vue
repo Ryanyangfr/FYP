@@ -72,8 +72,7 @@ body{
   margin:auto;
 }
 
-.main-horizontal-wrapper .mainHeader,
-.main-horizontal-wrapper .main-header-btm{
+.main-horizontal-wrapper .mainHeader{
   padding-left: 0px;
   padding-right: 0px;
 
@@ -86,11 +85,6 @@ body{
   top: 0;
   left: 0;
   z-index:3;
-}
-
-.main-header-btm{
-  margin: auto;
-  height:100%
 }
 
 .Navigate{

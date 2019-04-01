@@ -46,7 +46,7 @@
                 </div>
                 <button class="add-new-details-btn" type="button" @click="addRow">ADD HOTSPOT, NARRATIVE AND MISSION</button>
                 <div class="submit-btn-area">
-                    <button class="cancel-btn" type="button"><router-link to='/trail'>Cancel</router-link></button>
+                    <router-link to='/trail'><button class="cancel-btn" type="button">Cancel</button></router-link>
                     <button class="submit-btn" type="submit">Create</button>
                 </div>
             </form>
