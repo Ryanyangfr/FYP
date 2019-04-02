@@ -160,6 +160,31 @@ router.post('/editTrail', (req, res) => {
   });
 });
 
+router.post('/deleteTrail', (req, res) => {
+  console.log(req.body);
+  const trailID = req.body.trailID;
+
+  let rowCount = 0;
+  const deleteTrailQuery = 'DELETE FROM TRAIL_HOTSPOT WHERE TRAIL_ID = ?';
+
+  conn.query(deleteTrailQuery, trailID, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({ success: 'false' }));
+    } else {
+      const trailHotspotDeleteQuery = 'DELETE FROM TRAIL WHERE TRAIL_ID = ?';
+      conn.query(trailHotspotDeleteQuery, trailID, (err, reply) => {
+        if (err) {
+          console.log(err);
+          res.send(JSON.stringify({ success: 'false' }));
+        } else {
+          res.send(JSON.stringify({ success: 'true' }));
+        }
+      });
+    }
+  });
+});
+
 router.post('/initializeTrail', (req, res) => {
   const trailID = req.body.trailID;
   const trailInstanceID = req.body.trailInstanceID;
