@@ -15,10 +15,8 @@
         </div>
         
         <transition name="slide">
-            
             <div class="sideBar" v-if="show">
                 <ul>
-                    
                     <div class="setup-header"><li>Setup</li></div>
                     <li @click="showOrHide()"><router-link to='/viewHotspots'><i class="ti-pin"></i>Location</router-link></li>
                     <li @click="showOrHide()"><router-link to='/viewNarrative'><i class="ti-book"></i>Narrative</router-link></li>
@@ -30,9 +28,10 @@
                     <li @click="showOrHide()"><router-link to="/map"><i class="ti-map"></i> Map</router-link></li>
                     <li @click="showOrHide()"><router-link to="/leaderboard"><i class="ti-cup"></i>Leaderboard</router-link></li>
                     <li @click="showOrHide()"><router-link to='/viewSubmissions'><i class="ti-gallery"></i>Submissions</router-link></li>
+
                     <!-- <li @click="showOrHide()"><router-link to='/notification'><i class="ti-bell"></i>Notification</router-link></li> -->
-                
                 </ul>
+                
             </div>
         </transition>
 
@@ -62,6 +61,8 @@ export default{
     
     methods:{
         showOrHide(){
+            console.log("ryan")
+            console.log(this.$store.state.showSidebar)
             if(this.$store.state.showSidebar){
                 // this.$store.state.showSidebar = false;
                 this.show= false;
@@ -73,6 +74,7 @@ export default{
             }
 
             this.$store.commit('changeSideBarState')
+            console.log("MEOW");
             console.log(this.$store.state.showSidebar);
 
         },
@@ -83,6 +85,16 @@ export default{
             this.$store.commit('resetSideBar');
             this.show= false;
         }
+    }, 
+
+    mounted(){
+        if (!this.$session.exists()) {
+            console.log("check")
+            this.$router.push('/')
+        }
+
+        this.show = this.$store.state.showSidebar;
+        
     }
   
 }
@@ -96,13 +108,12 @@ export default{
         position: absolute;
         background-color: white;
         width: 15%;
-        /* border-right: 1px solid #e6e6e6; */
-        min-height: calc(100% - 65px);
+        height: calc(100% - 65px);
         z-index: 1;
         position:fixed;
         overflow-x: hidden;
+        overflow-y: auto;
         box-shadow: 0 0 2px #e5e5e5;
-        padding-bottom: 10px
         /* background-color: pink */
     }
 
@@ -138,6 +149,11 @@ export default{
         flex-direction: column;
         padding-left: 0px;
     }
+/* 
+    .sidebar-scroll{
+        overflow-y: auto;
+        height: 100%;
+    } */
 
     .sideBar .setup-header{
         font-size: 14px;

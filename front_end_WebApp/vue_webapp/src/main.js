@@ -31,15 +31,6 @@ Vue.use(VueMaterial)
 Vue.config.productionTip = false
 Vue.use(BootstrapVue);
 Vue.use(VueSession);
-// Vue.use(VueSocketio, '//54.255.245.23:3000/');
-/* eslint-disable no-new */
-
-// Vue.use(VueGoogleMaps, {
-//   load: {
-//     key: 'AIzaSyAxCjFVo3ywy2FtsAHCXzz_4UJ5YS0fB9w',
-//     libraries: 'places'
-//   },
-// })
 
 new Vue({
   el: '#app',

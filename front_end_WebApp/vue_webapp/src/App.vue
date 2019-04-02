@@ -50,6 +50,16 @@ export default {
 </script>
 
 <style>
+    ::-webkit-scrollbar {
+        width: 8px;
+        background-color: #F5F5F5;
+
+    }
+
+    ::-webkit-scrollbar-thumb{
+        background-color: #d2d5d8;
+    }
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

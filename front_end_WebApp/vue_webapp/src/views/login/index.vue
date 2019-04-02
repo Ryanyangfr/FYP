@@ -53,6 +53,12 @@ export default {
           }
       }
   },
+  computed: {
+        showSidebar(){
+            return this.$store.state.showSidebar;
+            console.log($store.state.showSidebar);
+        }
+  }, 
   methods: {
     login_check() {
         const baseURI = '//54.255.245.23:3000/user/getPassword?username=' + this.user.username
@@ -68,6 +74,7 @@ export default {
                 this.$session.start()
                 this.$session.set('jwt', response.data.token)
                 this.$router.push({ path: this.redirect || '/landing' })
+                this.$store.commit('changeSideBarState')
               } else{
                 alert('Wrong Username or Password, please try again')
               }

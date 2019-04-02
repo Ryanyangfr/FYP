@@ -142,7 +142,9 @@ export default {
                     position: {lat:marker.lat, lng:marker.lng},
                     map: this.map,
                     title: 'team ' + marker.team,
-                    icon: 'http://maps.google.com/mapfiles/kml/paddle/'+marker.team+'.png'
+                    icon: 'http://maps.google.com/mapfiles/kml/paddle/'+marker.team+'.png',
+                    // icon: '../../assets/marker.jpg',
+                    // label: ""+marker.team
                 });
 
                 google.maps.event.addListener(team_marker, 'click', function() {
@@ -193,7 +195,9 @@ export default {
                 position: {lat:parseFloat(lat), lng:parseFloat(long)},
                 map: this.map,
                 title: 'team ' + teamID,
-                icon: 'http://maps.google.com/mapfiles/kml/paddle/'+teamID+'.png'
+                icon: 'http://maps.google.com/mapfiles/kml/paddle/'+teamID+'.png',
+                // icon: '../../assets/marker.jpg',
+                // label: ""+teamID
             })
 
             google.maps.event.addListener(team_marker, 'click', () => {
