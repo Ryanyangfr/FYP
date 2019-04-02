@@ -248,15 +248,16 @@ export default {
 
         onSubmitToDeleteTrail(){
             var postBody = {
-                "id": this.curr_trail_id
+                "trailID": this.curr_trail_id
             }
             
-            axios.post('//54.255.245.23:3000/delete/deleteTrail', postBody)
+            axios.post('//54.255.245.23:3000/trail/deleteTrail', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
                 if (data.success === "true") {
                     this.trailDeleteMessage ="Trail Successfully Deleted"
+                    this.trailCloseDeleteMessage()
                     // this.$router.go();
                 } else {
                     this.trailDeleteMessage = "Error Please Try Again";
