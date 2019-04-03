@@ -73,7 +73,7 @@ export default {
 
         getQuizOptions(quiz_question, quiz_id, quiz_answer){
             console.log('quiz id: ' + quiz_id)
-             axios.get('//127.0.0.1:3000/quiz/getQuizOptionsHistory?quizID=' + quiz_id)
+             axios.get('//54.255.245.23:3000/quiz/getQuizOptionsHistory?quizID=' + quiz_id)
             .then(response =>{
                 var data = response.data;
                 this.quiz.push({quiz_id:quiz_id, quiz_question:quiz_question, quiz_answer:quiz_answer, options: data})
@@ -90,7 +90,7 @@ export default {
             this.$router.push('/')
         }
         // console.log('selectedQuizID: ' + this.$store.state.selectedQuizID)
-        axios.get('//127.0.0.1:3000/quiz/getQuizQuestionHistory?mission=' + this.$store.state.selectedQuizID)
+        axios.get('//54.255.245.23:3000/quiz/getQuizQuestionHistory?mission=' + this.$store.state.selectedQuizID)
         .then(response =>{
             var data = response.data;
             console.log('data: ')

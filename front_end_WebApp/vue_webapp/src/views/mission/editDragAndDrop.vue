@@ -93,7 +93,7 @@ export default {
 
         console.log(postBody);
 
-        axios.post('//127.0.0.1:3000/edit/editDragAndDrop', postBody)
+        axios.post('//54.255.245.23:3000/edit/editDragAndDrop', postBody)
         .then(response => {
             let data = response.data
             console.log(data)
@@ -120,7 +120,7 @@ export default {
       console.log(this.draganddrop_missionID);
 
 
-      axios.get('//127.0.0.1:3000/draganddrop/getDragAndDropByMission?missionID=' + this.draganddrop_missionID)
+      axios.get('//54.255.245.23:3000/draganddrop/getDragAndDropByMission?missionID=' + this.draganddrop_missionID)
       .then(response =>{
           var data = response.data;
           console.log(data)
