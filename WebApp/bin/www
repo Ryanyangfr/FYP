@@ -28,8 +28,9 @@ server.listen(port);
 server.on('error', onError);
 // server.on('listening', onListening);
 
-let io = require('socket.io').listen(server);
-io.set('origins','https://www.amazingtrail.ml/api')
+let io = require('socket.io')(server);
+
+io.set('origins','https://www.amazingtrail.ml/api:*');
 io.sockets.on('connection', (socket) => {
   // socket.emit('connect', {test:'trolololol'});
   // io.emit('connect', {test:'trolololol'});
