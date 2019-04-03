@@ -29,7 +29,7 @@ server.on('error', onError);
 // server.on('listening', onListening);
 
 let io = require('socket.io').listen(server);
-io.origins('13.228.173.165:3000')
+io.origins('http://13.228.173.165:3000')
 io.sockets.on('connection', (socket) => {
   // socket.emit('connect', {test:'trolololol'});
   // io.emit('connect', {test:'trolololol'});
