@@ -27,7 +27,7 @@ export default{
             this.file = this.$refs.file.files[0];
         },
         onUpload() {
-            var url = '//13.228.173.165:3000/upload/uploadMultimedia'
+            var url = '//amazingtrail.ml/api/upload/uploadMultimedia'
             const fd = new FormData();
             fd.append('image', this.file)
             axios.post(url, fd, {

@@ -57,7 +57,7 @@ export default {
             "userID": this.currTeamMember.id,
             "newTeam": this.newTeam
         }
-        axios.post('//13.228.173.165:3000/edit/switchTeams', postBody)
+        axios.post('//amazingtrail.ml/api/edit/switchTeams', postBody)
         .then(response => {
             let data = response.data;
             console.log(data);
@@ -68,7 +68,7 @@ export default {
         var postBody = {
             "userID": this.currTeamMember.id,
         }
-        axios.post('//13.228.173.165:3000/delete/deleteParticipant', postBody)
+        axios.post('//amazingtrail.ml/api/delete/deleteParticipant', postBody)
         .then(response => {
             let data = response.data;
             console.log(data);
@@ -77,7 +77,7 @@ export default {
     }
   },
   mounted() {
-    axios.get('//13.228.173.165:3000/team/getAllTeamsWithMembers')
+    axios.get('//amazingtrail.ml/api/team/getAllTeamsWithMembers')
         .then(response => {
             let data = response.data;
             console.log(data);

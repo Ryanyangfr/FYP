@@ -107,7 +107,7 @@ export default {
             isLeaderboard: true,
             isFeed: false,
             activityList: [],
-            socket : io('//13.228.173.165:3000')
+            socket : io('//amazingtrail.ml/api')
         }
     },
 
@@ -122,7 +122,7 @@ export default {
 
     methods: {
         getData() {
-            const baseURI = '//13.228.173.165:3000/team/getAllTeamPoints?trail_instance_id=' + this.trail_instance_id;
+            const baseURI = '//amazingtrail.ml/api/team/getAllTeamPoints?trail_instance_id=' + this.trail_instance_id;
             axios.get(baseURI)
             .then(response => {
                 console.log(response);
@@ -154,7 +154,7 @@ export default {
             console.log("post body: ");
             console.log(postBody)
 
-            axios.post('//13.228.173.165:3000/team/updateScoreAdmin', postBody)
+            axios.post('//amazingtrail.ml/api/team/updateScoreAdmin', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -198,7 +198,7 @@ export default {
             console.log("post body: ");
             console.log(postBody);
 
-            axios.post('//13.228.173.165:3000/team/updateTeamEndTime', postBody)
+            axios.post('//amazingtrail.ml/api/team/updateTeamEndTime', postBody)
             .then(response => {
                 console.log(response);
             });
@@ -221,7 +221,7 @@ export default {
             this.$router.push('/')
         }
 
-        axios.get('//13.228.173.165:3000/getCurrentTrailInstanceID')
+        axios.get('//amazingtrail.ml/api/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -230,7 +230,7 @@ export default {
             }
         })
 
-        axios.get('//13.228.173.165:3000/team/activityFeed')
+        axios.get('//amazingtrail.ml/api/team/activityFeed')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -263,7 +263,7 @@ export default {
     //     }
     // ]
 
-        const baseURI = '//13.228.173.165:3000/team/getAllTeamPoints';
+        const baseURI = '//amazingtrail.ml/api/team/getAllTeamPoints';
         axios.get(baseURI)
         .then(response => {
             console.log(response);

@@ -72,7 +72,7 @@ export default{
     },
 
     mounted() {
-        axios.get('//13.228.173.165:3000/getCurrentTrailInstanceID')
+        axios.get('//amazingtrail.ml/api/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;
             for(var row in data){

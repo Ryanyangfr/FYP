@@ -573,7 +573,7 @@ export default {
         fetchMissions(){
             // console.log('entered')
             this.missionList = [];
-            axios.get('//13.228.173.165:3000/mission/getMissionQuiz')
+            axios.get('//amazingtrail.ml/api/mission/getMissionQuiz')
             .then(response =>{
                 var data = response.data;
                 // console.log(data)
@@ -585,7 +585,7 @@ export default {
         },
 
         getMissionQuizQuestions(missionid, mission){
-            axios.get('//13.228.173.165:3000/quiz/getQuizQuestion?mission=' + missionid)
+            axios.get('//amazingtrail.ml/api/quiz/getQuizQuestion?mission=' + missionid)
                 .then(response =>{
                     // console.log(data[index].mission);
                     var data = response.data;
@@ -617,7 +617,7 @@ export default {
                 "mission_id": this.missionIDToBeDeleted
             }
             
-            axios.post('//13.228.173.165:3000/delete/deleteQuiz', postBody)
+            axios.post('//amazingtrail.ml/api/delete/deleteQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -684,7 +684,7 @@ export default {
                 "id": this.wefieIDToBeDeleted
             }
             
-            axios.post('//13.228.173.165:3000/delete/deleteWefieQuestion', postBody)
+            axios.post('//amazingtrail.ml/api/delete/deleteWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -734,7 +734,7 @@ export default {
 
             // console.log(postBody)
             
-            axios.post('//13.228.173.165:3000/delete/deleteDragAndDrop', postBody)
+            axios.post('//amazingtrail.ml/api/delete/deleteDragAndDrop', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -779,7 +779,7 @@ export default {
                 id: this.anagramIDToBeDeleted
             }
 
-            axios.post('//13.228.173.165:3000/delete/deleteAnagram', postBody)
+            axios.post('//amazingtrail.ml/api/delete/deleteAnagram', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -809,7 +809,7 @@ export default {
                 "id": this.anagramIDToBeDeleted
             }
             
-            axios.post('//13.228.173.165:3000/delete/deleteAnagram', postBody)
+            axios.post('//amazingtrail.ml/api/delete/deleteAnagram', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -866,7 +866,7 @@ export default {
                 "id": this.drawingIDToBeDeleted
             }
             
-            axios.post('//13.228.173.165:3000/delete/deleteDrawingQuestion', postBody)
+            axios.post('//amazingtrail.ml/api/delete/deleteDrawingQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -912,7 +912,7 @@ export default {
             }
             
             console.log(postBody)
-            axios.post('//13.228.173.165:3000/delete/deleteWordsearch', postBody)
+            axios.post('//amazingtrail.ml/api/delete/deleteWordsearch', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -971,7 +971,7 @@ export default {
             this.$router.push('/')
         }
 
-        // axios.get('//13.228.173.165:3000/hotspot/getHotspots')
+        // axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
         // .then(response => {
         //     let data = response.data;
         //     for(var row in data){
@@ -980,7 +980,7 @@ export default {
         //     }
         // })
 
-        axios.get('//13.228.173.165:3000/upload/getAllSubmissionQuestion')
+        axios.get('//amazingtrail.ml/api/upload/getAllSubmissionQuestion')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -989,7 +989,7 @@ export default {
             }
         })
 
-        axios.get('//13.228.173.165:3000/mission/getMissionQuiz')
+        axios.get('//amazingtrail.ml/api/mission/getMissionQuiz')
         .then(response =>{
             let data = response.data;
             // console.log(data);
@@ -1000,14 +1000,14 @@ export default {
             }           
         })
 
-        axios.get('//13.228.173.165:3000/draganddrop/getAllDragAndDrop')
+        axios.get('//amazingtrail.ml/api/draganddrop/getAllDragAndDrop')
         .then(response =>{
             let data = response.data;
             console.log(data);
             this.dragAndDropList = data;      
         })
 
-        axios.get('//13.228.173.165:3000/upload/getAllDrawingQuestion')
+        axios.get('//amazingtrail.ml/api/upload/getAllDrawingQuestion')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -1016,7 +1016,7 @@ export default {
             }
         })
 
-        axios.get('//13.228.173.165:3000/anagram/getAllAnagrams')
+        axios.get('//amazingtrail.ml/api/anagram/getAllAnagrams')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -1025,7 +1025,7 @@ export default {
             }
         })
 
-        axios.get('//13.228.173.165:3000/wordsearch/getAllWordSearchWords')
+        axios.get('//amazingtrail.ml/api/wordsearch/getAllWordSearchWords')
         .then(response => {
             let data = response.data;
              let wordsearchWords = []

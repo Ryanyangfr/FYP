@@ -143,7 +143,7 @@ export default {
             console.log("post body: ");
             console.log(postBody)
 
-            axios.post('//13.228.173.165:3000/delete/deleteHotspot', postBody)
+            axios.post('//amazingtrail.ml/api/delete/deleteHotspot', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -194,7 +194,7 @@ export default {
             this.$router.push('/')
         }
 
-        // axios.get('//13.228.173.165:3000/narrative/getNarratives')
+        // axios.get('//amazingtrail.ml/api/narrative/getNarratives')
         // .then(response => {
         //     let data = response.data;
         //     for(var row in data){
@@ -206,7 +206,7 @@ export default {
         //     console.log(this.narrative_dictionary);
         // })
 
-        axios.get('//13.228.173.165:3000/hotspot/getHotspots')
+        axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
             for(var row in data){

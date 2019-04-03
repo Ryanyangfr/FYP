@@ -40,7 +40,7 @@ export default {
                 "narrative": this.narrative,
 	            "title": this.title
             }
-            axios.post('//13.228.173.165:3000/add/addNarrative', postBody)
+            axios.post('//amazingtrail.ml/api/add/addNarrative', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)

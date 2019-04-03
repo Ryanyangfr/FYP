@@ -61,7 +61,7 @@ export default {
   }, 
   methods: {
     login_check() {
-        const baseURI = '//13.228.173.165:3000/user/getPassword?username=' + this.user.username
+        const baseURI = '//amazingtrail.ml/api/user/getPassword?username=' + this.user.username
         axios.get(baseURI)
           .then(response => {
             console.log(response)

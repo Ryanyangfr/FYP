@@ -47,22 +47,22 @@ app.use((req, res, next) => {
 
 // declares the routes available
 app.use('//user', userRouter);
-app.use('/upload', uploads);
-app.use('/hotspot', location)
-app.use('/quiz', quiz);
-app.use('/team', team);
-app.use('/', instance);
-app.use('/draganddrop', draganddrop);
-app.use('/narrative', narrative);
-app.use('/add', add);
-app.use('/anagram', anagram);
-app.use('/hotspot', hotspot);
-app.use('/delete', del);
-app.use('/edit', edit);
-app.use('/mission', mission);
-app.use('/wordsearch', wordSearch);
-app.use('/trail', trail);
-app.use('/notification', notification);
-app.use('/summary', summary);
+app.use('//upload', uploads);
+app.use('//hotspot', location)
+app.use('//quiz', quiz);
+app.use('//team', team);
+app.use('//', instance);
+app.use('//draganddrop', draganddrop);
+app.use('//narrative', narrative);
+app.use('//add', add);
+app.use('//anagram', anagram);
+app.use('//hotspot', hotspot);
+app.use('//delete', del);
+app.use('//edit', edit);
+app.use('//mission', mission);
+app.use('//wordsearch', wordSearch);
+app.use('//trail', trail);
+app.use('//notification', notification);
+app.use('//summary', summary);
 
 module.exports = app;

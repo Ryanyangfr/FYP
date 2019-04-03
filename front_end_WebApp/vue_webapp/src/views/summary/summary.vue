@@ -60,7 +60,7 @@ export default {
             this.$router.push('/')
         }
         
-        axios.get('//13.228.173.165:3000/summary/getSummaryReport')
+        axios.get('//amazingtrail.ml/api/summary/getSummaryReport')
         .then(response => {
             let data = response.data
             console.log('response: ');

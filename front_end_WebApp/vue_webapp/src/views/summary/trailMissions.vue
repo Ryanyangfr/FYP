@@ -178,7 +178,7 @@ export default {
         fetchMissions(){
             // console.log('entered')
             this.missionList = [];
-            axios.get('//13.228.173.165:3000/mission/getMissionQuizHistory')
+            axios.get('//amazingtrail.ml/api/mission/getMissionQuizHistory')
             .then(response =>{
                 var data = response.data;
                 // console.log(data)
@@ -190,7 +190,7 @@ export default {
         },
 
         getMissionQuizQuestions(missionid, mission){
-            axios.get('//13.228.173.165:3000/quiz/getQuizQuestionHistory?mission=' + missionid)
+            axios.get('//amazingtrail.ml/api/quiz/getQuizQuestionHistory?mission=' + missionid)
                 .then(response =>{
                     // console.log(data[index].mission);
                     var data = response.data;
@@ -212,7 +212,7 @@ export default {
         }
         this.trailID = this.$store.state.selectedMissionTrailID
 
-        axios.get('//13.228.173.165:3000/upload/getSubmissionQuestionHistory?trailInstanceID=' + this.trailID)
+        axios.get('//amazingtrail.ml/api/upload/getSubmissionQuestionHistory?trailInstanceID=' + this.trailID)
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -221,7 +221,7 @@ export default {
             }
         })
 
-        axios.get('//13.228.173.165:3000/mission/getMissionQuizHistory?trailInstanceID=' + this.trailID)
+        axios.get('//amazingtrail.ml/api/mission/getMissionQuizHistory?trailInstanceID=' + this.trailID)
         .then(response =>{
             let data = response.data;
             // console.log(data);
@@ -231,14 +231,14 @@ export default {
             }           
         })
 
-        axios.get('//13.228.173.165:3000/draganddrop/getDragAndDropHistory?trailInstanceID=' + this.trailID)
+        axios.get('//amazingtrail.ml/api/draganddrop/getDragAndDropHistory?trailInstanceID=' + this.trailID)
         .then(response =>{
             let data = response.data;
             console.log(data);
             this.dragAndDropList = data;      
         })
 
-        axios.get('//13.228.173.165:3000/upload/getDrawingQuestionHistory?trailInstanceID=' + this.trailID)
+        axios.get('//amazingtrail.ml/api/upload/getDrawingQuestionHistory?trailInstanceID=' + this.trailID)
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -247,7 +247,7 @@ export default {
             }
         })
 
-        axios.get('//13.228.173.165:3000/anagram/getAnagramsHistory?trailInstanceID=' + this.trailID)
+        axios.get('//amazingtrail.ml/api/anagram/getAnagramsHistory?trailInstanceID=' + this.trailID)
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -256,7 +256,7 @@ export default {
             }
         })
 
-        axios.get('//13.228.173.165:3000/wordsearch/getWordSearchWordsHistory?trailInstanceID=' + this.trailID)
+        axios.get('//amazingtrail.ml/api/wordsearch/getWordSearchWordsHistory?trailInstanceID=' + this.trailID)
         .then(response => {
             let data = response.data;
              let wordsearchWords = []

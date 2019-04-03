@@ -72,7 +72,7 @@ export default {
     methods:{
 
         getQuizOptions(quiz_question, quiz_id, quiz_answer){
-             axios.get('//13.228.173.165:3000/quiz/getQuizOptions?quizID=' + quiz_id)
+             axios.get('//amazingtrail.ml/api/quiz/getQuizOptions?quizID=' + quiz_id)
             .then(response =>{
                 var data = response.data;
                 this.quiz.push({quiz_id:quiz_id, quiz_question:quiz_question, quiz_answer:quiz_answer, options: data})
@@ -89,7 +89,7 @@ export default {
             this.$router.push('/')
         }
 
-        axios.get('//13.228.173.165:3000/quiz/getQuizQuestion?mission=' + this.$store.state.selectedQuizID)
+        axios.get('//amazingtrail.ml/api/quiz/getQuizQuestion?mission=' + this.$store.state.selectedQuizID)
         .then(response =>{
             var data = response.data;
             console.log(data)

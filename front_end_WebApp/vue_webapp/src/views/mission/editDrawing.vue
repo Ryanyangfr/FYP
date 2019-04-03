@@ -64,7 +64,7 @@ export default {
             }
 
             // console.log(this.quiz);
-            axios.post('//13.228.173.165:3000/edit/editDrawingQuestion', postBody)
+            axios.post('//amazingtrail.ml/api/edit/editDrawingQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)

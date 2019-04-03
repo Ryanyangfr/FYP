@@ -101,7 +101,7 @@ export default {
                 hotspotsAndMissions: this.updatedDetailsToAdd
             }
             console.log(postBody);
-            axios.post('//13.228.173.165:3000/trail/editTrail', postBody)
+            axios.post('//amazingtrail.ml/api/trail/editTrail', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -131,7 +131,7 @@ export default {
             this.$router.push('/')
         }
 
-        axios.get('//13.228.173.165:3000/trail/getAllTrails')
+        axios.get('//amazingtrail.ml/api/trail/getAllTrails')
         .then(response =>{
             var data = response.data;
             console.log(data)
@@ -147,7 +147,7 @@ export default {
             }
         })
 
-        axios.get('//13.228.173.165:3000/mission/getAllMissions')
+        axios.get('//amazingtrail.ml/api/mission/getAllMissions')
         .then(response =>{
             var data = response.data;
             console.log(data)
@@ -159,7 +159,7 @@ export default {
             console.log(this.missions)
         })
 
-        axios.get('//13.228.173.165:3000/hotspot/getHotspots')
+        axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -168,7 +168,7 @@ export default {
             }
         })
 
-        axios.get('//13.228.173.165:3000/narrative/getNarratives')
+        axios.get('//amazingtrail.ml/api/narrative/getNarratives')
         .then(response => {
             let data = response.data;
             // console.log(data)

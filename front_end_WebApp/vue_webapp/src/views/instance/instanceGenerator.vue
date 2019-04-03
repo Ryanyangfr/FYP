@@ -142,7 +142,7 @@ export default {
             }
 
             console.log(postBody)
-            axios.post('//13.228.173.165:3000/trail/initializeTrail', postBody)
+            axios.post('//amazingtrail.ml/api/trail/initializeTrail', postBody)
             .then(response => {
                 let data = response.data;
                 console.log(data);
@@ -154,7 +154,7 @@ export default {
                 trailID: this.trailMap[this.trail],
                 trailInstanceID: this.instance_id
             }
-            axios.post('//13.228.173.165:3000/trail/startTrail', postBody)
+            axios.post('//amazingtrail.ml/api/trail/startTrail', postBody)
             .then(response => {
                 let data = response.data;
                 console.log(data);
@@ -173,7 +173,7 @@ export default {
             this.$router.push('/')
         }
 
-        axios.get('//13.228.173.165:3000/trail/getAllTrails')
+        axios.get('//amazingtrail.ml/api/trail/getAllTrails')
         .then(response => {
             let data = response.data;
             for(var row in data){

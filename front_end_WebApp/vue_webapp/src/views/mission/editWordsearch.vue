@@ -81,7 +81,7 @@ export default {
 
         console.log(postBody);
 
-        axios.post('//13.228.173.165:3000/edit/editWordsearch', postBody)
+        axios.post('//amazingtrail.ml/api/edit/editWordsearch', postBody)
         .then(response => {
             let data = response.data
             console.log(data)

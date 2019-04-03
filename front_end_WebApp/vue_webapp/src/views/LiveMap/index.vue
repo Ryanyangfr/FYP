@@ -51,7 +51,7 @@ export default {
             hotspot_markers: [],
             team_markers: [],
             currentPlace: null,
-            socket : io('//13.228.173.165:3000'),
+            socket : io('//amazingtrail.ml/api'),
             map: '',
             currentMarkersInMap: [],
             trail_instance_id: "",
@@ -79,7 +79,7 @@ export default {
         },
 
         sendNotification(){
-            axios.post('//13.228.173.165:3000/notification/sendNotification', {message: this.message})
+            axios.post('//amazingtrail.ml/api/notification/sendNotification', {message: this.message})
             .then(response => {
                 let data = response.data;
                 if (data.success === 'true') {
@@ -101,7 +101,7 @@ export default {
             
         }),
 
-        axios.get('//13.228.173.165:3000/hotspot/getHotspots')
+        axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
             var infowindow = new google.maps.InfoWindow();
@@ -128,7 +128,7 @@ export default {
             }
         });
 
-        axios.get('//13.228.173.165:3000/team/getAllTeamsInCurrentActiveTrail')
+        axios.get('//amazingtrail.ml/api/team/getAllTeamsInCurrentActiveTrail')
         .then (response => {
             
             let data = response.data;
@@ -170,7 +170,7 @@ export default {
             })
         })
 
-        axios.get('//13.228.173.165:3000/getCurrentTrailInstanceID')
+        axios.get('//amazingtrail.ml/api/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -243,7 +243,7 @@ export default {
             // })
         })
 
-        axios.get('//13.228.173.165:3000/team/activityFeed')
+        axios.get('//amazingtrail.ml/api/team/activityFeed')
         .then(response => {
             let data = response.data;
             for(var row in data){

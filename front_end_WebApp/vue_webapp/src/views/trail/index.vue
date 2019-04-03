@@ -125,7 +125,7 @@ export default {
             console.log('entered')
             console.log(missionType)
             // console.log(hotspot)
-            axios.get('//13.228.173.165:3000/mission/getMission' + missionType)
+            axios.get('//amazingtrail.ml/api/mission/getMission' + missionType)
             .then(response =>{
                 var data = response.data;
                 // console.log(data)
@@ -166,7 +166,7 @@ export default {
             hotspotsAndMissions: this.hotspotsAndMissions
         }
         console.log(postBody);
-        axios.post('//13.228.173.165:3000/trail/addTrail', postBody)
+        axios.post('//amazingtrail.ml/api/trail/addTrail', postBody)
         .then(response => {
             let data = response.data
             console.log(data)
@@ -209,7 +209,7 @@ export default {
                 hotspotsAndMissions: this.editedCurrHotspotsAndMissionsForUpdating
             }
             console.log(postBody);
-            axios.post('//13.228.173.165:3000/trail/editTrail', postBody)
+            axios.post('//amazingtrail.ml/api/trail/editTrail', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -251,7 +251,7 @@ export default {
                 "trailID": this.curr_trail_id
             }
             
-            axios.post('//13.228.173.165:3000/trail/deleteTrail', postBody)
+            axios.post('//amazingtrail.ml/api/trail/deleteTrail', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -281,7 +281,7 @@ export default {
         this.$router.push('/')
     }
 
-    axios.get('//13.228.173.165:3000/hotspot/getHotspots')
+    axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
     .then(response => {
         let data = response.data;
         for(var row in data){
@@ -290,7 +290,7 @@ export default {
         }
     });
 
-    axios.get('//13.228.173.165:3000/narrative/getNarratives')
+    axios.get('//amazingtrail.ml/api/narrative/getNarratives')
     .then(response => {
         let data = response.data;
         for(var row in data){
@@ -302,7 +302,7 @@ export default {
         // console.log(this.narrative_dictionary);
     })
 
-    axios.get('//13.228.173.165:3000/trail/getAllTrails')
+    axios.get('//amazingtrail.ml/api/trail/getAllTrails')
     .then(response => {
         let data = response.data;
         for(var row in data){

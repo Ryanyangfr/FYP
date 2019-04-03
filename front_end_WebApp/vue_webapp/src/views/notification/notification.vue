@@ -17,7 +17,7 @@ export default {
     },
     methods: {
         sendNotification(){
-            axios.post('//13.228.173.165:3000/notification/sendNotification', {message: this.message})
+            axios.post('//amazingtrail.ml/api/notification/sendNotification', {message: this.message})
             .then(response => {
                 let data = response.data;
                 if (data.success === 'true') {

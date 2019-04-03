@@ -31,11 +31,11 @@ export default {
     },
     methods: {
         change_password(){
-            axios.get('//13.228.173.165:3000/user/getPassword?username=' + this.user.username)
+            axios.get('//amazingtrail.ml/api/user/getPassword?username=' + this.user.username)
             .then(response => {
                 this.user.true_pass = response.data.password
                 if(this.user.currentPassword === this.user.true_pass){
-                    axios.post('//13.228.173.165:3000/user/changeAdminPassword', {
+                    axios.post('//amazingtrail.ml/api/user/changeAdminPassword', {
                         username: this.user.username,
                         password: this.user.newPassword
                     })
