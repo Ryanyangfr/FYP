@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const databaseConfig = require('../config/mysqlconf.js');
 const utility = require('../utility.js');
+const cors = require('cors');
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
@@ -199,7 +200,7 @@ router.get('/getAllTeamsWithMembers', (req, res) => {
   });
 });
 
-router.post('/teamLocation', (req,res) => {
+router.post('/teamLocation', cors(), (req,res) => {
   console.log('location update');
   console.log(req.body);
   const io = req.app.get('socketio');
