@@ -210,6 +210,10 @@ input:-webkit-autofill:active  {
   margin-top:10px;
 }
 
+.rmb-change-passwd-area a{
+  text-decoration: none!important;
+}
+
 .rmb-passwd-area{
   width: 50%;
   float: left;
