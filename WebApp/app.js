@@ -46,7 +46,7 @@ app.use((req, res, next) => {
 });
 
 // declares the routes available
-app.use('/user', userRouter);
+app.use('//user', userRouter);
 app.use('/upload', uploads);
 app.use('/hotspot', location)
 app.use('/quiz', quiz);
