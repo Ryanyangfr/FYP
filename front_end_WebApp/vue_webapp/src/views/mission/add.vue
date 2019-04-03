@@ -276,7 +276,7 @@ export default {
             // console.log(this.hotspot.value);
             console.log(this.title);
             console.log(this.quiz);
-            axios.post('//54.255.245.23:3000/add/addQuiz', postBody)
+            axios.post('//13.228.173.165:3000/add/addQuiz', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -296,7 +296,7 @@ export default {
             // console.log(this.hotspot.value);
             console.log(this.wefie_instruction);
             console.log(this.title);
-            axios.post('//54.255.245.23:3000/add/addWefieQuestion', postBody)
+            axios.post('//13.228.173.165:3000/add/addWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -316,7 +316,7 @@ export default {
             }
 
             console.log(postBody);
-            axios.post('//54.255.245.23:3000/add/addDragAndDropQuestion', postBody)
+            axios.post('//13.228.173.165:3000/add/addDragAndDropQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -332,7 +332,7 @@ export default {
             // console.log(this.hotspot.value);
             console.log(this.drawing_instruction);
             console.log(this.title);
-            axios.post('//54.255.245.23:3000/add/addDrawingQuestion', postBody)
+            axios.post('//13.228.173.165:3000/add/addDrawingQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -345,7 +345,7 @@ export default {
                 "word": this.anagram_word,
                 "title": this.title
             }
-            axios.post('//54.255.245.23:3000/add/addAnagram', postBody)
+            axios.post('//13.228.173.165:3000/add/addAnagram', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -358,7 +358,7 @@ export default {
                 "words": this.words,
                 "title": this.title
             }
-            axios.post('//54.255.245.23:3000/add/addWordsearchQuestion', postBody)
+            axios.post('//13.228.173.165:3000/add/addWordsearchQuestion', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
