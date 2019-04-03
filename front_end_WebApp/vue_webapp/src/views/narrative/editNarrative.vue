@@ -42,7 +42,7 @@ export default {
                 "narrative_id": this.narrativeID,
 	            "narrative": this.narrative
             }
-            axios.post('//54.255.245.23:3000/edit/editNarrative', postBody)
+            axios.post('//127.0.0.1:3000/edit/editNarrative', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)

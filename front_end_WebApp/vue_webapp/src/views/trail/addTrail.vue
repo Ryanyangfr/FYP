@@ -100,7 +100,7 @@ export default {
                 hotspotsAndMissions: this.updatedDetailsToAdd
             }
             console.log(postBody);
-            axios.post('//54.255.245.23:3000/trail/addTrail', postBody)
+            axios.post('//127.0.0.1:3000/trail/addTrail', postBody)
             .then(response => {
                 let data = response.data
                 console.log(data)
@@ -116,7 +116,7 @@ export default {
     },
 
     mounted(){
-        axios.get('//54.255.245.23:3000/mission/getAllMissions')
+        axios.get('//127.0.0.1:3000/mission/getAllMissions')
         .then(response =>{
             var data = response.data;
             console.log(data)
@@ -128,7 +128,7 @@ export default {
             console.log(this.missions)
         })
 
-        axios.get('//54.255.245.23:3000/hotspot/getHotspots')
+        axios.get('//127.0.0.1:3000/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -137,7 +137,7 @@ export default {
             }
         })
 
-        axios.get('//54.255.245.23:3000/narrative/getNarratives')
+        axios.get('//127.0.0.1:3000/narrative/getNarratives')
         .then(response => {
             let data = response.data;
             // console.log(data)

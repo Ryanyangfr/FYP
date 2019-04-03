@@ -72,7 +72,7 @@ export default{
     },
 
     mounted() {
-        axios.get('//54.255.245.23:3000/getCurrentTrailInstanceID')
+        axios.get('//127.0.0.1:3000/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;
             for(var row in data){

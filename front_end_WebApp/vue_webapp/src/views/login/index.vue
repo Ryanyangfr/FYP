@@ -61,7 +61,7 @@ export default {
   }, 
   methods: {
     login_check() {
-        const baseURI = '//54.255.245.23:3000/user/getPassword?username=' + this.user.username
+        const baseURI = '//127.0.0.1:3000/user/getPassword?username=' + this.user.username
         axios.get(baseURI)
           .then(response => {
             console.log(response)

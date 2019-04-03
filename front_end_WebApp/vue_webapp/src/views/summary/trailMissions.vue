@@ -178,7 +178,7 @@ export default {
         fetchMissions(){
             // console.log('entered')
             this.missionList = [];
-            axios.get('//54.255.245.23:3000/mission/getMissionQuizHistory')
+            axios.get('//127.0.0.1:3000/mission/getMissionQuizHistory')
             .then(response =>{
                 var data = response.data;
                 // console.log(data)
@@ -190,7 +190,7 @@ export default {
         },
 
         getMissionQuizQuestions(missionid, mission){
-            axios.get('//54.255.245.23:3000/quiz/getQuizQuestionHistory?mission=' + missionid)
+            axios.get('//127.0.0.1:3000/quiz/getQuizQuestionHistory?mission=' + missionid)
                 .then(response =>{
                     // console.log(data[index].mission);
                     var data = response.data;
@@ -212,7 +212,7 @@ export default {
         }
         this.trailID = this.$store.state.selectedMissionTrailID
 
-        axios.get('//54.255.245.23:3000/upload/getSubmissionQuestionHistory?trailInstanceID=' + this.trailID)
+        axios.get('//127.0.0.1:3000/upload/getSubmissionQuestionHistory?trailInstanceID=' + this.trailID)
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -221,7 +221,7 @@ export default {
             }
         })
 
-        axios.get('//54.255.245.23:3000/mission/getMissionQuizHistory?trailInstanceID=' + this.trailID)
+        axios.get('//127.0.0.1:3000/mission/getMissionQuizHistory?trailInstanceID=' + this.trailID)
         .then(response =>{
             let data = response.data;
             // console.log(data);
@@ -231,14 +231,14 @@ export default {
             }           
         })
 
-        axios.get('//54.255.245.23:3000/draganddrop/getDragAndDropHistory?trailInstanceID=' + this.trailID)
+        axios.get('//127.0.0.1:3000/draganddrop/getDragAndDropHistory?trailInstanceID=' + this.trailID)
         .then(response =>{
             let data = response.data;
             console.log(data);
             this.dragAndDropList = data;      
         })
 
-        axios.get('//54.255.245.23:3000/upload/getDrawingQuestionHistory?trailInstanceID=' + this.trailID)
+        axios.get('//127.0.0.1:3000/upload/getDrawingQuestionHistory?trailInstanceID=' + this.trailID)
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -247,7 +247,7 @@ export default {
             }
         })
 
-        axios.get('//54.255.245.23:3000/anagram/getAnagramsHistory?trailInstanceID=' + this.trailID)
+        axios.get('//127.0.0.1:3000/anagram/getAnagramsHistory?trailInstanceID=' + this.trailID)
         .then(response => {
             let data = response.data;
             for(var row in data){
@@ -256,7 +256,7 @@ export default {
             }
         })
 
-        axios.get('//54.255.245.23:3000/wordsearch/getWordSearchWordsHistory?trailInstanceID=' + this.trailID)
+        axios.get('//127.0.0.1:3000/wordsearch/getWordSearchWordsHistory?trailInstanceID=' + this.trailID)
         .then(response => {
             let data = response.data;
              let wordsearchWords = []
