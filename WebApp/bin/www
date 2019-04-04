@@ -28,9 +28,9 @@ server.listen(port);
 server.on('error', onError);
 // server.on('listening', onListening);
 
-let io = require('socket.io')(server);
+let io = require('socket.io')(server, { secure: true });
 
-io.set('origins','https://www.amazingtrail.ml/api:*');
+io.set('origins', 'https://www.amazingtrail.ml/api:*');
 io.sockets.on('connection', (socket) => {
   // socket.emit('connect', {test:'trolololol'});
   // io.emit('connect', {test:'trolololol'});
@@ -54,11 +54,11 @@ io.sockets.on('connection', (socket) => {
     console.log('location update received');
     const updateTeamLocationQuery = 'UPDATE TEAM SET LATITUDE = ?, LONGTITUDE = ? WHERE TEAM_ID = ?';
 
-    conn.query(updateTeamLocationQuery, [lat,long,team], (err, data) => {
+    conn.query(updateTeamLocationQuery, [lat, long, team], (err, data) => {
       if (err) {
         console.log(err);
       } else {
-        io.emit('locationUpdate', {latitude: lat, longtitude: long, team: team});
+        io.emit('locationUpdate', { latitude: lat, longtitude: long, team: team });
       }
     })
   }) 
