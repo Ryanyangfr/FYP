@@ -201,15 +201,15 @@ router.get('/getAllTeamsWithMembers', (req, res) => {
 });
 
 router.post('/teamLocation', cors(), (req,res) => {
-  console.log('location update');
-  console.log(req.body);
+  // console.log('location update');
+  // console.log(req.body);
   const io = req.app.get('socketio');
   const teamID = req.body.teamID;
   const long = req.body.long;
   const lat = req.body.lat;
 
   const locationQuery = 'UPDATE TEAM SET LONGTITUDE = ?, LATITUDE = ? WHERE TEAM_ID = ?';
-
+  console.log(io)
   conn.query(locationQuery, [long,lat,teamID], (err,data) => {
     if (err) {
       console.log(err);
