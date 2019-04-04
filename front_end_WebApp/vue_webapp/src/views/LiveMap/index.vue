@@ -51,7 +51,7 @@ export default {
             hotspot_markers: [],
             team_markers: [],
             currentPlace: null,
-            socket : io('//amazingtrail.ml/api'),
+            socket : io('wss://amazingtrail.ml', { transports: ['websocket'] }),
             map: '',
             currentMarkersInMap: [],
             trail_instance_id: "",
@@ -211,7 +211,7 @@ export default {
                 // icon: 'http://maps.google.com/mapfiles/kml/paddle/'+teamID+'.png',
                 // icon: '../../assets/marker.jpg',
                 label: {
-                    text: ""+marker.team,
+                    text: teamID,
                     color: "white",
                     fontSize: "20px"
                 },
