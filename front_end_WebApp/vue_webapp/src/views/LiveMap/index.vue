@@ -211,7 +211,7 @@ export default {
                 // icon: 'http://maps.google.com/mapfiles/kml/paddle/'+teamID+'.png',
                 // icon: '../../assets/marker.jpg',
                 label: {
-                    text: teamID,
+                    text: ""+teamID,
                     color: "white",
                     fontSize: "20px"
                 },
