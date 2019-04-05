@@ -262,7 +262,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
     ::-webkit-scrollbar {
         width: 8px;
         background-color: #F5F5F5;

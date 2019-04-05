@@ -59,7 +59,7 @@ export default {
            
 </script>
 
-<style scope>
+<style scoped>
    .card{
         padding: 18px;
         margin: 18px;

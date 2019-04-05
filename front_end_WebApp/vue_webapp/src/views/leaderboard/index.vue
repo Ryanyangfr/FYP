@@ -107,7 +107,7 @@ export default {
             isLeaderboard: true,
             isFeed: false,
             activityList: [],
-            socket : io('//amazingtrail.ml/api')
+            socket : io('//13.228.173.165:3000')
         }
     },
 

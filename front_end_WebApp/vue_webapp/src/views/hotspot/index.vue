@@ -222,6 +222,10 @@ export default {
     @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
     @import '../../assets/themify-icons.css';
 
+    body{
+        background-color: #F2F5F7!important;
+    }
+
     label{
         font-family: 'lato', sans-serif
     }
