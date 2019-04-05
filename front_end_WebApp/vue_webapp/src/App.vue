@@ -70,7 +70,7 @@ export default {
 }
 
 body{
-  background-color: #F2F5F7;
+  background-color: #F2F5F7!important;
 }
 
 #sidebar{ 

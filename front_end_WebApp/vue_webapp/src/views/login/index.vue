@@ -61,6 +61,8 @@ export default {
   }, 
   methods: {
     login_check() {
+      console.log('login')
+      console.log(this.user.username)
         const baseURI = '//amazingtrail.ml/api/user/getPassword?username=' + this.user.username
         axios.get(baseURI)
           .then(response => {
@@ -89,7 +91,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   @import url("https://fonts.googleapis.com/css?family=Karla|Lato|Pontano+Sans|Poppins|Staatliches");
   @import '../../assets/themify-icons.css';
 
@@ -157,7 +159,8 @@ export default {
 }
 
 .login-form-body {
-  padding: 50px
+  padding: 50px;
+  /* height: 100% */
 }
 
 .login-form-input {
@@ -235,7 +238,8 @@ input:-webkit-autofill:active  {
 .Login .submit-btn-area{
   /*text-align: center;*/
   align-items: center;
-  margin-top: 90px
+  margin-top: 90px;
+  /* background-color: pink */
 }
 
 .Login .submit-btn-area button{

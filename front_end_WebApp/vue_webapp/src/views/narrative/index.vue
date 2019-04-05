@@ -188,6 +188,11 @@ export default {
     label{
         font-family: 'lato', sans-serif
     }
+
+    body{
+        background-color: #F2F5F7!important;
+    }
+
     .card{
         padding: 18px;
         margin: 18px;
