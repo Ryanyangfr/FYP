@@ -39,8 +39,6 @@
 </template>
 
 <script>
-import VueScrollbar from 'vue2-scrollbar';
-
 export default{ 
     name: 'MainHeader',
 
@@ -49,8 +47,6 @@ export default{
             show: false,
         }
     },
-
-    components: { VueScrollbar },
 
     computed: {
         showSidebar(){
