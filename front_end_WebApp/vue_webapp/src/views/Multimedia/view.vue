@@ -7,6 +7,7 @@
             </form>
         </div>
         <div class="submissions-row">
+            <Button @click.prevent="downloadAll(downloadLinks)">Download All</Button>
             <div class= "container" v-for="team in teamList" :key="team.team_id">
                 <button class="grp-card" @click="showSubmissions(team.team_id)">
                     <h5>Team {{team.team_id}}</h5>
@@ -21,7 +22,9 @@
                 <div class="submission-card">
                     <div class="image-area">
                         <!-- {{index}} -->
-                        <img :src="image"/>  
+                        <!-- <a href="image" download="my image"> -->
+                            <img :src="image"/>  
+                        <!-- </a> -->
                     </div>
                     <div class="submission-details">
                         {{questions[index]}}
@@ -85,7 +88,8 @@ export default{
             currTeamID: '',
             button: {
                 text: 'Click to view submissions'
-            }
+            },
+            downloadLinks: []
         }
     },
 
@@ -101,6 +105,25 @@ export default{
     },
 
     methods:{
+
+        downloadAll(urls) { 
+            for(var i = 0; i<urls.length; i++){
+                axios.get(urls[i], { responseType: 'blob' })
+                .then(({ data }) => {
+                    let blob = new Blob([data], { type: 'image/png' })
+                    let link = document.createElement('a')
+
+                    
+                    link.href = window.URL.createObjectURL(blob)
+                    link.download = 'image.png'
+                    link.click()
+            
+                    
+                })
+            }
+            // document.body.removeChild(link);
+        },
+
         retrieveAllTeams(){
             this.teamList = [];
             axios.get('//amazingtrail.ml/api/team/getAllTeams?trail_instance_id='+this.trailID)
@@ -192,6 +215,7 @@ export default{
                 let updatedSubmissionStatuses = [];
                 this.images = []
                 let count = 0;
+                this.downloadLinks = []
                 for(var index in this.paths){
                     // console.log(this.paths[path])
                     // console.log(index);
@@ -240,8 +264,12 @@ export default{
             // vm.$forceUpdate()
         },
         getImage(url, updatedQn, qn, updatedSubmissionIDs, id, updatedSubmissionStatuses, status){
+            this.downloadLinks.push('//amazingtrail.ml/api/upload/getSubmission?url='+url);
+            console.log("WOOD")
+            console.log(this.downloadLinks)
              axios.get('//amazingtrail.ml/api/upload/getSubmission?url=' + url, {responseType: 'blob'})
                 .then(response=>{
+
                     // this.result = 'entered here'
                     // this.result = response.data
                     var reader = new FileReader();
@@ -263,6 +291,7 @@ export default{
                         console.log(this.images.length)
                     }
                     reader.readAsDataURL(response.data);
+
                 })
                 .catch(error =>{
                     console.log(error)
@@ -337,6 +366,7 @@ export default{
                             this.teamList.sort(function(a,b){ return a.team_id - b.team_id });
                         }
                     });
+
                 }
                 
             });

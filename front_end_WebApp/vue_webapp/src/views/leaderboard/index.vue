@@ -107,7 +107,7 @@ export default {
             isLeaderboard: true,
             isFeed: false,
             activityList: [],
-            socket : io('//13.228.173.165:3000')
+            socket : io('//13.229.115.32:3000')
         }
     },
 
