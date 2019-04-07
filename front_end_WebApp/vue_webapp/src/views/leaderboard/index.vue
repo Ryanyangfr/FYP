@@ -280,6 +280,10 @@ export default {
 </script>
 
 <style scoped>
+
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Lato|Permanent+Marker");
+    @import '../../assets/themify-icons.css';
+
     label{
         font-family: 'lato', sans-serif
     }
@@ -329,7 +333,7 @@ export default {
     .search-btn{
         border:none;
         padding-right: 18px;
-        background-color: white;
+        /* background-color: pink; */
         /*color:#BAB1B3;*/
         font-size: 20px;
         border-right: 1px solid #ededed;
@@ -338,6 +342,8 @@ export default {
         border-radius: 0 5px 5px 0;
         border-left: 0;
         cursor: pointer;
+        width: 50px;
+        background-color: white;
     }
 
     .search-bar input:focus{

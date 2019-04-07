@@ -263,6 +263,9 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Poppins|Gochi+Hand|Lato|Permanent+Marker");
+@import '../../assets/themify-icons.css';
+
     ::-webkit-scrollbar {
         width: 8px;
         background-color: #F5F5F5;

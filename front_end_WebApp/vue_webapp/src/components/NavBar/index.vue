@@ -98,8 +98,9 @@ export default{
 </script>
 
 <style scoped>
-    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto");
-
+    @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Lato|Permanent+Marker");
+    @import '../../assets/themify-icons.css';
+    
     .horizontal-menu{
         /*background-color: red;*/
         overflow: hidden;

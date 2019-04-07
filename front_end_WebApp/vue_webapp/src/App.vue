@@ -50,6 +50,7 @@ export default {
 </script>
 
 <style>
+
     ::-webkit-scrollbar {
         width: 8px;
         background-color: #F5F5F5;

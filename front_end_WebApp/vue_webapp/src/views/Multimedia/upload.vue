@@ -54,6 +54,9 @@ export default{
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Poppins|Gochi+Hand|Lato|Permanent+Marker");
+@import '../../assets/themify-icons.css';
+
 .upload-btn-wrapper {
   position: relative;
   overflow: hidden;
