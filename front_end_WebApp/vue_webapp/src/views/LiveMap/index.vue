@@ -144,19 +144,19 @@ export default {
                     position: {lat:marker.lat, lng:marker.lng},
                     map: this.map,
                     title: 'team ' + marker.team,
-                    // icon: 'http://maps.google.com/mapfiles/kml/paddle/'+marker.team+'.png',
+                    icon: 'http://maps.google.com/mapfiles/kml/paddle/'+marker.team+'.png',
                     // icon: '../../assets/marker.jpg',
                     label: {
                         text: ""+marker.team,
                         color: "white",
                         fontSize: "20px"
                     },
-                    icon: {
-                        url: "https://moonraft.com/wp-content/uploads/2018/02/cropped-MR_FAVICON.png",
-                        // url: '../../assets/marker.png',
-                        scaledSize: new google.maps.Size(50, 50), // scaled size
+                    // icon: {
+                    //     url: "https://moonraft.com/wp-content/uploads/2018/02/cropped-MR_FAVICON.png",
+                    //     // url: '../../assets/marker.png',
+                    //     scaledSize: new google.maps.Size(50, 50), // scaled size
                        
-                    }
+                    // }
                 });
 
 
@@ -208,17 +208,17 @@ export default {
                 position: {lat:parseFloat(lat), lng:parseFloat(long)},
                 map: this.map,
                 title: 'team ' + teamID,
-                // icon: 'http://maps.google.com/mapfiles/kml/paddle/'+teamID+'.png',
+                icon: 'http://maps.google.com/mapfiles/kml/paddle/'+teamID+'.png',
                 // icon: '../../assets/marker.jpg',
                 label: {
                     text: ""+teamID,
                     color: "white",
                     fontSize: "20px"
-                },
-                icon: {
-                    url: "https://moonraft.com/wp-content/uploads/2018/02/cropped-MR_FAVICON.png",
-                    scaledSize: new google.maps.Size(50, 50), // scaled size
                 }
+                // icon: {
+                //     url: "https://moonraft.com/wp-content/uploads/2018/02/cropped-MR_FAVICON.png",
+                //     scaledSize: new google.maps.Size(50, 50), // scaled size
+                // }
             })
 
             google.maps.event.addListener(team_marker, 'click', () => {
