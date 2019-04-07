@@ -354,8 +354,19 @@ export default {
         },
 
         wordsearchOnSubmitToAdd(){
+
+            let updatedWords = []
+            for (let i=0; i<this.words.length; i++) {
+                let currentWord = this.words[i].word;
+
+                if( currentWord.length > 0) {
+                    updatedWords.push({word: this.words[i].word});
+                }
+            }
+            console.log(updatedWords)
+
             var postBody = {
-                "words": this.words,
+                "words": updatedWords,
                 "title": this.title
             }
             axios.post('//amazingtrail.ml/api/add/addWordsearchQuestion', postBody)

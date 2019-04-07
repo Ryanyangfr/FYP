@@ -68,9 +68,14 @@ export default {
         let wordsToBeSubmitted = []
         for(var index in this.words){
             console.log(this.words[index].word);
-            wordsToBeSubmitted.push(this.words[index].word);
+            let currentWord = this.words[index].word;
+
+                if( currentWord.length > 0) {
+                    wordsToBeSubmitted.push(this.words[index].word);
+                }
         }
-        console.log("pig")
+
+        // console.log("pig")
         console.log(wordsToBeSubmitted);
 
         let postBody = {
@@ -96,9 +101,17 @@ export default {
           this.$router.push('/')
       }
 
+    //   if(this.$stor)
+
       this.wordsearch_title = this.$store.state.selectedWordsearchTitle
       this.words = this.$store.state.selectedWords
       this.wordsearch_ID = this.$store.state.selectedWordsearchID
+
+    let numWordsMissing = 5 - this.words.length;
+
+    for (let i = 0; i < numWordsMissing; i++) {
+        this.words.push({word: ""});
+    }
 
       console.log('check values wordsearch');
       console.log(this.wordsearch_title);
