@@ -1,33 +1,30 @@
-var express = require('express');
-var router = express.Router();
-var mysql = require('mysql');
-var bodyParser = require('body-parser');
+const express = require('express');
 
-var databaseConfig = require('../config/mysqlconf.js');
+const router = express.Router();
+const mysql = require('mysql');
 
-var conn = mysql.createConnection(databaseConfig);
+const databaseConfig = require('../config/mysqlconf.js');
 
-router.get('/getHotspots', function(req,res){
-    var query = 'SELECT HOTSPOT.HOTSPOT_NAME, LONGTITUDE, LATITUDE FROM HOTSPOT';
-    var response = [];
+const conn = mysql.createConnection(databaseConfig);
 
-    conn.query(query, function(err, hotspots){
-        if(err){
-            console.log(err)
-        } else{
-            hotspots.forEach(function(hotspot){
-                var hspot = hotspot.HOTSPOT_NAME;
-                var lat = hotspot.LATITUDE;
-                var long = hotspot.LONGTITUDE;
-                // var narrative = hotspot.NARRATIVE_TITLE;
-                
-                response.push({hotspot_name: hspot, latitude: lat, longtitude: long});
-            })
-            console.log(response)
-            res.send(JSON.stringify(response, null, 3))
-        }
-    })
+router.get('/getHotspots', (req,res) => {
+  const query = 'SELECT HOTSPOT.HOTSPOT_NAME, LONGTITUDE, LATITUDE FROM HOTSPOT';
+  const response = [];
 
-})
+  conn.query(query, (err, hotspots) => {
+    if (err) {
+      console.log(err);
+    } else {
+      hotspots.forEach((hotspot) => {
+        const hspot = hotspot.HOTSPOT_NAME;
+        const lat = hotspot.LATITUDE;
+        const long = hotspot.LONGTITUDE;
+
+        response.push({hotspot_name: hspot, latitude: lat, longtitude: long});
+      });
+      res.send(JSON.stringify(response, null, 3));
+    }
+  });
+});
 
 module.exports = router;

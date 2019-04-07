@@ -1,33 +1,32 @@
-var express = require('express');
-var router = express.Router();
-var mysql = require('mysql');
-var bodyParser = require('body-parser');
+const express = require('express');
 
-var databaseConfig = require('../config/mysqlconf.js');
+const router = express.Router();
+const mysql = require('mysql');
 
-var conn = mysql.createConnection(databaseConfig);
+const databaseConfig = require('../config/mysqlconf.js');
 
-router.get('/getNarratives', function(req,res){
-    var query = 'SELECT * FROM NARRATIVE';
-    var response = [];
+const conn = mysql.createConnection(databaseConfig);
 
-    conn.query(query, function(err, narratives){
-        if(err){
-            console.log(err)
-        } else{
-            narratives.forEach(function(narrative){
-                var title = narrative.NARRATIVE_TITLE;
-                var id = narrative.NARRATIVE_ID;
-                var narrative = narrative.NARRATIVE;
+router.get('/getNarratives', (req,res) => {
+  const query = 'SELECT * FROM NARRATIVE';
+  const response = [];
 
-                response.push({narrative_title: title, narrative_id: id, narrative: narrative})
-            })
-            // console.log(response)
-            res.send(JSON.stringify(response, null, 3))
-        }
-    })
-    // res.send({nothing:"nothing"});
-})
+  conn.query(query, (err, narratives) => {
+    if (err) {
+      console.log(err);
+    } else {
+      narratives.forEach((narrative) => {
+        const title = narrative.NARRATIVE_TITLE;
+        const id = narrative.NARRATIVE_ID;
+        var narrative = narrative.NARRATIVE;
+
+        response.push({narrative_title: title, narrative_id: id, narrative: narrative});
+      });
+      // console.log(response)
+      res.send(JSON.stringify(response, null, 3));
+    }
+  });
+  // res.send({nothing:"nothing"});
+});
 
 module.exports = router;
-

@@ -55,7 +55,6 @@ conn.query(dragAndDropIDQuery, (err,data) => {
     console.log(err);
   } else {
     dragAndDropID = data[0].ID + 1;
-    console.log('drag and drop id: ' + dragAndDropID)
   }
 })
 
@@ -68,7 +67,6 @@ conn.query(drawing_query, (err, data) => {
     console.log(err);
   } else {
     drawing_id = data[0].ID + 1;
-    console.log(`drawing id: ${drawing_id}`);
   }
 });
 
@@ -81,7 +79,6 @@ conn.query(mission_query, (err, data) => {
     console.log(err);
   } else {
     mission_id = data[0].count + 1;
-    console.log(mission_id);
   }
 });
 
@@ -105,15 +102,12 @@ router.post('/addHotspot', (req,res) => {
 });
 
 router.post('/addNarrative', (req,res) => {
-  console.log(req.body);
   const narrative = req.body.narrative;
   const title = req.body.title;
 
   const getNumNarrative = 'SELECT COUNT(*) as count from NARRATIVE';
 
   conn.query(getNumNarrative, (err, data) => {
-    console.log(`error: ${err}`);
-    console.log(`data: ${data[0]}`);
     const count = parseInt(data[0].count);
     const id = count + 1;
 
@@ -131,9 +125,6 @@ router.post('/addNarrative', (req,res) => {
 });
 
 router.post('/addQuiz', (req,res) => {
-  console.log('quiz: ');
-  console.log(req.body);
-  // const hotspot = req.body.hotspot;
   const title = req.body.title;
   const quiz = req.body.quiz;
   const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
@@ -145,25 +136,17 @@ router.post('/addQuiz', (req,res) => {
     } else {
       let count = 0;
       for (const index in quiz) {
-        console.log(`quiz_id_again: ${quiz_id}`);
         count += 1;
-        row = quiz[index];
-        console.log(row);
+
         const question = row.question;
         const option1 = row.option1;  
         const option2 = row.option2;
         const option3 = row.option3;
         const option4 = row.option4;
         const answer = row.answer;
-        // console.log("quiz: " + quiz_id);
-        // console.log(count);
-        // console.log(quiz.length)
+
         update_quiz(count, quiz.length, quiz_id, question, answer, mission_id, quiz_option_id, option1, option2, option3, option4, res);
 
-        // console.log(noErrors);
-        // if(!noErrors){
-        //     return;
-        // }
         quiz_id = quiz_id + 1;
         quiz_option_id = quiz_option_id + 4;
       }
@@ -190,7 +173,6 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
         return false;
       }
       counter += 1;
-      console.log(`counter: ${counter}`);
       if (counter === 4 && count === final_count) {
         res.send(JSON.stringify({ success: 'true' }));
         mission_id += 1;
@@ -205,9 +187,7 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
         console.log(err);
         return false;
       }
-      console.log('2:');
       counter += 1;
-      console.log(`counter: ${counter}`);
       if (counter === 4 && count === final_count) {
         res.send(JSON.stringify({ success: 'true' }));
         mission_id += 1;
@@ -222,9 +202,7 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
         console.log(err);
         return false;
       }
-      console.log('3:');
       counter += 1;
-      console.log(`counter: ${counter}`);
       if (counter === 4 && count === final_count) {
         res.send(JSON.stringify({ success: 'true' }));
         mission_id += 1;
@@ -239,9 +217,7 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
         console.log(err);
         return false;
       }
-      console.log('4:');
       counter += 1;
-      console.log(`counter: ${counter}`);
       if (counter === 4 && count === final_count) {
         res.send(JSON.stringify({ success: 'true' }));
         mission_id += 1;
@@ -254,11 +230,8 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
 router.post('/addWefieQuestion', (req,res) => {
   const question = req.body.question;
   const title = req.body.title;
-  const hotspot = req.body.hotspot;
 
   const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
-  console.log('add wefie question called');
-  console.log(req.body);
   conn.query(ms_query, [mission_id,title], (err, data) => {
     if (err) {
       res.send(JSON.stringify({ success: 'false' }));
@@ -280,8 +253,6 @@ router.post('/addWefieQuestion', (req,res) => {
 });
 
 router.post('/addDragAndDropQuestion', (req,res) => {
-  console.log('dragAndDropAdd: ');
-  console.log(req.body);
 
   const title = req.body.title;
   const question = req.body.question;
@@ -326,8 +297,7 @@ router.post('/addDrawingQuestion', (req,res) => {
   const title = req.body.title;
 
   const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
-  console.log('add drawing question called');
-  console.log(req.body);
+
   conn.query(ms_query, [mission_id,title], (err, data) => {
     if (err) {
       res.send(JSON.stringify({ success: 'false' }));

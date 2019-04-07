@@ -37,11 +37,9 @@ router.get('/getAllTrails', (req, res) => {
       let currTrailTitle = data[0].TITLE;
       let currTrailTotalTime = data[0].TOTAL_TIME;
       data.forEach((row) => {
-        console.log(row.TRAIL_ID === currTrailID);
         if (row.TRAIL_ID === currTrailID) {
           temp.push({ hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID, missionTitle: row.MISSION_TITLE, narrativeTitle: row.NARRATIVE_TITLE, narrativeID: row.NARRATIVE_ID, missionType: '', missionList: [] });
         } else {
-          console.log(temp);
           response.push({ trailID: currTrailID, title: currTrailTitle, totalTime: currTrailTotalTime, hotspotsAndMissions: temp });
           temp = [];
           temp.push({ hotspot: row.HOTSPOT_NAME, mission: row.MISSION_ID, missionTitle: row.MISSION_TITLE, narrativeTitle: row.NARRATIVE_TITLE, narrativeID: row.NARRATIVE_ID, missionType: '', missionList: [] });
@@ -51,7 +49,6 @@ router.get('/getAllTrails', (req, res) => {
         }
       });
       response.push({ trailID: currTrailID, title: currTrailTitle, totalTime: currTrailTotalTime, hotspotsAndMissions: temp });
-      console.log(response);
       res.send(response);
     }
   });
@@ -62,12 +59,8 @@ router.post('/addTrail', (req, res) => {
   const trailTitle = req.body.title;
   const totalTime = req.body.totalTime;
   const hotspotsAndMissions = req.body.hotspotsAndMissions;
-  // const missions = req.body.missions;
-  // const narrativeID = req.body.narrativeID;
 
   let hotspotCount = 0;
-  const missionCount = 0;
-  console.log(req.body);
 
   const trailCreationQuery = 'INSERT INTO TRAIL VALUES (?,?,?)';
 
@@ -89,35 +82,14 @@ router.post('/addTrail', (req, res) => {
             } else {
               hotspotCount += 1;
             }
-            // res.send(JSON.stringify({ success: 'true' }));
           }
         });
       });
-
-      // const trailMissionsCreationQuery = 'INSERT INTO TRAIL_MISSION VALUES (?,?)';
-
-      // missions.forEach((mission) => {
-      //   conn.query(trailMissionsCreationQuery, [trailID, mission], (err, result) => {
-      //     if (err) {
-      //       res.send(JSON.stringify({ success: 'false' }));
-      //       console.log(err);
-      //        return;
-      //     } else {
-      //       if (missionCount === missions.length - 1 && hotspotCount === hotspots.length) {
-      //         res.send(JSON.stringify({ success: 'true' }));
-      //       } else {
-      //         missionCount += 1;
-      //       }
-      //       // res.send(JSON.stringify({ success: 'true' }));
-      //     }
-      //   })
-      // });
     }
   });
 });
 
 router.post('/editTrail', (req, res) => {
-  console.log(req.body);
   const trailID = req.body.trailID;
   const trailTitle = req.body.title;
   const totalTime = req.body.totalTime;
@@ -150,7 +122,6 @@ router.post('/editTrail', (req, res) => {
                 } else {
                   rowCount += 1;
                 }
-                // res.send(JSON.stringify({ success: 'true' }));
               }
             });
           });
@@ -161,10 +132,8 @@ router.post('/editTrail', (req, res) => {
 });
 
 router.post('/deleteTrail', (req, res) => {
-  console.log(req.body);
   const trailID = req.body.trailID;
 
-  let rowCount = 0;
   const deleteTrailQuery = 'DELETE FROM TRAIL_HOTSPOT WHERE TRAIL_ID = ?';
 
   conn.query(deleteTrailQuery, trailID, (err, data) => {
@@ -192,9 +161,6 @@ router.post('/initializeTrail', (req, res) => {
   const date = req.body.date;
   let hasErr = false;
 
-  console.log('number of teams: ' + numTeams);
-  console.log(trailID);
-  console.log('initialize trail');
   const query = 'INSERT INTO TRAIL_INSTANCE VALUES (?,?,?,?,?)';
 
   const checkIfAnyActiveTrailQuery = 'SELECT * FROM TRAIL_INSTANCE WHERE ISACTIVE = 1 OR HASSTARTED = 1';
@@ -223,14 +189,12 @@ router.post('/initializeTrail', (req, res) => {
           const updateTeamQuery = 'INSERT INTO TEAM VALUES (?,?,?,?,?,?)';
 
           for (let teamID = 0; teamID < numTeams; teamID++) {
-            console.log('team: ' + teamID);
             conn.query(updateTeamQuery, [teamID + 1, 0, '1.268', '103.8522', '', trailInstanceID], (err, data) => {
               if (err) {
                 console.log(err);
                 hasErr = true;
                 res.send(JSON.stringify({ success: 'false' }));
               } else if (teamID === numTeams - 1) {
-                // res.send(JSON.stringify({ success: 'true' }));
               }
             });
           }
@@ -266,7 +230,6 @@ router.post('/initializeTrail', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(`trailInstanceID: ${trailInstanceID}`);
       let missionID = data1[0].COUNT + 1;
       duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery);
     }
@@ -342,9 +305,6 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
                     });
                   }
                 });
-                // missionID += 1;
-                console.log(data2.length);
-                console.log(numberOfiterations);
                 if (numberOfiterations === data2.length) {
                   duplicateQuiz(trailInstanceID, missionID, insertMissionHistoryQuery, summaryID + 1);
                 }
@@ -380,30 +340,22 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
               console.log(err);
             } else {
               const rows = result3;
-              // console.log(rows[0])
-              // let currQuizID = result3[0].QUIZ_ID;
               let currMissionID = -1;
               let rowIndex = -1;
 
               result3.forEach((row) => {
                 rowIndex += 1;
-                console.log(`row index top: ${rowIndex%4 === 0}`);
                 if (rowIndex % 4 === 0) {
-                  console.log(`rowIndex: ${rowIndex}`);
-                  console.log(row);
                   const hotspot = row.HOTSPOT_NAME;
                   const missionID = row.MISSION_ID;
                   const title = row.MISSION_TITLE;
-                  const quizID = row.QUIZ_ID;
                   const quizOption1 = rows[rowIndex].QUIZ_OPTION;
-                  const quizOption2 = rows[rowIndex+1].QUIZ_OPTION;
-                  const quizOption3 = rows[rowIndex+2].QUIZ_OPTION;
-                  const quizOption4 = rows[rowIndex+3].QUIZ_OPTION;
+                  const quizOption2 = rows[rowIndex + 1].QUIZ_OPTION;
+                  const quizOption3 = rows[rowIndex + 2].QUIZ_OPTION;
+                  const quizOption4 = rows[rowIndex + 3].QUIZ_OPTION;
                   const quizQuestion = row.QUIZ_QUESTION;
                   const quizAnswer = row.QUIZ_ANSWER;
 
-                  console.log(`current mission id: ${currMissionID}`);
-                  console.log(`mission id: ${missionID}`);
                   if (currMissionID != missionID) {
                     missionHistoryID += 1;
                     currMissionID = missionID;
@@ -413,7 +365,6 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                         console.log(err);
                       } else {
                         summaryID += 1;
-                        console.log(`summary id: ${summaryID}`);
                         conn.query(summaryTableIDQuery, (err, result3) => {
                           if (err) {
                             console.log(err);
@@ -426,9 +377,6 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                             });
                           }
                         });
-
-                        // currQuizID = quizID;
-                        // console.log(`curr quiz id: ${currQuizID}`);
                         numQuiz += 1;
                         addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOption3, quizOption4, quizQuestion, quizAnswer, missionHistoryID);
                         numQuizOption += 4;
@@ -441,7 +389,7 @@ function duplicateQuiz(trailInstanceID, missionHistoryID, insertMissionHistoryQu
                   }
                 }
               });
-              if (rowIndex === rows.length-1) {
+              if (rowIndex === rows.length - 1) {
                 duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHistoryQuery, summaryID);
               }
             }
@@ -463,8 +411,6 @@ function addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOp
       conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption1], (err, results6) => {
         if (err) {
           console.log(err);
-        } else {
-          console.log(`1: ${quizOption1}`);
         }
       });
 
@@ -472,8 +418,6 @@ function addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOp
       conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption2], (err, results6) => {
         if (err) {
           console.log(err);
-        } else {
-          console.log(`2: ${quizOption2}`);
         }
       });
 
@@ -481,8 +425,6 @@ function addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOp
       conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption3], (err, results6) => {
         if (err) {
           console.log(err);
-        } else {
-          console.log(`3: ${quizOption3}`);
         }
       });
 
@@ -490,8 +432,6 @@ function addQuizOptions(numQuiz, numQuizOption, quizOption1, quizOption2, quizOp
       conn.query(quizOptionHistoryInsertQuery, [numQuiz, numQuizOption, quizOption4], (err, results6) => {
         if (err) {
           console.log(err);
-        } else {
-          console.log(`4: ${quizOption4}`);
         }
       });
     }
@@ -525,12 +465,12 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
               const question = row.DRAGANDDROP_QUESTION;
               const option1 = result3[rowIndex].DRAGANDDROP_QUESTION_OPTION;
               const answer1 = result3[rowIndex].DRAGANDDROP_QUESTION_ANSWER;
-              const option2 = result3[rowIndex+1].DRAGANDDROP_QUESTION_OPTION;
-              const answer2 = result3[rowIndex+1].DRAGANDDROP_QUESTION_ANSWER;
-              const option3 = result3[rowIndex+2].DRAGANDDROP_QUESTION_OPTION;
-              const answer3 = result3[rowIndex+2].DRAGANDDROP_QUESTION_ANSWER;
-              const option4 = result3[rowIndex+3].DRAGANDDROP_QUESTION_OPTION;
-              const answer4 = result3[rowIndex+3].DRAGANDDROP_QUESTION_ANSWER;
+              const option2 = result3[rowIndex + 1].DRAGANDDROP_QUESTION_OPTION;
+              const answer2 = result3[rowIndex + 1].DRAGANDDROP_QUESTION_ANSWER;
+              const option3 = result3[rowIndex + 2].DRAGANDDROP_QUESTION_OPTION;
+              const answer3 = result3[rowIndex + 2].DRAGANDDROP_QUESTION_ANSWER;
+              const option4 = result3[rowIndex + 3].DRAGANDDROP_QUESTION_OPTION;
+              const answer4 = result3[rowIndex + 3].DRAGANDDROP_QUESTION_ANSWER;
 
               missionHistoryID += 1;
 
@@ -539,7 +479,6 @@ function duplicateDragAndDrop(trailInstanceID, missionHistoryID, insertMissionHi
                   console.log(err);
                 } else {
                   summaryID += 1;
-                  console.log(`summary id: ${summaryID}`);
                   conn.query(summaryTableIDQuery, (err, result3) => {
                     if (err) {
                       console.log(err);
@@ -615,13 +554,12 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
             rowIndex += 1;
             if (rowIndex % 5 == 0) {
               const hotspot = row.HOTSPOT_NAME;
-              const missionID = row.MISSION_ID;
               const title = row.MISSION_TITLE;
               const word1 = result2[rowIndex].WORD;
-              const word2 = result2[rowIndex+1].WORD;
-              const word3 = result2[rowIndex+2].WORD;
-              const word4 = result2[rowIndex+3].WORD;
-              const word5 = result2[rowIndex+4].WORD;
+              const word2 = result2[rowIndex + 1].WORD;
+              const word3 = result2[rowIndex + 2].WORD;
+              const word4 = result2[rowIndex + 3].WORD;
+              const word5 = result2[rowIndex + 4].WORD;
 
               missionHistoryID += 1;
 
@@ -630,7 +568,6 @@ function duplicateWordSearch(trailInstanceID, missionHistoryID, insertMissionHis
                   console.log(err);
                 } else {
                   summaryID += 1;
-                  console.log(`summary id: ${summaryID}`);
                   conn.query(summaryTableIDQuery, (err, result3) => {
                     if (err) {
                       console.log(err);
@@ -708,7 +645,6 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
           result2.forEach((row) => {
             const question = row.QUESTION;
             const hotspot = row.HOTSPOT_NAME;
-            const missionID = row.MISSION_ID;
             const title = row.MISSION_TITLE;
 
             missionHistoryID += 1;
@@ -718,7 +654,6 @@ function duplicateDrawingQuestion(trailInstanceID, missionHistoryID, insertMissi
                 console.log(err);
               } else {
                 summaryID += 1;
-                console.log(`summary id: ${summaryID}`);
                 conn.query(summaryTableIDQuery, (err, result3) => {
                   if (err) {
                     console.log(err);
@@ -765,7 +700,6 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
           result2.forEach((row) => {
             const question = row.QUESTION;
             const hotspot = row.HOTSPOT_NAME;
-            const missionID = row.MISSION_ID;
             const title = row.MISSION_TITLE;
 
             missionHistoryID += 1;
@@ -775,7 +709,6 @@ function duplicateSubmissionQuestion(trailInstanceID, missionHistoryID, insertMi
                 console.log(err);
               } else {
                 summaryID += 1;
-                console.log(`summary id: ${summaryID}`);
                 conn.query(summaryTableIDQuery, (err, result3) => {
                   if (err) {
                     console.log(err);

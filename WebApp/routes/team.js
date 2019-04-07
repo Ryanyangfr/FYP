@@ -22,7 +22,6 @@ router.get('/getAllTeams', (req, res) => {
         team_id: team.TEAM_ID, points: team.TEAM_POINTS, latitude: team.LATITUDE, longtitude: team.LONGTITUDE
       });
     });
-    console.log(response);
     res.send(response);
   });
 
@@ -38,7 +37,7 @@ router.get('/getAllTeamsInCurrentActiveTrail', (req, res) => {
       console.log(err);
     } else {
       const query = 'SELECT * FROM TEAM WHERE TRAIL_INSTANCE_ID = ?';
-    
+
       conn.query(query, trails[0].TRAIL_INSTANCE_ID, (err, teams) => {
         if (err) {
           console.log(err);
@@ -48,7 +47,6 @@ router.get('/getAllTeamsInCurrentActiveTrail', (req, res) => {
               team_id: team.TEAM_ID, points: team.TEAM_POINTS, latitude: team.LATITUDE, longtitude: team.LONGTITUDE
             });
           });
-          console.log(response);
           res.send(response);
         }
       });
@@ -64,35 +62,6 @@ router.post('/updateScore', (req, res) => {
   const io = req.app.get('socketio');
   const time = utility.getDateTime();
 
-  // const today = new Date();
-  // // console.log(`timezone offset: ${today.getTimezoneOffset()}`);
-  // today.setTime(today.getTime() + today.getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000);
-  // const date = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
-
-  // let minutes = today.getMinutes();
-  // if (minutes < 10) {
-  //   minutes = `0${minutes}`;
-  // }
-
-  // let seconds = today.getSeconds();
-  // if (seconds < 10) {
-  //   seconds = `0${seconds}`;
-  // }
-
-  // let hours = today.getHours();
-  // if (hours < 10) {
-  //   hours = `0${hours}`;
-  // }
-
-  // const time = `${hours}:${minutes}:${seconds}`;
-  // const dateTime = `${date} ${time}`;
-  console.log(`timestamp: ${time}`);
-  // console.log('time: ' + time);
-  console.log(`team_id: ${team_id}`);
-  console.log(`instance_id: ${instance_id}`);
-  console.log(`score: ${update}`);
-  console.log(`hotspot: ${hotspot}`);
-
   const query = 'SELECT TEAM_POINTS FROM TEAM WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
 
   conn.query(query, [team_id, instance_id], (err, team) => {
@@ -100,7 +69,6 @@ router.post('/updateScore', (req, res) => {
       console.log(err);
     } else {
       const points = team[0].TEAM_POINTS + update;
-      console.log(`points: ${points}`);
       const queryUpdate = 'UPDATE TEAM SET TEAM_POINTS = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ?';
       const queryUpdate_hotspot = 'UPDATE TEAM_HOTSPOT_STATUS SET ISCOMPLETED = 1, TIME_COMPLETED = ? WHERE TEAM_ID = ? AND TRAIL_INSTANCE_ID = ? AND HOTSPOT_NAME = ?';
 
@@ -108,7 +76,6 @@ router.post('/updateScore', (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          console.log('updated hotspot status');
           io.emit('test', { test: 'test update hotspot status' });
         }
       });
@@ -116,7 +83,7 @@ router.post('/updateScore', (req, res) => {
         if (err) {
           console.log(err);
         } else {
-          io.emit('activityFeed', { time: time, team: team_id, hotspot: hotspot });
+          io.emit('activityFeed', { time, team: team_id, hotspot });
           res.send('update successful');
         }
       });
@@ -129,26 +96,17 @@ router.get('/startingHotspot', (req, res) => {
   const query = 'SELECT TH.HOTSPOT_NAME, LATITUDE, LONGTITUDE, N.NARRATIVE FROM TRAIL_HOTSPOT AS TH, HOTSPOT AS H, NARRATIVE AS N WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND H.HOTSPOT_NAME = TH.HOTSPOT_NAME AND TH.NARRATIVE_ID = N.NARRATIVE_ID';
   const response = [];
   const io = req.app.get('socketio');
-  console.log(`instance id: ${  instance_id}`);
 
   conn.query(query, instance_id, (err, row) => {
     if (err) {
       console.log(err);
     } else {
-      // console.log(row)
-      // console.log(row[0]);
-      // console.log(row[0]);
       conn.query('SELECT COUNT(*) as COUNT FROM TEAM WHERE TRAIL_INSTANCE_ID = ?', instance_id, (err, row_count) => {
         const numTeams = row_count[0].COUNT;
-        console.log(numTeams);
         for (let i = 0; i < numTeams; i++) {
-          console.log('row: ');
-          console.log(row[i]);
           const num = i % row.length;
           response.push({ team: i + 1, startingHotspot: row[num].HOTSPOT_NAME, coordinates: [row[num].LATITUDE, row[num].LONGTITUDE], narrative: row[num].NARRATIVE });
         }
-        console.log('response: ');
-        console.log(response);
         io.emit('test', { test: 'test starting hotspot' });
         res.send(response);
       });
@@ -163,7 +121,6 @@ router.get('/hotspotStatus', (req, res) => {
 
   const query = 'SELECT TEAM.TEAM_ID, COUNT(ISCOMPLETED) AS COUNT FROM TEAM LEFT OUTER JOIN TEAM_HOTSPOT_STATUS ON TEAM.TRAIL_INSTANCE_ID = TEAM_HOTSPOT_STATUS.TRAIL_INSTANCE_ID AND TEAM.TEAM_ID = TEAM_HOTSPOT_STATUS.TEAM_ID AND ISCOMPLETED=1 WHERE TEAM.TRAIL_INSTANCE_ID = ? GROUP BY TEAM_ID ORDER BY COUNT DESC';
 
-  console.log(`instance id: ${instance_id}`);
   conn.query(query, instance_id, (err, rows) => {
     if (err) {
       console.log(err);
@@ -201,21 +158,18 @@ router.get('/getAllTeamsWithMembers', (req, res) => {
 });
 
 router.post('/teamLocation', cors(), (req,res) => {
-  // console.log('location update');
-  // console.log(req.body);
   const io = req.app.get('socketio');
   const teamID = req.body.teamID;
   const long = req.body.long;
   const lat = req.body.lat;
 
   const locationQuery = 'UPDATE TEAM SET LONGTITUDE = ?, LATITUDE = ? WHERE TEAM_ID = ?';
-  console.log(io)
   conn.query(locationQuery, [long,lat,teamID], (err,data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      io.emit('updateLocation', { teamID: teamID, long: long, lat: lat });
+      io.emit('updateLocation', { teamID, long, lat });
       res.send(JSON.stringify({ success: 'true' }));
     }
   });
@@ -245,24 +199,19 @@ router.get('/getAllTeamPoints', (req,res) => {
         res.send([]);
         return;
       }
-      console.log(instanceID);
-      console.log(`instance id : ${activeTrailInstanceID}`)
       const response = [];
       //query to get team points and number of completed hotspots
       const teamPointsQuery = 'SELECT TEAM.TEAM_ID, TEAM.TEAM_POINTS, TEAM.TIME_ENDED, COUNT(ISCOMPLETED) AS COUNT FROM TEAM LEFT OUTER JOIN TEAM_HOTSPOT_STATUS ON TEAM.TRAIL_INSTANCE_ID = TEAM_HOTSPOT_STATUS.TRAIL_INSTANCE_ID AND TEAM.TEAM_ID = TEAM_HOTSPOT_STATUS.TEAM_ID AND ISCOMPLETED = 1 WHERE TEAM.TRAIL_INSTANCE_ID = ? GROUP BY TEAM_ID ORDER BY COUNT DESC';
-  
+
       conn.query(teamPointsQuery, activeTrailInstanceID, (err, teams) => {
         if (err) {
           console.log(err);
           res.send(response);
         } else {
-          console.log('Team data: ');
-          console.log(teams);
-  
           teams.forEach((team) => {
             response.push({ team: team.TEAM_ID, points: team.TEAM_POINTS, timeEnded: team.TIME_ENDED, hotspots_completed: team.COUNT });
           });
-  
+
           res.send(response);
         }
       });
@@ -271,7 +220,7 @@ router.get('/getAllTeamPoints', (req,res) => {
 });
 
 router.get('/activityFeed', (req,res) => {
-  const response = []
+  const response = [];
   const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
 
   conn.query(getActiveTrailInstance, (err, data) => {
@@ -280,10 +229,9 @@ router.get('/activityFeed', (req,res) => {
       res.send(response);
     } else {
       const activityFeedQuery = 'SELECT * FROM TEAM_HOTSPOT_STATUS WHERE ISCOMPLETED = 1 AND TRAIL_INSTANCE_ID = ? ORDER BY TIME_COMPLETED DESC';
-      //{ time: time, team: team_id, hotspot: hotspot }
       conn.query(activityFeedQuery, data[0].TRAIL_INSTANCE_ID, (err, data2) => {
         if (err) {
-          console.log(err)
+          console.log(err);
           res.send(response);
         } else {
           data2.forEach((row) => {
@@ -307,9 +255,9 @@ router.post('/updateScoreAdmin', (req,res) => {
   conn.query(getActiveTrailInstance, (err, data) => {
     if (err) {
       console.log(`get active trail instance error retrieve update score admin: ${err}`);
-      res.send(JSON.stringify({ success: 'false' }))
+      res.send(JSON.stringify({ success: 'false' }));
     } else {
-      const trailInstanceID = data[0].TRAIL_INSTANCE_ID
+      const trailInstanceID = data[0].TRAIL_INSTANCE_ID;
       conn.query(getCurrentTeamScore, [team, trailInstanceID], (err,data2) => {
         if (err) {
           console.log(`get current team score: ${err}`);
@@ -324,9 +272,9 @@ router.post('/updateScoreAdmin', (req,res) => {
             } else {
               res.send(JSON.stringify({ success: 'true' }));
             }
-          })
+          });
         }
-      })
+      });
     }
   });
 });
@@ -353,7 +301,7 @@ router.post('/updateScoreSubmission', (req,res) => {
       console.log(`get active trail instance error retrieve update score admin: ${err}`);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      const trailInstanceID = data[0].TRAIL_INSTANCE_ID
+      const trailInstanceID = data[0].TRAIL_INSTANCE_ID;
       console.log(`trail instance id: ${trailInstanceID}`);
       conn.query(getCurrentTeamScore, [team, trailInstanceID], (err,data2) => {
         if (err) {
@@ -375,11 +323,11 @@ router.post('/updateScoreSubmission', (req,res) => {
                 } else {
                   res.send(JSON.stringify({ success: 'true' }));
                 }
-              })
+              });
             }
-          })
+          });
         }
-      })
+      });
     }
   });
 });
@@ -406,7 +354,7 @@ router.post('/updateTeamEndTime', (req,res) => {
         }
       });
     }
-  })
-})
+  });
+});
 
 module.exports = router;
