@@ -22,7 +22,7 @@ router.get('/getQuizzes', (req, res) => {
         const mission_query = 'SELECT QUIZ.QUIZ_ID, QUIZ_QUESTION, QUIZ_ANSWER, QUIZ_OPTION FROM QUIZ,QUIZ_OPTION WHERE MISSION_ID = ? AND QUIZ.QUIZ_ID = QUIZ_OPTION.QUIZ_ID';
 
         conn.query(mission_query, mission, (err, quiz_details) => {
-          let number = number + 1;
+          number = number + 1;
           if (err) {
             console.log(err);
             // number = number + 1;
