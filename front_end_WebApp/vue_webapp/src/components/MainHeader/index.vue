@@ -23,6 +23,7 @@
                     <li @click="showOrHide()"><router-link to='/mission'><i class="ti-flag"></i>Missions</router-link></li>
                     <li @click="showOrHide()"><router-link to='/trail'><i class="ti-map-alt"></i>Trail</router-link></li>
                     <li @click="showOrHide()"><router-link to='/summary'><i class="ti-file"></i>Summary Report</router-link></li>
+                    <li @click="showOrHide()"><router-link to='/passwordChange'><i class="ti-lock"></i>Change Password</router-link></li>
                     <div class="ingame-header"><li>In-Game</li></div>
                     <li @click="showOrHide()"><router-link to="/generateInstanceID"><i class="ti-timer"></i>Start Trail</router-link></li>
                     <li @click="showOrHide()"><router-link to="/map"><i class="ti-map"></i> Map</router-link></li>

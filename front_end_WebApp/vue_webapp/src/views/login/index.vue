@@ -22,7 +22,7 @@
                 <label for="login-rmb-checkbox">Remember Me</label>
               </div>
               <div class="change-passwd-area">
-                <router-link :to="{ name: 'ChangePassword'}"> Change Password? </router-link>
+                <router-link to='/passwordChange'> Change Password? </router-link>
               </div>              
             </div>
             <div class="submit-btn-area">
