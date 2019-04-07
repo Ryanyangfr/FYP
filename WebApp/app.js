@@ -50,7 +50,7 @@ app.use((req, res, next) => {
 // declares the routes available
 app.use('//user', userRouter);
 app.use('//upload', uploads);
-app.use('//hotspot', location)
+app.use('//location', location);
 app.use('//quiz', quiz);
 app.use('//team', team);
 app.use('//', instance);
