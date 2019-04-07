@@ -1,27 +1,35 @@
 <template>
     <div class="Submissions">
         <div v-bind:class="{ shift: this.$store.state.showSidebar }">
-            <form class="search-bar" @submit.prevent="retrieveAllTeams">
-                <input type="text" placeholder="Enter Trail ID" v-model="trailID" required>
-                <button type="submit" class="search-btn"><i class="ti-search"></i></button> 
-            </form>
+            <div class="fixed">
+                <form class="search-bar" @submit.prevent="retrieveAllTeams">
+                    <input type="text" placeholder="Enter Trail ID" v-model="trailID" required>
+                    <button type="submit" class="search-btn"><i class="ti-search"></i></button> 
+                </form>
+                <div class="download-all-btn-area">
+                    <Button class="download-all-btn" @click.prevent="downloadAll()"><i class="ti-download"></i> Download All</Button>
+                </div>
+            </div>
         </div>
+        
         <div class="submissions-row">
-            <div class= "container" v-for="team in teamList" :key="team.team_id">
+            <div class= "team-container" v-for="team in teamList" :key="team.team_id">
                 <button class="grp-card" @click="showSubmissions(team.team_id)">
                     <h5>Team {{team.team_id}}</h5>
-                    <br>
+                    <!-- <br> -->
                     <h6>Total: {{team.size}} Submissions</h6>
                 </button>
             </div>
         </div>
         <div class="grp-submission-row" v-if="showSub">
             <!-- {{images.length}} -->
-             <div class="container" v-for="(image,index) in images" :key="image">
+            <div class="container" v-for="(image,index) in images" :key="image">
                 <div class="submission-card">
                     <div class="image-area">
                         <!-- {{index}} -->
-                        <img :src="image"/>  
+                        <!-- <a href="image" download="my image"> -->
+                            <img :src="image"/>  
+                        <!-- </a> -->
                     </div>
                     <div class="submission-details">
                         {{questions[index]}}
@@ -43,7 +51,7 @@
             </div>
             
         </div>
-     
+    
         <!--<form @submit.prevent="load">
             Enter team:
             <input name="team" type="text" placeholder="team id" v-model="team">
@@ -85,7 +93,12 @@ export default{
             currTeamID: '',
             button: {
                 text: 'Click to view submissions'
-            }
+            },
+
+            //download all variables
+            downloadLinks: [],
+            // allPaths:[]
+
         }
     },
 
@@ -101,6 +114,45 @@ export default{
     },
 
     methods:{
+
+        downloadAll() { 
+
+            //get all submissionsurl
+            for(var i=0; i<this.teamList.length; i++){
+                axios.get('//amazingtrail.ml/api/upload/getAllSubmissionURL?team='+this.teamList[i].team_id+'&trail_instance_id='+this.trailID)
+                .then(response=>{
+                    let data = response.data
+                    let size = Object.keys(data).length
+                    // this.path = [];
+                    if (size === 0) {
+                        this.downloadLinks = [];
+                    }
+                    for(var j=0; j<size; j++){
+                        if(j == 0 && this.downloadLinks.length > 0){
+                            console.log('entered')
+                            this.downloadLinks = []
+                        }
+                        let temp = data[j]
+                        // console.log(temp)
+
+                        axios.get('//amazingtrail.ml/api/upload/getSubmission?url='+temp.submissionURL, { responseType: 'blob' })
+                        .then(({ data }) => {
+                            let blob = new Blob([data], { type: 'image/png' })
+                            let link = document.createElement('a')
+
+                            
+                            link.href = window.URL.createObjectURL(blob)
+                            link.download = 'image.png'
+                            link.click()
+                    
+                            
+                        })
+                    }
+                });
+            }        
+
+        },
+
         retrieveAllTeams(){
             this.teamList = [];
             axios.get('//amazingtrail.ml/api/team/getAllTeams?trail_instance_id='+this.trailID)
@@ -192,6 +244,7 @@ export default{
                 let updatedSubmissionStatuses = [];
                 this.images = []
                 let count = 0;
+                // this.downloadLinks = []
                 for(var index in this.paths){
                     // console.log(this.paths[path])
                     // console.log(index);
@@ -240,8 +293,11 @@ export default{
             // vm.$forceUpdate()
         },
         getImage(url, updatedQn, qn, updatedSubmissionIDs, id, updatedSubmissionStatuses, status){
+            //this.downloadLinks.push('//amazingtrail.ml/api/upload/getSubmission?url='+url);
+            // console.log(this.downloadLinks)
              axios.get('//amazingtrail.ml/api/upload/getSubmission?url=' + url, {responseType: 'blob'})
                 .then(response=>{
+
                     // this.result = 'entered here'
                     // this.result = response.data
                     var reader = new FileReader();
@@ -263,6 +319,7 @@ export default{
                         console.log(this.images.length)
                     }
                     reader.readAsDataURL(response.data);
+
                 })
                 .catch(error =>{
                     console.log(error)
@@ -337,10 +394,13 @@ export default{
                             this.teamList.sort(function(a,b){ return a.team_id - b.team_id });
                         }
                     });
-                }
-                
+
+                }                
             });
-        })
+        });
+
+        
+
     }
 }
 </script>
@@ -349,17 +409,65 @@ export default{
     @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Lato|Permanent+Marker");
     @import '../../assets/themify-icons.css';
 
+    .Submissions{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .fixed{
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        z-index:1;
+        // width: 95%;
+        background-color: #F2F5F7!important;
+        // background-color: pink;
+        margin-top: -22px;
+        padding-top: 30px;
+        width: 100%
+    }
+
+    .download-all-btn-area{
+        // margin-top: 100px;
+        display: inline-block;
+        height: 30px;
+        margin-bottom: 25px;
+        margin-right: 18px;
+        font-size:15px;
+    }
+
+    .download-all-btn{
+        margin-right: 20px;
+        float: right;
+        background-color: #645cdd;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        padding:12px;
+        text-align: center;
+        cursor: pointer;
+        font-weight: 600;
+        align-items: center;
+    }
+
+    .download-all-btn i{
+        margin-right: 5px
+    }
+
+    .download-all-btn:hover{
+        background-color: #6200EE;
+    }
 
     .search-bar{
         top: 130px;
         display: flex;
         flex-direction: row;
         margin: 0px 35px 25px 35px;
-        height:60px;
+        height:55px;
         align-self: center;
         transition: all 0.3s ease 0s;
-        position: fixed;
-        z-index:1;
+        // position: fixed;
+        // z-index:1;
         overflow-x: hidden;
         width: 95%
     }
@@ -413,20 +521,20 @@ export default{
         flex-direction: row;
         margin-right: 18px;
         margin-left: 18px;
-        margin-top: 200px;
+        margin-top: 150px;
         position: relative;
         overflow-y: auto;
         /*background-color: pink;*/
     }
 
-    .container{
+    .team-container{
         padding: 5px;
         /*background-color: pink;*/
         background: none;
         margin:5px;
         flex:1;
         overflow: hidden;
-        height: 150px;
+        height: 110px;
         
     }
 

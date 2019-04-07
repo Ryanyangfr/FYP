@@ -1,7 +1,7 @@
 <template>
   <div class="Login">
     <!-- <div class="container"> -->
-      <div class="login-box ptb--100">
+      <div class="login-box">
         <form @submit.prevent="login_check">
           <div class="login-form-head">
             <h4>Login</h4>
@@ -116,9 +116,9 @@ export default {
     justify-content: center
   }
 
-  .ptb--100 {
+  /* .ptb--100 {
       padding: 50px 0
-  }
+  } */
 
   .login-box {
     display: -webkit-box;

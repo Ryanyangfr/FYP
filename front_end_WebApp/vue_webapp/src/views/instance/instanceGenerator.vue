@@ -190,7 +190,9 @@ export default {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Poppins|Gochi+Hand");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto|Poppins|Gochi+Hand|Lato|Permanent+Marker");
+@import '../../assets/themify-icons.css';
+
     .instanceGenerator .card{
         padding: 20px;
         margin: 18px;

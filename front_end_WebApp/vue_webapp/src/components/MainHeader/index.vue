@@ -70,7 +70,6 @@ export default{
             }
 
             this.$store.commit('changeSideBarState')
-            console.log("MEOW");
             console.log(this.$store.state.showSidebar);
 
         },
