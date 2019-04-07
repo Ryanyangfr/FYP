@@ -75,6 +75,7 @@
 </template>
 
 <script>
+window.scrollTo(0,0);
 import axios from 'axios'
 export default{
     name: 'viewUploads',
@@ -366,6 +367,7 @@ export default{
         }
     },
     mounted(){
+
         if (!this.$session.exists()) {
             console.log("check")
             this.$router.push('/')

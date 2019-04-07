@@ -18,7 +18,7 @@ export default new Router({
     },
     {
       path: '/passwordChange',
-      name: 'ChangePassword',
+      name: 'Change Password',
       component: () => import('@/views/login/changePassword'),
       hidden: true
     },

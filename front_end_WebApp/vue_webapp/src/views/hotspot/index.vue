@@ -347,24 +347,12 @@ export default {
         overflow: hidden;
     }
 
-    .add-hotspot-form, .edit-hotspot-form{
-        width:50%;
-        height:85%;
-        background:white;
-        opacity: 100%;
-        z-index: 500;
-        border-radius: 3px;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 600;
-        
-    }
-
-    .edit-hotspot-header, .add-hotspot-header, .delete-hotspot-header{
+    .delete-hotspot-header{
         max-width: 100%;
         padding:18px;
     }
 
-    .edit-hotspot-form h5, .add-hotspot-form h5, .delete-hotspot-popup h5{
+    .delete-hotspot-popup h5{
         display: flex;
         float: left;
     }
