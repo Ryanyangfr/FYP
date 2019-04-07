@@ -1,99 +1,79 @@
-var express = require('express');
-var router = express.Router();
-var mysql = require('mysql');
-var bodyParser = require('body-parser');
+const express = require('express');
 
-var databaseConfig = require('../config/mysqlconf.js');
+const router = express.Router();
+const mysql = require('mysql');
 
-var conn = mysql.createConnection(databaseConfig);
+const databaseConfig = require('../config/mysqlconf.js');
 
-router.get('/getAnagrams', function(req,res){
-    var trail_instance_id = req.query.trail_instance_id
-    var query = 'SELECT MISSION_ID, HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ? ORDER BY MISSION_ID)';
-    var response = [];
+const conn = mysql.createConnection(databaseConfig);
 
-    conn.query(query, trail_instance_id, function(err, rows){
-        if(err){
-            console.log(err)
-        } else{
-            var count = 0;
-            rows.forEach(function(row){
-                var mission = row.MISSION_ID;
-                var hotspot = row.HOTSPOT_NAME;
+router.get('/getAnagrams', (req,res) => {
+  const trail_instance_id = req.query.trail_instance_id;
+  const query = 'SELECT MISSION_ID, HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ? ORDER BY MISSION_ID)';
+  const response = [];
 
-                mission_query = 'SELECT * FROM ANAGRAM WHERE MISSION_ID = ?';
+  conn.query(query, trail_instance_id, (err, rows) => {
+    if (err) {
+      console.log(err);
+    } else {
+      let count = 0;
+      rows.forEach((row) => {
+        const mission = row.MISSION_ID;
+        const hotspot = row.HOTSPOT_NAME;
 
-                console.log(mission);
-                conn.query(mission_query, mission, function(err, anagram){
-                    if(err){
-                        console.log('error: ' + err);
-                        count += 1;
-                    }else{
-                        // console.log(anagram.ANAGRAM_WORD);
-                        // console.log('word: ' + anagram[0]);
-                        if(anagram[0] != undefined){
-                            var word = anagram[0].ANAGRAM_WORD;
-                            response.push({hotspot: hotspot, anagram:word});
-                            console.log('word: ' + word);
-                        }
-                        
-                        // console.log(word);
-                        // console.log(count);
-                        count += 1;
-                        console.log('count: ' + count);
-                        console.log('row.length: ' + rows.length);
-                        if(count == rows.length){
-                            res.send(response);
-                        }
-                    }
-                })
-                // console.log(count);
-                // console.log(rows.length)
-            })
-            // while(count != rows.length){
-            //     // console.log('count: ' + count);
-            //     // console.log('length: ' + rows.length);
-            // }
-            // res.send(response);
-        }
-    })
-})
+        mission_query = 'SELECT * FROM ANAGRAM WHERE MISSION_ID = ?';
+
+        conn.query(mission_query, mission, (err, anagram) => {
+          if (err) {
+            console.log('error: ' + err);
+            count += 1;
+          } else {
+            if (anagram[0] != undefined) {
+              const word = anagram[0].ANAGRAM_WORD;
+              response.push({hotspot, anagram: word});
+            }
+            count += 1;
+            if (count == rows.length) {
+              res.send(response);
+            }
+          }
+        });
+      });
+    }
+  });
+});
 
 router.get('/getAllAnagrams', (req,res) => {
-    const query = 'SELECT * FROM ANAGRAM, MISSION WHERE ANAGRAM.MISSION_ID = MISSION.MISSION_ID';
-    const response = [];
+  const query = 'SELECT * FROM ANAGRAM, MISSION WHERE ANAGRAM.MISSION_ID = MISSION.MISSION_ID';
+  const response = [];
 
-    conn.query(query, (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
-            data.forEach((row) => {
-                response.push({id: row.ANAGRAM_ID, word: row.ANAGRAM_WORD, title: row.MISSION_TITLE})
-            });
-            console.log(`anagram: `);
-            console.log(response);
-            res.send(response);
-        }
-    })
+  conn.query(query, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      data.forEach((row) => {
+        response.push({id: row.ANAGRAM_ID, word: row.ANAGRAM_WORD, title: row.MISSION_TITLE});
+      });
+      res.send(response);
+    }
+  });
 });
 
 router.get('/getAnagramsHistory', (req,res) => {
-    const trailInstanceID = req.query.trailInstanceID;
-    const query = 'SELECT * FROM ANAGRAM_HISTORY, MISSION_HISTORY, SUMMARY_TABLE WHERE ANAGRAM_HISTORY.MISSION_ID = MISSION_HISTORY.MISSION_ID AND ANAGRAM_HISTORY.MISSION_ID = SUMMARY_TABLE.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
-    const response = [];
+  const trailInstanceID = req.query.trailInstanceID;
+  const query = 'SELECT * FROM ANAGRAM_HISTORY, MISSION_HISTORY, SUMMARY_TABLE WHERE ANAGRAM_HISTORY.MISSION_ID = MISSION_HISTORY.MISSION_ID AND ANAGRAM_HISTORY.MISSION_ID = SUMMARY_TABLE.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
+  const response = [];
 
-    conn.query(query, trailInstanceID, (err, data) => {
-        if (err) {
-            console.log(err);
-        } else {
-            data.forEach((row) => {
-                response.push({id: row.ANAGRAM_ID, word: row.ANAGRAM_WORD, title: row.MISSION_TITLE})
-            });
-            console.log(`anagram: `);
-            console.log(response);
-            res.send(response);
-        }
-    })
+  conn.query(query, trailInstanceID, (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      data.forEach((row) => {
+        response.push({id: row.ANAGRAM_ID, word: row.ANAGRAM_WORD, title: row.MISSION_TITLE});
+      });
+      res.send(response);
+    }
+  });
 });
 
-module.exports=router;
+module.exports = router;

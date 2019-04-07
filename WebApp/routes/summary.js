@@ -41,7 +41,6 @@ router.get('/getSummaryReport', (req,res) => {
                 }
               }
             });
-            
           }
         });
       });
