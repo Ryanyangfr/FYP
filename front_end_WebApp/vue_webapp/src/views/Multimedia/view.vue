@@ -3,7 +3,12 @@
         <div v-bind:class="{ shift: this.$store.state.showSidebar }">
             <div class="fixed">
                 <form class="search-bar" @submit.prevent="retrieveAllTeams">
-                    <input type="text" placeholder="Enter Trail ID" v-model="trailID" required>
+                    <select placeholder="Select Trail ID" v-model="trailID">
+                        <option v-for="trailID in allTrailInstances" :key="trailID">
+                            {{trailID}}
+                        </option> 
+                    </select> 
+                    <!-- <input type="text" placeholder="Enter Trail ID" v-model="trailID" required> -->
                     <button type="submit" class="search-btn"><i class="ti-search"></i></button> 
                 </form>
                 <div class="download-all-btn-area">
@@ -71,6 +76,7 @@ export default{
             button: {
                 text: 'Click to view submissions'
             },
+            allTrailInstances:[],
 
             //download all variables
             downloadLinks: [],
@@ -96,6 +102,7 @@ export default{
 
             //get all submissionsurl
             for(var i=0; i<this.teamList.length; i++){
+                let team = "Team "+this.teamList[i].team_id
                 axios.get('//amazingtrail.ml/api/upload/getAllSubmissionURL?team='+this.teamList[i].team_id+'&trail_instance_id='+this.trailID)
                 .then(response=>{
                     let data = response.data
@@ -111,7 +118,6 @@ export default{
                         }
                         let temp = data[j]
                         // console.log(temp)
-
                         axios.get('//amazingtrail.ml/api/upload/getSubmission?url='+temp.submissionURL, { responseType: 'blob' })
                         .then(({ data }) => {
                             let blob = new Blob([data], { type: 'image/png' })
@@ -119,7 +125,8 @@ export default{
 
                             
                             link.href = window.URL.createObjectURL(blob)
-                            link.download = 'image.png'
+                            
+                            link.download = team+'.png'
                             link.click()
                     
                             
@@ -377,7 +384,11 @@ export default{
             });
         });
 
-        
+        axios.get('//amazingtrail.ml/api/getAllTrailInstances')
+        .then(res => {
+            let data = res.data;
+            this.allTrailInstances = data
+        });
 
     }
 }
@@ -452,7 +463,7 @@ export default{
         width: 80%
     }
 
-    .search-bar input{
+    .search-bar select{
         flex-grow: 2;
         background-color: white;
         border-left: 1px solid #ededed;
@@ -480,7 +491,7 @@ export default{
         cursor: pointer;
     }
 
-    .search-bar input:focus{
+    .search-bar select:focus{
         outline: none !important;
         border-left:2px solid #645cdd;
         border-top:2px solid #645cdd;
@@ -489,7 +500,7 @@ export default{
        
     }
 
-    .search-bar input:focus~ .search-btn{
+    .search-bar select:focus~ .search-btn{
         outline: none;
         border-right:2px solid #645cdd;
         border-top:2px solid #645cdd;

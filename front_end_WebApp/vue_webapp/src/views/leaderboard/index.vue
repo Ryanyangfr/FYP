@@ -9,7 +9,12 @@
                 </div>
             </div>
                 <form @submit.prevent="getData" class="search-bar">
-                    <input type="text" placeholder="Enter Trail ID" v-model="trail_instance_id" required>
+                    <select placeholder="Select Trail ID" v-model="trailID">
+                        <option v-for="trailID in allTrailInstances" :key="trailID">
+                            {{trailID}}
+                        </option> 
+                    </select> 
+                    <!-- <input type="text" placeholder="Enter Trail ID" v-model="trail_instance_id" required> -->
                     <button type="submit" class="search-btn"><i class="ti-search"></i></button> 
                 </form>
 
@@ -107,6 +112,7 @@ export default {
             isLeaderboard: true,
             isFeed: false,
             activityList: [],
+            allTrailInstances: [],
             socket : io('wss://amazingtrail.ml', { transports: ['websocket'] })
         }
     },
@@ -240,6 +246,12 @@ export default {
             }
         })
 
+        axios.get('//amazingtrail.ml/api/getAllTrailInstances')
+        .then(res => {
+            let data = res.data;
+            this.allTrailInstances = data
+        });
+
         this.socket.on('activityFeed', (data) => {
             console.log(data);
             let activity = "Team " + data.team + " completed their mission at " + data.hotspot
@@ -316,7 +328,7 @@ export default {
         width: 95%;
     }
 
-    .search-bar input{
+    .search-bar select{
         flex-grow: 2;
         background-color: white;
         border-left: 1px solid #ededed;
@@ -346,7 +358,7 @@ export default {
         background-color: white;
     }
 
-    .search-bar input:focus{
+    .search-bar select:focus{
         outline: none !important;
         border-left:2px solid #645cdd;
         border-top:2px solid #645cdd;
@@ -355,7 +367,7 @@ export default {
        
     }
 
-    .search-bar input:focus~ .search-btn{
+    .search-bar select:focus~ .search-btn{
         outline: none;
         border-right:2px solid #645cdd;
         border-top:2px solid #645cdd;
