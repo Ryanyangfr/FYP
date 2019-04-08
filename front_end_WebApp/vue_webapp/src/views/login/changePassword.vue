@@ -22,7 +22,7 @@
                     <input name="password" type="password" placeholder="Enter New Password" v-model="user.confirmNewPassword" required> 
                 </div> 
                 <div class="submit-btn-area">
-                    <button class="submit-btn" type="submit">Create</button>
+                    <button class="submit-btn" type="submit">Save</button>
                 </div>
             </form>
         </div>

@@ -9,9 +9,10 @@
                 <div class="download-all-btn-area">
                     <Button class="download-all-btn" @click.prevent="downloadAll()"><i class="ti-download"></i> Download All</Button>
                 </div>
+                
             </div>
         </div>
-        
+
         <div class="submissions-row">
             <div class= "team-container" v-for="team in teamList" :key="team.team_id">
                 <button class="grp-card" @click="showSubmissions(team.team_id)">
@@ -20,23 +21,17 @@
                     <h6>Total: {{team.size}} Submissions</h6>
                 </button>
             </div>
-        </div>
+        </div>        
+        
         <div class="grp-submission-row" v-if="showSub">
-            <!-- {{images.length}} -->
-            <div class="container" v-for="(image,index) in images" :key="image">
-                <div class="submission-card">
-                    <div class="image-area">
-                        <!-- {{index}} -->
-                        <!-- <a href="image" download="my image"> -->
-                            <img :src="image"/>  
-                        <!-- </a> -->
-                    </div>
-                    <div class="submission-details">
-                        {{questions[index]}}
-                    </div> 
-                    <!-- {{submissionStatuses[index]}}
-                    {{index}}
-                    {{submissionIDs}} -->
+            <div class="card" v-for="(image,index) in images" :key="image">
+                <!-- <div class="image-area"> -->
+                <img :src="image" class="card-img-top"/> 
+                <!-- </div> -->
+                <div class="card-body">
+                    <!-- <div class="submission-details"> -->
+                        <h6 class="card-title">{{questions[index]}}</h6>
+                    <!-- </div>  -->
                     <div class="acknowledge" v-if = "submissionStatuses[index] === 'no grade'">
                         <div class="approve"><button @click = "sendStatus(index, 10)"><i class="ti-check"></i></button></div>
                         <div class="disapprove"><button @click = "sendStatus(index, 0)"><i class="ti-close"></i></button></div>
@@ -51,26 +46,7 @@
             </div>
             
         </div>
-    
-        <!--<form @submit.prevent="load">
-            Enter team:
-            <input name="team" type="text" placeholder="team id" v-model="team">
-            Enter trail instance id:
-            <input name="trail" type="text" placeholder="trail instance id" v-model="trail">
-            <button type="submit">submit</button>
-        </form>
-        <br>
-        <li v-for="(image,index) in this.images" :key="image">
-            <span font-size="20">{{questions[index]}}</span>
-            <pre>
-                <img :src="image" style="width:300px;height:400px;"/>
-            </pre>
-        </li>
-        team:
-        {{this.team}}
-        {{this.paths}}
-        {{this.questions}}
-        {{this.images.length}}-->
+
     </div>
 </template>
 
@@ -418,7 +394,7 @@ export default{
 
     .fixed{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         position: fixed;
         z-index:1;
         // width: 95%;
@@ -426,15 +402,17 @@ export default{
         // background-color: pink;
         margin-top: -22px;
         padding-top: 30px;
-        width: 100%
+        width: 100%;
+        align-items: center;
+        margin-left: 10px
+
     }
 
     .download-all-btn-area{
         // margin-top: 100px;
         display: inline-block;
         height: 30px;
-        margin-bottom: 25px;
-        margin-right: 18px;
+        margin-bottom: 35px;
         font-size:15px;
     }
 
@@ -464,14 +442,14 @@ export default{
         top: 130px;
         display: flex;
         flex-direction: row;
-        margin: 0px 35px 25px 35px;
+        margin: 0px 30px 25px 35px;
         height:55px;
         align-self: center;
         transition: all 0.3s ease 0s;
         // position: fixed;
         // z-index:1;
         overflow-x: hidden;
-        width: 95%
+        width: 80%
     }
 
     .search-bar input{
@@ -523,10 +501,10 @@ export default{
         flex-direction: row;
         margin-right: 18px;
         margin-left: 18px;
-        margin-top: 150px;
         position: relative;
         overflow-y: auto;
-        /*background-color: pink;*/
+        // background-color: pink;
+        margin-top: 100px
     }
 
     .team-container{
@@ -568,15 +546,17 @@ export default{
 
     .grp-submission-row{
         display: flex;
-        // background-color: blue;
+        // flex-direction: row;
         flex-wrap: wrap;
-        min-height:400px;
-        margin: 20px;
+        justify-content: flex-start;
+        // background-color: blue;
         animation-name: grow;
         animation-duration: 0.3s;
         animation-direction: normal;
         animation-delay: 0s;
         transform-origin: top left;
+        margin-left: 20px;
+        margin-right: 20px;
        
     }
 
@@ -595,20 +575,32 @@ export default{
     .grp-submission-row .container{
         // background-color: pink;
         // max-width: 400px;
-        max-width: 31.333333333%;
-        flex-basis: 31.333333333%;
+        // max-width: 31.333333333%;
+        // flex-basis: auto;
         height: inherit;
-        margin-left: 18px;
-        align-content: center
+        justify-content: space-between;
+        background-color: pink;
+        // align-content: center
+        flex: 0 1 calc(33.3333333333% - 1em);
     }
 
-    .submission-card{
+    .card{
+        justify-content: space-between;
+        flex: 0 1 calc(33.3333333333% - 1em);
         overflow: hidden;
-        min-height: inherit;
+        // min-height: inherit;
         display: flex;
         flex-direction: column;
         background-color: white;
+        margin: 1rem 0.5em;
+        box-sizing: border-box;
+        
     }
+
+    .card a:hover {
+	    box-shadow: 3px 3px 8px hsl(0, 0%, 80%);
+    }
+
 
     .acknowledge{
         display: flex;
@@ -616,7 +608,7 @@ export default{
         justify-content: center
     }
 
-    .submission-card button{
+    .card button{
         background: none;
         border: none;
         font-size: 20px;
@@ -638,16 +630,16 @@ export default{
         color: red;
     }
 
-    .submission-card .image-area{
+    .card .image-area{
         height: inherit;
         padding: 10px;
         // background-color: red;
         
     }
 
-    .submission-card img{
-        max-height: 400px;
-        max-width: 300px;
+    .card img{
+        max-height: auto;
+        width: auto;
         border-radius: 3px;
         border: 2px solid #ededed;
         font-family: 'Lato', sans-serif; 
@@ -662,6 +654,8 @@ export default{
         
     }
 
+
+
     // .shift{
     //     margin-left: 15%;
     //     animation-name: pushRight;
@@ -670,6 +664,24 @@ export default{
     //     animation-delay: 0s;
     //     transition: 0.5s ease-in-out;
     // }
+
+    @media screen and (max-width: 1125px){
+        .fixed{
+            flex-direction: column
+        }
+        .search-bar{
+            width:95%
+        }
+
+        .submissions-row{
+            margin-top: 150px
+        }
+
+        .download-all-btn-area{
+            width: 100%;
+            margin-right: 20px
+        }
+    }
 
 
 

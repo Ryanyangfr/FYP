@@ -9,6 +9,9 @@
                     <button @click = "showOrHide()"><font-awesome-icon class = "hamburger-icon" icon="bars"  size="2x"/></button>
                 </div>
                 <div class = "logout-area">
+                    <!-- <div class="change-password-area">
+                        <router-link to = "/passwordChange">Change Password</router-link>
+                    </div> -->
                     <button @click='logout'>Logout<i class="ti-shift-right"></i></button>
                 </div>
             </div>
@@ -100,6 +103,10 @@ export default{
 
     @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed|Poppins|PT+Sans");
     @import '../../assets/themify-icons.css';
+
+    .dropdown-menu{
+        z-index:5
+    }
 
     .sideBar{
         position: absolute;
@@ -211,10 +218,15 @@ export default{
 
     .logout-area{
         display: flex;        
-        width: 15%;
+        width: 10%;
         height: 100%;
         float: right;
         align-items: center;
+    }
+
+    .change-password-area a{
+        color: white;
+        text-decoration: none!important
     }
 
     .logout-area button{
