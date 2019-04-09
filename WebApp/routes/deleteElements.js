@@ -209,19 +209,19 @@ router.post('/deleteAnagram', (req, res) => {
   const query = 'DELETE FROM ANAGRAM WHERE ANAGRAM_ID = ?';
   const deleteFromMissionQuery = 'DELETE FROM MISSION WHERE MISSION_ID = ?';
   const getMissionID = 'SELECT MISSION.MISSION_ID FROM ANAGRAM, MISSION WHERE MISSION.MISSION_ID = ANAGRAM.MISSION_ID AND ANAGRAM_ID = ?';
-
-  conn.query(query, anagramID, (err, data) => {
+  
+  conn.query(getMissionID, anagramID, (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      conn.query(getMissionID, anagramID, (err, data) => {
+      console.log(data);
+      const missionID = data[0].MISSION_ID;
+      conn.query(query, anagramID, (err, data) => {
         if (err) {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          console.log(data);
-          const missionID = data.MISSION_ID;
           conn.query(deleteFromMissionQuery, missionID, (err, data2) => {
             if (err) {
               console.log(err);
