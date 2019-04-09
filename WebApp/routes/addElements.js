@@ -137,7 +137,7 @@ router.post('/addQuiz', (req,res) => {
       let count = 0;
       for (const index in quiz) {
         count += 1;
-
+        const row = quiz[index]
         const question = row.question;
         const option1 = row.option1;  
         const option2 = row.option2;
