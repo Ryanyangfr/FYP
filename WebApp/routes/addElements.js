@@ -132,12 +132,13 @@ router.post('/addQuiz', (req,res) => {
   conn.query(ms_query, [mission_id,title], (err, data) => {
     if (err) {
       res.send(JSON.stringify({ success: 'false' }));
+      mission_id += 1;
       console.log(err);
     } else {
       let count = 0;
       for (const index in quiz) {
         count += 1;
-
+        const row = quiz[index]
         const question = row.question;
         const option1 = row.option1;  
         const option2 = row.option2;
@@ -161,6 +162,7 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
   let counter = 0;
   conn.query(qz_query, [quiz_id, question, answer, mission_id], (err, response) => {
     if (err) {
+      mission_id += 1;
       res.send(JSON.stringify({ success: 'false' }));
       console.log(err);
       return false;
@@ -234,6 +236,7 @@ router.post('/addWefieQuestion', (req,res) => {
   const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
   conn.query(ms_query, [mission_id,title], (err, data) => {
     if (err) {
+      mission_id += 1;
       res.send(JSON.stringify({ success: 'false' }));
       console.log(err);
     } else {
@@ -263,6 +266,7 @@ router.post('/addDragAndDropQuestion', (req,res) => {
 
   conn.query(ms_query, [mission_id,title], (err,data) => {
     if (err) {
+      mission_id += 1;
       res.send(JSON.stringify({ success: 'false' }));
       console.log(err);
     } else {
@@ -300,6 +304,7 @@ router.post('/addDrawingQuestion', (req,res) => {
 
   conn.query(ms_query, [mission_id,title], (err, data) => {
     if (err) {
+      mission_id += 1;
       res.send(JSON.stringify({ success: 'false' }));
       console.log(err);
     } else {
@@ -334,6 +339,7 @@ router.post('/addAnagram', (req,res) => {
       const currAnagramID = data[0].ID + 1;
       conn.query(ms_query, [mission_id, title], (err, data2) => {
         if (err) {
+          mission_id += 1;
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
@@ -370,6 +376,7 @@ router.post('/addWordsearchQuestion', (req,res) => {
       const currWordSearchID = data[0].ID + 1;
       conn.query(ms_query, [mission_id, title], (err, data2) => {
         if (err) {
+          mission_id += 1;
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
