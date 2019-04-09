@@ -54,10 +54,11 @@ router.post('/deleteQuiz', (req, res) => {
       const deleteQuizQuery = 'DELETE FROM QUIZ WHERE MISSION_ID = ?';
       const deleteMissionQuery = 'DELETE FROM MISSION WHERE MISSION_ID = ?';
       let count = 0;
+      let quizCompleted = 0
       let anyErr = false;
 
       rows.forEach((row) => {
-        conn.query(deleteQuizQuery, mission_id, (err, data3) => {
+        conn.query(deleteOptionsQuery, row.QUIZ_ID, (err, data3) => {
           if (err) {
             console.log(err);
             if (anyErr !== true) {
@@ -65,7 +66,7 @@ router.post('/deleteQuiz', (req, res) => {
               res.send(JSON.stringify({ success: 'false' }));
             }
           } else {
-            conn.query(deleteOptionsQuery, row.QUIZ_ID, (err, data2) => {
+            conn.query(deleteQuizQuery, mission_id, (err, data2) => {
               if (err) {
                 console.log(err);
                 if (anyErr !== true) {
@@ -74,18 +75,17 @@ router.post('/deleteQuiz', (req, res) => {
                 }
               } else {
                 count += 1;
-                if (count === rows.length && anyErr !== true) {
-                  conn.query(deleteMissionQuery, mission_id, (err, data) => {
-                    if (err) {
-                      console.log(err);
-                      if (anyErr !== true) {
-                        anyErr = true;
-                        res.send(JSON.stringify({ success: 'false' }));
-                      }
-                    } else {
-                      res.send(JSON.stringify({ success: 'true' }));
+                conn.query(deleteMissionQuery, mission_id, (err, data) => {
+                  if (err) {
+                    console.log(err);
+                    if (anyErr !== true) {
+                      anyErr = true;
+                      res.send(JSON.stringify({ success: 'false' }));
                     }
-                  });
+                  }
+                });
+                if (count === rows.length && anyErr !== true) {
+                  res.send(JSON.stringify({ success: 'true' }));
                 }
               }
             });
@@ -99,7 +99,7 @@ router.post('/deleteQuiz', (req, res) => {
 router.post('/deleteWefieQuestion', (req, res) => {
   const wefieID = req.body.id;
   const query = 'DELETE FROM SUBMISSION_QUESTION WHERE QUESTION_ID = ?';
-  
+
   conn.query(query, wefieID, (err, data) => {
     if (err) {
       console.log(err);
