@@ -220,6 +220,7 @@ router.post('/deleteAnagram', (req, res) => {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
+          console.log(data);
           const missionID = data.MISSION_ID;
           conn.query(deleteFromMissionQuery, missionID, (err, data2) => {
             if (err) {
