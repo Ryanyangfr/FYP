@@ -57,7 +57,7 @@ router.post('/deleteQuiz', (req, res) => {
       let anyErr = false;
 
       rows.forEach((row) => {
-        conn.query(deleteMissionQuery, mission_id, (err, data3) => {
+        conn.query(deleteQuizQuery, mission_id, (err, data3) => {
           if (err) {
             console.log(err);
             if (anyErr !== true) {
@@ -65,7 +65,7 @@ router.post('/deleteQuiz', (req, res) => {
               res.send(JSON.stringify({ success: 'false' }));
             }
           } else {
-            conn.query(deleteQuizQuery, mission_id, (err, data2) => {
+            conn.query(deleteOptionsQuery, row.QUIZ_ID, (err, data2) => {
               if (err) {
                 console.log(err);
                 if (anyErr !== true) {
@@ -73,7 +73,7 @@ router.post('/deleteQuiz', (req, res) => {
                   res.send(JSON.stringify({ success: 'false' }));
                 }
               } else {
-                conn.query(deleteOptionsQuery, row.QUIZ_ID, (err, data) => {
+                conn.query(deleteMissionQuery, mission_id, (err, data) => {
                   if (err) {
                     console.log(err);
                     if (anyErr !== true) {
