@@ -73,19 +73,20 @@ router.post('/deleteQuiz', (req, res) => {
                   res.send(JSON.stringify({ success: 'false' }));
                 }
               } else {
-                conn.query(deleteMissionQuery, mission_id, (err, data) => {
-                  if (err) {
-                    console.log(err);
-                    if (anyErr !== true) {
-                      anyErr = true;
-                      res.send(JSON.stringify({ success: 'false' }));
+                count += 1;
+                if (count === rows.length && anyErr !== true) {
+                  conn.query(deleteMissionQuery, mission_id, (err, data) => {
+                    if (err) {
+                      console.log(err);
+                      if (anyErr !== true) {
+                        anyErr = true;
+                        res.send(JSON.stringify({ success: 'false' }));
+                      }
+                    } else {
+                      res.send(JSON.stringify({ success: 'true' }));
                     }
-                  }
-                  count += 1;
-                  if (count === rows.length && anyErr !== true) {
-                    res.send(JSON.stringify({ success: 'true' }));
-                  }
-                });
+                  });
+                }
               }
             });
           }
