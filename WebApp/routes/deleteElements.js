@@ -215,7 +215,7 @@ router.post('/deleteAnagram', (req, res) => {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      conn.query(getMissionID, drawingID, (err, data) => {
+      conn.query(getMissionID, anagramID, (err, data) => {
         if (err) {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
@@ -252,7 +252,22 @@ router.post('/deleteWordsearch', (req, res) => {
         if (err) {
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          res.send(JSON.stringify({ success: 'true' }));
+          conn.query(getMissionID, wordSearchID, (err, data) => {
+            if (err) {
+              console.log(err);
+              res.send(JSON.stringify({ success: 'false' }));
+            } else {
+              const missionID = data[0].MISSION_ID;
+              conn.query(deleteFromMissionQuery, missionID, (err, data2) => {
+                if (err) {
+                  console.log(err);
+                  res.send(JSON.stringify({ success: 'false' }));
+                } else {
+                  res.send(JSON.stringify({ success: 'true' }));
+                }
+              });
+            }
+          });
         }
       });
     }
