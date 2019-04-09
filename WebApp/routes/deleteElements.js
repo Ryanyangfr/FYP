@@ -113,7 +113,7 @@ router.post('/deleteWefieQuestion', (req, res) => {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          const missionID = data[0].MISSION_ID;
+          const missionID = data.MISSION_ID;
           conn.query(deleteFromMissionQuery, missionID, (err, data2) => {
             if (err) {
               console.log(err);
@@ -189,7 +189,7 @@ router.post('/deleteDrawingQuestion', (req, res) => {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          const missionID = data[0].MISSION_ID;
+          const missionID = data.MISSION_ID;
           conn.query(deleteFromMissionQuery, missionID, (err, data2) => {
             if (err) {
               console.log(err);
@@ -220,7 +220,7 @@ router.post('/deleteAnagram', (req, res) => {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          const missionID = data[0].MISSION_ID;
+          const missionID = data.MISSION_ID;
           conn.query(deleteFromMissionQuery, missionID, (err, data2) => {
             if (err) {
               console.log(err);
@@ -257,7 +257,7 @@ router.post('/deleteWordsearch', (req, res) => {
               console.log(err);
               res.send(JSON.stringify({ success: 'false' }));
             } else {
-              const missionID = data[0].MISSION_ID;
+              const missionID = data.MISSION_ID;
               conn.query(deleteFromMissionQuery, missionID, (err, data2) => {
                 if (err) {
                   console.log(err);
