@@ -102,18 +102,17 @@ router.post('/deleteWefieQuestion', (req, res) => {
   const deleteFromMissionQuery = 'DELETE FROM MISSION WHERE MISSION_ID = ?';
   const getMissionID = 'SELECT MISSION.MISSION_ID FROM SUBMISSION_QUESTION, MISSION WHERE MISSION.MISSION_ID = SUBMISSION_QUESTION.MISSION_ID AND QUESTION_ID = ?';
 
-
-  conn.query(query, wefieID, (err, data) => {
+  conn.query(getMissionID, wefieID, (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      conn.query(getMissionID, wefieID, (err, data) => {
+      const missionID = data[0].MISSION_ID;
+      conn.query(query, wefieID, (err, data) => {
         if (err) {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          const missionID = data.MISSION_ID;
           conn.query(deleteFromMissionQuery, missionID, (err, data2) => {
             if (err) {
               console.log(err);
@@ -179,17 +178,17 @@ router.post('/deleteDrawingQuestion', (req, res) => {
   const deleteFromMissionQuery = 'DELETE FROM MISSION WHERE MISSION_ID = ?';
   const getMissionID = 'SELECT MISSION.MISSION_ID FROM DRAWING_QUESTION, MISSION WHERE MISSION.MISSION_ID = DRAWING_QUESTION.MISSION_ID AND QUESTION_ID = ?';
 
-  conn.query(query, drawingID, (err, data) => {
+  conn.query(getMissionID, drawingID, (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      conn.query(getMissionID, drawingID, (err, data) => {
+      const missionID = data[0].MISSION_ID;
+      conn.query(query, drawingID, (err, data) => {
         if (err) {
           console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          const missionID = data.MISSION_ID;
           conn.query(deleteFromMissionQuery, missionID, (err, data2) => {
             if (err) {
               console.log(err);
@@ -215,7 +214,6 @@ router.post('/deleteAnagram', (req, res) => {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      console.log(data);
       const missionID = data[0].MISSION_ID;
       conn.query(query, anagramID, (err, data) => {
         if (err) {
@@ -243,22 +241,21 @@ router.post('/deleteWordsearch', (req, res) => {
   const deleteFromMissionQuery = 'DELETE FROM MISSION WHERE MISSION_ID = ?';
   const getMissionID = 'SELECT MISSION.MISSION_ID FROM WORDSEARCH, MISSION WHERE MISSION.MISSION_ID = WORDSEARCH.MISSION_ID AND WORDSEARCH_ID = ?';
 
-
-  conn.query(wordSearchWordQuery, wordSearchID, (err, data) => {
+  conn.query(getMissionID, wordSearchID, (err, data) => {
     if (err) {
       console.log(err);
       res.send(JSON.stringify({ success: 'false' }));
     } else {
-      conn.query(wordSearchQuery, wordSearchID, (err,data) => {
+      const missionID = data[0].MISSION_ID;
+      conn.query(wordSearchWordQuery, wordSearchID, (err, data) => {
         if (err) {
+          console.log(err);
           res.send(JSON.stringify({ success: 'false' }));
         } else {
-          conn.query(getMissionID, wordSearchID, (err, data) => {
+          conn.query(wordSearchQuery, wordSearchID, (err,data) => {
             if (err) {
-              console.log(err);
               res.send(JSON.stringify({ success: 'false' }));
             } else {
-              const missionID = data.MISSION_ID;
               conn.query(deleteFromMissionQuery, missionID, (err, data2) => {
                 if (err) {
                   console.log(err);
