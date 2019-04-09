@@ -176,7 +176,7 @@
                     <button class="close-delete-quiz" @click="closeDeleteQuiz()"><font-awesome-icon icon="times"/></button>
                 </div>
                 <!--<hr>-->
-                <form class="delete-quiz-body" @submit="onSubmitToDeleteQuiz">
+                <form class="delete-quiz-body" @submit.prevent="onSubmitToDeleteQuiz">
                     <div class="delete-quiz-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
                     <!--<div class="btm-header"><hr></div>-->
                     <div class="delete-quiz-btm">
@@ -189,13 +189,10 @@
         </div>
 
          <div class="black-blur-bg" v-if="quizDeleteMessage.length > 0"> 
-            <div class="delete-quiz-popup">
-                <hr>
-                
-                <div><h6>{{quizDeleteMessage}}</h6></div>
-                <div><hr></div>
-                <div class="delete-quiz-btm">
-                    <button class="delete-quiz-btn" @click="quizCloseDeleteMessage()">Close</button>
+            <div class="delete-message-popup">                
+                <div class="delete-message-area"><h6>{{quizDeleteMessage}}</h6></div>
+                <div class="close-delete-message">
+                    <button @click="quizCloseDeleteMessage()">Close</button>
                     <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
             </div>
@@ -211,7 +208,7 @@
                     <button class="close-delete-wefie" @click="closeDeleteWefie()"><font-awesome-icon icon="times"/></button>
                 </div>
                 <!--<hr>-->
-                <form class="delete-wefie-body" @submit="onSubmitToDeleteWefie">
+                <form class="delete-wefie-body" @submit.prevent="onSubmitToDeleteWefie">
                     <div class="delete-wefie-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
                     <!--<div><hr></div>-->
                     <div class="delete-wefie-btm">
@@ -224,16 +221,12 @@
         </div>
 
         <div class="black-blur-bg" v-if="wefieDeleteMessage.length > 0"> 
-            <div class="delete-quiz-popup">
-                <!--<hr>-->
-                
-                <div class="delete-quiz-content"><h6>{{wefieDeleteMessage}}</h6></div>
-                <!--<div><hr></div>-->
-                <div class="delete-quiz-btm">
-                    <button class="delete-quiz-btn" @click="wefieCloseDeleteMessage()">Close</button>
+            <div class="delete-message-popup">                
+                <div class="delete-message-area"><h6>{{wefieDeleteMessage}}</h6></div>
+                <div class="close-delete-message">
+                    <button @click="wefieCloseDeleteMessage()">Close</button>
                     <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
-               
             </div>
         </div>
         <!--delete wefie popup ends-->
@@ -247,7 +240,7 @@
                     <button class="close-delete-dragdrop" @click="closeDeleteDragDrop()"><font-awesome-icon icon="times"/></button>
                 </div>
                 <!--<hr>-->
-                <form class="delete-dragdrop-body" @submit="onSubmitToDeleteDragDrop">
+                <form class="delete-dragdrop-body" @submit.prevent="onSubmitToDeleteDragDrop">
                     <div class="delete-dragdrop-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
                     <!--<div><hr></div>-->
                     <div class="delete-dragdrop-btm">
@@ -260,15 +253,12 @@
         </div>
 
         <div class="black-blur-bg" v-if="dragAndDropDeleteMessage.length > 0"> 
-            <div class="delete-quiz-popup">
-                <!--<hr>-->
-                <div><h6>{{dragAndDropDeleteMessage}}</h6></div>
-                <!--<div><hr></div>-->
-                <div class="delete-quiz-btm">
-                    <button class="delete-quiz-btn" @click="dragDropCloseDeleteMessage()">Close</button>
+            <div class="delete-message-popup">                
+                <div class="delete-message-area"><h6>{{dragAndDropDeleteMessage}}</h6></div>
+                <div class="close-delete-message">
+                    <button @click="dragDropCloseDeleteMessage()">Close</button>
                     <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
-               
             </div>
         </div>
         <!--delete drag drop popup ends-->
@@ -282,7 +272,7 @@
                     <button class="close-delete-drawing" @click="closeDeleteDrawing()"><font-awesome-icon icon="times"/></button>
                 </div>
                 <!--<hr>-->
-                <form class="delete-drawing-body" @submit="onSubmitToDeleteDrawing">
+                <form class="delete-drawing-body" @submit.prevent="onSubmitToDeleteDrawing">
                     <div class="delete-drawing-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
                     <!--<div><hr></div>-->
                     <div class="delete-drawing-btm">
@@ -295,16 +285,12 @@
         </div>
 
         <div class="black-blur-bg" v-if="drawingDeleteMessage.length > 0"> 
-            <div class="delete-quiz-popup">
-                <!--<hr>-->
-                
-                <div class="delete-quiz-content"><h6>{{drawingDeleteMessage}}</h6></div>
-                <!--<div><hr></div>-->
-                <div class="delete-quiz-btm">
-                    <button class="delete-quiz-btn" @click="drawingCloseDeleteMessage()">Close</button>
+            <div class="delete-message-popup">                
+                <div class="delete-message-area"><h6>{{drawingDeleteMessage}}</h6></div>
+                <div class="close-delete-message">
+                    <button @click="drawingCloseDeleteMessage()">Close</button>
                     <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
-               
             </div>
         </div>
         <!--delete drawing popup ends-->
@@ -318,7 +304,7 @@
                     <button class="close-delete-anagram" @click="closeDeleteAnagram()"><font-awesome-icon icon="times"/></button>
                 </div>
                 <!--<hr>-->
-                <form class="delete-anagram-body" @submit="onSubmitToDeleteAnagram">
+                <form class="delete-anagram-body" @submit.prevent="onSubmitToDeleteAnagram">
                     <div class="delete-anagram-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
                     <!--<div><hr></div>-->
                     <div class="delete-anagram-btm">
@@ -331,16 +317,12 @@
         </div>
 
         <div class="black-blur-bg" v-if="anagramDeleteMessage.length > 0"> 
-            <div class="delete-quiz-popup">
-                <!--<hr>-->
-                
-                <div class="delete-quiz-content"><h6>{{anagramDeleteMessage}}</h6></div>
-                <!--<div><hr></div>-->
-                <div class="delete-quiz-btm">
-                    <button class="delete-quiz-btn" @click="anagramCloseDeleteMessage()">Close</button>
+            <div class="delete-message-popup">                
+                <div class="delete-message-area"><h6>{{anagramDeleteMessage}}</h6></div>
+                <div class="close-delete-message">
+                    <button @click="anagramCloseDeleteMessage()">Close</button>
                     <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
-               
             </div>
         </div>
         <!--delete anagram popup ends-->
@@ -358,7 +340,7 @@
                     <div class="delete-wordsearch-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
                     <!--<div><hr></div>-->
                     <div class="delete-wordsearch-btm">
-                        <button type="button" class="cancel-delete" @click="closeDeleteWordsearch()">Cancel</button>
+                        <button type="button" class="cancel-delete" @click="closeDeleteWordsearch()">Close</button>
                         <button type="submit" class="delete-wordsearch-btn">Delete</button>
                     </div>
                 </form>
@@ -367,15 +349,12 @@
         </div>
 
         <div class="black-blur-bg" v-if="wordsearchDeleteMessage.length > 0"> 
-            <div class="delete-quiz-popup">
-                <!--<hr>-->
-                
-                <div class="delete-quiz-content"><h6>{{wordsearchDeleteMessage}}</h6></div>
-                <!--<div><hr></div>-->
-                <div class="delete-quiz-btm">
-                    <button class="delete-quiz-btn" @click="wordsearchCloseDeleteMessage()">Close</button>
+            <div class="delete-message-popup">                
+                <div class="delete-message-area"><h6>{{wordsearchDeleteMessage}}</h6></div>
+                <div class="close-delete-message">
+                    <button @click="wordsearchCloseDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
-               
             </div>
         </div>
         <!--delete wordsearch popup ends-->
@@ -774,24 +753,24 @@ export default {
             this.dragAndDropDeleteMessage = "";
         },
 
-        onSubmitToDeleteAnagram(){
-            const postBody = {
-                id: this.anagramIDToBeDeleted
-            }
+        // onSubmitToDeleteAnagram(){
+        //     const postBody = {
+        //         id: this.anagramIDToBeDeleted
+        //     }
 
-            axios.post('//amazingtrail.ml/api/delete/deleteAnagram', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-                if (data.success === "true") {
-                    this.anagramDeleteMessage ="Anagram Word Successfully Deleted"
-                    // this.$router.go();
-                } else {
-                    this.anagramDeleteMessage = "Error Please Remove Drawing Question From All Existing Trails";
-                }
-                // this.$router.go();
-            })
-        },
+        //     axios.post('//amazingtrail.ml/api/delete/deleteAnagram', postBody)
+        //     .then(response => {
+        //         let data = response.data
+        //         console.log(data)
+        //         if (data.success === "true") {
+        //             this.anagramDeleteMessage ="Anagram Word Successfully Deleted"
+        //             // this.$router.go();
+        //         } else {
+        //             this.anagramDeleteMessage = "Error Please Remove Drawing Question From All Existing Trails";
+        //         }
+        //         // this.$router.go();
+        //     })
+        // },
 
         deleteAnagram(anagram_title, anagram_id){
             this.titleToBeDeleted = anagram_title;
@@ -814,7 +793,8 @@ export default {
                 let data = response.data
                 console.log(data)
                 if (data.success === "true") {
-                    this.anagramDeleteMessage ="Anagram Question Successfully Deleted"
+                    this.anagramDeleteMessage ="Anagram Successfully Deleted"
+                    console.log(this.anagramDeleteMessage)
                     // this.$router.go();
                 } else {
                     this.anagramDeleteMessage = "Error Please Remove Anagram Question From All Existing Trails";
@@ -842,10 +822,11 @@ export default {
         anagramCloseDeleteMessage(){
             this.showDeleteAnagram = false;
             this.anagramCloseMessage = true;
-            if( this.anagramDeleteMessage === "Anagram Word Successfully Deleted") {
+            if( this.anagramDeleteMessage === "Anagram Successfully Deleted") {
                 this.anagramDeleteMessage = "";
                 this.$router.go();
             }
+            this.anagramDeleteMessage = "";
         },
 
         deleteDrawing(drawing_title, drawing_id){
@@ -954,6 +935,7 @@ export default {
         },
 
         wordsearchCloseDeleteMessage(){
+            console.log(this.wordsearchDeleteMessage)
             this.showDeleteWordsearch = false;
             this.wordsearchCloseMessage = true;
             if( this.wordsearchDeleteMessage === "Wordsearch Question Successfully Deleted") {
@@ -1290,6 +1272,48 @@ export default {
         float: left;
     }
 
+    .delete-message-popup{
+        min-width: 30%;
+        min-height: 23%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px
+    }
+
+    .delete-message-area{
+        display: inline-block;
+        margin: auto
+    }
+
+    .delete-message-popup button{
+        background: none;
+        border: none;
+        background-color: #F15E5E;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-content: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+        width: 70px;
+    }
+
+    .close-delete-message{
+        display: inline-block
+    }
     /*deleted quiz popup ends*/
 
     /*delete wefie popup starts*/
