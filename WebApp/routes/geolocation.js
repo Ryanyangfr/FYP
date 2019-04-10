@@ -16,7 +16,7 @@ router.get('/getAllHotspots', (req, res) => {
     } else {
       const response = [];
       result.forEach((element) => {
-        const hotspot_name = element.HOTSPOT_NAME;
+        const hotspot_name = element.HOTSPOT_NAME.trim();
         const lat = element.LATITUDE;
         const long = element.LONGTITUDE;
         const narrative_value = element.NARRATIVE;
