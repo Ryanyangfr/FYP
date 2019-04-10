@@ -275,9 +275,6 @@ function duplicateMission(trailInstanceID, missionID, insertMissionHistoryQuery)
         if (err) {
           console.log(err);
         } else {
-          if (data2.length === 0) {
-            res.send(response);
-          }
           data2.forEach((row) => {
             numberOfiterations += 1;
             const hotspot = row.HOTSPOT_NAME;
