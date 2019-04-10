@@ -30,7 +30,7 @@ router.get('/getWordSearchWords', (req, res) => {
             let tempWords = [];
             data.forEach((wordSearch) => {
               if (currentID === wordSearch.WORDSEARCH_ID) {
-                tempWords.push(wordSearch.WORD);
+                tempWords.push(wordSearch.WORD.trim());
               } else {
                 response.push({ hotspot: hotspot_name, words: tempWords });
                 tempWords = [];

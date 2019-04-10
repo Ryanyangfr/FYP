@@ -105,7 +105,7 @@ router.get('/startingHotspot', (req, res) => {
         const numTeams = row_count[0].COUNT;
         for (let i = 0; i < numTeams; i++) {
           const num = i % row.length;
-          response.push({ team: i + 1, startingHotspot: row[num].HOTSPOT_NAME, coordinates: [row[num].LATITUDE, row[num].LONGTITUDE], narrative: row[num].NARRATIVE });
+          response.push({ team: i + 1, startingHotspot: row[num].HOTSPOT_NAME.trim(), coordinates: [row[num].LATITUDE, row[num].LONGTITUDE], narrative: row[num].NARRATIVE });
         }
         io.emit('test', { test: 'test starting hotspot' });
         res.send(response);
