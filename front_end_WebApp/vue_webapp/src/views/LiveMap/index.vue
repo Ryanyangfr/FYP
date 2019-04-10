@@ -146,11 +146,11 @@ export default {
                     title: 'team ' + marker.team,
                     icon: 'http://maps.google.com/mapfiles/kml/paddle/'+marker.team+'.png',
                     // icon: '../../assets/marker.jpg',
-                    label: {
-                        text: ""+marker.team,
-                        color: "white",
-                        fontSize: "20px"
-                    },
+                    // label: {
+                    //     text: ""+marker.team,
+                    //     color: "white",
+                    //     fontSize: "20px"
+                    // },
                     // icon: {
                     //     url: "https://moonraft.com/wp-content/uploads/2018/02/cropped-MR_FAVICON.png",
                     //     // url: '../../assets/marker.png',
@@ -210,11 +210,11 @@ export default {
                 title: 'team ' + teamID,
                 icon: 'http://maps.google.com/mapfiles/kml/paddle/'+teamID+'.png',
                 // icon: '../../assets/marker.jpg',
-                label: {
-                    text: ""+teamID,
-                    color: "white",
-                    fontSize: "20px"
-                }
+                // label: {
+                //     text: ""+teamID,
+                //     color: "white",
+                //     fontSize: "20px"
+                // }
                 // icon: {
                 //     url: "https://moonraft.com/wp-content/uploads/2018/02/cropped-MR_FAVICON.png",
                 //     scaledSize: new google.maps.Size(50, 50), // scaled size

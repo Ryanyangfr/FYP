@@ -4,6 +4,14 @@
             <div class="card-title">
                 <h5>Add New Location</h5>
             </div>
+            <div class="no-hotspot-popup">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="showalert">
+                    <strong>No Hotspot!</strong> Please choose a hotspot on the map before submitting.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="closeAlert()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
             <form @submit.prevent="hotspotOnSubmitToAdd" class="add-hotspot-body">
                 <div class="input-area">
                     <label for="add-hotspot-input">Location Name</label>
@@ -21,10 +29,10 @@
                     <div id="gmap-view" ></div>
                     <div class="instruction-submit-area">
                         <div class="add-hotspot-instruction">
-                            <h5>Select the location on the map by adding a marker on the map. Then click "Create" to save the location</h5>
+                            <h6>Select the location on the map by adding a marker on the map. Then click "Create" to save the location</h6>
                         </div>
                         <div class="submit-btn-area">
-                            <button class="cancel-btn" type="button"><router-link to='/viewHotspots'>Cancel</router-link></button>
+                            <router-link to='/viewHotspots'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </div>
@@ -47,28 +55,42 @@ export default {
             map: undefined,
             center: { lat: 1.2962, lng: 103.8501 },
             currentMarker: '',
-            position: ''
-
+            position: '',
+            showalert: false
         }  
     },
 
     methods: {
         hotspotOnSubmitToAdd(){
-            var postBody = {
-                "hotspot_name": this.name,
-                "latitude": this.map.lat,
-                "longtitude": this.map.lng,
+            if(this.map.lat === undefined || this.map.lat === undefined){
+                this.showalert = true;
+            } else{
+                var postBody = {
+                    "hotspot_name": this.name,
+                    "latitude": this.map.lat,
+                    "longtitude": this.map.lng,
+                }
+                console.log("post body: ");
+                console.log(postBody)
+                axios.post('//amazingtrail.ml/api/add/addHotspot', postBody)
+                .then(response => {
+                    let data = response.data
+                    console.log(data)
+                    this.$router.push({ path: this.redirect || '/viewHotspots' })
+                })
             }
-            console.log("post body: ");
-            console.log(postBody)
-            axios.post('//amazingtrail.ml/api/add/addHotspot', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-                this.$router.push({ path: this.redirect || '/viewHotspots' })
-            })
-            
-        }, 
+        },
+
+        closeAlert(){
+            if(this.showalert){
+                this.showalert = false;
+            } else{
+                this.showalert = true;
+            }
+        }
+        
+        
+        
     },
     
     mounted() {
@@ -95,6 +117,7 @@ export default {
                 }); 
             } else {   
                 marker.setPosition(e.latLng); 
+
             }
             // marker = new google.maps.Marker({
             //     position: e.latLng,
@@ -272,7 +295,7 @@ export default {
     }
 
     #gmap-view{
-        min-width:70%;
+        min-width:80%;
         height: 500px;
 
     }
@@ -289,6 +312,11 @@ export default {
     .add-hotspot-instruction{
         text-align: left;
         margin-left: 12px;
+        font-family: 'Lato', sans-serif;
     }
 
+    .no-hotspot-popup{
+        position: fixed;
+        z-index: 400;
+    }
 </style>

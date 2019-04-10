@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-title">
                 <h5>Location List</h5>
-                <button class="create-hotspot-btn"><router-link to='/addHotspot'><i class="ti-plus"></i>ADD NEW</router-link></button>
+                <router-link to='/addHotspot'><button class="create-hotspot-btn"><i class="ti-plus"></i>ADD NEW</button></router-link>
             </div>
             <table>
                 <tr class="hotspot-table-header">
@@ -46,6 +46,16 @@
         </div>
 
         <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
+            <div class="delete-message-popup">                
+                <div class="delete-message-area"><h6>{{deleteMessage}}</h6></div>
+                <div class="close-delete-message">
+                    <button @click="closeDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
             <div class="delete-hotspot-popup">
                 <hr>
                 
@@ -53,11 +63,9 @@
                 <div><hr></div>
                 <div class="delete-hotspot-btm">
                     <button class="delete-hotspot-btn" @click="closeDeleteMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
-               
             </div>
-        </div>
+        </div> -->
         <!--delete hotspot ends-->
 
         <!--<v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
@@ -151,6 +159,12 @@ export default {
                     this.deleteMessage = "Hotspot Successfully Deleted"
                 } else {
                     this.deleteMessage = "Error Please Remove Hotspot From All Existing Trails"
+                }
+
+                if(this.showDelete){
+                    this.showDelete = false;
+                } else{
+                    this.showDelete = true;
                 }
                 // this.$router.go();
             })
@@ -538,5 +552,47 @@ export default {
         color: white;
     }
     
+    .delete-message-popup{
+        min-width: 30%;
+        min-height: 23%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px
+    }
+
+    .delete-message-area{
+        display: inline-block;
+        margin: auto
+    }
+
+    .delete-message-popup button{
+        background: none;
+        border: none;
+        background-color: #F15E5E;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-content: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+        width: 70px;
+    }
+
+    .close-delete-message{
+        display: inline-block
+    }
 </style>
 

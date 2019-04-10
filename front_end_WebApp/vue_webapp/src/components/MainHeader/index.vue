@@ -12,7 +12,10 @@
                     <!-- <div class="change-password-area">
                         <router-link to = "/passwordChange">Change Password</router-link>
                     </div> -->
-                    <button @click='logout'>Logout<i class="ti-shift-right"></i></button>
+                    <div class="change-password-area">
+                        <router-link to='/passwordChange'><button><i class="ti-lock"></i>Change Password</button></router-link>
+                    </div>
+                    <button @click='logout' class="logout-btn"><i class="ti-shift-right"></i>Logout</button>
                 </div>
             </div>
         </div>
@@ -26,10 +29,10 @@
                     <li @click="showOrHide()"><router-link to='/mission'><i class="ti-flag"></i>Missions</router-link></li>
                     <li @click="showOrHide()"><router-link to='/trail'><i class="ti-map-alt"></i>Trail</router-link></li>
                     <li @click="showOrHide()"><router-link to='/summary'><i class="ti-file"></i>Summary Report</router-link></li>
-                    <li @click="showOrHide()"><router-link to='/passwordChange'><i class="ti-lock"></i>Change Password</router-link></li>
+                    <!-- <li @click="showOrHide()"><router-link to='/passwordChange'><i class="ti-lock"></i>Change Password</router-link></li> -->
                     <div class="ingame-header"><li>In-Game</li></div>
                     <li @click="showOrHide()"><router-link to="/generateInstanceID"><i class="ti-timer"></i>Start Trail</router-link></li>
-                    <li @click="showOrHide()"><router-link to="/map"><i class="ti-map"></i> Map</router-link></li>
+                    <li @click="showOrHide()"><router-link to="/map"><i class="ti-map"></i>Live Monitoring</router-link></li>
                     <li @click="showOrHide()"><router-link to="/leaderboard"><i class="ti-cup"></i>Leaderboard</router-link></li>
                     <li @click="showOrHide()"><router-link to='/viewSubmissions'><i class="ti-gallery"></i>Submissions</router-link></li>
 
@@ -217,28 +220,55 @@ export default{
     }
 
     .logout-area{
-        display: flex;        
-        width: 10%;
+        display: flex; 
+        flex-direction: row;       
+        width: 27%;
         height: 100%;
         float: right;
         align-items: center;
+        /* background-color: pink; */
     }
 
-    .change-password-area a{
-        color: white;
-        text-decoration: none!important
-    }
-
-    .logout-area button{
+    .logout-btn{
+        background: none;
         position: relative;
         display: inline-block;
-        width: 100%;
+        width: 40%;
         height: 100%;
         border: none;
         font-family: 'Poppins', sans-serif;
         background-color: #645cdd;
         color: white;
         cursor: pointer;
+    }
+
+    .change-password-area{
+        height: 100%;
+        width: 63%;
+        position: relative;
+        display: inline-block;
+        background-color: #645cdd;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .change-password-area button{
+        border: none;
+        background: none;
+        cursor: pointer;
+        color: white;
+        width: 100%;
+        height: 100%
+
+    }
+
+    .change-password-area i{
+        padding-right: 5px
+
+    }
+
+    .change-password-btn a{
+        text-decoration: none!important;
+        color: white;
     }
 
     .logout-area button:hover{
@@ -248,7 +278,7 @@ export default{
     }
 
     .logout-area i{
-        margin-left: 15px;
+        margin-right: 15px;
     }
 
     .logo img{
@@ -281,7 +311,7 @@ export default{
         cursor: pointer;
     }
     
-    @media screen and (max-width: 900px){
+    @media screen and (max-width: 1125px){
         .logo{
             width: 0
         }
@@ -290,9 +320,28 @@ export default{
         }
 
         .sideBar{
+            width: 20%
+        }
+    }
+
+    @media screen and (max-width: 1000px){
+
+        .sideBar{
             width: 30%
         }
     }
 
+    @media screen and (max-width: 700px){
+        .sideBar{
+            width: 40%
+        }
+    }
+
+    @media screen and (max-width: 600px){
+
+        .sideBar{
+            width: 50%
+        }
+    }
 </style>
 

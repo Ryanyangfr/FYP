@@ -9,7 +9,7 @@
                 </div>
             </div>
                 <form @submit.prevent="getData" class="search-bar">
-                    <select placeholder="Select Trail ID" v-model="trailID">
+                    <select placeholder="Select Trail ID" v-model="trail_instance_id">
                         <option v-for="trailID in allTrailInstances" :key="trailID">
                             {{trailID}}
                         </option> 

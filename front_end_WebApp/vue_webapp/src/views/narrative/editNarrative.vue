@@ -15,7 +15,7 @@
                 </div> 
                 <div class="submit-btn-area">
                     <button class="cancel-btn" type="cancel"><router-link to='/viewNarrative'>Cancel</router-link></button>
-                    <button class="submit-btn" type="submit"></i>Save</button>
+                    <button class="submit-btn" type="submit">Save</button>
                     
                 </div>
             </form>
