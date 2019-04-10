@@ -114,7 +114,10 @@ export default {
             trailMap: {},
             trailTimeMap: {},
             showConfirmation: false,
-            trailStarted: false
+            trailStarted: false,
+            hours: 0,
+            minutes: 0,
+            seconds: 0
         }
     },
     components:{
@@ -217,8 +220,17 @@ export default {
             
             this.$store.commit('saveInstanceStartTime', new Date().getTime() + parseInt(this.trailTimeMap[this.trail])*60*1000);
             this.$store.commit('saveTrailStartTime', new Date().getTime());
+            this.$store.commit('saveCurrentTrail', this.trail);
+            this.$store.commit('saveCurrentNumTeams', this.numTeams);
             // this.$router.push({ path: this.redirect || '/map' })
-        }
+        },
+
+        calcTime(dist){
+            // Time calculations for days, hours, minutes and seconds
+            this.hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            this.minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+            this.seconds = Math.floor((dist % (1000 * 60)) / 1000);
+        },
     },
     
     mounted(){
@@ -239,6 +251,26 @@ export default {
                 // this.allTrailsInfoList.push({id: data[row].trailID, information: data[row]})
             }
         })
+
+        // Get todays date and time
+        let now = new Date().getTime();
+        // console.log(start);
+        // console.log(end);
+        // Find the distance between now an the count down date
+        // var distance = start - now;
+        var passTime =  this.$store.state.instanceStartTime - now;
+        // console.log(passTime)
+        this.calcTime(passTime);
+        if (this.seconds > 0) {
+            console.log(this.$store.state.currentTrail);
+            this.instance_id = this.$store.state.currentTrailID;
+            this.trail = this.$store.state.currentTrail;
+            this.numTeams = this.$store.state.currentNumTeams;
+            this.generate_id = true;
+            this.trailStarted = true;
+
+        }
+    
 
     }
 }

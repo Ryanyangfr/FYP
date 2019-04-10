@@ -347,7 +347,7 @@ export default {
         min-width: 200px;
     }
 
-    /*add hotspot begins*/
+    /*delete hotspot begins*/
      .black-blur-bg{
         width:100%;
         height: 100%;
@@ -371,112 +371,13 @@ export default {
         float: left;
     }
 
-    .close-edit-hotspot, .close-add-hotspot, .close-delete-hotspot{
+    .close-delete-hotspot{
         background: none;
         border: none;
         color: #868686;
         cursor: pointer;
         float: right;
         font-size: 18px;
-    }
-
-    .edit-hotspot-input, .add-hotspot-input{
-        float: left;
-        display: flex;
-        margin-left: 30px;
-        margin-bottom: 45px;
-        font-family: 'Lato', sans-serif;
-        position: relative;
-    }
-
-    .narrative-droplist{
-        float: left;
-        display: flex;
-        margin-left: 30px;
-        margin-bottom: 45px;
-        font-family: 'Lato', sans-serif;
-        position: relative;
-    }
-    
-    .narrative-droplist select{
-        margin-left: 5px;
-        height: 40px;
-        border: 1px solid #CED4DA;
-        border-radius: 4px;
-        font-size: 14px;
-        width:90%;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .edit-hotspot-body, .add-hotspot-body{
-        padding-top: 25px;
-        display: flex;
-        flex-direction: column;
-        width:100%;
-    }
-
-    .narrative-droplist label{
-        top: -25px;
-        position: absolute;
-        font-size: 13px;
-        pointer-events: none;
-        transition: all 0.3s ease 0s;
-    }
-
-    .edit-hotspot-input label, .add-hotspot-input label{
-        top: -25px;
-        position: absolute;
-        font-size: 13px;
-        pointer-events: none;
-        transition: all 0.3s ease 0s;
-    }
-
-    .edit-hotspot-input input:focus ~ label,
-    .edit-hotspot-input input:valid ~ label,
-    .edit-hotspot-input input:-webkit-autofill + label,
-    .add-hotspot-input input:focus ~ label,
-    .add-hotspot-input input:valid ~ label,
-    .add-hotspot-input input:-webkit-autofill + label,
-    .narrative-droplist select:focus ~ label,
-    .narrative-droplist select:-webkit-autofill + label{
-        font-size: 14px
-    }
-
-    .edit-hotspot-input input, .add-hotspot-input input{
-        margin-left: 5px;
-        height: 40px;
-        outline: none;
-        border: 1px solid #CED4DA;
-        border-radius: 4px;
-        padding: 10px;
-        font-size: 14px;
-        width:90%;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .edit-hotspot-input input:focus, .add-hotspot-input input:focus{
-        outline: none !important;
-        border:1px solid #6200EE;
-        box-shadow: 0 0 2px #645cdd;
-    }
-
-    .edit-hotspot-submit, .add-hotspot-submit{
-        background-color: #6200EE;
-        border: none;
-        border-radius: 4px;
-        color: white;
-        font-size:15px;
-        display: flex;
-        float: right;
-        padding:10px 20px 10px 20px;
-        margin-right: 25px;
-        margin-bottom: 25px;
-        text-align: center;
-        cursor: pointer;
-        align-items: center;
-        position: relative;
-        font-family: "Roboto", sans-serif
-        
     }
 
     .delete-hotspot-popup{
