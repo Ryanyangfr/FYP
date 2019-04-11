@@ -9,37 +9,53 @@
                     <tr>
                         <td rowspan="5"><i class="ti-map-alt"></i></td>
                         <td class="trail-creation-title">Trail Creation</td>
-                        <td rowspan="5"><button><router-link to='/addTrail'>Click to begin</router-link></button></td>
+                        <td rowspan="5"><router-link to='/addTrail'><button>Click to begin</button></router-link></td>
                     </tr>
                     <tr>
                         <td>1) Create your Locations, Narratives and Missions for the trail</td>
                     </tr>
                     <tr><td>2) Click on Setup Trail in menu</td></tr>
                     <tr><td>3) Enter details needed</td></tr>
-                    <tr><td>To start trail, go to Start Trail in menu and generate your Trail ID to start!</td></tr>
+                    <tr><td><b>To start trail, go to Start Trail in menu and generate your Trail ID to start!</b></td></tr>
                 </table>
                 <table>
                     <tr>
                         <td rowspan="4"><i class="ti-location-pin"></i></td>
                         <td class="location-creation-title">Location Creation</td>
-                        <td rowspan="4"><button><router-link to='/addHotspot'>Click to begin</router-link></button></td>
+                        <td rowspan="4"><router-link to='/addHotspot'><button>Click to begin</button></router-link></td>
                     </tr>
                     <tr>
                         <td>1) Click on Location Setup in menu</td>
                     </tr>
                     <tr><td>2) Enter Location Name</td></tr>
-                    <tr><td>3) Enter Latitude and Longitude of location</td></tr>
+                    <tr><td>3) Select a pin-drop on the map as the desired location</td></tr>
                 </table>
                 <table>
                     <tr>
                         <td rowspan="3"><i class="ti-book"></i></td>
                         <td class="narrative-creation-title">Narrative Creation</td>
-                        <td rowspan="3"><button><router-link to='/addHotspot'>Click to begin</router-link></button></td>
+                        <td rowspan="3"><router-link to='/addHotspot'><button>Click to begin</button></router-link></td>
                     </tr>
                     <tr>
                         <td>1) Enter narrative name</td>
                     </tr>
                     <tr><td>2) Add a creative narrative</td></tr>
+                </table>
+                <table>
+                    <tr>
+                        <td rowspan="8"><i class="ti-flag"></i></td>
+                        <td class="narrative-creation-title">Mission Creation</td>
+                        <td rowspan="8"><router-link to='/addMission'><button>Click to begin</button></router-link></td>
+                    </tr>
+                    <tr>
+                        <td>1) Select a mission type. There are a total of 7 mission types</td>
+                    </tr>
+                    <tr><td>2) Enter a title for your mission</td></tr>
+                    <tr><td>3) For Quiz, enter your question. For each question, enter <b>four options</b> then select the answer. You can add as many questions as you like.</td></tr>
+                    <tr><td>4) For Wefie and Drawing, enter your instruction for the participants.</td></tr>
+                    <tr><td>5) For Drag and Drop, fill up all <b>four options</b> and answers to match.</td></tr>
+                    <tr><td>6) For Anagram, add word.</td></tr>
+                    <tr><td>7) For Wordsearch, enter <b>five words</b> related to the location.</td></tr>
                 </table>
             </div>
         </div>

@@ -19,6 +19,16 @@
                 <div v-else>Current Trail ID: {{this.$store.state.currentTrailID}}</div>
             </div>
         <!-- </div> -->
+
+        <div class="black-blur-bg" v-if="trailEnded"> 
+            <div class="trail-ended-popup">                
+                <div class="trail-ended-message-area"><h5>Trail Has Ended!</h5></div>
+                <div class="close-trail-ended">
+                    <button class="close-trail-ended" @click="closeTrailEnded()">Okay</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -35,7 +45,8 @@ export default{
             interval: "",
             minutes: 0,
             hours: 0,
-            seconds: 0
+            seconds: 0,
+            trailEnded: false
         }
     },
 
@@ -66,8 +77,14 @@ export default{
             // console.log(passTime)
             this.calcTime(passTime);
             if (this.seconds == 0 && this.hours == 0 && this.minutes == 0) {
-                alert("Trail has ended");
+                this.trailEnded = true;
             }
+        },
+
+        closeTrailEnded(){
+            this.trailEnded = false;
+            this.$store.commit('saveCurrentTrail', "");
+            this.$store.commit('saveCurrentNumTeams', 0)
         }
     },
 
@@ -106,22 +123,23 @@ export default{
         overflow: hidden;
         height: 50px;
         vertical-align: middle;
-        padding: 5px;
+        /* padding: 5px;
         padding-left: 35px;
-        padding-right: 35px;
+        padding-right: 35px; */
     }
 
     .horizontal-menu .route-name-area {
         display: flex;
         float: left;
         font-size: 18px;
-        padding-top: 5px;
-        padding-bottom: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         color:black;
         font-family: 'Roboto', sans-serif;
         /* background-color: pink; */
         vertical-align: middle;
         /* width: 50% */
+        padding-left: 40px
     }
 
     .trail-id-area{
@@ -129,13 +147,70 @@ export default{
         float: right;
         font-weight: 500;
         font-size: 17px;
-        padding-top: 5px;
-        padding-bottom: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
         padding-left: 5px;
         color:black;
         font-family: 'PT Sans', sans-serif;
         /* background-color: pink; */
         vertical-align: middle;
+        margin-right: 25px;
+    }
+
+    .black-blur-bg{
+        width:100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0, 0.7);
+        position: fixed;
+        top:0;
+        z-index: 5;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .trail-ended-popup{
+        min-width: 30%;
+        min-height: 23%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 300;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px
+    }
+
+    .trail-ended-message-area{
+        display: inline-block;
+        margin: auto
+    }
+
+    .trail-ended-popup button{
+        background: none;
+        border: none;
+        background-color: #645cdd;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-content: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+        width: 60px;
+    }
+
+    .close-trail-ended{
+        display: inline-block
     }
 
 </style>

@@ -261,7 +261,7 @@ export default {
         var passTime =  this.$store.state.instanceStartTime - now;
         // console.log(passTime)
         this.calcTime(passTime);
-        if (this.seconds > 0) {
+        if (this.seconds > 0 || this.minutes >0 || this.hours >0) {
             console.log(this.$store.state.currentTrail);
             this.instance_id = this.$store.state.currentTrailID;
             this.trail = this.$store.state.currentTrail;
@@ -270,8 +270,6 @@ export default {
             this.trailStarted = true;
 
         }
-    
-
     }
 }
 </script>
@@ -324,7 +322,7 @@ export default {
         outline: none;
         border: 1px solid #CED4DA;
         border-radius: 4px;
-        padding: 10px;
+        padding: 5px;
         font-size: 17px;
         width:75%;
         max-width: 75%;
@@ -500,8 +498,7 @@ export default {
     
     .cancel-generateID-popup{
         background: none;
-        border: none;
-        background-color: #FEE2E1;
+        border: 1px solid #C6C4BC;
         border-radius: 4px;
         padding:8px 15px 8px 15px;
         margin-left: 25px;
@@ -509,7 +506,7 @@ export default {
         cursor: pointer;
         font-family: 'Roboto', sans-serif;
         font-size: 17px;
-        color: #5D2929;
+        color: #2C3E50;
         width: 60px;
         margin-right: 12px;
         float: right
@@ -518,7 +515,7 @@ export default {
     .confirm-generate{
         background: none;
         border: none;
-        background-color: #D4EDDA;
+        background-color: #645cdd;
         border-radius: 4px;
         padding:8px 15px 8px 15px;
         /* margin-right: 25px; */
@@ -527,7 +524,7 @@ export default {
         position: relative;
         font-family: 'Roboto', sans-serif;
         font-size: 17px;
-        color: #2B6839;
+        color: white;
         width: 60px;
         float: right
     }

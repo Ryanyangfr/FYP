@@ -8,7 +8,7 @@
             <form>
                 <div class="missions-droplist">
                     <label for="missions-droplist-input">Select Mission Type</label>
-                    <select placeholder="Select mission type" id="missions-droplist-input" v-model="missionType">
+                    <select placeholder="Select mission type" id="missions-droplist-input" v-model="missionType" required>
                         <option v-for="mission in allMissionTypes" :key="mission">
                             {{mission}}
                         </option> 
@@ -19,33 +19,33 @@
                     <form @submit.prevent="quizOnSubmitToAdd" class="add-mission-body">
                         <div class="add-mission-input">
                             <label for="add-mission-title-input">Title</label>
-                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title" required> 
                         </div> 
                         <div v-for="(input, index) in quiz" :key="index" class="add-question-body">
                                 <div class="add-mission-input">
                                     <label for="question-input">Question {{index + 1}}</label>
-                                    <input name="question" id="question-input" type="text" placeholder="Question" v-model="input.question">
+                                    <input name="question" id="question-input" type="text" placeholder="Question" v-model="input.question" required>
                                 </div>
                                 <div class="add-quiz-options-body">
                                     <label for="add-quiz-options">Question Options</label>
                                     <div class="add-quiz-options">
                                         <div class="add-mission-input">
-                                            <input name="option1" type="text" placeholder="Option 1" v-model="input.option1">
+                                            <input name="option1" type="text" placeholder="Option 1" v-model="input.option1" required>
                                         </div>
                                         <div class="add-mission-input">
-                                            <input name="option2" type="text" placeholder="Option 2" v-model="input.option2">
+                                            <input name="option2" type="text" placeholder="Option 2" v-model="input.option2" required>
                                         </div>
                                         <div class="add-mission-input">
-                                            <input name="option3" type="text" placeholder="Option 3" v-model="input.option3">
+                                            <input name="option3" type="text" placeholder="Option 3" v-model="input.option3" required>
                                         </div>
                                         <div class="add-mission-input">
-                                            <input name="option4" type="text" placeholder="Option 4" v-model="input.option4">
+                                            <input name="option4" type="text" placeholder="Option 4" v-model="input.option4" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="add-mission-input">
                                     <label for="question-input">Answer</label>
-                                    <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.answer">
+                                    <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.answer" required>
                                         <option v-for="option in answer_options" :key="option">
                                             {{option}}
                                         </option> 
@@ -61,7 +61,7 @@
                         </div>
                         <button class="add-new-question-btn" type="button" @click="addRow">ADD QUESTION</button>
                         <div class="submit-btn-area">
-                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                            <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
@@ -72,18 +72,18 @@
                     <form @submit.prevent="wefieOnSubmitToAdd" class="add-mission-body">
                         <div class="add-mission-input">
                             <label for="add-mission-title-input">Title</label>
-                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title" required> 
                         </div> 
                         <div class="add-mission-input">
                             <label for="add-wefie-instruction-input">Instruction</label>
-                            <input name="add-wefie-instruction-input" type="text" placeholder="Wefie Instruction" v-model="wefie_instruction"> 
+                            <input name="add-wefie-instruction-input" type="text" placeholder="Wefie Instruction" v-model="wefie_instruction" required> 
                         </div> 
                         <!-- <div class="add-mission-input">
                             <label for="points-input">Points</label>
                             <input name="points-input" type="text" placeholder="Enter points for this question" v-model="wefie_points"> 
                         </div> -->
                         <div class="submit-btn-area">
-                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                            <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
@@ -95,22 +95,22 @@
                     <form @submit.prevent="dragAndDropOnSubmitToAdd" class="add-mission-body">
                         <div class="add-mission-input">
                             <label for="add-mission-title-input">Title</label>
-                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title" required> 
                         </div> 
                         <div class="add-mission-input">
                             <label for="add-dragAndDrop-question-input">Question</label>
-                            <input name="add-dragAndDrop-question-input" type="text" placeholder="Drag And Drop Question" v-model="dragAndDropQuestion"> 
+                            <input name="add-dragAndDrop-question-input" type="text" placeholder="Drag And Drop Question" v-model="dragAndDropQuestion" required> 
                         </div> 
                         <div v-for="(input, index) in dragAndDropOptions" :key="index" class="add-question-body">
                             <div class="add-mission-body">
                                 <div class="add-mission-input">
                                     <label for="add-mission-title-input">Option {{index+1}}</label>
-                                    <input name="option" type="text" placeholder="option" v-model="input.option">
+                                    <input name="option" type="text" placeholder="option" v-model="input.option" required>
                                 </div>
                                 
                                 <div class="add-mission-input">
                                     <label for="add-mission-title-input">Answer {{index+1}}</label>
-                                    <input name="option" type="text" placeholder="answer" v-model="input.answer">
+                                    <input name="option" type="text" placeholder="answer" v-model="input.answer" required>
                                 </div>
                             </div>
 
@@ -120,7 +120,7 @@
                             <input name="points-input" type="text" placeholder="Enter points for this question" v-model="dragdrop_points"> 
                         </div> -->
                         <div class="submit-btn-area">
-                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                            <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
@@ -132,18 +132,18 @@
                     <form @submit.prevent="drawingOnSubmitToAdd" class="add-mission-body">
                         <div class="add-mission-input">
                             <label for="add-mission-title-input">Title</label>
-                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title" required> 
                         </div> 
                         <div class="add-mission-input">
                             <label for="add-drawing-instruction-input">Instruction</label>
-                            <input name="add-drawing-instruction-input" type="text" placeholder="Drawing Instruction" v-model="drawing_instruction"> 
+                            <input name="add-drawing-instruction-input" type="text" placeholder="Drawing Instruction" v-model="drawing_instruction" required> 
                         </div> 
                         <!-- <div class="add-mission-input">
                             <label for="points-input">Points</label>
                             <input name="points-input" type="text" placeholder="Enter points for this question" v-model="drawing_points"> 
                         </div> -->
                         <div class="submit-btn-area">
-                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                            <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
@@ -155,18 +155,18 @@
                     <form @submit.prevent="anagramOnSubmitToAdd" class="add-mission-body">
                         <div class="add-mission-input">
                             <label for="add-mission-title-input">Title</label>
-                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title" required> 
                         </div> 
                         <div class="add-mission-input">
                             <label for="add-anagram-word-input">Word</label>
-                            <input name="add-anagram-word-input" type="text" placeholder="Add word" v-model="anagram_word"> 
+                            <input name="add-anagram-word-input" type="text" placeholder="Add word" v-model="anagram_word" required> 
                         </div> 
                         <!-- <div class="add-mission-input">
                             <label for="points-input">Points</label>
                             <input name="points-input" type="text" placeholder="Enter points for this question" v-model="drawing_points"> 
                         </div> -->
                         <div class="submit-btn-area">
-                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                            <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
@@ -178,14 +178,14 @@
                     <form @submit.prevent="wordsearchOnSubmitToAdd" class="add-mission-body">
                         <div class="add-mission-input">
                             <label for="add-mission-title-input">Title</label>
-                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title"> 
+                            <input name="add-mission-title-input" type="text" placeholder="Title" v-model="title" required> 
                         </div> 
                         <div v-for="(input, index) in words" :key="index" class="add-question-body">
                             <div class="add-mission-body">
                                 <div class="add-mission-input">
                                     <label for="add-mission-title-input">Word {{index+1}}</label>
                                     <div class="word-input">
-                                        <input name="option" type="text" placeholder="max character length: 10" :maxlength="wordMaxChar" v-model="input.word">
+                                        <input name="option" type="text" placeholder="max character length: 10" :maxlength="wordMaxChar" v-model="input.word" required>
                                         <div class="text-length" v-text="(wordMaxChar - input.word.length)"></div>
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@
 
                         </div>
                         <div class="submit-btn-area">
-                            <button class="cancel-btn" type="button"><router-link to='/mission'>Cancel</router-link></button>
+                            <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
                         </div>
                     </form>
