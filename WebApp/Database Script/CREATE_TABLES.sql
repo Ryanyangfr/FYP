@@ -37,26 +37,6 @@ CONSTRAINT TRAIL_INSTANCE_PK PRIMARY KEY (TRAIL_INSTANCE_ID)
 -- REFERENCES TRAIL(TRAIL_ID) 
 );
 
-CREATE TABLE FEEDBACK_QUESTION
-(
-FEEDBACK_QUESTION_ID INT NOT NULL,
-FEEDBACK_QUESTION VARCHAR(100) NOT NULL,
-CONSTRAINT FEEDBACK_PK PRIMARY KEY (FEEDBACK_QUESTION_ID)
-);
-
-CREATE TABLE FEEDBACK_SUBMISSION
-(
-FEEDBACK_SUBMISSION_ID INT NOT NULL,
-FEEDBACK_ANSWER VARCHAR(100) NOT NULL,
-FEEDBACK_QUESTION_ID INT NOT NULL,
-TRAIL_INSTANCE_ID VARCHAR(10) NOT NULL,
-CONSTRAINT FEEDBACK_SUBMISSION_PK PRIMARY KEY (FEEDBACK_SUBMISSION_ID),
-CONSTRAINT FEEDBACK_SUBMISSION_FK1 FOREIGN KEY (FEEDBACK_QUESTION_ID)
-REFERENCES FEEDBACK_QUESTION(FEEDBACK_QUESTION_ID),
-CONSTRAINT FEEDBACK_SUBMISSION_FK2 FOREIGN KEY (TRAIL_INSTANCE_ID)
-REFERENCES TRAIL_INSTANCE(TRAIL_INSTANCE_ID)
-);
-
 CREATE TABLE TEAM
 (
 TEAM_ID INT NOT NULL,
@@ -189,10 +169,10 @@ SUBMISSION_STATUS VARCHAR(100) NOT NULL,
 CONSTRAINT SUBMISSION_PK PRIMARY KEY (SUBMISSION_ID),
 CONSTRAINT SUBMISSION_FK1 FOREIGN KEY (TEAM_ID)
 REFERENCES TEAM(TEAM_ID),
-CONSTRAINT SUBMISSION_FK2 FOREIGN KEY (SUBMISSION_QUESTION_ID)
-REFERENCES SUBMISSION_QUESTION(QUESTION_ID),
-CONSTRAINT SUBMISSION_FK3 FOREIGN KEY (DRAWING_QUESTION_ID)
-REFERENCES DRAWING_QUESTION(QUESTION_ID),
+-- CONSTRAINT SUBMISSION_FK2 FOREIGN KEY (SUBMISSION_QUESTION_ID)
+-- REFERENCES SUBMISSION_QUESTION(QUESTION_ID),
+-- CONSTRAINT SUBMISSION_FK3 FOREIGN KEY (DRAWING_QUESTION_ID)
+-- REFERENCES DRAWING_QUESTION(QUESTION_ID),
 CONSTRAINT SUBMISSION_FK4 FOREIGN KEY (TRAIL_INSTANCE_ID)
 REFERENCES TRAIL_INSTANCE(TRAIL_INSTANCE_ID)
 );
@@ -397,12 +377,12 @@ INSERT INTO HOTSPOT VALUES
 ('Administrative Building', '1.2968', '103.8522');
 
 INSERT INTO MISSION VALUES 
-(1, 'title 1'),
-(2, 'title 2'),
-(3, 'title 3'),
-(4, 'title 4'),
-(5, 'title 5'),
-(6, 'title 6'),
+-- (1, 'title 1'),
+-- (2, 'title 2'),
+-- (3, 'title 3'),
+-- (4, 'title 4'),
+-- (5, 'title 5'),
+-- (6, 'title 6'),
 (7, 'SIS Quiz'),
 (8, 'LKCSB Wefie'),
 (9, 'LKSL Drag And Drop'),
@@ -420,15 +400,15 @@ INSERT INTO MISSION VALUES
 -- (21, 'title 21');
 
 INSERT INTO QUIZ VALUES
-(1, 'Which of the following lab is not located in School of Information Systems?', 'SAS Lab', 1),
-(2, 'Which floor is the General Office located?', '5', 1),
-(3, 'Locate the gym and find out which faculty goes to gym the most. Which faculty is it?', 'Lee Kong Chian School of Business', 1),
-(4, 'Locate the CIRCLE value poster in SOA and find which of the following is not part of the CIRCLE values', 'Respect', 4),
-(5, 'Look for Ngee Ann KongSi Auditorium and find out the date that it was officially launched', '2007', 4),
-(6, 'When you are hungry at SOA where is the nearest food place to go', 'SwissBake', 4),
-(7, 'As an admin and research staff, how many books/items can we borrow from the SMU Libraries', '40', 5),
-(8, 'Which level can you find dedicated exhibition space in Li Ka Shing Library', '4', 5),
-(9, 'The Investment Studio is a dedicated space on Level 3 of Li Ka Shing Library which allows users to access finance terminals under one roof. Which floor is the Investment Studio located', '3', 5),
+-- (1, 'Which of the following lab is not located in School of Information Systems?', 'SAS Lab', 1),
+-- (2, 'Which floor is the General Office located?', '5', 1),
+-- (3, 'Locate the gym and find out which faculty goes to gym the most. Which faculty is it?', 'Lee Kong Chian School of Business', 1),
+-- (4, 'Locate the CIRCLE value poster in SOA and find which of the following is not part of the CIRCLE values', 'Respect', 4),
+-- (5, 'Look for Ngee Ann KongSi Auditorium and find out the date that it was officially launched', '2007', 4),
+-- (6, 'When you are hungry at SOA where is the nearest food place to go', 'SwissBake', 4),
+-- (7, 'As an admin and research staff, how many books/items can we borrow from the SMU Libraries', '40', 5),
+-- (8, 'Which level can you find dedicated exhibition space in Li Ka Shing Library', '4', 5),
+-- (9, 'The Investment Studio is a dedicated space on Level 3 of Li Ka Shing Library which allows users to access finance terminals under one roof. Which floor is the Investment Studio located', '3', 5),
 (10, 'Which of the following lab is not located at School of Information Systems?', 'SAS Labs', 7),
 (11, 'Which floor is the General Office located at?', '5', 7),
 (12, 'Locate the gym at SIS and find out which faculty works out the most.', 'Lee Kong Chian School of Business', 7),
@@ -459,42 +439,42 @@ INSERT INTO QUIZ VALUES
 
 
 INSERT INTO QUIZ_OPTION VALUES
-(1,1,'Live Labs'),
-(1,2,'Living Analytics Research Centre(LARC)'),
-(1,3,'SMU-TCS ICity Lab'),
-(1,4,'SAS Lab'),
-(2,5,'2'),
-(2,6,'3'),
-(2,7,'4'),
-(2,8,'5'),
-(3,9,'School of Economics'),
-(3,10,'School of Law'),
-(3,11,'Lee Kong Chian School of Business'),
-(3,12,'School of Information Systems'),
-(4,13,'Respect'),
-(4,14,'Commitment'),
-(4,15,'Integrity'),
-(4,16,'Excellence'),
-(5,17,'2005'),
-(5,18,'2006'),
-(5,19,'2007'),
-(5,20,'2008'),
-(6,21,'1983'),
-(6,22,'SwissBake'),
-(6,23,'Koufu'),
-(6,24,'BrickLane'),
-(7,24,'40'),
-(7,25,'12'),
-(7,26,'6'),
-(7,27,'100'),
-(8,28,'4'),
-(8,29,'3'),
-(8,30,'2'),
-(8,31,'5'),
-(9,32,'2'),
-(9,33,'3'),
-(9,34,'4'),
-(9,35,'5'),
+-- (1,1,'Live Labs'),
+-- (1,2,'Living Analytics Research Centre(LARC)'),
+-- (1,3,'SMU-TCS ICity Lab'),
+-- (1,4,'SAS Lab'),
+-- (2,5,'2'),
+-- (2,6,'3'),
+-- (2,7,'4'),
+-- (2,8,'5'),
+-- (3,9,'School of Economics'),
+-- (3,10,'School of Law'),
+-- (3,11,'Lee Kong Chian School of Business'),
+-- (3,12,'School of Information Systems'),
+-- (4,13,'Respect'),
+-- (4,14,'Commitment'),
+-- (4,15,'Integrity'),
+-- (4,16,'Excellence'),
+-- (5,17,'2005'),
+-- (5,18,'2006'),
+-- (5,19,'2007'),
+-- (5,20,'2008'),
+-- (6,21,'1983'),
+-- (6,22,'SwissBake'),
+-- (6,23,'Koufu'),
+-- (6,24,'BrickLane'),
+-- (7,24,'40'),
+-- (7,25,'12'),
+-- (7,26,'6'),
+-- (7,27,'100'),
+-- (8,28,'4'),
+-- (8,29,'3'),
+-- (8,30,'2'),
+-- (8,31,'5'),
+-- (9,32,'2'),
+-- (9,33,'3'),
+-- (9,34,'4'),
+-- (9,35,'5'),
 (10,36,'Live Labs'),
 (10,37,'Living Analytics Research Centre (LARC)'),
 (10,38,'SMU-TCS ICity Labs'),
@@ -598,9 +578,9 @@ INSERT INTO QUIZ_OPTION VALUES
 
 
 INSERT INTO SUBMISSION_QUESTION VALUES
-(1, 'Take a group photo at Tea Party while pretending to be slurping their DELICIOUS noodles', 2),
-(2, 'Locate Lee Kong Chian School of Business mission statement and take a wefie', 3),
-(3, 'Explore the roof top at School of Law and take a fun group picure', 6),
+-- (1, 'Take a group photo at Tea Party while pretending to be slurping their DELICIOUS noodles', 2),
+-- (2, 'Locate Lee Kong Chian School of Business mission statement and take a wefie', 3),
+-- (3, 'Explore the roof top at School of Law and take a fun group picure', 6),
 (4, 'Locate LKSCB Mission Statement and take a wefie!', 8);
 -- (1, 'Find the Mission Statement and take a wefie!', 8),
 -- (2, 'Find the Mission Statement and take a wefie!', 9),
@@ -620,13 +600,13 @@ INSERT INTO DRAWING_QUESTION VALUES
 (1, 'Find out the color that represents this faculty and draw something related to the colour.',12);
 
 INSERT INTO TRAIL VALUES
-(1,'test trail',45),
-(2, 'wet weather trail', 45),
+-- (1,'test trail',45),
+-- (2, 'wet weather trail', 45),
 (3, 'Live Trail 1', 45);
 
 INSERT INTO TRAIL_INSTANCE VALUES
-(1,1,0,0,'24/3/19'),
-('175239', 1, 1, 1,'24/3/19');
+-- (1,1,0,0,'24/3/19'),
+('175239', 3, 1, 1,'24/3/19');
 
 -- INSERT INTO TRAIL_MISSION VALUES
 -- (1,18, 'Lee Kong Chian School of Business'),
@@ -637,14 +617,14 @@ INSERT INTO TRAIL_INSTANCE VALUES
 -- (1,6, 'Li Ka Shing Library');
 
 INSERT INTO TRAIL_HOTSPOT VALUES
-(1, 'Lee Kong Chian School of Business', 1, 3),
-(1, 'School of Accountancy', 2, 4),
--- (1, 'School of Economics/School of Social Sciences', 3, 2),
--- (1, 'School of Information Systems', 4, 1),
-(1, 'School of Law', 5, 6),
-(2, 'Li Ka Shing Library', 6, 5),
-(2, 'Lee Kong Chian School of Business', 1, 3),
-(2, 'School of Accountancy', 2, 4),
+-- (1, 'Lee Kong Chian School of Business', 1, 3),
+-- (1, 'School of Accountancy', 2, 4),
+-- -- (1, 'School of Economics/School of Social Sciences', 3, 2),
+-- -- (1, 'School of Information Systems', 4, 1),
+-- (1, 'School of Law', 5, 6),
+-- (2, 'Li Ka Shing Library', 6, 5),
+-- (2, 'Lee Kong Chian School of Business', 1, 3),
+-- (2, 'School of Accountancy', 2, 4),
 (3, 'School of Information Systems', 4, 7),
 (3, 'Lee Kong Chian School of Business', 1, 8),
 (3, 'Li Ka Shing Library', 6, 9),
@@ -654,9 +634,9 @@ INSERT INTO TRAIL_HOTSPOT VALUES
 
 
 INSERT INTO TEAM VALUES
-(1,0,'1.2953', '103.8506','',1),
-(2,0,'1.2953', '103.8506','',1),
-(3,0,'1.2953', '103.8506','',1),
+-- (1,0,'1.2953', '103.8506','',1),
+-- (2,0,'1.2953', '103.8506','',1),
+-- (3,0,'1.2953', '103.8506','',1),
 (1,0,'1.2953', '103.8506','','175239'),
 (2,0,'1.2953', '103.8506','','175239'),
 (3,0,'1.2953', '103.8506','','175239');

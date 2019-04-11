@@ -14,8 +14,8 @@ router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 // getting the current quiz ids and quiz option ids
 let quiz_id = 0;
 let quiz_option_id = 0;
-const quiz_query = 'SELECT COUNT(*) as count FROM QUIZ';
-const quiz_option_query = 'SELECT COUNT(*) as count FROM QUIZ_OPTION';
+const quiz_query = 'SELECT MAX(QUIZ_ID) as count FROM QUIZ';
+const quiz_option_query = 'SELECT MAX(QUIZ_OPTION_ID) as count FROM QUIZ_OPTION';
 
 conn.query(quiz_query, (err, data) => {
   if (err) {
@@ -72,7 +72,7 @@ conn.query(drawing_query, (err, data) => {
 
 // getting the current mission id
 let mission_id = 0;
-const mission_query = 'SELECT COUNT(*) as count from MISSION';
+const mission_query = 'SELECT MAX(MISSION_ID) as count from MISSION';
 
 conn.query(mission_query, (err, data) => {
   if (err) {
@@ -105,7 +105,7 @@ router.post('/addNarrative', (req,res) => {
   const narrative = req.body.narrative;
   const title = req.body.title;
 
-  const getNumNarrative = 'SELECT COUNT(*) as count from NARRATIVE';
+  const getNumNarrative = 'SELECT MAX(NARRATIVE_ID) as count from NARRATIVE';
 
   conn.query(getNumNarrative, (err, data) => {
     const count = parseInt(data[0].count);
@@ -271,7 +271,7 @@ router.post('/addDragAndDropQuestion', (req,res) => {
       console.log(err);
     } else {
       conn.query(dragNDropQuery, [dragAndDropID, question, mission_id], (err, rows) => {
-        mission_id += 1;
+        // mission_id += 1;
         if (err) {
           console.log(err);
         } else {
@@ -285,6 +285,7 @@ router.post('/addDragAndDropQuestion', (req,res) => {
               } else {
                 counter += 1;
                 if (counter === options.length) {
+                  mission_id += 1;
                   res.send(JSON.stringify({ success: 'true' }));
                 }
               }
