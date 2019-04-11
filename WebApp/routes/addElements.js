@@ -14,8 +14,8 @@ router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 // getting the current quiz ids and quiz option ids
 let quiz_id = 0;
 let quiz_option_id = 0;
-const quiz_query = 'SELECT COUNT(*) as count FROM QUIZ';
-const quiz_option_query = 'SELECT COUNT(*) as count FROM QUIZ_OPTION';
+const quiz_query = 'SELECT MAX(QUIZ_ID) as count FROM QUIZ';
+const quiz_option_query = 'SELECT MAX(QUIZ_OPTION_ID) as count FROM QUIZ_OPTION';
 
 conn.query(quiz_query, (err, data) => {
   if (err) {
@@ -105,7 +105,7 @@ router.post('/addNarrative', (req,res) => {
   const narrative = req.body.narrative;
   const title = req.body.title;
 
-  const getNumNarrative = 'SELECT COUNT(*) as count from NARRATIVE';
+  const getNumNarrative = 'SELECT MAX(NARRATIVE_ID) as count from NARRATIVE';
 
   conn.query(getNumNarrative, (err, data) => {
     const count = parseInt(data[0].count);
