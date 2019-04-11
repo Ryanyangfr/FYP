@@ -17,7 +17,7 @@
                 <div v-for="(input, index) in details" :key="index" class="add-details-body">
                         <div class="droplist">
                             <label for="hotspots-droplist-input">Select Location</label>
-                            <select placeholder="Select location" id="hotspots-droplist-input" v-model="input.hotspot">
+                            <select placeholder="Select location" id="hotspots-droplist-input" v-model="input.hotspot" required>
                                 <option v-for="hotspot in hotspotList" :key="hotspot">
                                     {{hotspot}}
                                 </option> 
@@ -25,7 +25,7 @@
                         </div>
                         <div class="droplist">
                             <label for="narratives-droplist-input">Select Narrative</label>
-                            <select placeholder="Select mission type" id="narratives-droplist-input" v-model="input.narrative">
+                            <select placeholder="Select mission type" id="narratives-droplist-input" v-model="input.narrative" required>
                                 <option v-for="narrative in narratives" :key="narrative.narrative_id">
                                     {{narrative.narrative_title}}
                                 </option> 
@@ -33,7 +33,7 @@
                         </div>
                         <div class="droplist">
                             <label for="missions-droplist-input">Select Mission</label>
-                            <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.mission">
+                            <select placeholder="Select mission type" id="missions-droplist-input" v-model="input.mission" required>
                                 <option v-for="mission in missions" :key="mission.mission_ID">
                                     {{mission.mission_title}}
                                 </option> 
@@ -50,7 +50,15 @@
                     <button class="submit-btn" type="submit">Create</button>
                 </div>
             </form>
-            
+        </div>
+        <div class="black-blur-bg" v-if="trailAddMessage.length > 0"> 
+            <div class="add-message-popup">                
+                <div class="add-message-area"><h6>{{trailAddMessage}}</h6></div>
+                <div class="close-add-message">
+                    <button @click="trailCloseAddMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -69,7 +77,8 @@ export default {
             hotspotList: [],
             narratives: [],
             narrativeDict: {},
-            missionDict: {}
+            missionDict: {},
+            trailAddMessage: ""
         }  
     },
 
@@ -105,14 +114,23 @@ export default {
                 let data = response.data
                 console.log(data)
                 if (data.success === "true") {
-                    alert("Trail Successfully Added")
+                   this.trailAddMessage = "Trail Successfully Added"
                 } else {
-                    alert("Error Please Try Again")
+                    this.trailAddMessage = "Error Please Try Again"
                 }
-                this.$router.push({ path: this.redirect || '/trail' })
+                // this.$router.push({ path: this.redirect || '/trail' })
                 // this.$router.go();
             })
-        }
+        },
+
+        trailCloseAddMessage(){
+            if( this.trailAddMessage === "Trail Successfully Added") {
+                this.trailAddMessage = "";
+                // this.$router.go();
+            }
+            this.trailAddMessage = "";
+            this.$router.push({ path: this.redirect || '/trail' })
+        },
     },
 
     mounted(){
@@ -394,4 +412,60 @@ export default {
         color: white
     }
 
+
+    .black-blur-bg{
+        width:100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0, 0.7);
+        position: fixed;
+        top:0;
+        z-index: 4;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .add-message-popup{
+        min-width: 30%;
+        min-height: 23%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px
+    }
+
+    .add-message-area{
+        display: inline-block;
+        margin: auto
+    }
+
+    .add-message-popup button{
+        background: none;
+        border: none;
+        background-color: #F15E5E;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-content: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+        width: 70px;
+    }
+
+    .close-add-message{
+        display: inline-block
+    }
 </style>

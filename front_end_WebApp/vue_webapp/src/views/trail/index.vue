@@ -36,7 +36,7 @@
                     <button class="close-delete-trail" @click="closeDeleteTrail()"><font-awesome-icon icon="times"/></button>
                 </div>
                 <hr>
-                <form class="delete-trail-body" @submit="onSubmitToDeleteTrail">
+                <form class="delete-trail-body" @submit.prevent="onSubmitToDeleteTrail">
                     <div><h6>Are you sure you want to delete "{{this.trailTitleToBeDeleted}}"?</h6></div>
                     <div><hr></div>
                     <div class="delete-trail-btm">
@@ -45,6 +45,16 @@
                     </div>
                 </form>
                
+            </div>
+        </div>
+
+        <div class="black-blur-bg" v-if="trailDeleteMessage.length > 0"> 
+            <div class="delete-message-popup">                
+                <div class="delete-message-area"><h6>{{trailDeleteMessage}}</h6></div>
+                <div class="close-delete-message">
+                    <button @click="trailCloseDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
             </div>
         </div>
         <!--delete trail popup ends-->
@@ -82,7 +92,8 @@ export default {
             curr_trail_id: 0,
             trailTitleToBeDeleted: "",
             showDeleteTrail: false,
-            trailCloseMessage: false
+            trailCloseMessage: false,
+            trailDeleteMessage:""
         }
     }, 
 
@@ -257,7 +268,6 @@ export default {
                 console.log(data)
                 if (data.success === "true") {
                     this.trailDeleteMessage ="Trail Successfully Deleted"
-                    this.trailCloseDeleteMessage()
                     // this.$router.go();
                 } else {
                     this.trailDeleteMessage = "Error Please Try Again";
@@ -544,6 +554,48 @@ export default {
         padding:18px;
     }
 
+    .delete-message-popup{
+        min-width: 30%;
+        min-height: 23%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px
+    }
+
+    .delete-message-area{
+        display: inline-block;
+        margin: auto
+    }
+
+    .delete-message-popup button{
+        background: none;
+        border: none;
+        background-color: #F15E5E;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-content: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+        width: 70px;
+    }
+
+    .close-delete-message{
+        display: inline-block
+    }
     /*deleted quiz popup ends*/
 
 </style>
