@@ -59,7 +59,17 @@
                                     <button type="button" class="delete-quiz-question" @click="deleteRow(index)">Delete</button>
                                 </div>
                         </div>
-                        <button class="add-new-question-btn" type="button" @click="addRow">ADD QUESTION</button>
+                        <div class="add-new-question-area">
+                            <button class="add-new-question-btn" type="button" @click="addRow">ADD QUESTION</button>
+                            <div class="no-quiz-popup">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="showalert">
+                                    <strong>No Quiz</strong> Please add a quiz before submitting.
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close" @click="closeAlert()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                         <div class="submit-btn-area">
                             <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
@@ -218,6 +228,7 @@ export default {
             wefie_instruction: "",
             wefie_points:0,
             answer_options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+            showalert: false,
             
             //drag and drop
             dragAndDropQuestion: "",
@@ -250,6 +261,8 @@ export default {
                 answer:"",
                 // points:""
             })
+
+            this.showalert = false;
         },
 
         deleteRow(index){
@@ -258,34 +271,44 @@ export default {
         },
 
         quizOnSubmitToAdd(){
-            this.quiz.forEach((question) => {
-                if (question.answer === this.answer_options[0]) {
-                    question.answer = question.option1;
-                } else if (question.answer === this.answer_options[1]) {
-                    question.answer = question.option2;
-                } else if (question.answer === this.answer_options[2]) {
-                    question.answer = question.option3;
-                } else {
-                    question.answer = question.option4;
+            console.log("celine")
+            console.log(this.quiz.length)
+            if(this.quiz.length == 0){
+                this.showalert = true;
+            } else{
+                this.quiz.forEach((question) => {
+                    if (question.answer === this.answer_options[0]) {
+                        question.answer = question.option1;
+                    } else if (question.answer === this.answer_options[1]) {
+                        question.answer = question.option2;
+                    } else if (question.answer === this.answer_options[2]) {
+                        question.answer = question.option3;
+                    } else {
+                        question.answer = question.option4;
+                    }
+                })
+                var postBody = {
+                    "title": this.title,
+                    "quiz": this.quiz
                 }
-            })
-            var postBody = {
-                "title": this.title,
-                "quiz": this.quiz
+                // console.log(this.hotspot.value);
+                console.log(this.title);
+                console.log(this.quiz);
+                axios.post('//amazingtrail.ml/api/add/addQuiz', postBody)
+                .then(response => {
+                    let data = response.data
+                    console.log(data)
+                    this.$router.push({ path: this.redirect || '/mission' })
+                })
             }
-            // console.log(this.hotspot.value);
-            console.log(this.title);
-            console.log(this.quiz);
-            axios.post('//amazingtrail.ml/api/add/addQuiz', postBody)
-            .then(response => {
-                let data = response.data
-                console.log(data)
-                this.$router.push({ path: this.redirect || '/mission' })
-            })
             // this.hotspot = "";
             // this.quiz = [];
             // location.reload();
             // this.$router.go();
+        },
+
+        closeAlert(){
+            this.showalert = false
         },
 
         wefieOnSubmitToAdd(){
@@ -600,6 +623,13 @@ export default {
         color: white;
     }
 
+    .add-new-question-area{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center
+    }
+
     .add-new-question-btn{
         background: none;
         border: 1px solid #CED4DA;
@@ -613,6 +643,7 @@ export default {
         cursor: pointer;
         margin-left: 58px;
         margin-right: 58px;
+        width: 95%
     }
 
     .add-new-question-btn:hover{
@@ -676,7 +707,5 @@ export default {
         text-decoration: none!important;
         color: white
     }
-
-    
 
 </style>

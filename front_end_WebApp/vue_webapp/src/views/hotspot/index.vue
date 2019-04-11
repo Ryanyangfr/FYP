@@ -34,7 +34,7 @@
                 <hr>
                 
                 <form class="delete-hotspot-body" @submit.prevent="onSubmitToDelete">
-                    <div><h6>Are you sure you want to delete "{{this.curr_hotspot_name}}"?</h6></div>
+                    <div class="delete-hotspot-content"><h6>Are you sure you want to delete "{{this.curr_hotspot_name}}"?</h6></div>
                     <div><hr></div>
                     <div class="delete-hotspot-btm">
                         <button class="cancel-delete" @click="closeDelete()">Cancel</button>
@@ -362,8 +362,10 @@ export default {
     }
 
     .delete-hotspot-header{
-        max-width: 100%;
-        padding:18px;
+        flex: 1;
+        width: 100%;
+        padding:10px; 
+        border-bottom: 1px solid #C6C4BC;
     }
 
     .delete-hotspot-popup h5{
@@ -382,7 +384,7 @@ export default {
 
     .delete-hotspot-popup{
         min-width: 30%;
-        min-height: 35%;
+        min-height: 23%;
         background-color: white;
         opacity: 100%;
         z-index: 500;
@@ -390,32 +392,42 @@ export default {
         font-family: 'Roboto', sans-serif;
         font-weight: 600;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
     }
     
     .delete-hotspot-body{
-        width:100%;
-        /*height: 130px;*/
+        width: 100%;
+        overflow: hidden;
         text-align: center;
         display: flex;
         flex-direction: column;
         padding-top: 10px;
+        /*background-color: pink;*/
+        flex: 10;
     }
 
     .delete-hotspot-body h6{
         display: flex;
+        flex: 9;
         float: left;
         height: 100%;
         width: 100%;
+        align-items: flex-start;
         font-size: 15px;
-        margin-left: 25px;
-        margin-right: 25px;
-        margin-bottom: 10px;
+        margin-left: 20px;
+        /*margin-bottom: 10px;*/
+        flex-direction: column;
     }
 
     .delete-hotspot-btm{
-        margin-bottom: 10px;
+        margin-bottom: 0px;
+        /*flex: 4;*/
         margin-top: 10px;
-    
+        border-top: 1px solid #C6C4BC;
+        padding: 10px;
+        position: relative;
     }
 
     .cancel-delete{

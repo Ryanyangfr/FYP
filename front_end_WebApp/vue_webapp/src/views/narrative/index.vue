@@ -44,12 +44,10 @@
         </div>
 
         <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
-            <div class="delete-narrative-popup">
-                <hr>
-                <div><h6>{{deleteMessage}}</h6></div>
-                <div><hr></div>
-                <div class="delete-narrative-btm">
-                    <button class="delete-narrative-btn" @click="closeDeleteMessage()">Close</button>
+            <div class="delete-message-popup">
+                <div class="delete-message-area"><h6>{{deleteMessage}}</h6></div>
+                <div class="close-delete-message">
+                    <button @click="closeDeleteMessage()">Close</button>
                     <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
                
@@ -418,6 +416,49 @@ export default {
         font-family: 'Roboto', sans-serif;
         font-size: 17px;
         color: white;
+    }
+
+    .delete-message-popup{
+        min-width: 30%;
+        min-height: 23%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px
+    }
+
+    .delete-message-area{
+        display: inline-block;
+        margin: auto
+    }
+
+    .delete-message-popup button{
+        background: none;
+        border: none;
+        background-color: #F15E5E;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-content: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+        width: 70px;
+    }
+
+    .close-delete-message{
+        display: inline-block
     }
 
     

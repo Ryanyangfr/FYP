@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-title">
                 <h5>Missions List</h5>
-                <button class="create-mission-btn"><router-link to='/addMission'><i class="ti-plus"></i>ADD MISSION</router-link></button>
+                <router-link to='/addMission'><button class="create-mission-btn"><i class="ti-plus"></i>ADD MISSION</button></router-link>
             </div>
 
             <!--table for mission: quiz begins-->
@@ -188,7 +188,7 @@
             </div>
         </div>
 
-         <div class="black-blur-bg" v-if="quizDeleteMessage.length > 0"> 
+        <div class="black-blur-bg" v-if="quizDeleteMessage.length > 0"> 
             <div class="delete-message-popup">                
                 <div class="delete-message-area"><h6>{{quizDeleteMessage}}</h6></div>
                 <div class="close-delete-message">
