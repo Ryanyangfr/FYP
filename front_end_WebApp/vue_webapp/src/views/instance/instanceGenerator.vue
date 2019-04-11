@@ -25,11 +25,19 @@
                 <!--generate trail instance id area begins-->
                 <div class="generate-trail-instance-area" v-if="this.trail.length != 0 && this.numTeams > 0">
                     <div class="generate-id-btn-area">
-                        <button class = "generate-id-btn" v-on:click="toggleGenerate()">GENERATE TRAIL ID</button>
+                        <button class = "generate-id-btn" @click="showConfirmationPopup">GENERATE TRAIL ID</button>
                     </div>
                     <div v-if="generate_id">
                         <h4>TRAIL ID:</h4>
                         <h4>{{instance_id}}</h4>
+                        <div class="trail-started-alert" v-if="trailStarted">
+                            <div class="alert alert-success" role="alert">
+                                <h5 class="alert-heading">Trail Sucessfully Started!</h5>
+                                <p>Ensure that all participants have entered the trail before proceeding:) </p>
+                                <hr>
+                                <p class="mb-0">You may then proceed to monitor the teams at the "Live Monitoring" page</p>
+                            </div>
+                        </div>
                         <div class="start-trail-btn-area">
                             <button type="button" class="start-trail-btn" @click="startTrail">Start Trail</button>
                         </div>
@@ -40,11 +48,26 @@
             </div>
         </div>
 
-
-
-
-
-
+        <!-- confirmation popup to generate trailid -->
+        <div class="black-blur-bg" v-if="showConfirmation"> 
+            <div class="generateID-popup">
+                <div class="generateID-popup-header">
+                    <h5>Confirmation</h5>
+                    <button class="close-generateID-popup" @click="closeConfirmation()"><font-awesome-icon icon="times"/></button>
+                </div>
+                <!--<hr>-->
+                <div class="generateID-popup-body">
+                    <div class="generateID-popup-content"><h6>Do you wish to generate a Trail ID?</h6></div>
+                    <!--<div><hr></div>-->
+                    <div class="generateID-popup-btm">
+                        <button type="button" class="cancel-generateID-popup" @click="closeConfirmation()">NO</button>
+                        <button type="button" v-on:click="toggleGenerate()" class="confirm-generate">YES</button>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+        <!-- confirmation popup to generate trailid -->
 
         <!--Select Trail:
          <v-select :options="trailsList" v-model="trail" placeholder="Select a trail" style="width:200px;margin-left:1170px"/>
@@ -89,7 +112,12 @@ export default {
             trail: "",
             numTeams: 0,
             trailMap: {},
-            trailTimeMap: {}
+            trailTimeMap: {},
+            showConfirmation: false,
+            trailStarted: false,
+            hours: 0,
+            minutes: 0,
+            seconds: 0
         }
     },
     components:{
@@ -122,7 +150,19 @@ export default {
             this.$store.commit('saveCurrentTrailID', this.instance_id);
         },
 
+        showConfirmationPopup(){
+            if(this.showConfirmation){
+                this.showConfirmation = false;
+            } else{
+                this.showConfirmation = true;
+            }
+        },
+
         toggleGenerate(){
+            if(this.trailStarted){
+                this.trailStarted = false;
+            }
+
             this.generate_id = true
             this.makeID()
 
@@ -146,7 +186,20 @@ export default {
             .then(response => {
                 let data = response.data;
                 console.log(data);
+                if (data.success === "true") {
+                    this.closeConfirmation();
+                } else {
+                    console.log("Unsuccessful Attempt to generate trail instance")
+                }
             })
+        },
+
+        closeConfirmation(){
+            if(this.showConfirmation){
+                this.showConfirmation = false;
+            } else{
+                this.showConfirmations = true;
+            }
         },
 
         startTrail(){
@@ -158,12 +211,26 @@ export default {
             .then(response => {
                 let data = response.data;
                 console.log(data);
+                if (data.success === "true") {
+                    this.trailStarted = true
+                } else {
+                    console.log("Unsuccessful Attempt to start trail")
+                }
             })
             
             this.$store.commit('saveInstanceStartTime', new Date().getTime() + parseInt(this.trailTimeMap[this.trail])*60*1000);
             this.$store.commit('saveTrailStartTime', new Date().getTime());
+            this.$store.commit('saveCurrentTrail', this.trail);
+            this.$store.commit('saveCurrentNumTeams', this.numTeams);
             // this.$router.push({ path: this.redirect || '/map' })
-        }
+        },
+
+        calcTime(dist){
+            // Time calculations for days, hours, minutes and seconds
+            this.hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            this.minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+            this.seconds = Math.floor((dist % (1000 * 60)) / 1000);
+        },
     },
     
     mounted(){
@@ -184,6 +251,26 @@ export default {
                 // this.allTrailsInfoList.push({id: data[row].trailID, information: data[row]})
             }
         })
+
+        // Get todays date and time
+        let now = new Date().getTime();
+        // console.log(start);
+        // console.log(end);
+        // Find the distance between now an the count down date
+        // var distance = start - now;
+        var passTime =  this.$store.state.instanceStartTime - now;
+        // console.log(passTime)
+        this.calcTime(passTime);
+        if (this.seconds > 0) {
+            console.log(this.$store.state.currentTrail);
+            this.instance_id = this.$store.state.currentTrailID;
+            this.trail = this.$store.state.currentTrail;
+            this.numTeams = this.$store.state.currentNumTeams;
+            this.generate_id = true;
+            this.trailStarted = true;
+
+        }
+    
 
     }
 }
@@ -335,4 +422,128 @@ export default {
         color:#6200EE;
         box-shadow: 0 0 2px #645cdd;
     }
+
+
+    /* confirmation popup styling starts*/
+    .black-blur-bg{
+        width:100%;
+        height: 100%;
+        background-color: rgb(0, 0, 0, 0.7);
+        position: fixed;
+        top:0;
+        z-index: 4;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .generateID-popup{
+        min-width: 30%;
+        min-height: 23%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .generateID-popup-body{
+        width: 100%;
+        overflow: hidden;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+        /*background-color: pink;*/
+        flex: 10;
+    }
+
+    .generateID-popup-content{
+        flex: 4;
+        padding: 12px;
+    }
+
+    .generateID-popup-header{
+        flex: 1;
+        width: 100%;
+        padding:10px; 
+        border-bottom: 1px solid #C6C4BC;
+    }
+
+    .generateID-popup-body h6{
+        display: flex;
+        flex: 9;
+        float: left;
+        height: 100%;
+        width: 100%;
+        align-items: flex-start;
+        font-size: 15px;
+        margin-left: 20px;
+        /*margin-bottom: 10px;*/
+        flex-direction: column;
+    }
+
+    .generateID-popup-btm{
+        margin-bottom: 0px;
+        /*flex: 4;*/
+        display: inline-block;
+        margin-top: 10px;
+        border-top: 1px solid #C6C4BC;
+        padding: 10px;
+    }
+    
+    .cancel-generateID-popup{
+        background: none;
+        border: none;
+        background-color: #FEE2E1;
+        border-radius: 4px;
+        padding:8px 15px 8px 15px;
+        margin-left: 25px;
+        text-align: center;
+        cursor: pointer;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: #5D2929;
+        width: 60px;
+        margin-right: 12px;
+        float: right
+    }
+
+    .confirm-generate{
+        background: none;
+        border: none;
+        background-color: #D4EDDA;
+        border-radius: 4px;
+        padding:8px 15px 8px 15px;
+        /* margin-right: 25px; */
+        text-align: center;
+        cursor: pointer;
+        position: relative;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: #2B6839;
+        width: 60px;
+        float: right
+    }
+
+    .close-generateID-popup{
+        background: none;
+        border: none;
+        color: #868686;
+        cursor: pointer;
+        float: right;
+        font-size: 18px;
+    }
+
+    .generateID-popup h5{
+        display: flex;
+        float: left;
+    }
+    /* confirmation popup styling ends*/
 </style>

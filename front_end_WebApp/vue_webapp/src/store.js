@@ -45,7 +45,9 @@ export const store = new Vuex.Store({
     selectedWordsearchID: 0,
     instanceStartTime: '',
     trailStartTime: '',
-    selectedMissionTrailID: 0
+    selectedMissionTrailID: 0,
+    currentNumTeams:0,
+    currentTrail:''
 
   },
     
@@ -176,6 +178,14 @@ export const store = new Vuex.Store({
     
     saveMissionTrailID(state,missionTrailID){
       state.selectedMissionTrailID = missionTrailID
+    },
+
+    saveCurrentTrail(state, trail){
+      state.currentTrail = trail
+    },
+
+    saveCurrentNumTeams(state, numTeams){
+      state.currentNumTeams = numTeams
     }
   },
   plugins: [vuexLocal.plugin]

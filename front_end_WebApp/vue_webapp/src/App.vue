@@ -135,7 +135,7 @@ a{
   
 }*/
 
-@media screen and (max-width: 900px){
+@media screen and (max-width: 1125px){
         .main{
           margin-left: 0px
         }

@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-title">
                 <h5>Location List</h5>
-                <button class="create-hotspot-btn"><router-link to='/addHotspot'><i class="ti-plus"></i>ADD NEW</router-link></button>
+                <router-link to='/addHotspot'><button class="create-hotspot-btn"><i class="ti-plus"></i>ADD NEW</button></router-link>
             </div>
             <table>
                 <tr class="hotspot-table-header">
@@ -46,6 +46,16 @@
         </div>
 
         <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
+            <div class="delete-message-popup">                
+                <div class="delete-message-area"><h6>{{deleteMessage}}</h6></div>
+                <div class="close-delete-message">
+                    <button @click="closeDeleteMessage()">Close</button>
+                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
             <div class="delete-hotspot-popup">
                 <hr>
                 
@@ -53,11 +63,9 @@
                 <div><hr></div>
                 <div class="delete-hotspot-btm">
                     <button class="delete-hotspot-btn" @click="closeDeleteMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
-               
             </div>
-        </div>
+        </div> -->
         <!--delete hotspot ends-->
 
         <!--<v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
@@ -151,6 +159,12 @@ export default {
                     this.deleteMessage = "Hotspot Successfully Deleted"
                 } else {
                     this.deleteMessage = "Error Please Remove Hotspot From All Existing Trails"
+                }
+
+                if(this.showDelete){
+                    this.showDelete = false;
+                } else{
+                    this.showDelete = true;
                 }
                 // this.$router.go();
             })
@@ -333,7 +347,7 @@ export default {
         min-width: 200px;
     }
 
-    /*add hotspot begins*/
+    /*delete hotspot begins*/
      .black-blur-bg{
         width:100%;
         height: 100%;
@@ -357,112 +371,13 @@ export default {
         float: left;
     }
 
-    .close-edit-hotspot, .close-add-hotspot, .close-delete-hotspot{
+    .close-delete-hotspot{
         background: none;
         border: none;
         color: #868686;
         cursor: pointer;
         float: right;
         font-size: 18px;
-    }
-
-    .edit-hotspot-input, .add-hotspot-input{
-        float: left;
-        display: flex;
-        margin-left: 30px;
-        margin-bottom: 45px;
-        font-family: 'Lato', sans-serif;
-        position: relative;
-    }
-
-    .narrative-droplist{
-        float: left;
-        display: flex;
-        margin-left: 30px;
-        margin-bottom: 45px;
-        font-family: 'Lato', sans-serif;
-        position: relative;
-    }
-    
-    .narrative-droplist select{
-        margin-left: 5px;
-        height: 40px;
-        border: 1px solid #CED4DA;
-        border-radius: 4px;
-        font-size: 14px;
-        width:90%;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .edit-hotspot-body, .add-hotspot-body{
-        padding-top: 25px;
-        display: flex;
-        flex-direction: column;
-        width:100%;
-    }
-
-    .narrative-droplist label{
-        top: -25px;
-        position: absolute;
-        font-size: 13px;
-        pointer-events: none;
-        transition: all 0.3s ease 0s;
-    }
-
-    .edit-hotspot-input label, .add-hotspot-input label{
-        top: -25px;
-        position: absolute;
-        font-size: 13px;
-        pointer-events: none;
-        transition: all 0.3s ease 0s;
-    }
-
-    .edit-hotspot-input input:focus ~ label,
-    .edit-hotspot-input input:valid ~ label,
-    .edit-hotspot-input input:-webkit-autofill + label,
-    .add-hotspot-input input:focus ~ label,
-    .add-hotspot-input input:valid ~ label,
-    .add-hotspot-input input:-webkit-autofill + label,
-    .narrative-droplist select:focus ~ label,
-    .narrative-droplist select:-webkit-autofill + label{
-        font-size: 14px
-    }
-
-    .edit-hotspot-input input, .add-hotspot-input input{
-        margin-left: 5px;
-        height: 40px;
-        outline: none;
-        border: 1px solid #CED4DA;
-        border-radius: 4px;
-        padding: 10px;
-        font-size: 14px;
-        width:90%;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .edit-hotspot-input input:focus, .add-hotspot-input input:focus{
-        outline: none !important;
-        border:1px solid #6200EE;
-        box-shadow: 0 0 2px #645cdd;
-    }
-
-    .edit-hotspot-submit, .add-hotspot-submit{
-        background-color: #6200EE;
-        border: none;
-        border-radius: 4px;
-        color: white;
-        font-size:15px;
-        display: flex;
-        float: right;
-        padding:10px 20px 10px 20px;
-        margin-right: 25px;
-        margin-bottom: 25px;
-        text-align: center;
-        cursor: pointer;
-        align-items: center;
-        position: relative;
-        font-family: "Roboto", sans-serif
-        
     }
 
     .delete-hotspot-popup{
@@ -538,5 +453,47 @@ export default {
         color: white;
     }
     
+    .delete-message-popup{
+        min-width: 30%;
+        min-height: 23%;
+        background-color: white;
+        opacity: 100%;
+        z-index: 500;
+        border-radius: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 600;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 10px
+    }
+
+    .delete-message-area{
+        display: inline-block;
+        margin: auto
+    }
+
+    .delete-message-popup button{
+        background: none;
+        border: none;
+        background-color: #F15E5E;
+        border-radius: 4px;
+        display: flex;
+        float: right;
+        padding:8px 15px 8px 15px;
+        margin-right: 25px;
+        text-align: center;
+        cursor: pointer;
+        align-content: center;
+        font-family: 'Roboto', sans-serif;
+        font-size: 17px;
+        color: white;
+        width: 70px;
+    }
+
+    .close-delete-message{
+        display: inline-block
+    }
 </style>
 
