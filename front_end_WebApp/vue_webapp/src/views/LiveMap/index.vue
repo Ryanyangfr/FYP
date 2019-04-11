@@ -354,7 +354,7 @@ export default {
         font-family: 'Poppins', 'sans-serif';
         border: none;
         border-radius: 20px;
-        width: 30%;
+        width: 80px;
         color: white;
         height: 38px;
         font-size: 15px; 
@@ -417,6 +417,26 @@ export default {
     .activity-feed .timestamp{
         font-size: 14px;
         color: #787d81
+    }
+
+    @media screen and (max-width: 1000px){
+        #gmap-view{
+            width: 100%;
+            height: 900px
+        }
+
+        .livemap-content{
+            flex-direction: column;
+            height: auto;
+        }
+
+        .notification-activity-feed{
+            width: 100%;
+            margin-top: 20px
+        }
+
+
+        
     }
 
   
