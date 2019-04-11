@@ -72,7 +72,7 @@ conn.query(drawing_query, (err, data) => {
 
 // getting the current mission id
 let mission_id = 0;
-const mission_query = 'SELECT COUNT(*) as count from MISSION';
+const mission_query = 'SELECT MAX(MISSION_ID) as count from MISSION';
 
 conn.query(mission_query, (err, data) => {
   if (err) {
