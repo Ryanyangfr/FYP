@@ -126,10 +126,10 @@ export default {
         trailCloseAddMessage(){
             if( this.trailAddMessage === "Trail Successfully Added") {
                 this.trailAddMessage = "";
+                this.$router.push({ path: this.redirect || '/trail' })
                 // this.$router.go();
             }
             this.trailAddMessage = "";
-            this.$router.push({ path: this.redirect || '/trail' })
         },
     },
 
