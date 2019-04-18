@@ -25,7 +25,7 @@
                         <td>Points</td>
                         <td>Hotspots Completed</td>
                         <td>Timing</td>
-                        <!-- <td>Actions</td> -->
+                        <td>Actions</td>
                     </tr>
 
                     <tr class = "leaderboard-data" v-for="(item,index) in items" :key="index">
@@ -33,9 +33,9 @@
                         <td class="team-data">Team {{item.team}}</td>
                         <td class="points-data">{{item.points}}</td>
                         <td>{{item.hotspots_completed}}</td>
-                        <td><div v-if="item.timeEnded=='0:0:0'"><button @click="calcEndTime(item)">End</button></div>
+                        <td><div v-if="item.timeEnded=='0:0:0'"><button class="end-btn" @click="calcEndTime(item)">End</button></div>
                             <div v-else>{{item.timeEnded}} </div></td>
-                        <!-- <td><button @click="editLeaderboard(item.team,item.points,item.hotspots_completed)"><i class="ti-pencil-alt"></i></button></td> -->
+                        <td><button @click="editLeaderboard(item.team,item.points,item.hotspots_completed)" class="edit-leaderboard-btn"><i class="ti-pencil-alt"></i></button></td>
                     </tr>
                 </table>
 
@@ -80,10 +80,6 @@
                     <div class="edit-leaderboard-input">
                         <input type="text-area" id="hotspots-input" v-model="curr_hotspots" disabled>
                         <label for="curr_hotspots">Hotspots</label>
-                    </div>
-                    <div class="edit-leaderboard-input">
-                        <input type="text" id="timing-input" v-model="curr_timing">
-                        <label for="curr_timing">Timing</label>
                     </div>
                     <div>
                         <button type="submit" class="edit-leaderboard-submit">Save</button>
@@ -257,23 +253,6 @@ export default {
             let activity = "Team " + data.team + " completed their mission at " + data.hotspot
             this.activityList.unshift({activity: activity, timestamp: data.time});
         })
-    //data received [
-    //     {
-    //         "team": 1,
-    //         "points": 0,
-    //         "hotspots_completed": 0
-    //     },
-    //     {
-    //         "team": 2,
-    //         "points": 0,
-    //         "hotspots_completed": 0
-    //     },
-    //     {
-    //         "team": 3,
-    //         "points": 0,
-    //         "hotspots_completed": 0
-    //     }
-    // ]
 
         const baseURI = '//amazingtrail.ml/api/team/getAllTeamPoints';
         axios.get(baseURI)
@@ -410,7 +389,12 @@ export default {
         padding: 15px;
     }
 
-    .leaderboard-data button{
+    .edit-leaderboard-btn{
+        border: none;
+        background: none;
+    }
+
+    .end-btn{
         cursor: pointer;
         background-color: #645cdd;;
         border: none;
@@ -423,7 +407,7 @@ export default {
         min-width: 60px
     }
 
-    .leaderboard-data button:hover{
+    .end-btn:hover{
         background-color: #6200EE;
     }
 

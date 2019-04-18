@@ -66,7 +66,6 @@
                 <tr class="mission-table-header">
                     <td class="mission-title-header">Drag And Drop Title</td>
                     <td>Question</td>
-                    <!-- <td>Details</td> -->
                     <td>Words To Match</td>
                     <td>Answers</td>
                     <td colspan="2">Actions</td>
@@ -84,7 +83,6 @@
                             {{option.answer}}    
                         </div>
                     </td>
-                    <!-- <td><button class="view-quiz-btn" @click="saveSelectedDragAndDrop(dragandrop.title, dragandrop.question, draganddrop.id)"><router-link to='/viewDragAndDrop'>View full details</router-link></button></td> -->
                     <td>
                         <button @click="saveSelectedDragAndDrop(draganddrop.title, draganddrop.missionID, draganddrop.question, draganddrop.id)">
                             <router-link to='/editDragAndDrop'>
@@ -225,7 +223,6 @@
                 <div class="delete-message-area"><h6>{{wefieDeleteMessage}}</h6></div>
                 <div class="close-delete-message">
                     <button @click="wefieCloseDeleteMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
             </div>
         </div>
@@ -239,10 +236,9 @@
                     <h5>Delete</h5>
                     <button class="close-delete-dragdrop" @click="closeDeleteDragDrop()"><font-awesome-icon icon="times"/></button>
                 </div>
-                <!--<hr>-->
                 <form class="delete-dragdrop-body" @submit.prevent="onSubmitToDeleteDragDrop">
                     <div class="delete-dragdrop-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
-                    <!--<div><hr></div>-->
+                    
                     <div class="delete-dragdrop-btm">
                         <button type="button" class="cancel-delete" @click="closeDeleteDragDrop()">Cancel</button>
                         <button type="submit" class="delete-dragdrop-btn">Delete</button>
@@ -257,7 +253,6 @@
                 <div class="delete-message-area"><h6>{{dragAndDropDeleteMessage}}</h6></div>
                 <div class="close-delete-message">
                     <button @click="dragDropCloseDeleteMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
             </div>
         </div>
@@ -271,10 +266,9 @@
                     <h5>Delete</h5>
                     <button class="close-delete-drawing" @click="closeDeleteDrawing()"><font-awesome-icon icon="times"/></button>
                 </div>
-                <!--<hr>-->
                 <form class="delete-drawing-body" @submit.prevent="onSubmitToDeleteDrawing">
                     <div class="delete-drawing-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
-                    <!--<div><hr></div>-->
+                   
                     <div class="delete-drawing-btm">
                         <button type="button" class="cancel-delete" @click="closeDeleteDrawing()">Cancel</button>
                         <button type="submit" class="delete-drawing-btn">Delete</button>
@@ -289,7 +283,6 @@
                 <div class="delete-message-area"><h6>{{drawingDeleteMessage}}</h6></div>
                 <div class="close-delete-message">
                     <button @click="drawingCloseDeleteMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
             </div>
         </div>
@@ -303,10 +296,8 @@
                     <h5>Delete</h5>
                     <button class="close-delete-anagram" @click="closeDeleteAnagram()"><font-awesome-icon icon="times"/></button>
                 </div>
-                <!--<hr>-->
                 <form class="delete-anagram-body" @submit.prevent="onSubmitToDeleteAnagram">
                     <div class="delete-anagram-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
-                    <!--<div><hr></div>-->
                     <div class="delete-anagram-btm">
                         <button type="button" class="cancel-delete" @click="closeDeleteAnagram()">Cancel</button>
                         <button type="submit" class="delete-anagram-btn">Delete</button>
@@ -321,7 +312,6 @@
                 <div class="delete-message-area"><h6>{{anagramDeleteMessage}}</h6></div>
                 <div class="close-delete-message">
                     <button @click="anagramCloseDeleteMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
             </div>
         </div>
@@ -335,10 +325,9 @@
                     <h5>Delete</h5>
                     <button class="close-delete-wordsearch" @click="closeDeleteWordsearch()"><font-awesome-icon icon="times"/></button>
                 </div>
-                <!--<hr>-->
                 <form class="delete-wordsearch-body" @submit="onSubmitToDeleteWordsearch">
                     <div class="delete-wordsearch-content"><h6>Are you sure you want to delete "{{this.titleToBeDeleted}}"?</h6></div>
-                    <!--<div><hr></div>-->
+                    
                     <div class="delete-wordsearch-btm">
                         <button type="button" class="cancel-delete" @click="closeDeleteWordsearch()">Close</button>
                         <button type="submit" class="delete-wordsearch-btn">Delete</button>
@@ -353,7 +342,6 @@
                 <div class="delete-message-area"><h6>{{wordsearchDeleteMessage}}</h6></div>
                 <div class="close-delete-message">
                     <button @click="wordsearchCloseDeleteMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
             </div>
         </div>
@@ -370,12 +358,10 @@ export default {
     computed: {
         selectedQuizID(){
             return this.$store.state.selectedQuizID;
-            // console.log(this.$store.state.selectedQuiz);
         },
 
         selectedQuizTitle(){
             return this.$store.state.selectedQuizTitle;
-            // console.log(this.$store.state.selectedQuiz);
         },
 
         selectedWefieTitle(){
@@ -447,11 +433,6 @@ export default {
     }, 
     data() {
         return{
-            // mission: "",
-            // missionToEdit: "",
-            // questionList: [],
-            // questionToBeEdited: "",
-            // title: "",
 
             //quiz
             quiz: [],
@@ -484,7 +465,6 @@ export default {
             quizCloseMessage: false,
             wefieDeleteMessage: "",
             wefieCloseMessage: false,
-            // showDeleteDragAndDrop: false,
             dragAndDropDeleteMessage: "",
             dragAndDropCloseMessage:false,
             showDeleteDragDrop: false,
@@ -520,10 +500,6 @@ export default {
         },
 
         saveSelectedDragAndDrop(mission_title, missionID, question, id){
-            // console.log(mission_title)
-            // console.log(missionID)
-            // console.log(id)
-            // console.log(question)
             this.$store.commit('saveSelectedDragAndDropTitle', mission_title);
             this.$store.commit('saveSelectedDragAndDropQuestion', question);
             this.$store.commit('saveSelectedDragAndDropID', id);
@@ -550,14 +526,11 @@ export default {
         //store to vuex store methods ends 
         
         fetchMissions(){
-            // console.log('entered')
             this.missionList = [];
             axios.get('//amazingtrail.ml/api/mission/getMissionQuiz')
             .then(response =>{
                 var data = response.data;
-                // console.log(data)
                 for(var index in data){
-                    // console.log(index)
                     this.missionList.push({label: data[index].title, value: data[index].mission});
                 }
             })
@@ -566,13 +539,10 @@ export default {
         getMissionQuizQuestions(missionid, mission){
             axios.get('//amazingtrail.ml/api/quiz/getQuizQuestion?mission=' + missionid)
                 .then(response =>{
-                    // console.log(data[index].mission);
                     var data = response.data;
                     console.log(data);
-                    // for(var index in data){
-                        // console.log(data[index])
                     this.missionList.push({mission_id: missionid, mission_title: mission.title, questions: data});
-                    // }
+                   
                 })
 
                 console.log(this.missionList)
@@ -588,7 +558,6 @@ export default {
             } else{
                 this.showDeleteQuiz = true;
             }
-            //console.log(this.missionIDToBeDeleted)
         },
 
         onSubmitToDeleteQuiz(){
@@ -602,7 +571,7 @@ export default {
                 console.log(data)
                 if (data.success === "true") {
                     this.quizDeleteMessage = "Quiz Successfully Deleted"
-                    // this.$router.go();
+                    
                 } else {
                     this.quizDeleteMessage = "Error Please Remove Quiz From All Existing Trails"
                 }
@@ -614,7 +583,6 @@ export default {
                 this.showDeleteQuiz = true;
             }
             
-            // location.reload();
         },
 
         closeDeleteQuiz(){
@@ -644,7 +612,6 @@ export default {
             } else{
                 this.showDeleteWefie = true;
             }
-            //console.log(this.missionIDToBeDeleted)
             
         },
 
@@ -669,11 +636,9 @@ export default {
                 console.log(data)
                 if (data.success === "true") {
                     this.wefieDeleteMessage ="Wefie Question Successfully Deleted"
-                    // this.$router.go();
                 } else {
                     this.wefieDeleteMessage = "Error Please Remove Wefie Question From All Existing Trails";
                 }
-                // this.$router.go();
             })
         
             if(this.showDeleteWefie){
@@ -682,7 +647,6 @@ export default {
                 this.showDeleteWefie = true;
             }
             
-            // location.reload();
         },
 
         closeDeleteWefie(){
@@ -710,8 +674,6 @@ export default {
                 "id": this.dragDropIDToBeDeleted,
                 "missionID": this.dragDropMissionIDToBeDeleted
             }
-
-            // console.log(postBody)
             
             axios.post('//amazingtrail.ml/api/delete/deleteDragAndDrop', postBody)
             .then(response => {
@@ -719,11 +681,10 @@ export default {
                 console.log(data)
                 if (data.success === "true") {
                     this.dragAndDropDeleteMessage ="Drag and Drop Question Successfully Deleted"
-                    // this.$router.go();
+                    
                 } else {
                     this.dragAndDropDeleteMessage = "Error Please Remove Drag and Drop Question From All Existing Trails";
                 }
-                // this.$router.go();
             })
         
             if(this.showDeleteDragDrop){
@@ -732,7 +693,6 @@ export default {
                 this.showDeleteDragDrop = true;
             }
             
-            // location.reload();
         },
 
         closeDeleteDragDrop(){
@@ -752,25 +712,6 @@ export default {
             }
             this.dragAndDropDeleteMessage = "";
         },
-
-        // onSubmitToDeleteAnagram(){
-        //     const postBody = {
-        //         id: this.anagramIDToBeDeleted
-        //     }
-
-        //     axios.post('//amazingtrail.ml/api/delete/deleteAnagram', postBody)
-        //     .then(response => {
-        //         let data = response.data
-        //         console.log(data)
-        //         if (data.success === "true") {
-        //             this.anagramDeleteMessage ="Anagram Word Successfully Deleted"
-        //             // this.$router.go();
-        //         } else {
-        //             this.anagramDeleteMessage = "Error Please Remove Drawing Question From All Existing Trails";
-        //         }
-        //         // this.$router.go();
-        //     })
-        // },
 
         deleteAnagram(anagram_title, anagram_id){
             this.titleToBeDeleted = anagram_title;
@@ -795,11 +736,9 @@ export default {
                 if (data.success === "true") {
                     this.anagramDeleteMessage ="Anagram Successfully Deleted"
                     console.log(this.anagramDeleteMessage)
-                    // this.$router.go();
                 } else {
                     this.anagramDeleteMessage = "Error Please Remove Anagram Question From All Existing Trails";
                 }
-                // this.$router.go();
             })
         
             if(this.showDeleteAnagram){
@@ -808,7 +747,6 @@ export default {
                 this.showDeleteAnagram = true;
             }
             
-            // location.reload();
         },
 
         closeDeleteAnagram(){
@@ -853,11 +791,10 @@ export default {
                 console.log(data)
                 if (data.success === "true") {
                     this.drawingDeleteMessage ="Drawing Question Successfully Deleted"
-                    // this.$router.go();
+                    
                 } else {
                     this.drawingDeleteMessage = "Error Please Remove Drawing Question From All Existing Trails";
                 }
-                // this.$router.go();
             })
         
             if(this.showDeleteDrawing){
@@ -866,7 +803,6 @@ export default {
                 this.showDeleteDrawing = true;
             }
             
-            // location.reload();
         },
 
         closeDeleteDrawing(){
@@ -899,11 +835,10 @@ export default {
                 console.log(data)
                 if (data.success === "true") {
                     this.wordsearchDeleteMessage ="Wordsearch Question Successfully Deleted"
-                    // this.$router.go();
+                    
                 } else {
                     this.wordsearchDeleteMessage = "Error Please Remove Wordsearch Question From All Existing Trails";
                 }
-                // this.$router.go();
             })
         
             if(this.showDeleteWordsearch){
@@ -911,8 +846,6 @@ export default {
             } else{
                 this.showDeleteWordsearch = true;
             }
-            
-            // location.reload();
         },
 
         deleteWordsearch(wordsearch_title, wordsearch_ID){
@@ -953,15 +886,6 @@ export default {
             this.$router.push('/')
         }
 
-        // axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
-        // .then(response => {
-        //     let data = response.data;
-        //     for(var row in data){
-        //         console.log(data[row])
-        //         this.hotspotList.push({label: data[row].hotspot_name, value: data[row].hotspot_name})
-        //     }
-        // })
-
         axios.get('//amazingtrail.ml/api/upload/getAllSubmissionQuestion')
         .then(response => {
             let data = response.data;
@@ -974,11 +898,9 @@ export default {
         axios.get('//amazingtrail.ml/api/mission/getMissionQuiz')
         .then(response =>{
             let data = response.data;
-            // console.log(data);
             for(var index in data){
         
                 this.getMissionQuizQuestions(data[index].mission, data[index])
-               //this.missionList.push({label: data[index].title, value: data[index].mission});
             }           
         })
 
@@ -1041,8 +963,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
     }
 
@@ -1104,7 +1024,7 @@ export default {
     }
 
     .wefie-data td, .quiz-data td, .draganddrop-data td, .drawing-data td, .anagram-data td, .wordsearch-data td{
-        /*max-height: 10px;*/
+      
         max-width: 700px;
         padding: 15px;
     }
@@ -1113,7 +1033,6 @@ export default {
         text-decoration: none!important;
         font-size: 14px;
         font-family: "Roboto", sans-serif;
-        /*color: #536479;*/
     }
 
     .wefie-data button, .quiz-data button, .draganddrop-data button, .drawing-data button, .anagram-data button, .wordsearch-data button{
@@ -1185,7 +1104,6 @@ export default {
         display: flex;
         flex-direction: column;
         padding-top: 10px;
-        /*background-color: pink;*/
         flex: 10;
     }
 
@@ -1210,13 +1128,11 @@ export default {
         align-items: flex-start;
         font-size: 15px;
         margin-left: 20px;
-        /*margin-bottom: 10px;*/
         flex-direction: column;
     }
 
     .delete-quiz-btm, .delete-dragdrop-btm, .delete-wefie-btm, .delete-drawing-btm, .delete-anagram-btm, .delete-wordsearch-btm{
         margin-bottom: 0px;
-        /*flex: 4;*/
         margin-top: 10px;
         border-top: 1px solid #C6C4BC;
         padding: 10px;
@@ -1314,114 +1230,5 @@ export default {
     .close-delete-message{
         display: inline-block
     }
-    /*deleted quiz popup ends*/
-
-    /*delete wefie popup starts*/
-    /*.black-blur-bg{
-        width:100%;
-        height: 100%;
-        background-color: rgb(0, 0, 0, 0.7);
-        position: fixed;
-        top:0;
-        z-index: 2;
-        display:flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-
-    .delete-wefie-popup{
-        min-width: 30%;
-        min-height: 33%;
-        background-color: white;
-        opacity: 100%;
-        z-index: 500;
-        border-radius: 3px;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 600;
-        overflow: hidden;
-    }
-    
-    .delete-wefie-body{
-        width:100%;
-        height: 130px;
-        overflow: hidden;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        padding-top: 10px;
-    }
-
-    .delete-wefie-body h6{
-        display: flex;
-        float: left;
-        height: 100%;
-        width: 100%;
-        font-size: 15px;
-        margin-left: 20px;
-        margin-bottom: 10px;
-    }
-
-    .delete-wefie-btm{
-        margin-bottom: 10px;
-        margin-top: 10px;
-    
-    }
-
-    .cancel-delete{
-        background: none;
-        border: 1px solid #C6C4BC;
-        border-radius: 4px;
-        display: flex;
-        float: left;
-        padding:8px 15px 8px 15px;
-        margin-left: 25px;
-        text-align: center;
-        cursor: pointer;
-        align-items: center;
-        position: relative;
-        font-family: 'Roboto', sans-serif;
-        font-size: 17px;
-        color: #666666;
-    }
-
-    .delete-wefie-btn{
-        background: none;
-        border: none;
-        background-color: #F15E5E;
-        border-radius: 4px;
-        display: flex;
-        float: right;
-        padding:8px 15px 8px 15px;
-        margin-right: 25px;
-        text-align: center;
-        cursor: pointer;
-        align-items: center;
-        position: relative;
-        font-family: 'Roboto', sans-serif;
-        font-size: 17px;
-        color: white;
-    }
-
-    .close-delete-wefie{
-        background: none;
-        border: none;
-        color: #868686;
-        cursor: pointer;
-        float: right;
-        font-size: 18px;
-    }
-
-    .delete-wefie-popup h5{
-        display: flex;
-        float: left;
-    }
-
-    .delete-wefie-header{
-        max-width: 100%;
-        padding:18px;
-    }*/
-
-    /*deleted wefie popup ends*/
 
 </style>

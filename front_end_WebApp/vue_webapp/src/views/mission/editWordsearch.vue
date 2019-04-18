@@ -4,7 +4,6 @@
             <div class="card-title">
                 <h5>Edit Wordsearch</h5>
             </div>
-            <!--{{quiz}}-->
             <form @submit.prevent="wordsearchOnSubmitToEdit">
                 <div>
                     <div class="view-mission-body">
@@ -75,7 +74,6 @@ export default {
                 }
         }
 
-        // console.log("pig")
         console.log(wordsToBeSubmitted);
 
         let postBody = {
@@ -100,8 +98,6 @@ export default {
           console.log("check")
           this.$router.push('/')
       }
-
-    //   if(this.$stor)
 
       this.wordsearch_title = this.$store.state.selectedWordsearchTitle
       this.words = this.$store.state.selectedWords
@@ -138,8 +134,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         margin-bottom: 50px;
     }
@@ -151,7 +145,6 @@ export default {
 
     .EditWordsearch div{
         min-width: inherit;
-        /*background-color: blue*/
     }
 
     .words-body label{
@@ -163,7 +156,6 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         min-width: 11%
     }
@@ -182,9 +174,7 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
-        /*align-items: center;*/
         min-width: 11%
 
     }
@@ -199,7 +189,6 @@ export default {
     }
 
     .view-mission-input input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -223,7 +212,6 @@ export default {
     }
 
     .EditWordsearch .submit-btn{
-        /*display: flex;*/
         float:right;
         background: none;
         border: none;
@@ -247,11 +235,11 @@ export default {
      }
 
      .EditWordsearch .cancel-btn{
-         float:right;
-         background-color: #ACACAC;
-         color: white;
-         border:none;
-         border-radius: 4px;
+        float:right;
+        background-color: #ACACAC;
+        color: white;
+        border:none;
+        border-radius: 4px;
         min-width: 8%;
         min-height: 40px;
         padding:8px 10px 8px 10px;

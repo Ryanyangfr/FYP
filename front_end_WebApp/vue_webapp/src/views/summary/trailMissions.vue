@@ -224,10 +224,8 @@ export default {
         axios.get('//amazingtrail.ml/api/mission/getMissionQuizHistory?trailInstanceID=' + this.trailID)
         .then(response =>{
             let data = response.data;
-            // console.log(data);
             for(var index in data){
                 this.getMissionQuizQuestions(data[index].mission, data[index])
-               //this.missionList.push({label: data[index].title, value: data[index].mission});
             }           
         })
 
@@ -267,8 +265,6 @@ export default {
                 for(var index in wordsList){
                     wordsearchWords.push({word: wordsList[index]})
                 }
-                // console.log("woof woof woof");
-                // console.log(data[row].id);
                 this.wordsearchList.push({title:data[row].title, words: wordsearchWords, wordsearch_id: data[row].id})
             }
         })
@@ -292,8 +288,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         margin-bottom: 30px
     }
@@ -328,7 +322,6 @@ export default {
     }
 
     .wefie-data td, .quiz-data td, .draganddrop-data td, .drawing-data td, .anagram-data td, .wordsearch-data td{
-        /*max-height: 10px;*/
         max-width: 700px;
         padding: 15px;
     }
@@ -337,7 +330,6 @@ export default {
         text-decoration: none!important;
         font-size: 14px;
         font-family: "Roboto", sans-serif;
-        /*color: #536479;*/
     }
 
     .wefie-data button, .quiz-data button, .draganddrop-data button, .drawing-data button, .anagram-data button, .wordsearch-data button{

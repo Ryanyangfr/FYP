@@ -44,7 +44,7 @@
                         </div>
                         
                 </div>
-                <!--<button class="add-new-question-btn" type="button" @click="addRow">ADD HOTSPOT, NARRATIVE AND MISSION</button>-->
+                
                 <div class="submit-btn-area">
                     <router-link to='/trail'><button class="cancel-btn" type="button">Cancel</button></router-link>
                     <button class="submit-btn" type="submit">Save</button>
@@ -75,18 +75,6 @@ export default {
     },
 
     methods: {
-        // addRow(){
-        //     this.details.push({
-        //         hotspot: "",
-        //         mission: "",
-        //         narrative: ""
-        //     })
-        // },
-
-        // deleteRow(index){
-        //     console.log(this.details)        
-        //     this.$delete(this.details, index);
-        // },
         trailOnSubmitToEdit(){
             this.details.forEach(element => {
                 let updatedNarrative = this.narrativeDict[element.narrativeTitle]
@@ -111,7 +99,6 @@ export default {
                     alert("Error Please Try Again")
                 }
                 this.$router.push({ path: this.redirect || '/trail' })
-                // this.$router.go();
             })
         }
         
@@ -141,7 +128,6 @@ export default {
                if(data[index].trailID==this.$store.state.selectedTrailID){
                     this.title = data[index].title;
                     this.duration = data[index].totalTime;
-                    //{hotspot, missionTitle, narrativeTitle}
                     this.details = data[index].hotspotsAndMissions;
                }
             }
@@ -171,7 +157,6 @@ export default {
         axios.get('//amazingtrail.ml/api/narrative/getNarratives')
         .then(response => {
             let data = response.data;
-            // console.log(data)
             for(var row in data){
                 console.log(data[row])
                 this.narratives.push({narrative_title: data[row].narrative_title, narrative_id: data[row].narrative_id})
@@ -216,7 +201,6 @@ export default {
 
     .EditTrail form{
         min-width: inherit;
-        /*background-color: blue*/
     }
     /*card styling ends*/
 
@@ -241,14 +225,12 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         align-items: center;
         min-width: 12%
     }
 
     .EditTrail .input-area input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -285,7 +267,6 @@ export default {
         position: relative;
         min-width: 98%;
         overflow: hidden;
-        /*background-color: red*/
     }
 
     .EditTrail .droplist label {
@@ -297,7 +278,6 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         align-items: center;
         min-width: 12%
@@ -375,7 +355,6 @@ export default {
     }
 
     .EditTrail .submit-btn{
-        /*display: inline;*/
         float:right;
         background: none;
         border: none;

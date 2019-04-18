@@ -9,9 +9,6 @@
                     <button @click = "showOrHide()"><font-awesome-icon class = "hamburger-icon" icon="bars"  size="2x"/></button>
                 </div>
                 <div class = "logout-area">
-                    <!-- <div class="change-password-area">
-                        <router-link to = "/passwordChange">Change Password</router-link>
-                    </div> -->
                     <div class="change-password-area">
                         <router-link to='/passwordChange'><button><i class="ti-lock"></i>Change Password</button></router-link>
                     </div>
@@ -35,9 +32,6 @@
                     <li @click="showOrHide()"><router-link to='/mission'><i class="ti-flag"></i>Missions</router-link></li>
                     <li @click="showOrHide()"><router-link to='/trail'><i class="ti-map-alt"></i>Trail</router-link></li>
                     <li @click="showOrHide()"><router-link to='/summary'><i class="ti-file"></i>Summary Report</router-link></li>
-                    <!-- <li @click="showOrHide()"><router-link to='/passwordChange'><i class="ti-lock"></i>Change Password</router-link></li> -->
-                    
-                    <!-- <li @click="showOrHide()"><router-link to='/notification'><i class="ti-bell"></i>Notification</router-link></li> -->
                 </ul>
                 
             </div>
@@ -68,13 +62,9 @@ export default{
             console.log("ryan")
             console.log(this.$store.state.showSidebar)
             if(this.$store.state.showSidebar){
-                // this.$store.state.showSidebar = false;
                 this.show= false;
-                // this.$sidebar = '0px';
             } else{
-                // this.$store.state.showSidebar = true;
                 this.show = true;
-                // this.$sidebar = '250px';
             }
 
             this.$store.commit('changeSideBarState')
@@ -122,7 +112,6 @@ export default{
         overflow-x: hidden;
         overflow-y: auto;
         box-shadow: 0 0 2px #e5e5e5;
-        /* background-color: pink */
     }
 
     .slide-enter {
@@ -157,11 +146,6 @@ export default{
         flex-direction: column;
         padding-left: 0px;
     }
-/* 
-    .sidebar-scroll{
-        overflow-y: auto;
-        height: 100%;
-    } */
 
     .setup-header{
         font-size: 14px;
@@ -185,18 +169,12 @@ export default{
 
     .sideBar ul li{
         list-style-type: none;
-        /* margin-left: 20px;
-        margin-right: 10px; */
-        /* margin-top:15px; */
         height: 45px;
-        /* float: left; */
         display: flex;
         text-align: left;
         align-content: center;
         width: 100%;
         vertical-align: middle;
-        /* background-color: pink */
-        /*position: relative;*/
     }
 
     .sideBar ul li i{
@@ -211,10 +189,8 @@ export default{
     }
 
     .logo{
-        /*min-height:50px;*/
         width:15%;
         overflow: hidden;
-        /*background-color: #645cdd; */
         background-color: #645cdd;
         display: flex;
         align-items: center;
@@ -227,7 +203,6 @@ export default{
         height: 100%;
         float: right;
         align-items: center;
-        /* background-color: pink; */
     }
 
     .logout-btn{
@@ -274,8 +249,6 @@ export default{
 
     .logout-area button:hover{
         background-color: #4d44bf;
-        /*border-left: 1px solid #443daa;
-        border-bottom: 1px solid #443daa;*/
     }
 
     .logout-area i{

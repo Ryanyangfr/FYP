@@ -29,11 +29,10 @@
                     <h5>Delete</h5>
                     <button class="close-delete-narrative" @click="closeDelete()"><font-awesome-icon icon="times"/></button>
                 </div>
-                <!-- <hr> -->
                 
                 <form class="delete-narrative-body" @submit.prevent="onSubmitToDelete">
                     <div class="delete-narrative-content"><h6>Are you sure you want to delete "{{this.curr_narrative_title}}"?</h6></div>
-                    <!-- <div><hr></div> -->
+                    
                     <div class="delete-narrative-btm">
                         <button class="cancel-delete" @click="closeDelete()">Cancel</button>
                         <button type="submit" class="delete-narrative-btn">Delete</button>
@@ -48,7 +47,6 @@
                 <div class="delete-message-area"><h6>{{deleteMessage}}</h6></div>
                 <div class="close-delete-message">
                     <button @click="closeDeleteMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
                
             </div>
@@ -137,7 +135,6 @@ export default {
 
         onSubmitToDelete(){
             var postBody = {
-                // "narrative_id": this.narrativeToBeDeleted.value,
                 "narrative_id": this.curr_narrative_id
             }
             axios.post('//amazingtrail.ml/api/delete/deleteNarrative', postBody)
@@ -166,12 +163,11 @@ export default {
         axios.get('//amazingtrail.ml/api/narrative/getNarratives')
         .then(response => {
             let data = response.data;
-            // console.log(data)
             for(var row in data){
                 console.log(data[row])
                 this.dropDownList.push({label: data[row].narrative_title, value: data[row].narrative_id})
                 this.narrativeTableList.push({title: data[row].narrative_title, id: data[row].narrative_id, narrative: data[row].narrative})
-                // console.log(data[row].narrative);
+                
             }
         })
     }
@@ -200,8 +196,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
     }
 
@@ -344,7 +338,6 @@ export default {
         display: flex;
         flex-direction: column;
         padding-top: 10px;
-        /*background-color: pink;*/
         flex: 10;
     }
 
@@ -362,7 +355,6 @@ export default {
         align-items: flex-start;
         font-size: 15px;
         margin-left: 20px;
-        /*margin-bottom: 10px;*/
         flex-direction: column;
     }
 
@@ -375,7 +367,6 @@ export default {
 
     .delete-narrative-btm{
         margin-bottom: 0px;
-        /*flex: 4;*/
         margin-top: 10px;
         border-top: 1px solid #C6C4BC;
         padding: 10px;

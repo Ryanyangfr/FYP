@@ -4,7 +4,6 @@
             <div class="card-title">
                 <h5>Edit Quiz</h5>
             </div>
-            <!--{{quiz}}-->
             <form @submit.prevent="dragAndDropOnSubmitToEdit">
                 <div>
                     <div class="view-mission-body">
@@ -147,8 +146,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         margin-bottom: 50px;
     }
@@ -160,7 +157,6 @@ export default {
 
     .ViewQuiz div{
         min-width: inherit;
-        /*background-color: blue*/
     }
 
    .view-mission-input label{
@@ -172,9 +168,7 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
-        /*align-items: center;*/
         min-width: 11%
 
     }
@@ -188,7 +182,6 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         min-width: 11%
     }
@@ -203,7 +196,6 @@ export default {
     }
 
     .view-mission-input input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -225,7 +217,6 @@ export default {
         flex-direction: column;
         float: left;
         width: 100%;
-        /*background-color: blue;*/
     }
 
 
@@ -233,7 +224,6 @@ export default {
         margin-left:30px;
         display: flex;
         flex-direction: row;
-        /*background-color: pink;*/
     }
 
     .view-options-and-answers{
@@ -264,7 +254,6 @@ export default {
     }
 
     .EditDragAndDrop .submit-btn{
-        /*display: flex;*/
         float:right;
         background: none;
         border: none;
@@ -288,11 +277,11 @@ export default {
      }
 
      .EditDragAndDrop .cancel-btn{
-         float:right;
-         background-color: #ACACAC;
-         color: white;
-         border:none;
-         border-radius: 4px;
+        float:right;
+        background-color: #ACACAC;
+        color: white;
+        border:none;
+        border-radius: 4px;
         min-width: 8%;
         min-height: 40px;
         padding:8px 10px 8px 10px;

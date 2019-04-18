@@ -16,7 +16,6 @@
                         <div v-for="quiz in quiz" :key="quiz.quiz_id" class="view-options-and-answers"> 
                             <div class="view-mission-input">
                                 <label>Question</label>
-                                <!--<input name="question" id="question-input" type="text" placeholder="Question">-->
                                 <div class="question">{{quiz.quiz_question}}</div>
                             </div>
 
@@ -24,7 +23,6 @@
                                 <label>Question Options</label>
                                 <div class="add-quiz-options">
                                     <div class="option" v-for="options in quiz.options" :key="options.option_id">
-                                        <!--<input name="option1" type="text" placeholder="Option 1">-->
                                         <div>{{options.option}}</div>
                                     </div>
                                     
@@ -89,7 +87,6 @@ export default {
             console.log("check")
             this.$router.push('/')
         }
-        // console.log('selectedQuizID: ' + this.$store.state.selectedQuizID)
         axios.get('//amazingtrail.ml/api/quiz/getQuizQuestionHistory?mission=' + this.$store.state.selectedQuizID)
         .then(response =>{
             var data = response.data;
@@ -125,8 +122,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         margin-bottom: 50px;
     }
@@ -138,7 +133,6 @@ export default {
 
     .ViewQuiz div{
         min-width: inherit;
-        /*background-color: blue*/
     }
 
    .view-mission-input label{
@@ -150,9 +144,7 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
-        /*align-items: center;*/
         min-width: 11%
 
     }
@@ -166,7 +158,6 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         min-width: 11%
     }
@@ -181,7 +172,6 @@ export default {
     }
 
     .view-mission-input input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -203,7 +193,6 @@ export default {
         flex-direction: column;
         float: left;
         width: 100%;
-        /*background-color: blue;*/
     }
 
 
@@ -211,7 +200,6 @@ export default {
         margin-left:30px;
         display: flex;
         flex-direction: row;
-        /*background-color: pink;*/
     }
 
     .view-options-and-answers{

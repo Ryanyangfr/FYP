@@ -4,13 +4,9 @@
             <div class="card-title">
                 <h5>Edit Wefie</h5>
             </div>
-            <!--{{quiz}}-->
             <form @submit.prevent="wefieOnSubmitToEdit">
                 <div class="edit-wefie-body">
-                    <!--<div class="edit-wefie-input">
-                        <label for="edit-wefie-title-input">Title</label>
-                        <input name="edit-wefie-title-input" type="text" placeholder="Title" v-model="wefie_title"> 
-                    </div>  -->
+                   
                     <div class="edit-wefie-input">
                         <label for="edit-wefie-title-input">Wefie Question</label>
                         <input name="edit-wefie-title-input" type="text" placeholder="Question" v-model="wefie_question"> 
@@ -63,7 +59,6 @@ export default {
                 "question": this.wefie_question,
             }
 
-            // console.log(this.quiz);
             axios.post('//amazingtrail.ml/api/edit/editWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
@@ -105,8 +100,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         margin-bottom: 50px;
     }
@@ -125,9 +118,7 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
-        /*align-items: center;*/
         min-width: 11%
 
     }
@@ -142,7 +133,6 @@ export default {
     }
 
     .edit-wefie-input input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -164,7 +154,6 @@ export default {
     }
 
     .EditWefie .submit-btn{
-        /*display: flex;*/
         float:right;
         background: none;
         border: none;

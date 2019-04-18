@@ -4,13 +4,8 @@
             <div class="card-title">
                 <h5>Edit Drawing</h5>
             </div>
-            <!--{{quiz}}-->
             <form @submit.prevent="drawingOnSubmitToEdit">
                 <div class="edit-drawing-body">
-                    <!--<div class="view-drawing-input">
-                        <label for="edit-drawing-title-input">Title</label>
-                        <input name="edit-drawing-title-input" type="text" placeholder="Title" v-model="drawing_title"> 
-                    </div>  -->
                     <div class="edit-drawing-input">
                         <label for="edit-drawing-title-input">Drawing Question</label>
                         <input name="edit-drawing-title-input" type="text" placeholder="Question" v-model="drawing_question"> 
@@ -63,7 +58,6 @@ export default {
                 "question": this.drawing_question,
             }
 
-            // console.log(this.quiz);
             axios.post('//amazingtrail.ml/api/edit/editDrawingQuestion', postBody)
             .then(response => {
                 let data = response.data
@@ -106,8 +100,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         margin-bottom: 50px;
     }
@@ -126,9 +118,7 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /* background-color: pink; */
         height: inherit;
-        /*align-items: center;*/
         min-width: 11%
 
     }
@@ -143,7 +133,6 @@ export default {
     }
 
     .edit-drawing-input input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -165,7 +154,6 @@ export default {
     }
 
     .EditDrawing .submit-btn{
-        /*display: flex;*/
         float:right;
         background: none;
         border: none;

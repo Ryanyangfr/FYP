@@ -1,6 +1,5 @@
 <template>
   <div class="Login">
-    <!-- <div class="container"> -->
       <div class="login-box">
         <form @submit.prevent="login_check">
           <div class="login-form-head">
@@ -31,10 +30,6 @@
           </div>
         </form>
       </div>
-    <!-- </div> -->
-
-    <!--<span>Username: {{user.username}}</span>
-    <span>Password: {{user.password}}</span>-->
   </div>
 </template>
 
@@ -69,10 +64,8 @@ export default {
             console.log(response)
               this.user.true_pass = response.data.password;
               console.log(this.user.true_pass);
-              // var token = response.data.token;
               if(this.user.password === this.user.true_pass){
                 console.log("token: ");
-                // console.log(response.data.token)
                 this.$session.start()
                 this.$session.set('jwt', response.data.token)
                 this.$router.push({ path: this.redirect || '/landing' })
@@ -87,7 +80,12 @@ export default {
       
     }
 
-  }
+  },
+
+  mounted(){
+    this.$store.commit('resetSideBar')
+        
+  }  
 }
 </script>
 
@@ -115,10 +113,6 @@ export default {
     display: flex;
     justify-content: center
   }
-
-  /* .ptb--100 {
-      padding: 50px 0
-  } */
 
   .login-box {
     display: -webkit-box;
@@ -160,7 +154,6 @@ export default {
 
 .login-form-body {
   padding: 50px;
-  /* height: 100% */
 }
 
 .login-form-input {
@@ -236,10 +229,8 @@ input:-webkit-autofill:active  {
 }
 
 .Login .submit-btn-area{
-  /*text-align: center;*/
   align-items: center;
   margin-top: 90px;
-  /* background-color: pink */
 }
 
 .Login .submit-btn-area button{

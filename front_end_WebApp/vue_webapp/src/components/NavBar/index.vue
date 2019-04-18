@@ -1,6 +1,5 @@
 <template>
     <div class="horizontal-menu">
-        <!-- <div class="route-name-area"> -->
             <div class="route-name-area">
                 {{$route.name}}
             </div>
@@ -18,14 +17,12 @@
                 <div v-if="this.$store.state.currentTrailID==='-'">Current Trail ID: {{this.trail_instance_id}}</div>
                 <div v-else>Current Trail ID: {{this.$store.state.currentTrailID}}</div>
             </div>
-        <!-- </div> -->
 
         <div class="black-blur-bg" v-if="trailEnded"> 
             <div class="trail-ended-popup">                
                 <div class="trail-ended-message-area"><h5>Trail Has Ended!</h5></div>
                 <div class="close-trail-ended">
                     <button class="close-trail-ended" @click="closeTrailEnded()">Okay</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
             </div>
         </div>
@@ -69,12 +66,9 @@ export default{
         timerCount(){
             // Get todays date and time
             let now = new Date().getTime();
-            // console.log(start);
-            // console.log(end);
             // Find the distance between now an the count down date
             // var distance = start - now;
             var passTime =  this.$store.state.instanceStartTime - now;
-            // console.log(passTime)
             this.calcTime(passTime);
             if (this.seconds == 0 && this.hours == 0 && this.minutes == 0) {
                 this.trailEnded = true;
@@ -99,17 +93,10 @@ export default{
             }
         })
 
-        // this.end = new Date(this.start + 60*60*1000).getTime();
-        // Update the count down every 1 second
-        // this.timerCount(this.start,this.end);
-        // console.log(this.start);
-        // console.log(this.end);
         this.interval = setInterval(() => {
-            // console.log(this.$store.state.instanceStartTime);
             this.timerCount();
         }, 1000);
 
-        // console.log(this.interval)
     }
 }
 </script>
@@ -119,13 +106,9 @@ export default{
     @import '../../assets/themify-icons.css';
     
     .horizontal-menu{
-        /*background-color: red;*/
         overflow: hidden;
         height: 50px;
         vertical-align: middle;
-        /* padding: 5px;
-        padding-left: 35px;
-        padding-right: 35px; */
     }
 
     .horizontal-menu .route-name-area {
@@ -136,9 +119,7 @@ export default{
         padding-bottom: 10px;
         color:black;
         font-family: 'Roboto', sans-serif;
-        /* background-color: pink; */
         vertical-align: middle;
-        /* width: 50% */
         padding-left: 40px
     }
 
@@ -152,7 +133,6 @@ export default{
         padding-left: 5px;
         color:black;
         font-family: 'PT Sans', sans-serif;
-        /* background-color: pink; */
         vertical-align: middle;
         margin-right: 25px;
     }
