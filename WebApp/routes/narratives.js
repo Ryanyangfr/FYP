@@ -7,6 +7,8 @@ const databaseConfig = require('../config/mysqlconf.js');
 
 const conn = mysql.createConnection(databaseConfig);
 
+// gets all narrative from the database
+// output: [{narrative_title: title, narrative_id: narrativeID, narrative: narrative}]
 router.get('/getNarratives', (req,res) => {
   const query = 'SELECT * FROM NARRATIVE';
   const response = [];

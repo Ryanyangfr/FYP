@@ -10,6 +10,9 @@ const conn = mysql.createConnection(databaseConfig);
 router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+// edit selected hotspot in the database
+// input: {hotspotName: hotspotName, latitude: latitude, longtitude: longtitude}
+// response: {success: true}/{success: false}
 router.post('/editHotspot', (req, res) => {
   console.log('edit hotspot called');
   const hotspotName = req.body.hotspot_name;
@@ -28,6 +31,9 @@ router.post('/editHotspot', (req, res) => {
   });
 });
 
+// edit selected narrative in the database
+// input: {narrative_id: narrativeID, narrative: narrative}
+// response: {success: true}/{success: false}
 router.post('/editNarrative', (req, res) => {
   const narrative_id = req.body.narrative_id;
   const narrative = req.body.narrative;
@@ -44,8 +50,10 @@ router.post('/editNarrative', (req, res) => {
   });
 });
 
+// edit selected quiz in the database
+// input: {missionID: missionID, title: title, quiz: [{quiz_question: question, options:{option: option, option_id: id}, quiz_answer: answer}]}
+// response: {success: true}/{success: false}
 router.post('/editQuiz', (req, res) => {
-
   const quiz = req.body.quiz;
   const missionID = req.body.missionID;
   const title = req.body.title;
@@ -73,6 +81,9 @@ router.post('/editQuiz', (req, res) => {
   });
 });
 
+// edit selected wefie question in the database
+// input: {id: questionID, question: question}
+// response: {success: true}/{success: false}
 router.post('/editWefieQuestion', (req, res) => {
   const questionID = req.body.id;
   const question = req.body.question;
@@ -105,6 +116,9 @@ router.post('/switchTeams', (req,res) => {
   });
 });
 
+// edit selected drag and drop in the database
+// input: {id: dragAndDropID, question: question, options: {option: option, answer: answer}, title:title, missionID: missionID}
+// response: {success: true}/{success: false}
 router.post('/editDragAndDrop', (req,res) => {
 
   const id = req.body.id;
@@ -157,6 +171,9 @@ router.post('/editDragAndDrop', (req,res) => {
   });
 });
 
+// edit selected drawing question in the database
+// input: {id: questionID, question: question}
+// response: {success: true}/{success: false}
 router.post('/editDrawingQuestion', (req, res) => {
   const questionID = req.body.id;
   const question = req.body.question;
@@ -207,6 +224,9 @@ function updateQuiz(quizID, answer, question, options, res, doneArray, counter) 
   });
 }
 /** **********************************************************************End Method ****************************************************************** */
+// edit selected Anagram in the database
+// input: {id: anagramID, word: word}
+// response: {success: true}/{success: false}
 router.post('/editAnagram', (req, res) => {
   const anagramID = req.body.id;
   const word = req.body.word;
@@ -223,6 +243,9 @@ router.post('/editAnagram', (req, res) => {
   });
 });
 
+// edit selected hotspot in the database
+// input: {id: wordSearchID, words: [word1, word2, word3, word4, word5]}
+// response: {success: true}/{success: false}
 router.post('/editWordsearch', (req,res) => {
   const wordSearchID = req.body.id;
   const words = req.body.words;

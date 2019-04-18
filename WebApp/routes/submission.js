@@ -45,6 +45,7 @@ conn.query('SELECT MAX(MULTIMEDIA_ID) as MULTIMEDIA_ID FROM MULTIMEDIA', (err, d
   }
 });
 
+
 router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, res) => {
   const submission_id = submission_index;
   submission_index++;

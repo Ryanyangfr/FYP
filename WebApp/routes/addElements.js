@@ -42,7 +42,7 @@ conn.query(wefie_query, (err, data) => {
     console.log(err);
   } else {
     wefie_id = data[0].ID + 1;
-    console.log('wefie id: ' + wefie_id)
+    console.log('wefie id: ' + wefie_id);
   }
 });
 
@@ -56,7 +56,7 @@ conn.query(dragAndDropIDQuery, (err,data) => {
   } else {
     dragAndDropID = data[0].ID + 1;
   }
-})
+});
 
 // getting the current drawing question id
 let drawing_id = 0;
@@ -82,6 +82,9 @@ conn.query(mission_query, (err, data) => {
   }
 });
 
+// adds hotspot to the database
+// required input: {hotspot_name: hotspotname, latitude: 1, longtitude: 1}
+// response: {success: true}, {success: false}
 router.post('/addHotspot', (req,res) => {
   console.log(req.body);
   const hotspotName = req.body.hotspot_name;
@@ -101,6 +104,9 @@ router.post('/addHotspot', (req,res) => {
   });
 });
 
+// adds narrative to the database
+// required input: {narrative: narrative, title: title}
+// response: {success: true}, {success: false}
 router.post('/addNarrative', (req,res) => {
   const narrative = req.body.narrative;
   const title = req.body.title;
@@ -124,6 +130,9 @@ router.post('/addNarrative', (req,res) => {
   });
 });
 
+// adds quiz to the database
+// required input: {title: title, quiz: [{question: question, option1: option1, option2: option2, option3: option3, option4: option4, answer: answer}]}
+// response: {success: true}, {success: false}
 router.post('/addQuiz', (req,res) => {
   const title = req.body.title;
   const quiz = req.body.quiz;
@@ -138,7 +147,7 @@ router.post('/addQuiz', (req,res) => {
       let count = 0;
       for (const index in quiz) {
         count += 1;
-        const row = quiz[index]
+        const row = quiz[index];
         const question = row.question;
         const option1 = row.option1;  
         const option2 = row.option2;
@@ -229,6 +238,9 @@ function update_quiz(count, final_count, quiz_id, question, answer, mission_id, 
   });
 };
 
+// adds wefie question to the database
+// required input: {question: question, title: title}
+// response: {success: true}, {success: false}
 router.post('/addWefieQuestion', (req,res) => {
   const question = req.body.question;
   const title = req.body.title;
@@ -255,6 +267,9 @@ router.post('/addWefieQuestion', (req,res) => {
   });
 });
 
+// adds hotspot to the database
+// required input: {question: question, options: [{option: option, answer:answer}]}
+// response: {success: true}, {success: false}
 router.post('/addDragAndDropQuestion', (req,res) => {
 
   const title = req.body.title;
@@ -289,14 +304,17 @@ router.post('/addDragAndDropQuestion', (req,res) => {
                   res.send(JSON.stringify({ success: 'true' }));
                 }
               }
-            })
-          })
+            });
+          });
         }
-      })
+      });
     }
-  })
-})
+  });
+});
 
+// adds drawing question to the database
+// required input: {question: question, title: title}
+// response: {success: true}, {success: false}
 router.post('/addDrawingQuestion', (req,res) => {
   const question = req.body.question;
   const title = req.body.title;
@@ -324,13 +342,16 @@ router.post('/addDrawingQuestion', (req,res) => {
   });
 });
 
+// adds anagram to the database
+// required input: {word: word, title: title}
+// response: {success: true}, {success: false}
 router.post('/addAnagram', (req,res) => {
   const word = req.body.word;
   const title = req.body.title;
 
   const anagramIDQuery = 'SELECT MAX(ANAGRAM_ID) AS ID FROM ANAGRAM';
   const ms_query = 'INSERT INTO MISSION VALUES (?,?)';
-  const anagramQuery = 'INSERT INTO ANAGRAM VALUES (?,?,?);'
+  const anagramQuery = 'INSERT INTO ANAGRAM VALUES (?,?,?);';
 
   conn.query(anagramIDQuery, (err,data) => {
     if (err) {
@@ -352,13 +373,16 @@ router.post('/addAnagram', (req,res) => {
               res.send(JSON.stringify({ success: 'true' }));
               mission_id += 1;
             }
-          })
+          });
         }
-      })
+      });
     }
-  })
+  });
 });
 
+// adds wordsearch words to the database
+// required input: {title: title, words: [{word: word},{word: word},{word: word},{word: word},{word: word}]}
+// response: {success: true}, {success: false}
 router.post('/addWordsearchQuestion', (req,res) => {
   const words = req.body.words;
   const title = req.body.title;
@@ -399,14 +423,14 @@ router.post('/addWordsearchQuestion', (req,res) => {
                       mission_id += 1;
                     }
                   }
-                })
-              })
+                });
+              });
             }
-          })
+          });
         }
-      })
+      });
     }
-  })
+  });
 });
 
 module.exports = router;

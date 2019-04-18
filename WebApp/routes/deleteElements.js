@@ -11,6 +11,9 @@ const conn = mysql.createConnection(databaseConfig);
 router.use(bodyParser.json()); // support json encoded bodies
 router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
+// deletes specified hotspot from the database
+// input: {hotspot_name: hotspotName}
+// response: {success: true}, {success: false}
 router.post('/deleteHotspot', (req, res) => {
   const hotspotName = req.body.hotspot_name;
 
@@ -26,6 +29,9 @@ router.post('/deleteHotspot', (req, res) => {
   });
 });
 
+// deletes specified narrative from the database
+// input: {narrative_id: narrativeID}
+// response: {success: true}, {success: false}
 router.post('/deleteNarrative', (req, res) => {
   const narrative_id = req.body.narrative_id;
 
@@ -41,6 +47,9 @@ router.post('/deleteNarrative', (req, res) => {
   });
 });
 
+// deletes specified quiz from the database
+// input: {mission_id: missionID}
+// response: {success: true}, {success: false}
 router.post('/deleteQuiz', (req, res) => {
   const mission_id = req.body.mission_id;
 
@@ -96,6 +105,9 @@ router.post('/deleteQuiz', (req, res) => {
   });
 });
 
+// deletes specified wefie question from the database
+// input: {id: wefieID}
+// response: {success: true}, {success: false}
 router.post('/deleteWefieQuestion', (req, res) => {
   const wefieID = req.body.id;
   const query = 'DELETE FROM SUBMISSION_QUESTION WHERE QUESTION_ID = ?';
@@ -141,6 +153,9 @@ router.post('/deleteParticipant', (req,res) => {
   });
 });
 
+// deletes specified dragAndDrop question from the database
+// input: {id: dragAndDropID, missionID: missionID}
+// response: {success: true}, {success: false}
 router.post('/deleteDragAndDrop', (req,res) => {
   const id = req.body.id;
   const missionID = req.body.missionID;
@@ -172,6 +187,9 @@ router.post('/deleteDragAndDrop', (req,res) => {
   });
 });
 
+// deletes specified hotspot from the database
+// input: {id: drawingID}
+// response: {success: true}, {success: false}
 router.post('/deleteDrawingQuestion', (req, res) => {
   const drawingID = req.body.id;
   const query = 'DELETE FROM DRAWING_QUESTION WHERE QUESTION_ID = ?';
@@ -203,6 +221,9 @@ router.post('/deleteDrawingQuestion', (req, res) => {
   });
 });
 
+// deletes specified hotspot from the database
+// input: {id: anagramID}
+// response: {success: true}, {success: false}
 router.post('/deleteAnagram', (req, res) => {
   const anagramID = req.body.id;
   const query = 'DELETE FROM ANAGRAM WHERE ANAGRAM_ID = ?';
@@ -234,6 +255,9 @@ router.post('/deleteAnagram', (req, res) => {
   });
 });
 
+// deletes specified hotspot from the database
+// input: {id: wordSearchID}
+// response: {success: true}, {success: false}
 router.post('/deleteWordsearch', (req, res) => {
   const wordSearchID = req.body.id;
   const wordSearchQuery = 'DELETE FROM WORDSEARCH WHERE WORDSEARCH_ID = ?';
