@@ -7,6 +7,9 @@ const databaseConfig = require('../config/mysqlconf.js');
 
 const conn = mysql.createConnection(databaseConfig);
 
+// retrieves anagram questions from a particular trail instance
+// required query input: /api?trail_instance_id = 123456
+// output: [{anagram: anagramWord}]
 router.get('/getAnagrams', (req,res) => {
   const trail_instance_id = req.query.trail_instance_id;
   const query = 'SELECT MISSION_ID, HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ? ORDER BY MISSION_ID)';
@@ -43,6 +46,8 @@ router.get('/getAnagrams', (req,res) => {
   });
 });
 
+// retrieves all anagrams from the database
+// response: {id: anagramID, word: anagramWord, title: missionTitle}
 router.get('/getAllAnagrams', (req,res) => {
   const query = 'SELECT * FROM ANAGRAM, MISSION WHERE ANAGRAM.MISSION_ID = MISSION.MISSION_ID';
   const response = [];
@@ -59,6 +64,9 @@ router.get('/getAllAnagrams', (req,res) => {
   });
 });
 
+// gets anagram details for a previously used trail
+// input: /api?trailInstanceID=123456
+// output: [{id: anagramID, word: anagramWord, title: missionTitle}]
 router.get('/getAnagramsHistory', (req,res) => {
   const trailInstanceID = req.query.trailInstanceID;
   const query = 'SELECT * FROM ANAGRAM_HISTORY, MISSION_HISTORY, SUMMARY_TABLE WHERE ANAGRAM_HISTORY.MISSION_ID = MISSION_HISTORY.MISSION_ID AND ANAGRAM_HISTORY.MISSION_ID = SUMMARY_TABLE.MISSION_ID AND TRAIL_INSTANCE_ID = ?';

@@ -7,6 +7,8 @@ const databaseConfig = require('../config/mysqlconf.js');
 
 const conn = mysql.createConnection(databaseConfig);
 
+// gets current active trail instance
+// output: {trail_instance_id: trailInstanceID}
 router.get('/getInstance', (req,res) => {  
   const query = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
 
@@ -20,6 +22,9 @@ router.get('/getInstance', (req,res) => {
   });
 });
 
+// gets all completed hotspots of the specified team
+// input: /api?trail_instance_id=123456
+// output: [{hotspot: hotspotName, iscompleted: 1}]
 router.get('/completedHotspots', (req,res) => {
   const instance_id = req.query.trail_instance_id;
   const team_id = req.query.team;
@@ -36,6 +41,8 @@ router.get('/completedHotspots', (req,res) => {
   });
 });
 
+// gets all trail instances
+// output: [trailInstanceID1, trailInstanceID2]
 router.get('/getAllTrailInstances', (req,res) => {
   const response = [];
   const query = 'SELECT DISTINCT(TRAIL_INSTANCE_ID) FROM TRAIL_INSTANCE';
@@ -53,6 +60,8 @@ router.get('/getAllTrailInstances', (req,res) => {
   });
 });
 
+// gets current active trail instance
+// output: {trail_instance_id: trailInstanceID}
 router.get('/getCurrentTrailInstanceID', (req,res) => {
   const query = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
 

@@ -20,6 +20,32 @@ conn.query('SELECT COUNT(*) AS COUNT FROM TRAIL', (err, num) => {
   }
 });
 
+// returns all trails which was created since the start:
+// Sample Output: {
+//   trailID: 1,
+//   title: "title",
+//   totalTime: 45,
+//   hotspotsAndMissions: [
+//     {
+//       hotspot: abc,
+//       mission: 1,
+//       missionTitle: title1,
+//       narrativeTitle: title2,
+//       narrativeID: 1,
+//       missionType: "",
+//       missionList: []
+//     },
+//     {
+//       hotspot: abcd,
+//       mission: 2,
+//       missionTitle: title2,
+//       narrativeTitle: title3,
+//       narrativeID: 2,
+//       missionType: "",
+//       missionList: []
+//     }
+//   ]
+// }
 router.get('/getAllTrails', (req, res) => {
   const response = [];
   const query = 'SELECT TRAIL.TRAIL_ID, TRAIL_HOTSPOT.NARRATIVE_ID, NARRATIVE_TITLE, HOTSPOT_NAME, TITLE, TOTAL_TIME, MISSION_TITLE, TRAIL_HOTSPOT.MISSION_ID FROM TRAIL_HOTSPOT, TRAIL, MISSION, NARRATIVE WHERE TRAIL_HOTSPOT.TRAIL_ID = TRAIL.TRAIL_ID AND MISSION.MISSION_ID = TRAIL_HOTSPOT.MISSION_ID AND NARRATIVE.NARRATIVE_ID = TRAIL_HOTSPOT.NARRATIVE_ID ORDER BY TRAIL.TRAIL_ID';
@@ -54,6 +80,9 @@ router.get('/getAllTrails', (req, res) => {
   });
 });
 
+// adds trail to the database
+// required input: {trailTitle: titleOfTrail, totalTime: totalTimeOfTrail, hotspotsAndMissions: [hotspot: hotspot, narrative: narrative, mission: mission]}
+// response: {success: true} or {success: false}
 router.post('/addTrail', (req, res) => {
   trailID += 1;
   const trailTitle = req.body.title;

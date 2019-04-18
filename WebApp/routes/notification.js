@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
+// utilize socket to broadcast message
 router.post('/sendNotification', (req,res) => {
   const io = req.app.get('socketio');
   const message = req.body.message;

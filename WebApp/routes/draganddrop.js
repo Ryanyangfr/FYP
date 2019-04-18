@@ -7,6 +7,9 @@ const databaseConfig = require('../config/mysqlconf.js');
 
 const conn = mysql.createConnection(databaseConfig);
 
+// get all dragAndDrop question for a specified trail instance
+// input: /api?trail_instance_id=123456
+// response: [{hotspot: hotspotName, question, question, drag_and_drop: {drag_and_drop_question: option, drag_and_drop_answer: answer}}] 
 router.get('/getDragAndDrop',(req,res) => {
   const trail_instance_id = req.query.trail_instance_id;
   const query = 'SELECT MISSION_ID, HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) ORDER BY MISSION_ID';
@@ -45,6 +48,8 @@ router.get('/getDragAndDrop',(req,res) => {
   });
 });
 
+// get all drag and drop question in the database
+// output: [{id: draganddropID, question: question, title: title, options: [{option: option, answer: answer}], missionID: missionID}]
 router.get('/getAllDragAndDrop', (req,res) => {
   const dragNDropQuery = 'SELECT MISSION.MISSION_ID, MISSION_TITLE, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER, DRAG_AND_DROP.DRAGANDDROP_ID FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION, MISSION WHERE DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID AND DRAG_AND_DROP.MISSION_ID = MISSION.MISSION_ID';
   const response = [];
@@ -82,6 +87,9 @@ router.get('/getAllDragAndDrop', (req,res) => {
   });
 });
 
+// gets all drag and drop from a previously used trail instance ID
+// input: api?trailInstanceID=123456
+// output: [{id: draganddropID, question: question, title: title, options: [{option: option, answer: answer}], missionID: missionID}]
 router.get('/getDragAndDropHistory', (req,res) => {
   const trailInstanceID = req.query.trailInstanceID;
   const dragNDropQuery = 'SELECT MISSION_HISTORY.MISSION_ID, MISSION_TITLE, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER, DRAG_AND_DROP_HISTORY.DRAGANDDROP_ID FROM DRAG_AND_DROP_HISTORY, DRAG_AND_DROP_OPTION_HISTORY, MISSION_HISTORY, SUMMARY_TABLE WHERE DRAG_AND_DROP_HISTORY.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION_HISTORY.DRAGANDDROP_ID AND DRAG_AND_DROP_HISTORY.MISSION_ID = MISSION_HISTORY.MISSION_ID AND DRAG_AND_DROP_HISTORY.MISSION_ID = SUMMARY_TABLE.MISSION_ID AND TRAIL_INSTANCE_ID = ?';
@@ -125,6 +133,9 @@ router.get('/getDragAndDropHistory', (req,res) => {
   });
 });
 
+// gets all drag and drop from a previously used trail instance ID
+// input: api?missionID=1
+// output: [{id: draganddropID, question: question, title: title, options: [{option: option, answer: answer}], missionID: missionID}]
 router.get('/getDragAndDropByMission', (req,res) => {
   const missionID = req.query.missionID;
   const dragNDropQuery = 'SELECT MISSION_TITLE, DRAGANDDROP_QUESTION, DRAGANDDROP_QUESTION_OPTION, DRAGANDDROP_QUESTION_ANSWER, DRAG_AND_DROP.DRAGANDDROP_ID FROM DRAG_AND_DROP, DRAG_AND_DROP_OPTION, MISSION WHERE DRAG_AND_DROP.DRAGANDDROP_ID = DRAG_AND_DROP_OPTION.DRAGANDDROP_ID AND DRAG_AND_DROP.MISSION_ID = MISSION.MISSION_ID AND MISSION.MISSION_ID = ?';

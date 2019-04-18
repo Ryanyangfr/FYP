@@ -7,6 +7,8 @@ const databaseConfig = require('../config/mysqlconf.js');
 
 const conn = mysql.createConnection(databaseConfig);
 
+// get all mission title and ids for quizzes
+// output: [{mission: missionID, title: missionTitle}]                                                                                                    }]
 router.get('/getMissionQuiz', (req,res) => {
   const response = [];
   const query = 'SELECT * FROM MISSION WHERE MISSION.MISSION_ID IN (SELECT MISSION_ID FROM QUIZ)';
@@ -22,6 +24,9 @@ router.get('/getMissionQuiz', (req,res) => {
   });
 });
 
+// gets the quiz for previous trail instances
+// input: /api?trailInstanceID=123456
+// output: [{mission: missionID, title: missionTitle}]
 router.get('/getMissionQuizHistory', (req,res) => {
   const response = [];
   const trailInstanceID = req.query.trailInstanceID;
@@ -40,6 +45,8 @@ router.get('/getMissionQuizHistory', (req,res) => {
   });
 });
 
+// get all mission title and ids for wefie
+// output: [{mission: missionID, title: missionTitle}]    
 router.get('/getMissionWefie', (req,res) => {
   const response = [];
   // var hotspot = req.query.hotspot;
@@ -56,7 +63,8 @@ router.get('/getMissionWefie', (req,res) => {
   });
 });
 
-
+// get all mission title and ids in the database
+// output: [{mission: missionID, title: missionTitle}]    
 router.get('/getAllMissions', (req,res) => {
   const response = [];
   // var hotspot = req.query.hotspot;

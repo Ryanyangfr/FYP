@@ -7,6 +7,9 @@ const databaseConfig = require('../config/mysqlconf.js');
 
 const conn = mysql.createConnection(databaseConfig);
 
+// gets all quizzes that are used in the specified trail instance
+// input: /api?trail_instance_id=123456
+// output: [{hotspot: hotspotName, quiz: [{quiz_question: question, quiz_answer: answer, quiz_option: [option1, option2, option3, option4]}]}]
 router.get('/getQuizzes', (req, res) => {
   const trail_instance_id = req.query.trail_instance_id;
   const query = 'SELECT MISSION_ID, HOTSPOT_NAME FROM TRAIL_HOTSPOT WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ? ORDER BY MISSION_ID)';
@@ -65,6 +68,9 @@ router.get('/getQuizzes', (req, res) => {
   });
 });
 
+// retrieves quiz_question from the database thats corresponding the specified mission
+// input: /api?mission=1
+// output: [{question: question, quiz_id: id, quiz_answer: answer}]
 router.get('/getQuizQuestion', (req,res) => {
   const response = [];
   const missionID = req.query.mission;
@@ -82,6 +88,9 @@ router.get('/getQuizQuestion', (req,res) => {
   });
 });
 
+// retrieves quiz which was used in a past trail instance
+// input: /api?mission=1
+// output: [{question: question, quiz_id: id, quiz_answer: answer}]
 router.get('/getQuizQuestionHistory', (req,res) => {
   const response = [];
   const missionID = req.query.mission;
@@ -99,6 +108,9 @@ router.get('/getQuizQuestionHistory', (req,res) => {
   });
 });
 
+// retrieve all quiz options for the quiz question
+// input: api?quizID=1
+// output: [{option: option, option_id: optionID}]
 router.get('/getQuizOptions', (req,res) => {
   const response = [];
   const quizID = req.query.quizID;
@@ -117,6 +129,9 @@ router.get('/getQuizOptions', (req,res) => {
   });
 });
 
+// retrieve all quiz options for the quiz question for past trail instances
+// input: api?quizID=1
+// output: [{option: option, option_id: optionID}]
 router.get('/getQuizOptionsHistory', (req,res) => {
   const response = [];
   const quizID = req.query.quizID;

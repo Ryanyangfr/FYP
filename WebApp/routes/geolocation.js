@@ -6,6 +6,9 @@ const databaseConfig = require('../config/mysqlconf.js');
 
 const conn = mysql.createConnection(databaseConfig);
 
+// retrieve all hotspots in a trail instance
+// input: /api?trail_instance_id=123456
+// output: [{coordinates:[lat,long], name: hotspotName, narrative: narrative}]
 router.get('/getAllHotspots', (req, res) => {
   const trail_instance_id = req.query.trail_instance_id;
   const query = 'SELECT NARRATIVE.NARRATIVE, HOTSPOT.HOTSPOT_NAME, LATITUDE, LONGTITUDE FROM TRAIL_HOTSPOT, HOTSPOT, NARRATIVE WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TRAIL_HOTSPOT.HOTSPOT_NAME = HOTSPOT.HOTSPOT_NAME AND TRAIL_HOTSPOT.NARRATIVE_ID = NARRATIVE.NARRATIVE_ID';

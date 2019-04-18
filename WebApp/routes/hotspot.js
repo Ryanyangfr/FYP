@@ -7,6 +7,8 @@ const databaseConfig = require('../config/mysqlconf.js');
 
 const conn = mysql.createConnection(databaseConfig);
 
+// gets all hotspots in the database
+// output: [{hotspot_name: hotspotName, latitude: lat, longtitude: longtitude}]
 router.get('/getHotspots', (req,res) => {
   const query = 'SELECT HOTSPOT.HOTSPOT_NAME, LONGTITUDE, LATITUDE FROM HOTSPOT';
   const response = [];
