@@ -108,7 +108,6 @@ export default {
 
     .passwordChange form{
         min-width: inherit;
-        /*background-color: blue*/
     }
 
     .passwordChange .input-area{
@@ -120,7 +119,6 @@ export default {
         position: relative;
         min-width: 98%;
         overflow: hidden;
-        /* background-color: pink */
     }
 
     .input-area label{
@@ -133,14 +131,12 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         align-items: center;
         min-width: 13%
     }
 
     .passwordChange .input-area input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -171,7 +167,6 @@ export default {
     }
 
     .passwordChange .submit-btn{
-        /*display: inline;*/
         float:right;
         background: none;
         border: none;

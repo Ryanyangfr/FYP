@@ -87,7 +87,6 @@ export default{
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.trail_instance_id  = data[row]
                 this.$store.commit('saveCurrentTrailID', this.trail_instance_id);
             }

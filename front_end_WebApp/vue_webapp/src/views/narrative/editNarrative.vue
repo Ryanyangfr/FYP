@@ -45,15 +45,12 @@ export default {
             axios.post('//amazingtrail.ml/api/edit/editNarrative', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
-
                 this.$router.push({ path: this.redirect || '/viewNarrative' })
             })
         }
     },
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 

@@ -61,7 +61,6 @@ export default {
             axios.post('//amazingtrail.ml/api/edit/editDrawingQuestion', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 this.$router.push({ path: this.redirect || '/mission' })
             })
         }
@@ -70,13 +69,11 @@ export default {
 
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
         this.drawing_title = this.$store.state.selectedDrawingTitle;
         this.drawing_ID = this.$store.state.selectedDrawingID;
-        console.log(this.drawing_ID);
         this.drawing_question = this.$store.state.selectedDrawingQuestion;
         
     }           

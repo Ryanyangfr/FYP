@@ -62,12 +62,9 @@ export default {
                     "latitude": this.map.lat,
                     "longtitude": this.map.lng,
                 }
-                console.log("post body: ");
-                console.log(postBody)
                 axios.post('//amazingtrail.ml/api/add/addHotspot', postBody)
                 .then(response => {
                     let data = response.data
-                    console.log(data)
                     this.$router.push({ path: this.redirect || '/viewHotspots' })
                 })
             }
@@ -93,8 +90,6 @@ export default {
             
         })
         
-        console.log(`map: ${this.map}`)
-        console.log(this.map)
         var marker;
         this.map.addListener('click', function(e) {
             this.position = e.latLng;

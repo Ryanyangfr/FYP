@@ -1,3 +1,5 @@
+// At the top of the webpage. 
+// Includes: Logo, side menu button, the side menu, change password button and logout button
 <template>
     <div>
         <div class="container-horizontal">
@@ -58,9 +60,10 @@ export default{
     },        
     
     methods:{
+
+        /*show or hide side bar. Once the user clicks on any item on the side navigation menu,
+        the side bar would be hidden. */
         showOrHide(){
-            console.log("ryan")
-            console.log(this.$store.state.showSidebar)
             if(this.$store.state.showSidebar){
                 this.show= false;
             } else{
@@ -68,10 +71,11 @@ export default{
             }
 
             this.$store.commit('changeSideBarState')
-            console.log(this.$store.state.showSidebar);
 
         },
         
+        // once the user clicks on logout button, the side menu status should close
+        //reset side menu resets side menu back to close. .
         logout(){
             this.$session.destroy();
             this.$router.push("/");
@@ -82,10 +86,10 @@ export default{
 
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
+        // upon login in, show the side bar
         this.show = this.$store.state.showSidebar;
         
     }

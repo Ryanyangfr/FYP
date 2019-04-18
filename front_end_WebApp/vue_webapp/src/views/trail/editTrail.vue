@@ -88,11 +88,9 @@ export default {
                 totalTime: this.duration,
                 hotspotsAndMissions: this.updatedDetailsToAdd
             }
-            console.log(postBody);
             axios.post('//amazingtrail.ml/api/trail/editTrail', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 if (data.success === "true") {
                     alert("Trail Successfully Edited")
                 } else {
@@ -107,24 +105,19 @@ export default {
     computed: {
         selectedTrailID(){
             return this.$store.state.selectedTrailID;
-            console.log(this.$store.state.selectedTrailID);
         },
 
     }, 
 
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
         axios.get('//amazingtrail.ml/api/trail/getAllTrails')
         .then(response =>{
             var data = response.data;
-            console.log(data)
             for(var index in data){
-                console.log('id: ' + data[index].trailID)
-                console.log('store ID: ' + this.$store.state)
                if(data[index].trailID==this.$store.state.selectedTrailID){
                     this.title = data[index].title;
                     this.duration = data[index].totalTime;
@@ -136,20 +129,17 @@ export default {
         axios.get('//amazingtrail.ml/api/mission/getAllMissions')
         .then(response =>{
             var data = response.data;
-            console.log(data)
             for(var index in data){
                this.missions.push({mission_ID:data[index].mission, mission_title:data[index].title})
                this.missionDict[data[index].title] = data[index].mission;
             }
 
-            console.log(this.missions)
         })
 
         axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.hotspotList.push(data[row].hotspot_name);
             }
         })
@@ -158,7 +148,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.narratives.push({narrative_title: data[row].narrative_title, narrative_id: data[row].narrative_id})
                 this.narrativeDict[data[row].narrative_title] = data[row].narrative_id;
             }

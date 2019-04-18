@@ -104,13 +104,12 @@ export default {
             var postBody = {
                 "hotspot_name": this.curr_hotspot_name,
             }
-            console.log("post body: ");
-            console.log(postBody)
+            
 
             axios.post('//amazingtrail.ml/api/delete/deleteHotspot', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
+                
                 if (data.success === "true") {
                     this.deleteMessage = "Hotspot Successfully Deleted"
                 } else {
@@ -158,9 +157,7 @@ export default {
         },
     },
     mounted(){
-        console.log(this.$session.exists());
          if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
@@ -168,7 +165,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.hotspotList.push({hotspot_name: data[row].hotspot_name, longtitude: data[row].longtitude, latitude: data[row].latitude, narrative: data[row].narrative});
             }
         })

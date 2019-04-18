@@ -176,14 +176,11 @@ export default {
         //store to vuex store methods ends 
         
         fetchMissions(){
-            // console.log('entered')
             this.missionList = [];
             axios.get('//amazingtrail.ml/api/mission/getMissionQuizHistory')
             .then(response =>{
                 var data = response.data;
-                // console.log(data)
                 for(var index in data){
-                    // console.log(index)
                     this.missionList.push({label: data[index].title, value: data[index].mission});
                 }
             })
@@ -192,22 +189,15 @@ export default {
         getMissionQuizQuestions(missionid, mission){
             axios.get('//amazingtrail.ml/api/quiz/getQuizQuestionHistory?mission=' + missionid)
                 .then(response =>{
-                    // console.log(data[index].mission);
                     var data = response.data;
-                    console.log(data);
-                    // for(var index in data){
-                        // console.log(data[index])
                     this.missionList.push({mission_id: missionid, mission_title: mission.title, questions: data});
-                    // }
+                    
                 })
-
-                console.log(this.missionList)
         }
 
     },
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
         this.trailID = this.$store.state.selectedMissionTrailID
@@ -216,7 +206,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.wefieQuestionList.push({title:data[row].title, mission_id: data[row].mission, wefie_question: data[row].question, wefie_id: data[row].id})
             }
         })
@@ -232,7 +221,6 @@ export default {
         axios.get('//amazingtrail.ml/api/draganddrop/getDragAndDropHistory?trailInstanceID=' + this.trailID)
         .then(response =>{
             let data = response.data;
-            console.log(data);
             this.dragAndDropList = data;      
         })
 
@@ -240,7 +228,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.drawingQuestionList.push({title:data[row].title, mission_id: data[row].mission, drawing_question: data[row].question, drawing_id: data[row].id})
             }
         })
@@ -249,7 +236,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.anagramList.push({title:data[row].title, word: data[row].word, anagram_id: data[row].id})
             }
         })
@@ -259,7 +245,6 @@ export default {
             let data = response.data;
              let wordsearchWords = []
             for(var row in data){
-                console.log(data[row])
                 let wordsList = data[row].words;
                 wordsearchWords = []
                 for(var index in wordsList){

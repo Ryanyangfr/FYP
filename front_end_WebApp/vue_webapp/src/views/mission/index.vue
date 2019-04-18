@@ -540,12 +540,9 @@ export default {
             axios.get('//amazingtrail.ml/api/quiz/getQuizQuestion?mission=' + missionid)
                 .then(response =>{
                     var data = response.data;
-                    console.log(data);
                     this.missionList.push({mission_id: missionid, mission_title: mission.title, questions: data});
                    
                 })
-
-                console.log(this.missionList)
         },
 
         // delete methods:
@@ -568,7 +565,6 @@ export default {
             axios.post('//amazingtrail.ml/api/delete/deleteQuiz', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 if (data.success === "true") {
                     this.quizDeleteMessage = "Quiz Successfully Deleted"
                     
@@ -633,7 +629,6 @@ export default {
             axios.post('//amazingtrail.ml/api/delete/deleteWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 if (data.success === "true") {
                     this.wefieDeleteMessage ="Wefie Question Successfully Deleted"
                 } else {
@@ -678,7 +673,6 @@ export default {
             axios.post('//amazingtrail.ml/api/delete/deleteDragAndDrop', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 if (data.success === "true") {
                     this.dragAndDropDeleteMessage ="Drag and Drop Question Successfully Deleted"
                     
@@ -732,10 +726,8 @@ export default {
             axios.post('//amazingtrail.ml/api/delete/deleteAnagram', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 if (data.success === "true") {
                     this.anagramDeleteMessage ="Anagram Successfully Deleted"
-                    console.log(this.anagramDeleteMessage)
                 } else {
                     this.anagramDeleteMessage = "Error Please Remove Anagram Question From All Existing Trails";
                 }
@@ -776,7 +768,6 @@ export default {
             } else{
                 this.showDeleteDrawing = true;
             }
-            console.log(this.drawingIDToBeDeleted)
             
         },
 
@@ -788,7 +779,6 @@ export default {
             axios.post('//amazingtrail.ml/api/delete/deleteDrawingQuestion', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 if (data.success === "true") {
                     this.drawingDeleteMessage ="Drawing Question Successfully Deleted"
                     
@@ -828,11 +818,9 @@ export default {
                 "id": this.wordsearchIDToBeDeleted
             }
             
-            console.log(postBody)
             axios.post('//amazingtrail.ml/api/delete/deleteWordsearch', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 if (data.success === "true") {
                     this.wordsearchDeleteMessage ="Wordsearch Question Successfully Deleted"
                     
@@ -868,7 +856,6 @@ export default {
         },
 
         wordsearchCloseDeleteMessage(){
-            console.log(this.wordsearchDeleteMessage)
             this.showDeleteWordsearch = false;
             this.wordsearchCloseMessage = true;
             if( this.wordsearchDeleteMessage === "Wordsearch Question Successfully Deleted") {
@@ -882,7 +869,6 @@ export default {
     },
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
@@ -890,7 +876,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.wefieQuestionList.push({title:data[row].title, mission_id: data[row].mission, wefie_question: data[row].question, wefie_id: data[row].id})
             }
         })
@@ -907,7 +892,6 @@ export default {
         axios.get('//amazingtrail.ml/api/draganddrop/getAllDragAndDrop')
         .then(response =>{
             let data = response.data;
-            console.log(data);
             this.dragAndDropList = data;      
         })
 
@@ -915,7 +899,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.drawingQuestionList.push({title:data[row].title, mission_id: data[row].mission, drawing_question: data[row].question, drawing_id: data[row].id})
             }
         })
@@ -924,7 +907,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.anagramList.push({title:data[row].title, word: data[row].word, anagram_id: data[row].id})
             }
         })
@@ -934,7 +916,6 @@ export default {
             let data = response.data;
              let wordsearchWords = []
             for(var row in data){
-                console.log(data[row])
                 let wordsList = data[row].words;
                 wordsearchWords = []
                 for(var index in wordsList){

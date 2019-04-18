@@ -47,17 +47,14 @@ export default {
 
     computed: {
         selectedWordsearchTitle(){
-          console.log(this.$store.state.selectedWordsearchTitle)
           return this.$store.state.selectedWordsearchTitle
         },
 
         selectedWords(){
-          console.log(this.$store.state.selectedWords)
           return this.$store.state.selectedWords
         },
 
         selectedWordsearchID(){
-            console.log(this.$store.state.selectedWordsearchID)
             return this.$store.state.selectedWordsearchID
         }
     },
@@ -66,7 +63,6 @@ export default {
       wordsearchOnSubmitToEdit(){
         let wordsToBeSubmitted = []
         for(var index in this.words){
-            console.log(this.words[index].word);
             let currentWord = this.words[index].word;
 
                 if( currentWord.length > 0) {
@@ -74,20 +70,15 @@ export default {
                 }
         }
 
-        console.log(wordsToBeSubmitted);
-
         let postBody = {
             id: this.wordsearch_ID,
             title: this.wordsearch_title,
             words: wordsToBeSubmitted,
         }
 
-        console.log(postBody);
-
         axios.post('//amazingtrail.ml/api/edit/editWordsearch', postBody)
         .then(response => {
             let data = response.data
-            console.log(data)
             this.$router.push({ path: this.redirect || '/mission' })
         })
       }
@@ -95,7 +86,6 @@ export default {
 
     mounted(){
       if (!this.$session.exists()) {
-          console.log("check")
           this.$router.push('/')
       }
 
@@ -109,10 +99,6 @@ export default {
         this.words.push({word: ""});
     }
 
-      console.log('check values wordsearch');
-      console.log(this.wordsearch_title);
-      console.log(this.words);
-      console.log(this.wordsearch_ID)
     }
 }
 </script>

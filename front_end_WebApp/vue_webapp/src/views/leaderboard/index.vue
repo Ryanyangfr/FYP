@@ -14,7 +14,6 @@
                             {{trailID}}
                         </option> 
                     </select> 
-                    <!-- <input type="text" placeholder="Enter Trail ID" v-model="trail_instance_id" required> -->
                     <button type="submit" class="search-btn"><i class="ti-search"></i></button> 
                 </form>
 
@@ -45,18 +44,6 @@
                         <td class="timestamp-data">{{activity.timestamp}}</td>
                     </tr>
                 </table>
-                
-
-                <!-- <b-table :items="items"></b-table> -->
-            <!-- <tr>
-                <th>Team</th>
-                <th>Hotspots Completed</th>
-            </tr>
-            <tr v-for="item in items" :key = item.team>
-                <td>{{item.team}}</td>
-                <td>{{item.hotspots_completed}}</td>
-            </tr> -->
-        <!-- </b-table> -->
         </div>
 
         <!--edit leaderboard begins-->
@@ -114,9 +101,6 @@ export default {
     },
 
     computed:{
-        // currentTrailID(){
-        //     return this.$store.state.currentTrailID;
-        // }
         trailStartTime(){
             return this.$store.state.trailStartTime;
         }
@@ -127,10 +111,7 @@ export default {
             const baseURI = '//amazingtrail.ml/api/team/getAllTeamPoints?trail_instance_id=' + this.trail_instance_id;
             axios.get(baseURI)
             .then(response => {
-                console.log(response);
                 this.items = response.data;
-
-                // console.log(items);
 
             })
         },
@@ -151,15 +132,11 @@ export default {
             var postBody = {
                 "team": this.curr_team_num,
                 "points": this.curr_points
-                // "narrative_id": this.narrative_dictionary[this.curr_narrative]
             }
-            console.log("post body: ");
-            console.log(postBody)
 
             axios.post('//amazingtrail.ml/api/team/updateScoreAdmin', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 this.$router.go();
                
             })
@@ -195,14 +172,10 @@ export default {
              var postBody = {
                 "team": item.team,
                 "timeEnded": time
-                // "narrative_id": this.narrative_dictionary[this.curr_narrative]
             }
-            console.log("post body: ");
-            console.log(postBody);
 
             axios.post('//amazingtrail.ml/api/team/updateTeamEndTime', postBody)
             .then(response => {
-                console.log(response);
             });
 
             item.timeEnded = this.convertTime(time);
@@ -212,14 +185,12 @@ export default {
             let hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
             let seconds = Math.floor((time % (1000 * 60)) / 1000);
-            // console.log(item.timeEnded)
             
             return hours + ":" + minutes + ":" + seconds;
         }
     },
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
@@ -227,7 +198,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.trail_instance_id  = data[row]
             }
         })
@@ -236,7 +206,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 let activity = "Team " + data[row].team + " completed their mission at " + data[row].hotspot
                 this.activityList.push({activity: activity, timestamp: data[row].time});
             }
@@ -249,7 +218,6 @@ export default {
         });
 
         this.socket.on('activityFeed', (data) => {
-            console.log(data);
             let activity = "Team " + data.team + " completed their mission at " + data.hotspot
             this.activityList.unshift({activity: activity, timestamp: data.time});
         })
@@ -257,7 +225,6 @@ export default {
         const baseURI = '//amazingtrail.ml/api/team/getAllTeamPoints';
         axios.get(baseURI)
         .then(response => {
-            console.log(response);
             this.items = response.data;
             this.items.sort((a,b) => b.points-a.points || a.timeEnded - b.timeEnded);
 

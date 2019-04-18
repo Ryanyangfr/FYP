@@ -60,7 +60,6 @@ export default {
         axios.post('//amazingtrail.ml/api/edit/switchTeams', postBody)
         .then(response => {
             let data = response.data;
-            console.log(data);
             this.$router.go();
         });
     },
@@ -71,7 +70,6 @@ export default {
         axios.post('//amazingtrail.ml/api/delete/deleteParticipant', postBody)
         .then(response => {
             let data = response.data;
-            console.log(data);
             this.$router.go();
         });
     }
@@ -80,15 +78,11 @@ export default {
     axios.get('//amazingtrail.ml/api/team/getAllTeamsWithMembers')
         .then(response => {
             let data = response.data;
-            console.log(data);
             for(let index in data){
               let temp = [];
               let row = data[index];
-              console.log(row);
               for(let ind in row){
                 let participant = row[ind];
-                console.log("participants: ");
-                console.log(participant);
                 temp.push({label: participant.username, value: participant.team_id, id:participant.user_id});
               }
               this.allTeams.push(parseInt(index)+1);

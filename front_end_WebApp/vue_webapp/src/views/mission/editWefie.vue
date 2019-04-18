@@ -62,7 +62,6 @@ export default {
             axios.post('//amazingtrail.ml/api/edit/editWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 this.$router.push({ path: this.redirect || '/mission' })
             })
         }
@@ -71,7 +70,6 @@ export default {
 
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 

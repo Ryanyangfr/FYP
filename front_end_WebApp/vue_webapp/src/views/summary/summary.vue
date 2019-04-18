@@ -1,3 +1,8 @@
+// This page shows the summary of all the past trails that has been collected. 
+// It shows the date the trail was created, the trail id, the number of participants in that trail,
+// the hotspots created and the missions created. 
+
+// To view missions created, click on the "View Missions" button
 <template>
     <div class="SummaryReport">
         <div class="card">
@@ -49,6 +54,8 @@ export default {
     },
 
     methods:{
+
+        //take in the selected trailID and save in vuex store. 
         goToMission(trailID){
             this.$store.commit('saveMissionTrailID', trailID);
         }
@@ -56,15 +63,14 @@ export default {
 
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
         
+
         axios.get('//amazingtrail.ml/api/summary/getSummaryReport')
         .then(response => {
             let data = response.data
-            console.log('response: ');
-            console.log(response);
+            
             let hotspots = []
             let currTrailInstance = data[0].trailInstanceID;
             let currDate = data[0].date;

@@ -93,7 +93,6 @@ export default {
     },
 
     mounted: function() {
-        console.log("map: ", google.maps)
         this.map = new google.maps.Map(document.getElementById('gmap-view'), {
             center: this.center,
             scrollwheel: false,
@@ -106,7 +105,6 @@ export default {
             let data = response.data;
             var infowindow = new google.maps.InfoWindow();
             for(var row in data){
-                console.log(data[row])
                 var latlng = {lat: parseFloat(data[row].latitude), lng: parseFloat(data[row].longtitude)};
                 this.hotspot_markers.push({ 
                     position: latlng, 
@@ -123,7 +121,6 @@ export default {
                 google.maps.event.addListener(marker, 'click', function() {
                     infowindow.open(this.map,marker);
                     infowindow.setContent(marker.title)
-                    // console.log(marker)
                 });
             }
         });
@@ -136,7 +133,6 @@ export default {
             data.forEach((team) => {
                 this.team_markers.push({ team:team.team_id, lat: parseFloat(team.latitude), lng: parseFloat(team.longtitude) })
             })
-            console.log(this.team_markers);
 
             this.team_markers.forEach((marker) => {
                 // 
@@ -163,7 +159,6 @@ export default {
                 google.maps.event.addListener(team_marker, 'click', function() {
                     infowindow.open(this.map,team_marker);
                     infowindow.setContent(team_marker.title)
-                    // console.log(marker)
                 });
 
                 this.currentMarkersInMap.push(team_marker)
@@ -174,87 +169,48 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.trail_instance_id  = data[row]
             }
         })
 
-        console.log(this.team_markers)
         this.socket.on('updateLocation', (location) => {
-            console.log(location);
             let infowindow = new google.maps.InfoWindow();
-            // this.map = new google.maps.Map(document.getElementById('gmap-view'), {
-            //     center: this.center,
-            //     scrollwheel: false,
-            //     zoom: 17
-            // })
-            // this.clearMarkers()
 
             let teamID = location.teamID;
             let long = location.long;
             let lat = location.lat;
-            // let infowindow = new google.maps.InfoWindow();
 
-            console.log('map markers:')
-            console.log(this.currentMarkersInMap[teamID-1])
             //clear current marker
             this.currentMarkersInMap[teamID-1].setMap(null);
 
-            // console.log(this.team_markers)
             this.team_markers[teamID-1] = ({team:parseInt(teamID), lat: parseFloat(lat), lng: parseFloat(long)});
 
-            console.log(this.team_markers)
             let team_marker = new google.maps.Marker({
                 position: {lat:parseFloat(lat), lng:parseFloat(long)},
                 map: this.map,
                 title: 'team ' + teamID,
                 icon: 'http://maps.google.com/mapfiles/kml/paddle/'+teamID+'.png',
-                // icon: '../../assets/marker.jpg',
-                // label: {
-                //     text: ""+teamID,
-                //     color: "white",
-                //     fontSize: "20px"
-                // }
-                // icon: {
-                //     url: "https://moonraft.com/wp-content/uploads/2018/02/cropped-MR_FAVICON.png",
-                //     scaledSize: new google.maps.Size(50, 50), // scaled size
-                // }
             })
 
             google.maps.event.addListener(team_marker, 'click', () => {
                 infowindow.open(this.map,team_marker);
                 infowindow.setContent(team_marker.title)
-                console.log(team_marker)
+              
             });
             this.currentMarkersInMap[teamID-1] = team_marker;
-            // this.team_markers.forEach((marker) => {
-            //     console.log(marker)
-            //     let team_marker = new google.maps.Marker({
-            //         position: {lat:marker.lat, lng:marker.lng},
-            //         map: this.map,
-            //         title: 'team ' + marker.team
-            //     });
-
-            //      google.maps.event.addListener(team_marker, 'click', function() {
-            //         infowindow.open(this.map,team_marker);
-            //         infowindow.setContent(team_marker.title)
-            //         // console.log(marker)
-            //     });
-            // })
+           
         })
 
         axios.get('//amazingtrail.ml/api/team/activityFeed')
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 let activity = "Team " + data[row].team + " completed their mission at " + data[row].hotspot
                 this.activityList.push({activity: activity, timestamp: data[row].time});
             }
         })
 
         this.socket.on('activityFeed', (data) => {
-            console.log(data);
             let activity = "Team " + data.team + " completed their mission at " + data.hotspot
             this.activityList.unshift({activity: activity, timestamp: data.time});
         })
@@ -287,8 +243,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         font-weight: 600
     }
@@ -377,7 +331,6 @@ export default {
         height: 7%;
         margin-top: 0px;
         margin-bottom: 5px;
-        /* border: 1px solid #DEE2E6; */
         text-align: left;
         background-color: #5a52c4;
         color: white;
@@ -385,9 +338,7 @@ export default {
 
     .activity-feed-area{
         height: 79%;
-        /* background-color: pink; */
         margin-top: 25px;
-        /* overflow: auto; */
     }
 
     .activity-feed-area .activity-feed{
@@ -434,8 +385,6 @@ export default {
             width: 100%;
             margin-top: 20px
         }
-
-
         
     }
 

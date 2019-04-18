@@ -43,7 +43,6 @@ export default {
             axios.post('//amazingtrail.ml/api/add/addNarrative', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 this.$router.push({ path: this.redirect || '/viewNarrative' })
             })
         }

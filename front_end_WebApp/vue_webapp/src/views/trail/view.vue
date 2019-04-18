@@ -66,24 +66,19 @@ export default {
     computed: {
         selectedTrailID(){
             return this.$store.state.selectedTrailID;
-            console.log(this.$store.state.selectedTrailID);
         },
 
     }, 
 
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
         axios.get('//amazingtrail.ml/api/trail/getAllTrails')
         .then(response =>{
             var data = response.data;
-            console.log(data)
             for(var index in data){
-                console.log('id: ' + data[index].trailID)
-                console.log('store ID: ' + this.$store.state)
                if(data[index].trailID==this.$store.state.selectedTrailID){
                     this.title = data[index].title;
                     this.duration = data[index].totalTime;

@@ -90,8 +90,7 @@ export default {
             })
         },
 
-        deleteRow(index){
-            console.log(this.details)        
+        deleteRow(index){      
             this.$delete(this.details, index);
         },
 
@@ -107,11 +106,9 @@ export default {
                 totalTime: this.duration,
                 hotspotsAndMissions: this.updatedDetailsToAdd
             }
-            console.log(postBody);
             axios.post('//amazingtrail.ml/api/trail/addTrail', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 if (data.success === "true") {
                    this.trailAddMessage = "Trail Successfully Added"
                 } else {
@@ -133,20 +130,16 @@ export default {
         axios.get('//amazingtrail.ml/api/mission/getAllMissions')
         .then(response =>{
             var data = response.data;
-            console.log(data)
             for(var index in data){
                this.missions.push({mission_ID:data[index].mission, mission_title:data[index].title})
                this.missionDict[data[index].title] = data[index].mission;
             }
-
-            console.log(this.missions)
         })
 
         axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.hotspotList.push(data[row].hotspot_name);
             }
         })
@@ -155,7 +148,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.narratives.push({narrative_title: data[row].narrative_title, narrative_id: data[row].narrative_id})
                 this.narrativeDict[data[row].narrative_title] = data[row].narrative_id;
             }
