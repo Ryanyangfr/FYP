@@ -16,7 +16,6 @@
                         <div v-for="quiz in quiz" :key="quiz.quiz_id" class="view-options-and-answers"> 
                             <div class="view-mission-input">
                                 <label>Question</label>
-                                <!--<input name="question" id="question-input" type="text" placeholder="Question">-->
                                 <div class="question">{{quiz.quiz_question}}</div>
                             </div>
 
@@ -24,7 +23,6 @@
                                 <label>Question Options</label>
                                 <div class="add-quiz-options">
                                     <div class="option" v-for="options in quiz.options" :key="options.option_id">
-                                        <!--<input name="option1" type="text" placeholder="Option 1">-->
                                         <div>{{options.option}}</div>
                                     </div>
                                     
@@ -76,9 +74,7 @@ export default {
             .then(response =>{
                 var data = response.data;
                 this.quiz.push({quiz_id:quiz_id, quiz_question:quiz_question, quiz_answer:quiz_answer, options: data})
-                console.log("OIOIOI")
-                console.log(this.quiz)
-                
+         
             });
         }
     },
@@ -100,7 +96,6 @@ export default {
 
         this.title = this.$store.state.selectedQuizTitle;
         console.log(this.selectedQuizTitle)
-
         
     }           
 }
@@ -123,8 +118,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         margin-bottom: 50px;
     }
@@ -136,7 +129,6 @@ export default {
 
     .ViewQuiz div{
         min-width: inherit;
-        /*background-color: blue*/
     }
 
    .view-mission-input label{
@@ -148,9 +140,7 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
-        /*align-items: center;*/
         min-width: 11%
 
     }
@@ -164,7 +154,6 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         min-width: 11%
     }
@@ -179,7 +168,6 @@ export default {
     }
 
     .view-mission-input input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -201,7 +189,6 @@ export default {
         flex-direction: column;
         float: left;
         width: 100%;
-        /*background-color: blue;*/
     }
 
 
@@ -209,7 +196,6 @@ export default {
         margin-left:30px;
         display: flex;
         flex-direction: row;
-        /*background-color: pink;*/
     }
 
     .view-options-and-answers{
@@ -232,6 +218,4 @@ export default {
         width:75%;
         font-family: 'Roboto', sans-serif;
     }
-
-
 </style>

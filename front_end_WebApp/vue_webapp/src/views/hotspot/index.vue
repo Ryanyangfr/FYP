@@ -50,53 +50,10 @@
                 <div class="delete-message-area"><h6>{{deleteMessage}}</h6></div>
                 <div class="close-delete-message">
                     <button @click="closeDeleteMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
             </div>
         </div>
 
-        <!-- <div class="black-blur-bg" v-if="deleteMessage.length > 0"> 
-            <div class="delete-hotspot-popup">
-                <hr>
-                
-                <div><h6>{{deleteMessage}}</h6></div>
-                <div><hr></div>
-                <div class="delete-hotspot-btm">
-                    <button class="delete-hotspot-btn" @click="closeDeleteMessage()">Close</button>
-                </div>
-            </div>
-        </div> -->
-        <!--delete hotspot ends-->
-
-        <!--<v-select :options="functionsAvailable" v-model="func" placeholder="Add" style="width:200px;"></v-select>
-        <br>
-        <form @submit.prevent="onSubmitToAdd" v-if="func == functionsAvailable[0]">
-            Hotspot Name:
-            <input name="hotspot" type="text" placeholder="hotspot name" v-model="hotspot">
-            Latitude:
-            <input name="latitude" type="text" placeholder="latitude" v-model="latitude">
-            Longtitude:
-            <input name="longtitude" type="text" placeholder="longtitude" v-model="longtitude">
-            <v-select :options="dropDownList" v-model='narrative' placeholder='Please select a narrative title' style="width:200px;"></v-select>
-            <button type="submit">submit</button>
-        </form>
-
-        <form @submit.prevent="onSubmitToEdit" v-if="func == functionsAvailable[1]">
-            Hotspot Name:
-             <v-select :options="hotspotList" v-model="hotspotToBeEdited" placeholder="Please select a hotspot" style="width:200px;"></v-select>
-            Latitude:
-            <input name="latitude" type="text" placeholder="latitude" v-model="latitude">
-            Longtitude:
-            <input name="longtitude" type="text" placeholder="longtitude" v-model="longtitude">
-            <v-select :options="dropDownList" v-model='narrative' placeholder='Please select a narrative title' style="width:200px;"></v-select>
-            <button type="submit">submit</button>
-        </form>
-
-        <form @submit.prevent="onSubmitToDelete" v-if="func == functionsAvailable[2]">
-            <v-select :options="hotspotList" v-model="hotspotToBeDeleted" placeholder="Please select a hotspot" style="width:200px;"></v-select>
-             <button type="submit">submit</button>
-        </form>-->
-        <!-- {{narrative}} -->
     </div>
 </template>
 
@@ -110,7 +67,6 @@ export default {
             showDelete: false,
             hotspotList: [],
             hotspotToBeDeleted: "",
-            hotspotToBeEdited: "",
             curr_hotspot_name: "",
             curr_lat: "",
             curr_long: "",
@@ -208,18 +164,6 @@ export default {
             this.$router.push('/')
         }
 
-        // axios.get('//amazingtrail.ml/api/narrative/getNarratives')
-        // .then(response => {
-        //     let data = response.data;
-        //     for(var row in data){
-        //         console.log(data[row])
-        //         this.dropDownList.push({label: data[row].narrative_title, value: data[row].narrative_id})
-        //         this.narrative_dictionary[data[row].narrative_title] = data[row].narrative_id;
-        //     }
-        //     console.log("dictionary: ");
-        //     console.log(this.narrative_dictionary);
-        // })
-
         axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
@@ -252,8 +196,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
     }
 
@@ -404,7 +346,6 @@ export default {
         display: flex;
         flex-direction: column;
         padding-top: 10px;
-        /*background-color: pink;*/
         flex: 10;
     }
 
@@ -417,13 +358,11 @@ export default {
         align-items: flex-start;
         font-size: 15px;
         margin-left: 20px;
-        /*margin-bottom: 10px;*/
         flex-direction: column;
     }
 
     .delete-hotspot-btm{
         margin-bottom: 0px;
-        /*flex: 4;*/
         margin-top: 10px;
         border-top: 1px solid #C6C4BC;
         padding: 10px;

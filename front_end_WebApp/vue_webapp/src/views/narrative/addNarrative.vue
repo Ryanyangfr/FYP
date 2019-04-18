@@ -84,7 +84,6 @@ export default {
 
     .AddNarrative form{
         min-width: inherit;
-        /*background-color: blue*/
     }
     /*card styling ends*/
 
@@ -97,7 +96,6 @@ export default {
         position: relative;
         min-width: 98%;
         overflow: hidden;
-        /* background-color: pink */
     }
 
     .input-area label{
@@ -110,14 +108,12 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         align-items: center;
         min-width: 13%
     }
 
     .AddNarrative .input-area input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -166,7 +162,6 @@ export default {
     }
 
     .AddNarrative .submit-btn{
-        /*display: inline;*/
         float:right;
         background: none;
         border: none;

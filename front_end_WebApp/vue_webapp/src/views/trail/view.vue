@@ -26,7 +26,6 @@
                     <div  class="view-hotspot-narrative-mission" v-for="details in hotspotsAndMissions" :key="details.hotspot"> 
                         <div class="view-hotspot-narrative-mission-body">
                             <div class="view-trail-input">
-                                    <!--<div>{{details.hotspot}}</div>-->
                                 <label>Hotspot</label>
                                 <input name="view-trail-duration-input" type="text" v-model="details.hotspot" readonly>
                             </div>
@@ -88,7 +87,6 @@ export default {
                if(data[index].trailID==this.$store.state.selectedTrailID){
                     this.title = data[index].title;
                     this.duration = data[index].totalTime;
-                    //{hotspot, missionTitle, narrativeTitle}
                     this.hotspotsAndMissions = data[index].hotspotsAndMissions;
                }
             }
@@ -115,8 +113,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         margin-bottom: 50px;
     }
@@ -128,7 +124,6 @@ export default {
 
     .ViewTrail div{
         min-width: inherit;
-        /*background-color: blue*/
     }
 
    .view-trail-input label{
@@ -140,9 +135,7 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
-        /*align-items: center;*/
         min-width: 11%
 
     }
@@ -167,7 +160,6 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         min-width: 11%
     }
@@ -183,7 +175,6 @@ export default {
     }
 
     .view-trail-input input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;

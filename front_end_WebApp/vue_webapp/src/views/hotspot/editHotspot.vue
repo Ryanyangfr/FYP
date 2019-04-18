@@ -8,15 +8,7 @@
                 <div class="input-area">
                     <label for="edit-hotspot-input">Hotspot Name</label>
                     <input name="edit-hotspot-input" type="text" placeholder="Hotspot Name" v-model="name" required> 
-                </div> 
-                <!-- <div class="input-area">
-                    <label for="edit-hotspot-input">Latitude</label>
-                    <input name="edit-hotspot-input" type="text" placeholder="Latitude" v-model="lat" required> 
-                </div> 
-                <div class="input-area">
-                    <label for="edit-hotspot-input">Longitude</label>
-                    <input name="edit-hotspot-input" type="text" placeholder="Longitude" v-model="lng" required> 
-                </div>                   -->
+                </div>
                 <div class="choose-hotspot-area">
                     <div id="gmap-view"></div>
                     <div class="instruction-submit-area">
@@ -103,7 +95,6 @@ export default {
         google.maps.event.addListener(marker, 'click', function() {
             infowindow.open(this.map,marker);
             infowindow.setContent(marker.title)
-            // console.log(marker)
         });
         
         console.log(`map: ${this.map}`)
@@ -121,12 +112,6 @@ export default {
             } else {   
                 marker.setPosition(e.latLng); 
             }
-            // marker = new google.maps.Marker({
-            //     position: e.latLng,
-            //     map: this
-            // });
-            // console.log(this.marker)
-            // console.log(this.map)
             this.panTo(this.position);
         });
     }      
@@ -166,7 +151,6 @@ export default {
 
     .EditHotspot form{
         min-width: inherit;
-        /*background-color: blue*/
     }
     /*card styling ends*/
 
@@ -190,14 +174,12 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         align-items: center;
         min-width: 12%
     }
 
     .EditHotspot .input-area input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -244,8 +226,6 @@ export default {
     }
 
     .EditHotspot .submit-btn{
-        /*display: inline;*/
-        /* float:right; */
         background: none;
         border: none;
         background-color: #645cdd;
@@ -269,7 +249,6 @@ export default {
 
 
      .EditHotspot .cancel-btn{
-        /* float:right; */
         background-color: #ACACAC;
         color: white;
         border:none;

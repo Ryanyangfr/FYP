@@ -56,7 +56,6 @@
                 <div class="add-message-area"><h6>{{trailAddMessage}}</h6></div>
                 <div class="close-add-message">
                     <button @click="trailCloseAddMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
             </div>
         </div>
@@ -118,8 +117,6 @@ export default {
                 } else {
                     this.trailAddMessage = "Error Please Try Again"
                 }
-                // this.$router.push({ path: this.redirect || '/trail' })
-                // this.$router.go();
             })
         },
 
@@ -127,7 +124,6 @@ export default {
             if( this.trailAddMessage === "Trail Successfully Added") {
                 this.trailAddMessage = "";
                 this.$router.push({ path: this.redirect || '/trail' })
-                // this.$router.go();
             }
             this.trailAddMessage = "";
         },
@@ -158,7 +154,6 @@ export default {
         axios.get('//amazingtrail.ml/api/narrative/getNarratives')
         .then(response => {
             let data = response.data;
-            // console.log(data)
             for(var row in data){
                 console.log(data[row])
                 this.narratives.push({narrative_title: data[row].narrative_title, narrative_id: data[row].narrative_id})
@@ -202,7 +197,6 @@ export default {
 
     .AddTrail form{
         min-width: inherit;
-        /*background-color: blue*/
     }
     /*card styling ends*/
 
@@ -227,14 +221,12 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         align-items: center;
         min-width: 12%
     }
 
     .AddTrail .input-area input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -271,7 +263,6 @@ export default {
         position: relative;
         min-width: 98%;
         overflow: hidden;
-        /*background-color: red*/
     }
 
     .AddTrail .droplist label {
@@ -283,7 +274,6 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         align-items: center;
         min-width: 12%

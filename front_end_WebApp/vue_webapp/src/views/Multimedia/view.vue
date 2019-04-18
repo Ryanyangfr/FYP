@@ -8,7 +8,6 @@
                             {{trailID}}
                         </option> 
                     </select> 
-                    <!-- <input type="text" placeholder="Enter Trail ID" v-model="trailID" required> -->
                     <button type="submit" class="search-btn"><i class="ti-search"></i></button> 
                 </form>
                 <div class="download-all-btn-area">
@@ -30,13 +29,9 @@
         
         <div class="grp-submission-row" v-if="showSub">
             <div class="card" v-for="(image,index) in images" :key="image">
-                <!-- <div class="image-area"> -->
-                <img :src="image" class="card-img-top"/> 
-                <!-- </div> -->
+                <img :src="image" class="card-img-top"/>
                 <div class="card-body">
-                    <!-- <div class="submission-details"> -->
                         <h6 class="card-title">{{questions[index]}}</h6>
-                    <!-- </div>  -->
                     <div class="acknowledge" v-if = "submissionStatuses[index] === 'no grade'">
                         <div class="approve"><button @click = "sendStatus(index, 10)"><i class="ti-check"></i></button></div>
                         <div class="disapprove"><button @click = "sendStatus(index, 0)"><i class="ti-close"></i></button></div>
@@ -79,8 +74,7 @@ export default{
             allTrailInstances:[],
 
             //download all variables
-            downloadLinks: [],
-            // allPaths:[]
+            downloadLinks: []
 
         }
     },
@@ -99,7 +93,6 @@ export default{
     methods:{
 
         downloadAll() { 
-
             //get all submissionsurl
             for(var i=0; i<this.teamList.length; i++){
                 let team = "Team "+this.teamList[i].team_id
@@ -107,7 +100,6 @@ export default{
                 .then(response=>{
                     let data = response.data
                     let size = Object.keys(data).length
-                    // this.path = [];
                     if (size === 0) {
                         this.downloadLinks = [];
                     }
@@ -117,7 +109,6 @@ export default{
                             this.downloadLinks = []
                         }
                         let temp = data[j]
-                        // console.log(temp)
                         axios.get('//amazingtrail.ml/api/upload/getSubmission?url='+temp.submissionURL, { responseType: 'blob' })
                         .then(({ data }) => {
                             let blob = new Blob([data], { type: 'image/png' })
@@ -159,51 +150,18 @@ export default{
             });
         }, 
 
-        // retrieveAllUrl(teamID){
-        //     // console.log('//amazingtrail.ml/api/upload/getAllSubmissionURL?team='+this.team+'&trail_instance_id='+this.trail)
-        //     axios.get('//amazingtrail.ml/api/upload/getAllSubmissionURL?team='+teamID+'&trail_instance_id='+this.trailID)
-        //     .then(response=>{
-        //         let data = response.data
-        //         let size = Object.keys(data).length
-        //         console.log(response.data)
-        //         // this.path = [];
-        //         for(var i=0; i<size; i++){
-        //             console.log('path length: ' + this.paths.length)
-        //             // if(i == 0 && this.paths.length != 0){
-        //             //     this.paths = []
-        //             //     this.images = []
-        //             //     this.questions = []
-        //             // }
-        //             let temp = data[i]
-        //             console.log(temp)
-        //             this.paths.push(temp.submissionURL)
-        //             this.questions.push(temp.question)
-        //             this.submissionIDs.push(temp.submissionID)
-        //         }
-        //         console.log(this.questions)
-        //         // console.log(response.data[0]['SubmissionURL'])
-        //     })
-        // },
         load(teamID){
-            // this.paths = []
-            // this.images = []
-            // console.log('team: ' + teamID)
             axios.get('//amazingtrail.ml/api/upload/getAllSubmissionURL?team='+teamID+'&trail_instance_id='+this.trailID)
             .then(response=>{
                 let data = response.data
                 let size = Object.keys(data).length
                 console.log(response.data)
-                // this.path = [];
                 if (size === 0) {
                     this.paths = [];
                     this.questions = [];
                     this.images = [];
                 }
                 for(var i=0; i<size; i++){
-                    // console.log('path length: ' + this.paths.length)
-                    // console.log(this.paths.length)
-                    // console.log('condition: ')
-                    // console.log(i === 0 && this.paths.length > 0)
                     if(i == 0 && this.paths.length > 0){
                         console.log('entered')
                         this.paths = []
@@ -212,84 +170,40 @@ export default{
                         this.submissionStatuses = []
                     }
                     let temp = data[i]
-                    // console.log(temp)
                     this.paths.push(temp.submissionURL)
                     this.questions.push(temp.question)
                     this.submissionIDs.push(temp.submissionID)
                     this.submissionStatuses.push(temp.status)
                 }
 
-                // this.retrieveAllUrl(teamID);
                 console.log('paths: ')
                 console.log(this.paths)
-                // this.question = [];
+
                 let updatedQn = [];
                 let updatedSubmissionIDs = [];
                 let updatedSubmissionStatuses = [];
                 this.images = []
                 let count = 0;
-                // this.downloadLinks = []
+
                 for(var index in this.paths){
-                    // console.log(this.paths[path])
-                    // console.log(index);
                     let url = this.paths[index]
                     let qn = this.questions[index]
                     let id = this.submissionIDs[index]
                     let status = this.submissionStatuses[index]
-                    // console.log(url)
                     this.getImage(url, updatedQn, qn, updatedSubmissionIDs, id, updatedSubmissionStatuses, status);
-                        // this.paths = []
-                        // this.questions = []
-                        // this.images = [                    })
+               
                 }
-                    // console.log(this.questions)
-                // console.log(response.data[0]['SubmissionURL'])
             });
-            // this.retrieveAllUrl(teamID);
-            // console.log(this.paths)
-            // this.question = [];
-            // for(var index in this.paths){
-            //     // console.log(this.paths[path])
-            //     let url = this.paths[index]
-            //     // let qn = this.question[index]
-            //     // console.log(url)
-            //     axios.get('//amazingtrail.ml/api/upload/getSubmission?url=' + url, {responseType: 'blob'})
-            //     .then(response=>{
-            //         // this.result = 'entered here'
-            //         // this.result = response.data
-            //         var reader = new FileReader();
-            //             // this.images = []; 
-            //         // this.images = [];
-            //         reader.onload = () => {
-            //             console.log(reader.result);
-            //             this.images.push(reader.result);
-            //             // console.log(this.images.length)
-            //         }
-            //         reader.readAsDataURL(response.data);
-            //         // this.paths = []
-            //         // this.questions = []
-            //         // this.images = []
-            //     })
-            //     .catch(error =>{
-            //         console.log(error)
-            //     })
-            // }
-            // vm.$forceUpdate()
+        
         },
         getImage(url, updatedQn, qn, updatedSubmissionIDs, id, updatedSubmissionStatuses, status){
-            //this.downloadLinks.push('//amazingtrail.ml/api/upload/getSubmission?url='+url);
-            // console.log(this.downloadLinks)
+            
              axios.get('//amazingtrail.ml/api/upload/getSubmission?url=' + url, {responseType: 'blob'})
                 .then(response=>{
 
-                    // this.result = 'entered here'
-                    // this.result = response.data
                     var reader = new FileReader();
-                        // this.images = []; 
-                    // this.images = [];
+                        
                     reader.onload = () => {
-                        // console.log(qn)
-                        // console.log(reader.result);
                         this.images.push(reader.result);
                         updatedQn.push(qn);
                         updatedSubmissionIDs.push(id)
@@ -330,7 +244,6 @@ export default{
                 this.submissionStatuses[index] = grade
                 this.$forceUpdate();
                 console.log(this.submissionStatuses[index]);
-                // alert('successfully updated');
             }
             })
 
@@ -338,7 +251,6 @@ export default{
 
         showSubmissions(teamID){
             if(this.showSub && this.currTeamID == teamID){
-                // this.showGrps = false;
                 this.showSub = false;
             } else{
                 this.currTeamID = teamID
@@ -408,9 +320,7 @@ export default{
         flex-direction: row;
         position: fixed;
         z-index:1;
-        // width: 95%;
         background-color: #F2F5F7!important;
-        // background-color: pink;
         margin-top: -22px;
         padding-top: 30px;
         width: 100%;
@@ -420,7 +330,6 @@ export default{
     }
 
     .download-all-btn-area{
-        // margin-top: 100px;
         display: inline-block;
         height: 30px;
         margin-bottom: 35px;
@@ -457,8 +366,6 @@ export default{
         height:55px;
         align-self: center;
         transition: all 0.3s ease 0s;
-        // position: fixed;
-        // z-index:1;
         overflow-x: hidden;
         width: 80%
     }
@@ -474,14 +381,12 @@ export default{
         padding-left: 20px;
         font-family: 'Lato', sans-serif;
         font-size: 15px;
-        /*background-color: #ffc107;*/
     }
 
     .search-btn{
         border:none;
         padding-right: 18px;
         background-color: white;
-        /*color:#BAB1B3;*/
         font-size: 20px;
         border-right: 1px solid #ededed;
         border-top: 1px solid #ededed;
@@ -514,13 +419,11 @@ export default{
         margin-left: 18px;
         position: relative;
         overflow-y: auto;
-        // background-color: pink;
         margin-top: 100px
     }
 
     .team-container{
         padding: 5px;
-        /*background-color: pink;*/
         background: none;
         margin:5px;
         flex:1;
@@ -557,10 +460,8 @@ export default{
 
     .grp-submission-row{
         display: flex;
-        // flex-direction: row;
         flex-wrap: wrap;
         justify-content: flex-start;
-        // background-color: blue;
         animation-name: grow;
         animation-duration: 0.3s;
         animation-direction: normal;
@@ -584,14 +485,9 @@ export default{
     }
 
     .grp-submission-row .container{
-        // background-color: pink;
-        // max-width: 400px;
-        // max-width: 31.333333333%;
-        // flex-basis: auto;
         height: inherit;
         justify-content: space-between;
         background-color: pink;
-        // align-content: center
         flex: 0 1 calc(33.3333333333% - 1em);
     }
 
@@ -644,8 +540,6 @@ export default{
     .card .image-area{
         height: inherit;
         padding: 10px;
-        // background-color: red;
-        
     }
 
     .card img{
@@ -665,17 +559,6 @@ export default{
         
     }
 
-
-
-    // .shift{
-    //     margin-left: 15%;
-    //     animation-name: pushRight;
-    //     animation-duration: 0.5s;
-    //     animation-direction: normal;
-    //     animation-delay: 0s;
-    //     transition: 0.5s ease-in-out;
-    // }
-
     @media screen and (max-width: 1125px){
         .fixed{
             flex-direction: column
@@ -693,7 +576,4 @@ export default{
             margin-right: 20px
         }
     }
-
-
-
 </style>

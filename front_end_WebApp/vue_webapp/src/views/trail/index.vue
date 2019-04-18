@@ -53,7 +53,6 @@
                 <div class="delete-message-area"><h6>{{trailDeleteMessage}}</h6></div>
                 <div class="close-delete-message">
                     <button @click="trailCloseDeleteMessage()">Close</button>
-                    <!-- <button type="submit" class="delete-narrative-btn">Delete</button> -->
                 </div>
             </div>
         </div>
@@ -104,7 +103,6 @@ export default {
     computed:{
         selectedTrailID(){
                 return this.$store.state.selectedTrailID;
-                // console.log(this.$store.state.selectedQuiz);
         },
     },
 
@@ -135,23 +133,17 @@ export default {
 
             console.log('entered')
             console.log(missionType)
-            // console.log(hotspot)
             axios.get('//amazingtrail.ml/api/mission/getMission' + missionType)
             .then(response =>{
                 var data = response.data;
-                // console.log(data)
                 for(var index in data){
-                // console.log(index)
                 missionList.push({label: data[index].title, value: data[index].mission});
-                //   console.log(missionList);
                 }
             });
-            // console.log(missionList)
         },
         populateCurrentTrailInfo(){
             console.log('test')
             this.allTrailsInfoList.forEach((information) => {
-                // console.log(this.trailID);
                 console.log(information.id === this.trailID.value)
                 if(information.id === this.trailID.value){
                     console.log(information);
@@ -160,16 +152,8 @@ export default {
                     this.currHotspotsAndMissions = information.information.hotspotsAndMissions;
                 }
             })
-            // let information = this.allTrailsInfoList[this.trailID]
-            // this.currTrailTitle = information.title;
-            // this.currTrailTotalTime = information.totalTime;
-            // this.currHotspotsAndMissions = information.hotspotsAndMissions;
         },
         trailOnSubmitToAdd(){
-        // this.hotspotsAndMissions.forEach((row) => {
-        //   this.hotspots.push(row.hotspot.label);
-        //   this.missions.push(row.mission.value);
-        // });
         var postBody = {
             title: this.title,
             totalTime: this.duration,
@@ -181,14 +165,9 @@ export default {
         .then(response => {
             let data = response.data
             console.log(data)
-            // this.$router.go();
         })
         },
         trailOnSubmitToEdit(){
-        // this.hotspotsAndMissions.forEach((row) => {
-        //   this.hotspots.push(row.hotspot.label);
-        //   this.missions.push(row.mission.value);
-        // });
         this.currHotspotsAndMissions.forEach((hotspotAndMission) => {
             let hotspot = hotspotAndMission.hotspot;
             let mission = hotspotAndMission.missionTitle;
@@ -224,8 +203,7 @@ export default {
             .then(response => {
                 let data = response.data
                 console.log(data)
-                // this.$router.go();
-        })
+            })
         },
 
         deleteTrail(trail_id, trail_title){
@@ -268,11 +246,9 @@ export default {
                 console.log(data)
                 if (data.success === "true") {
                     this.trailDeleteMessage ="Trail Successfully Deleted"
-                    // this.$router.go();
                 } else {
                     this.trailDeleteMessage = "Error Please Try Again";
                 }
-                // this.$router.go();
             })
         
             if(this.showDeleteTrail){
@@ -280,8 +256,6 @@ export default {
             } else{
                 this.showDeleteTrail = true;
             }
-            
-            // location.reload();
         },
     },
 
@@ -306,10 +280,8 @@ export default {
         for(var row in data){
             console.log(data[row])
             this.narrativeList.push({label: data[row].narrative_title, value: data[row].narrative_id})
-            // this.narrative_dictionary[data[row].narrative_title] = data[row].narrative_id;
+            
         }
-        // console.log("dictionary: ");
-        // console.log(this.narrative_dictionary);
     })
 
     axios.get('//amazingtrail.ml/api/trail/getAllTrails')
@@ -343,8 +315,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
     }
 
@@ -405,7 +375,6 @@ export default {
     }
 
     .trail-data td{
-        /*max-height: 10px;*/
         max-width: 700px;
         padding: 15px;
     }
@@ -414,7 +383,6 @@ export default {
         text-decoration: none!important;
         font-size: 14px;
         font-family: "Roboto", sans-serif;
-        /*color: #536479;*/
     }
 
     .trail-data button{
@@ -596,7 +564,6 @@ export default {
     .close-delete-message{
         display: inline-block
     }
-    /*deleted quiz popup ends*/
 
 </style>
 

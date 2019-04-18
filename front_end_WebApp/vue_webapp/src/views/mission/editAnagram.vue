@@ -4,13 +4,8 @@
             <div class="card-title">
                 <h5>Edit Anagram</h5>
             </div>
-            <!--{{quiz}}-->
             <form @submit.prevent="anagramOnSubmitToEdit">
                 <div class="edit-anagram-body">
-                    <!--<div class="edit-wefie-input">
-                        <label for="edit-wefie-title-input">Title</label>
-                        <input name="edit-wefie-title-input" type="text" placeholder="Title" v-model="wefie_title"> 
-                    </div>  -->
                     <div class="edit-anagram-input">
                         <label for="edit-anagram-input">Word</label>
                         <input name="edit-anagram-input" type="text" placeholder="Word" v-model="anagram_word"> 
@@ -63,7 +58,6 @@ export default {
                 "word": this.anagram_word,
             }
 
-            // console.log(this.quiz);
             axios.post('//amazingtrail.ml/api/edit/editAnagram', postBody)
             .then(response => {
                 let data = response.data
@@ -105,8 +99,6 @@ export default {
     }
 
     .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         margin-bottom: 50px;
     }
@@ -125,9 +117,7 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
-        /*align-items: center;*/
         min-width: 11%
 
     }
@@ -142,7 +132,6 @@ export default {
     }
 
     .edit-anagram-input input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -164,7 +153,6 @@ export default {
     }
 
     .EditAnagram .submit-btn{
-        /*display: flex;*/
         float:right;
         background: none;
         border: none;

@@ -105,8 +105,6 @@ export default {
     }
 
     .SummaryReport .card .card-title{
-        /*display: flex;*/
-        /*float: left;*/
         font-size: 20px;
         margin: 18px 18px 18px;
     }

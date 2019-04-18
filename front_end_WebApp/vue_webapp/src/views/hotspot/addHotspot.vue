@@ -16,15 +16,7 @@
                 <div class="input-area">
                     <label for="add-hotspot-input">Location Name</label>
                     <input name="add-hotspot-input" type="text" placeholder="Hotspot Name" v-model="name" required> 
-                </div> 
-                <!-- <div class="input-area">
-                    <label for="add-hotspot-input">Latitude</label>
-                    <input name="add-hotspot-input" type="text" placeholder="Latitude" v-model="lat" required> 
-                </div> 
-                <div class="input-area">
-                    <label for="add-hotspot-input">Longitude</label>
-                    <input name="add-hotspot-input" type="text" placeholder="Longitude" v-model="lng" required> 
-                </div> -->
+                </div>
                 <div class="choose-hotspot-area">
                     <div id="gmap-view" ></div>
                     <div class="instruction-submit-area">
@@ -94,7 +86,6 @@ export default {
     },
     
     mounted() {
-        // console.log("map: ", google.maps)
         this.map = new google.maps.Map(document.getElementById('gmap-view'), {
             center: this.center,
             scrollwheel: false,
@@ -119,12 +110,6 @@ export default {
                 marker.setPosition(e.latLng); 
 
             }
-            // marker = new google.maps.Marker({
-            //     position: e.latLng,
-            //     map: this
-            // });
-            // console.log(this.marker)
-            // console.log(this.map)
             this.panTo(this.position);
         });
     }
@@ -164,7 +149,6 @@ export default {
 
     .AddHotspot form{
         min-width: inherit;
-        /*background-color: blue*/
     }
     /*card styling ends*/
 
@@ -188,14 +172,12 @@ export default {
         white-space: nowrap;
         float: left;
         display: flex;
-        /*background-color: pink;*/
         height: inherit;
         align-items: center;
         min-width: 12%
     }
 
     .AddHotspot .input-area input{
-        /*margin-left: 100px;*/
         height: 40px;
         outline: none;
         border: 1px solid #CED4DA;
@@ -238,12 +220,9 @@ export default {
     .AddHotspot .submit-btn-area{
         width: 100%;
         overflow: hidden;
-        /* float: right; */
     }
 
     .AddHotspot .submit-btn{
-        /*display: inline;*/
-        /* float:right; */
         background: none;
         border: none;
         background-color: #645cdd;
@@ -267,11 +246,10 @@ export default {
 
 
      .AddHotspot .cancel-btn{
-         /* float:right; */
-         background-color: #ACACAC;
-         color: white;
-         border:none;
-         border-radius: 4px;
+        background-color: #ACACAC;
+        color: white;
+        border:none;
+        border-radius: 4px;
         min-width: 8%;
         min-height: 40px;
         padding:8px 10px 8px 10px;
