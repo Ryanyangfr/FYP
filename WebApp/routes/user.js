@@ -33,7 +33,9 @@ router.get('/retrieveAllUser', (req,res) => {
   });
 });
 
-// for registration, Accepts get request
+// for registration
+// input: {username: username}
+// output: {team_id: teamID, }
 router.post('/register', (req, res) => {
   let currentTrailInstanceIDQuery = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
   let numUsersEnteredQuery = 'SELECT COUNT(*) AS COUNT FROM PARTICIPANT WHERE TRAIL_INSTANCE_ID = ?';

@@ -11,6 +11,9 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 const conn = mysql.createConnection(databaseConfig);
 
+// get all teams in the trail instance
+// input: {trail_instance_id: trailInstanceID}
+// output: {team_id: teamID, points: teamPoints, latitude: latitude, longtitude: longtitude}
 router.get('/getAllTeams', (req, res) => {
   const trail_instance_id = req.query.trail_instance_id;
   const query = 'SELECT * FROM TEAM WHERE TRAIL_INSTANCE_ID = ?';
@@ -27,6 +30,8 @@ router.get('/getAllTeams', (req, res) => {
 
 });
 
+// get all teams in the trail instance
+// output: {team_id: teamID, points: teamPoints, latitude: latitude, longtitude: longtitude}
 router.get('/getAllTeamsInCurrentActiveTrail', (req, res) => {
   // const trail_instance_id = req.query.trail_instance_id;
 
@@ -54,6 +59,8 @@ router.get('/getAllTeamsInCurrentActiveTrail', (req, res) => {
   });
 });
 
+// update score for team in trail instance
+// input: {trail_instance_id: trailInstanceID, score: score, hotspot: hotspotName, team: teamID}
 router.post('/updateScore', (req, res) => {
   const team_id = req.body.team_id;
   const instance_id = req.body.trail_instance_id;
@@ -91,6 +98,9 @@ router.post('/updateScore', (req, res) => {
   });
 });
 
+// get starting hotspot for each team
+// input: {trail_instance_id: trailInstanceID}
+// output: {team: teamID, startingHotspot: hotspotName, coordinates: [latitude, longtitude], narrative: narrative}
 router.get('/startingHotspot', (req, res) => {
   const instance_id = req.query.trail_instance_id;
   const query = 'SELECT TH.HOTSPOT_NAME, LATITUDE, LONGTITUDE, N.NARRATIVE FROM TRAIL_HOTSPOT AS TH, HOTSPOT AS H, NARRATIVE AS N WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND H.HOTSPOT_NAME = TH.HOTSPOT_NAME AND TH.NARRATIVE_ID = N.NARRATIVE_ID';
@@ -114,6 +124,9 @@ router.get('/startingHotspot', (req, res) => {
   });
 });
 
+// get all completed hotspots for each team in the trail instance
+// input: {trail_instance_id: trailInstanceID}
+// output: {team: teamID, hotspots_completed: numOfCompletedHotspot}
 router.get('/hotspotStatus', (req, res) => {
   const instance_id = req.query.trail_instance_id;
   const response = [];
@@ -134,6 +147,8 @@ router.get('/hotspotStatus', (req, res) => {
   });
 });
 
+// get all participants in each teams
+// output: {team_id: teamID, username: username, user_id: userID}
 router.get('/getAllTeamsWithMembers', (req, res) => {
   // const instanceID = req.query.trail_instance_id;
   const response = [];
@@ -157,6 +172,9 @@ router.get('/getAllTeamsWithMembers', (req, res) => {
   });
 });
 
+// get the team location
+// input: {teamID: teamID, long: long, lat: lat}
+// output: {success: true}
 router.post('/teamLocation', cors(), (req,res) => {
   const io = req.app.get('socketio');
   const teamID = req.body.teamID;
@@ -175,6 +193,9 @@ router.post('/teamLocation', cors(), (req,res) => {
   });
 });
 
+// get all teams points in the trail instance
+// input: {trail_instance_id: trailInstanceID}
+// output: {team_id: teamID, points: teamPoints, timeEnded: timeEnded, hotspots_completed: numCompletedHotspots}
 router.get('/getAllTeamPoints', (req,res) => {
   // get current trail instance
   const instanceID = req.query.trail_instance_id;
@@ -219,6 +240,8 @@ router.get('/getAllTeamPoints', (req,res) => {
   });
 });
 
+// get all team activity in the trail instance
+// output: {team: teamID, time: timeCompleted, hotspot: hotspotName}
 router.get('/activityFeed', (req,res) => {
   const response = [];
   const getActiveTrailInstance = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
@@ -244,6 +267,9 @@ router.get('/activityFeed', (req,res) => {
   });
 });
 
+// update score of the team in the current active trail instance
+// input: {team: teamID, points: points}
+// output: {success: true}
 router.post('/updateScoreAdmin', (req,res) => {
   const team = req.body.team;
   const addedPoints = parseInt(req.body.points);
@@ -279,6 +305,9 @@ router.post('/updateScoreAdmin', (req,res) => {
   });
 });
 
+// update score of the team in the current active trail instance
+// input: {team: teamID, points: points}
+// output: {success: true}
 router.post('/updateScoreSubmission', (req,res) => {
   const team = req.body.team;
   const submissionID = req.body.submissionID;
@@ -332,6 +361,9 @@ router.post('/updateScoreSubmission', (req,res) => {
   });
 });
 
+// update score of the team in the current active trail instance
+// input: {team: teamID, points: points}
+// output: {success: true}
 router.post('/updateTeamEndTime', (req,res) => {
   const team = req.body.team;
   const timeEnded = req.body.timeEnded;
