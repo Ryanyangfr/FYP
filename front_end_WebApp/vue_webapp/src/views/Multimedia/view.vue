@@ -105,7 +105,6 @@ export default{
                     }
                     for(var j=0; j<size; j++){
                         if(j == 0 && this.downloadLinks.length > 0){
-                            console.log('entered')
                             this.downloadLinks = []
                         }
                         let temp = data[j]
@@ -134,7 +133,6 @@ export default{
             .then(response => {
                 let data = response.data;
                 for(var row in data){
-                    console.log(data[row]);
                     let team_id = data[row].team_id;
                     axios.get('//amazingtrail.ml/api/upload/getAllSubmissionURL?team='+team_id+'&trail_instance_id='+this.trailID)
                     .then(res => {
@@ -155,7 +153,6 @@ export default{
             .then(response=>{
                 let data = response.data
                 let size = Object.keys(data).length
-                console.log(response.data)
                 if (size === 0) {
                     this.paths = [];
                     this.questions = [];
@@ -163,7 +160,6 @@ export default{
                 }
                 for(var i=0; i<size; i++){
                     if(i == 0 && this.paths.length > 0){
-                        console.log('entered')
                         this.paths = []
                         this.questions = []
                         this.submissionIDs = []
@@ -175,9 +171,6 @@ export default{
                     this.submissionIDs.push(temp.submissionID)
                     this.submissionStatuses.push(temp.status)
                 }
-
-                console.log('paths: ')
-                console.log(this.paths)
 
                 let updatedQn = [];
                 let updatedSubmissionIDs = [];
@@ -213,8 +206,6 @@ export default{
                             this.submissionIDs = updatedSubmissionIDs;
                             this.submissionStatuses = updatedSubmissionStatuses;
                         }
-                        console.log('images length: ')
-                        console.log(this.images.length)
                     }
                     reader.readAsDataURL(response.data);
 
@@ -238,12 +229,9 @@ export default{
             axios.post('//amazingtrail.ml/api/team/updateScoreSubmission', postBody)
             .then(response => {
             let data = response.data;
-            console.log(response.data);
             if (data.success === 'true') {
-                console.log(index)
                 this.submissionStatuses[index] = grade
                 this.$forceUpdate();
-                console.log(this.submissionStatuses[index]);
             }
             })
 
@@ -264,7 +252,6 @@ export default{
     mounted(){
 
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
@@ -272,7 +259,6 @@ export default{
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.trailID = data[row]
             }
 
@@ -280,7 +266,6 @@ export default{
             .then(response => {
                 let data = response.data;
                 for(var row in data){
-                    console.log(data[row]);
                     let team_id = data[row].team_id;
                     axios.get('//amazingtrail.ml/api/upload/getAllSubmissionURL?team='+team_id+'&trail_instance_id='+this.trailID)
                     .then(res => {

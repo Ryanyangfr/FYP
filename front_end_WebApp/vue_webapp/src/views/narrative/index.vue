@@ -140,7 +140,6 @@ export default {
             axios.post('//amazingtrail.ml/api/delete/deleteNarrative', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 if (data.success === "true") {
                     this.deleteMessage = "Narrative Successfully Deleted"
                 } else {
@@ -157,14 +156,12 @@ export default {
     },
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
         axios.get('//amazingtrail.ml/api/narrative/getNarratives')
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row])
                 this.dropDownList.push({label: data[row].narrative_title, value: data[row].narrative_id})
                 this.narrativeTableList.push({title: data[row].narrative_title, id: data[row].narrative_id, narrative: data[row].narrative})
                 

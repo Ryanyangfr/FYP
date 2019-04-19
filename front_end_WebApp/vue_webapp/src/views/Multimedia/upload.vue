@@ -23,7 +23,6 @@ export default{
     },
     methods: {
         onFileUpload(){
-            console.log(this.$refs);
             this.file = this.$refs.file.files[0];
         },
         onUpload() {
@@ -45,7 +44,6 @@ export default{
     },
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
     }

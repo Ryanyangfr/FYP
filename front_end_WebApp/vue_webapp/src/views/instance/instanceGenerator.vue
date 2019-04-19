@@ -181,11 +181,9 @@ export default {
                 date: dateString
             }
 
-            console.log(postBody)
             axios.post('//amazingtrail.ml/api/trail/initializeTrail', postBody)
             .then(response => {
                 let data = response.data;
-                console.log(data);
                 if (data.success === "true") {
                     this.closeConfirmation();
                 } else {
@@ -210,7 +208,7 @@ export default {
             axios.post('//amazingtrail.ml/api/trail/startTrail', postBody)
             .then(response => {
                 let data = response.data;
-                console.log(data);
+                
                 if (data.success === "true") {
                     this.trailStarted = true
                 } else {
@@ -234,9 +232,7 @@ export default {
     },
     
     mounted(){
-        console.log(this.$session.exists());
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
@@ -244,7 +240,6 @@ export default {
         .then(response => {
             let data = response.data;
             for(var row in data){
-                console.log(data[row]);
                 this.trailsList.push({label: data[row].title, value: data[row].trailID});
                 this.trailMap[data[row].title] = data[row].trailID;
                 this.trailTimeMap[data[row].title] = data[row].totalTime;
@@ -254,15 +249,9 @@ export default {
 
         // Get todays date and time
         let now = new Date().getTime();
-        // console.log(start);
-        // console.log(end);
-        // Find the distance between now an the count down date
-        // var distance = start - now;
         var passTime =  this.$store.state.instanceStartTime - now;
-        // console.log(passTime)
         this.calcTime(passTime);
         if (this.seconds > 0 || this.minutes >0 || this.hours >0) {
-            console.log(this.$store.state.currentTrail);
             this.instance_id = this.$store.state.currentTrailID;
             this.trail = this.$store.state.currentTrail;
             this.numTeams = this.$store.state.currentNumTeams;

@@ -31,7 +31,6 @@ export default {
 
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
     }

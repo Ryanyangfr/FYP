@@ -57,12 +57,10 @@ export default {
     computed: {
         selectedQuizID(){
             return this.$store.state.selectedQuizID;
-            console.log(this.$store.state.selectedQuizID);
         },
 
         selectedQuizTitle(){
             return this.$store.state.selectedQuizTitle;
-            console.log(this.$store.state.selectedQuizTitle);
         },
 
     }, 
@@ -81,21 +79,18 @@ export default {
 
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
         axios.get('//amazingtrail.ml/api/quiz/getQuizQuestion?mission=' + this.$store.state.selectedQuizID)
         .then(response =>{
             var data = response.data;
-            console.log(data)
             for(var index in data){
                this.getQuizOptions(data[index].question, data[index].quiz_id, data[index].quiz_answer);
             }
         })
 
         this.title = this.$store.state.selectedQuizTitle;
-        console.log(this.selectedQuizTitle)
         
     }           
 }

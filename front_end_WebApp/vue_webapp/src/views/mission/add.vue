@@ -266,13 +266,10 @@ export default {
         },
 
         deleteRow(index){
-            console.log(this.quiz)        
             this.$delete(this.quiz, index);
         },
 
         quizOnSubmitToAdd(){
-            console.log("celine")
-            console.log(this.quiz.length)
             if(this.quiz.length == 0){
                 this.showalert = true;
             } else{
@@ -291,20 +288,12 @@ export default {
                     "title": this.title,
                     "quiz": this.quiz
                 }
-                // console.log(this.hotspot.value);
-                console.log(this.title);
-                console.log(this.quiz);
                 axios.post('//amazingtrail.ml/api/add/addQuiz', postBody)
                 .then(response => {
                     let data = response.data
-                    console.log(data)
                     this.$router.push({ path: this.redirect || '/mission' })
                 })
             }
-            // this.hotspot = "";
-            // this.quiz = [];
-            // location.reload();
-            // this.$router.go();
         },
 
         closeAlert(){
@@ -316,19 +305,12 @@ export default {
                 "question": this.wefie_instruction,
                 "title": this.title
             }
-            // console.log(this.hotspot.value);
-            console.log(this.wefie_instruction);
-            console.log(this.title);
+
             axios.post('//amazingtrail.ml/api/add/addWefieQuestion', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 this.$router.push({ path: this.redirect || '/mission' })
             })
-            // this.hotspot = "";
-            // this.quiz = [];
-            // location.reload();
-            // this.$router.go();
         },
 
         dragAndDropOnSubmitToAdd(){
@@ -338,11 +320,9 @@ export default {
                 options: this.dragAndDropOptions
             }
 
-            console.log(postBody);
             axios.post('//amazingtrail.ml/api/add/addDragAndDropQuestion', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 this.$router.push({ path: this.redirect || '/mission' });
             })
         },
@@ -352,13 +332,10 @@ export default {
                 "question": this.drawing_instruction,
                 "title": this.title
             }
-            // console.log(this.hotspot.value);
-            console.log(this.drawing_instruction);
-            console.log(this.title);
+        
             axios.post('//amazingtrail.ml/api/add/addDrawingQuestion', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 this.$router.push({ path: this.redirect || '/mission' })
             })
         },
@@ -371,7 +348,6 @@ export default {
             axios.post('//amazingtrail.ml/api/add/addAnagram', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 this.$router.push({ path: this.redirect || '/mission' })
             })
         },
@@ -386,7 +362,6 @@ export default {
                     updatedWords.push({word: this.words[i].word});
                 }
             }
-            console.log(updatedWords)
 
             var postBody = {
                 "words": updatedWords,
@@ -395,7 +370,6 @@ export default {
             axios.post('//amazingtrail.ml/api/add/addWordsearchQuestion', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 this.$router.push({ path: this.redirect || '/mission' })
             })
         },

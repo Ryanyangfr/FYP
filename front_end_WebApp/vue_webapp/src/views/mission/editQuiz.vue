@@ -61,12 +61,10 @@ export default {
     computed: {
         selectedQuizID(){
             return this.$store.state.selectedQuizID;
-            console.log(this.$store.state.selectedQuizID);
         },
 
         selectedQuizTitle(){
             return this.$store.state.selectedQuizTitle;
-            console.log(this.$store.state.selectedQuizTitle);
         },
 
     }, 
@@ -78,8 +76,7 @@ export default {
             .then(response =>{
                 var data = response.data;
                 this.quiz.push({quiz_id:quiz_id, quiz_question:quiz_question, quiz_answer:quiz_answer, options: data})
-                console.log(this.quiz)
-                
+              
             });
         },
 
@@ -93,7 +90,6 @@ export default {
             axios.post('//amazingtrail.ml/api/edit/editQuiz', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 this.$router.push({ path: this.redirect || '/mission' })
             })
         }
@@ -102,14 +98,12 @@ export default {
 
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
 
         axios.get('//amazingtrail.ml/api/quiz/getQuizQuestion?mission=' + this.$store.state.selectedQuizID)
         .then(response =>{
             var data = response.data;
-            console.log(data)
             for(var index in data){
                this.getQuizOptions(data[index].question, data[index].quiz_id, data[index].quiz_answer);
             }
@@ -117,9 +111,6 @@ export default {
 
         this.title = this.$store.state.selectedQuizTitle;
         this.quizID = this.$store.state.selectedQuizID;
-        console.log('Quiz ID: ' + this.quizID)
-        console.log(this.selectedQuizTitle)
-
         
     }           
 }

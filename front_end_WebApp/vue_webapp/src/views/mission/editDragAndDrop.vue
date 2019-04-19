@@ -60,22 +60,18 @@ export default {
 
     computed: {
         selectedDragAndDropID(){
-          console.log(this.$store.state.selectedDragAndDropID)
           return this.$store.state.selectedDragAndDropID
         },
 
         selectedDragAndDropQuestion(){
-          console.log(this.$store.state.selectedDragAndDropQuestion)
           return this.$store.state.selectedDragAndDropQuestion
         },
 
         selectedDragAndDropTitle(){
-          console.log(this.$store.state.selectedDragAndDropTitle)
           return this.$store.state.selectedDragAndDropTitle
         },
 
         selectedDragAndDropMissionID(){
-          console.log(this.$store.state.selectedDragAndDropMissionID)
             return this.$store.state.selectedDragAndDropMissionID
         }
     },
@@ -90,12 +86,10 @@ export default {
           missionID: this.draganddrop_missionID
         }
 
-        console.log(postBody);
 
         axios.post('//amazingtrail.ml/api/edit/editDragAndDrop', postBody)
         .then(response => {
             let data = response.data
-            console.log(data)
             this.$router.push({ path: this.redirect || '/mission' })
         })
       }
@@ -103,7 +97,6 @@ export default {
 
     mounted(){
       if (!this.$session.exists()) {
-          console.log("check")
           this.$router.push('/')
       }
 
@@ -112,17 +105,9 @@ export default {
       this.draganddrop_ID = this.$store.state.selectedDragAndDropID
       this.draganddrop_missionID = this.$store.state.selectedDragAndDropMissionID
 
-      console.log('check values drag and drop');
-      console.log(this.draganddrop_title);
-      console.log(this.draganddrop_question);
-      console.log(this.draganddrop_ID);
-      console.log(this.draganddrop_missionID);
-
-
       axios.get('//amazingtrail.ml/api/draganddrop/getDragAndDropByMission?missionID=' + this.draganddrop_missionID)
       .then(response =>{
           var data = response.data;
-          console.log(data)
           this.options = data[0].options
       })
     }

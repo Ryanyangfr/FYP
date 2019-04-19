@@ -57,12 +57,10 @@ export default {
     computed: {
         selectedQuizID(){
             return this.$store.state.selectedQuizID;
-            console.log(this.$store.state.selectedQuizID);
         },
 
         selectedQuizTitle(){
             return this.$store.state.selectedQuizTitle;
-            console.log(this.$store.state.selectedQuizTitle);
         },
 
     }, 
@@ -70,13 +68,10 @@ export default {
     methods:{
 
         getQuizOptions(quiz_question, quiz_id, quiz_answer){
-            console.log('quiz id: ' + quiz_id)
              axios.get('//amazingtrail.ml/api/quiz/getQuizOptionsHistory?quizID=' + quiz_id)
             .then(response =>{
                 var data = response.data;
                 this.quiz.push({quiz_id:quiz_id, quiz_question:quiz_question, quiz_answer:quiz_answer, options: data})
-                console.log("OIOIOI")
-                console.log(this.quiz)
                 
             });
         }
@@ -84,23 +79,17 @@ export default {
 
     mounted(){
         if (!this.$session.exists()) {
-            console.log("check")
             this.$router.push('/')
         }
         axios.get('//amazingtrail.ml/api/quiz/getQuizQuestionHistory?mission=' + this.$store.state.selectedQuizID)
         .then(response =>{
             var data = response.data;
-            console.log('data: ')
-            console.log(data)
             for(var index in data){
                this.getQuizOptions(data[index].question, data[index].quiz_id, data[index].quiz_answer);
             }
         })
 
         this.title = this.$store.state.selectedQuizTitle;
-        console.log(this.selectedQuizTitle)
-
-        
     }           
 }
 </script>

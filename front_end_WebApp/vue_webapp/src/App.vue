@@ -25,7 +25,6 @@ export default {
   computed: {
     showSidebar(){
       return this.$store.state.showSidebar;
-      console.log(this.$store.state.showSidebar);
 
     }
   },   

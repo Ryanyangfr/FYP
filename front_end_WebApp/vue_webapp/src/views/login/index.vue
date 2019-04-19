@@ -51,21 +51,15 @@ export default {
   computed: {
         showSidebar(){
             return this.$store.state.showSidebar;
-            console.log($store.state.showSidebar);
         }
   }, 
   methods: {
     login_check() {
-      console.log('login')
-      console.log(this.user.username)
         const baseURI = '//amazingtrail.ml/api/user/getPassword?username=' + this.user.username
         axios.get(baseURI)
           .then(response => {
-            console.log(response)
               this.user.true_pass = response.data.password;
-              console.log(this.user.true_pass);
               if(this.user.password === this.user.true_pass){
-                console.log("token: ");
                 this.$session.start()
                 this.$session.set('jwt', response.data.token)
                 this.$router.push({ path: this.redirect || '/landing' })

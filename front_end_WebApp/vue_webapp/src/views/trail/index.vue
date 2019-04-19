@@ -130,9 +130,6 @@ export default {
             while (missionList.length > 0) {
                 missionList.pop();
             }
-
-            console.log('entered')
-            console.log(missionType)
             axios.get('//amazingtrail.ml/api/mission/getMission' + missionType)
             .then(response =>{
                 var data = response.data;
@@ -142,11 +139,8 @@ export default {
             });
         },
         populateCurrentTrailInfo(){
-            console.log('test')
             this.allTrailsInfoList.forEach((information) => {
-                console.log(information.id === this.trailID.value)
                 if(information.id === this.trailID.value){
-                    console.log(information);
                     this.currTrailTitle = information.information.title;
                     this.currTrailTotalTime = information.information.totalTime;
                     this.currHotspotsAndMissions = information.information.hotspotsAndMissions;
@@ -160,11 +154,9 @@ export default {
             numTeams: this.numTeams,
             hotspotsAndMissions: this.hotspotsAndMissions
         }
-        console.log(postBody);
         axios.post('//amazingtrail.ml/api/trail/addTrail', postBody)
         .then(response => {
             let data = response.data
-            console.log(data)
         })
         },
         trailOnSubmitToEdit(){
@@ -191,18 +183,15 @@ export default {
 
             this.editedCurrHotspotsAndMissionsForUpdating.push({hotspot: hotspot, narrative: narrative, mission: mission })
         })
-            console.log(this.currTrailTitle);
             var postBody = {
                 trailID: this.trailID.value,
                 title: this.trailID.label,
                 totalTime: this.currTrailTotalTime,
                 hotspotsAndMissions: this.editedCurrHotspotsAndMissionsForUpdating
             }
-            console.log(postBody);
             axios.post('//amazingtrail.ml/api/trail/editTrail', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
             })
         },
 
@@ -243,7 +232,6 @@ export default {
             axios.post('//amazingtrail.ml/api/trail/deleteTrail', postBody)
             .then(response => {
                 let data = response.data
-                console.log(data)
                 if (data.success === "true") {
                     this.trailDeleteMessage ="Trail Successfully Deleted"
                 } else {
@@ -261,7 +249,6 @@ export default {
 
     mounted(){
     if (!this.$session.exists()) {
-        console.log("check")
         this.$router.push('/')
     }
 
@@ -269,7 +256,6 @@ export default {
     .then(response => {
         let data = response.data;
         for(var row in data){
-            console.log(data[row])
             this.hotspotList.push({label: data[row].hotspot_name, value: data[row].hotspot_name})
         }
     });
@@ -278,7 +264,6 @@ export default {
     .then(response => {
         let data = response.data;
         for(var row in data){
-            console.log(data[row])
             this.narrativeList.push({label: data[row].narrative_title, value: data[row].narrative_id})
             
         }
@@ -288,7 +273,6 @@ export default {
     .then(response => {
         let data = response.data;
         for(var row in data){
-            console.log(data[row]);
             this.trailsList.push({trail_title: data[row].title, trail_ID: data[row].trailID, trail_duration: data[row].totalTime});
             this.allTrailsInfoList.push({id: data[row].trailID, information: data[row]})
         }
