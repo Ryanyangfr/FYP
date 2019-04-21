@@ -1,3 +1,5 @@
+//A page to add new trail 
+//enter a trail title, duration and select hotspots and narrative for each hotspot
 <template>
     <div class="AddTrail">
        <div class="card">
@@ -82,6 +84,7 @@ export default {
     },
 
     methods: {
+        //add new row of hotspot, for each hotspot, select it's mission and narrative 
         addRow(){
             this.details.push({
                 hotspot: "",
@@ -90,10 +93,12 @@ export default {
             })
         },
 
+        //delete that particular row of hotspot along together with its narrative and mission
         deleteRow(index){      
             this.$delete(this.details, index);
         },
 
+        //add the new trail to the db
         trailOnSubmitToAdd(){
             this.details.forEach(element => {
                 let updatedNarrative = this.narrativeDict[element.narrative]
@@ -117,6 +122,7 @@ export default {
             })
         },
 
+        //close add trail success message
         trailCloseAddMessage(){
             if( this.trailAddMessage === "Trail Successfully Added") {
                 this.trailAddMessage = "";
@@ -127,6 +133,7 @@ export default {
     },
 
     mounted(){
+        //get all missions created
         axios.get('//amazingtrail.ml/api/mission/getAllMissions')
         .then(response =>{
             var data = response.data;
@@ -136,6 +143,7 @@ export default {
             }
         })
 
+        //get all hotspots created
         axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
@@ -144,6 +152,7 @@ export default {
             }
         })
 
+        //get all narratives created
         axios.get('//amazingtrail.ml/api/narrative/getNarratives')
         .then(response => {
             let data = response.data;

@@ -51,7 +51,7 @@ export default {
     }, 
 
     methods:{
-
+        //submit edited drawing mission, submit the drawing id and the edited drawing question
         drawingOnSubmitToEdit() {
             var postBody = {
                 "id": this.drawing_ID,
@@ -72,6 +72,7 @@ export default {
             this.$router.push('/')
         }
 
+        //on page load, retrieves drawing title, id and drawing question of selected drawing from vuex store
         this.drawing_title = this.$store.state.selectedDrawingTitle;
         this.drawing_ID = this.$store.state.selectedDrawingID;
         this.drawing_question = this.$store.state.selectedDrawingQuestion;

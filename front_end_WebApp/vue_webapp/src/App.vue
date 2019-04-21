@@ -23,6 +23,8 @@ import MainHeader from './components/MainHeader/index'
 export default {
   name: 'App',
   computed: {
+
+    //show the side menu on login
     showSidebar(){
       return this.$store.state.showSidebar;
 

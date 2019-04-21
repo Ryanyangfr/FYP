@@ -1,3 +1,4 @@
+//Display all the hotspots in the database and their details in a table format
 <template>
     <div class="Hotspot">
         <div class="card">
@@ -94,17 +95,22 @@ export default {
 
     methods: {
 
+        //when the user clicks on edit for a particular hotspot
+        //save the hotspot name, lat and long in the vuex store
         saveHotspot(hotspot_name, lat, lng){
             this.$store.commit('saveSelectedHotspotName', hotspot_name);
             this.$store.commit('saveSelectedLat', lat);
             this.$store.commit('saveSelectedLng', lng);
         },
 
+        //submit to delete the hotspot 
+        //a prompt to ask user if they are sure they want to delete hotspot would close (showDelete = false)
+        //delete the hotspot from the db and show alert message that hotspot have successfully deleted 
+        //if the hotspot has been added in a trail, the trail has to be deleted first, a prompt would be displayed 
         onSubmitToDelete(){
             var postBody = {
                 "hotspot_name": this.curr_hotspot_name,
             }
-            
 
             axios.post('//amazingtrail.ml/api/delete/deleteHotspot', postBody)
             .then(response => {
@@ -125,6 +131,8 @@ export default {
             })
         },
 
+        //show confirmation prompt to delete hotspot 
+        //showDelete = true to show
         deleteHotspot(hotspot_name){
             if(this.showDelete){
                 this.showDelete = false;
@@ -135,6 +143,8 @@ export default {
             this.curr_hotspot_name = hotspot_name;
         },
 
+        //close the delete confirmation prompt 
+        //triggered when "cross" icon clicked or "cancel" button clicked 
         closeDelete(){
             if(this.showDelete){
                 this.showDelete = false;
@@ -145,6 +155,7 @@ export default {
             this.curr_hotspot_name = "";
         },
 
+        //close success message
         closeDeleteMessage(){
             this.showDelete = false;
             this.closeMessage = true;
@@ -161,6 +172,7 @@ export default {
             this.$router.push('/')
         }
 
+        //on page load, gets all the hotspots in the db (name, lat and long)
         axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
         .then(response => {
             let data = response.data;

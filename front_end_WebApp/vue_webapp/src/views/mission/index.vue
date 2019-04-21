@@ -1,3 +1,5 @@
+Displays all the missions in seperate tables. the missions includes:
+quiz, wordsearch, drag and drop, drawing, wefie, anagram
 <template>
     <div class="Missions">
         <div class="card">
@@ -525,6 +527,7 @@ export default {
         },
         //store to vuex store methods ends 
         
+        //get all the quizzes
         fetchMissions(){
             this.missionList = [];
             axios.get('//amazingtrail.ml/api/mission/getMissionQuiz')
@@ -536,6 +539,7 @@ export default {
             })
         },
 
+        //for each quiz id, gets a list of dictionary, comprising of the quiz question, quiz id and quiz answer
         getMissionQuizQuestions(missionid, mission){
             axios.get('//amazingtrail.ml/api/quiz/getQuizQuestion?mission=' + missionid)
                 .then(response =>{
@@ -546,6 +550,11 @@ export default {
         },
 
         // delete methods:
+        //onSubmit<mission name> are to deleted the mission from the db 
+        //closeDelete<mission name> are to close the confirmation prompt to delete the message, mission won't be deleted,
+        //<mission name>closeDeleteMessage is to clsoe the message to show mission successfully deleted or not
+        //delete<mission name> would show the confirmation prompt to delete the mission 
+        //Mission name: Quiz, DragDrop, Wefie, Anagram, Wordsearch, Drawing
         deleteQuiz(mission_id, mission_title){
             this.missionIDToBeDeleted = mission_id;
             this.titleToBeDeleted = mission_title;
@@ -871,7 +880,7 @@ export default {
         if (!this.$session.exists()) {
             this.$router.push('/')
         }
-
+        //on page loads, get all the wefie questions
         axios.get('//amazingtrail.ml/api/upload/getAllSubmissionQuestion')
         .then(response => {
             let data = response.data;
@@ -880,21 +889,30 @@ export default {
             }
         })
 
+        //get the mission IDs of all quizzes
         axios.get('//amazingtrail.ml/api/mission/getMissionQuiz')
         .then(response =>{
             let data = response.data;
+            //for each quiz, retrieve list of questions, quizID and answer
             for(var index in data){
         
                 this.getMissionQuizQuestions(data[index].mission, data[index])
             }           
         })
 
+        //retrieve all drag and drop
+        //gets a list of dictionary 
+        //example: [{"id":1,"question":"As an SMU Admin staff, how long are you able to loan the following items for?","title":"LKSL Drag And Drop","options":[{"option":"Books","answer":"28 days"},{"option":"Magazines","answer":"7 days"},{"option":"Media Collections (Reserves)","answer":"4 hours"},{"option":"Reserves","answer":"3 hours"}],"missionID":9}]
         axios.get('//amazingtrail.ml/api/draganddrop/getAllDragAndDrop')
         .then(response =>{
             let data = response.data;
             this.dragAndDropList = data;      
         })
 
+        //retrieve all drawing question 
+        //gets a list of dictionary
+        //example: 
+        //[{"id":1,"question":"Find out the color that represents this faculty and draw something related to the colour.","mission":12,"title":"SOA Drawing"}]
         axios.get('//amazingtrail.ml/api/upload/getAllDrawingQuestion')
         .then(response => {
             let data = response.data;
@@ -903,6 +921,10 @@ export default {
             }
         })
 
+
+        //retreive all anagram questions
+        //example:
+        //[{"id":1,"word":"hello","title":"My anagram"}]
         axios.get('//amazingtrail.ml/api/anagram/getAllAnagrams')
         .then(response => {
             let data = response.data;
@@ -911,6 +933,10 @@ export default {
             }
         })
 
+
+        //retrieve all wordsearch questions 
+        //example:
+        //[{"words":["Economy","Psychology","Socialism","Sociology","Tax"],"id":1,"title":"title 13"}]
         axios.get('//amazingtrail.ml/api/wordsearch/getAllWordSearchWords')
         .then(response => {
             let data = response.data;

@@ -70,7 +70,8 @@ export default {
     }, 
 
     methods:{
-
+        
+        //get all options for a particular quiz
         getQuizOptions(quiz_question, quiz_id, quiz_answer) {
              axios.get('//amazingtrail.ml/api/quiz/getQuizOptions?quizID=' + quiz_id)
             .then(response =>{
@@ -80,6 +81,7 @@ export default {
             });
         },
 
+        //submit the edited quiz details
         quizOnSubmitToEdit() {
             var postBody = {
                 "quiz": this.quiz,

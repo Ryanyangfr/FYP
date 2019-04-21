@@ -1,3 +1,5 @@
+//Add new hotspot page. 
+//displays a map for users to select desired location
 <template>
     <div class="AddHotspot">
        <div class="card">
@@ -53,6 +55,10 @@ export default {
     },
 
     methods: {
+
+        //submit hotspot name, latitude and longitude
+        //hotspot_name is a string, 
+        //on successful submit, return to view all hotspots page. 
         hotspotOnSubmitToAdd(){
             if(this.map.lat === undefined || this.map.lat === undefined){
                 this.showalert = true;
@@ -70,6 +76,8 @@ export default {
             }
         },
 
+
+        //close alert which will show when the user tried to submit without selecting a hotspot
         closeAlert(){
             if(this.showalert){
                 this.showalert = false;
@@ -83,6 +91,8 @@ export default {
     },
     
     mounted() {
+
+        //show map 
         this.map = new google.maps.Map(document.getElementById('gmap-view'), {
             center: this.center,
             scrollwheel: false,
@@ -91,6 +101,7 @@ export default {
         })
         
         var marker;
+        //add a listener to the map to add a marker to wherever the user clicks
         this.map.addListener('click', function(e) {
             this.position = e.latLng;
             this.lat = e.latLng.lat();

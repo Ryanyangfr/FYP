@@ -1,3 +1,4 @@
+//Shows leaderboard and activity feed for ongoing trail 
 <template>
     <div class="Leaderboard">
         <div class="card">
@@ -107,6 +108,7 @@ export default {
     },
 
     methods: {
+        //get all the teams and their points
         getData() {
             const baseURI = '//amazingtrail.ml/api/team/getAllTeamPoints?trail_instance_id=' + this.trail_instance_id;
             axios.get(baseURI)
@@ -116,6 +118,7 @@ export default {
             })
         },
 
+        //show the edit points popup
         editLeaderboard(team_num, points, hotspots_completed){
             if(this.showEdit){
                 this.showEdit = false;
@@ -128,6 +131,7 @@ export default {
             this.currpoints = points;
         },
 
+        //submit edited score for the team
         onSubmitToEdit(){
             var postBody = {
                 "team": this.curr_team_num,
@@ -143,16 +147,20 @@ export default {
 
         },
 
+        //when leaderbaord clicks on leaderboard, shows leaderboard
+        //by default, showleaderboard == true
         showLeaderboard(){
             this.isLeaderboard = true;
             this.isFeed = false
         },
 
+        //show activity feed page instead of leaderboard
         showFeed(){
             this.isLeaderboard = false;
             this.isFeed = true
         },
 
+        //close the edit popup 
         closeEdit(){
             if(this.showEdit){
                 this.showEdit = false;
@@ -165,6 +173,7 @@ export default {
             this.currpoints = "";    
         },
 
+        //calculate the end time of the team then update the db 
         calcEndTime(item) {
             let now = new Date().getTime();
             let time = now - this.$store.state.trailStartTime;
@@ -181,6 +190,7 @@ export default {
             item.timeEnded = this.convertTime(time);
         },
 
+        //convert time to hh:mm:ss
         convertTime(time) {
             let hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
@@ -194,6 +204,7 @@ export default {
             this.$router.push('/')
         }
 
+        //on page laod, get the current trail ID 
         axios.get('//amazingtrail.ml/api/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;
@@ -202,6 +213,7 @@ export default {
             }
         })
 
+        //get the team's activity 
         axios.get('//amazingtrail.ml/api/team/activityFeed')
         .then(response => {
             let data = response.data;
@@ -217,6 +229,7 @@ export default {
             this.allTrailInstances = data
         });
 
+        //get team's activity via socket to update activity feed in real time 
         this.socket.on('activityFeed', (data) => {
             let activity = "Team " + data.team + " completed their mission at " + data.hotspot
             this.activityList.unshift({activity: activity, timestamp: data.time});

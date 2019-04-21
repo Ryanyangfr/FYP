@@ -149,12 +149,6 @@ export default new Router({
       hidden: true
     },
     {
-      path: '/participant',
-      name: 'participant',
-      component: ()=> import('@/views/participant/index'),
-      hidden: true
-    },
-    {
       path: '/trail',
       name: 'View All Trails',
       component: ()=> import('@/views/trail/index'),
@@ -176,12 +170,6 @@ export default new Router({
       path: '/editTrail',
       name: 'Edit Trail',
       component: ()=> import('@/views/trail/editTrail'),
-      hidden: true
-    },
-    {
-      path: '/notification',
-      name: 'Notification',
-      component: ()=> import('@/views/notification/notification'),
       hidden: true
     },
     {

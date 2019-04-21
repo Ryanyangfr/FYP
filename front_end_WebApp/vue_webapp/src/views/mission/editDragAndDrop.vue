@@ -1,3 +1,4 @@
+//Edit selected drag and drop mission
 <template>
     <div class="EditDragAndDrop">
        <div class="card">
@@ -77,6 +78,7 @@ export default {
     },
 
     methods: {
+        //submit edited drag and drop information
       dragAndDropOnSubmitToEdit(){
         let postBody = {
           id: this.draganddrop_ID,
@@ -85,7 +87,6 @@ export default {
           title: this.draganddrop_title,
           missionID: this.draganddrop_missionID
         }
-
 
         axios.post('//amazingtrail.ml/api/edit/editDragAndDrop', postBody)
         .then(response => {
@@ -100,6 +101,7 @@ export default {
           this.$router.push('/')
       }
 
+    //on page load, gets the selected drag and drop mission title, question, id and mission id from the vuex store
       this.draganddrop_title = this.$store.state.selectedDragAndDropTitle
       this.draganddrop_question = this.$store.state.selectedDragAndDropQuestion
       this.draganddrop_ID = this.$store.state.selectedDragAndDropID

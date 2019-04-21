@@ -1,3 +1,7 @@
+//shows life monitoring of all teams in current trail 
+//Shows a map to monitor where all teams are located,
+//real-time updated activity feed and
+//a send notfication function to send notifications to all participants 
 <template>
   <div class="Livemap">
       <div class="card">
@@ -68,6 +72,7 @@ export default {
     },
 
     methods: {
+        //set all the team's location markers on the map 
         setMapOnAll(map) {
             for (var i = 0; i < this.team_markers.length; i++) {
                 this.team_markers[i].setMap(map);
@@ -78,6 +83,9 @@ export default {
             setMapOnAll(null);
         },
 
+        //send notification to all the users 
+        //if successful, shows alert to inform "Notification successfully sent"
+        //if unsuccessful shows alert to inform user to try again
         sendNotification(){
             axios.post('//amazingtrail.ml/api/notification/sendNotification', {message: this.message})
             .then(response => {
@@ -93,6 +101,7 @@ export default {
     },
 
     mounted: function() {
+        //on page load, display a map with it's center being the center of smu
         this.map = new google.maps.Map(document.getElementById('gmap-view'), {
             center: this.center,
             scrollwheel: false,
@@ -100,6 +109,7 @@ export default {
             
         }),
 
+        //get all hotspots created and display on the map as markers
         axios.get('//amazingtrail.ml/api/hotspot/getHotspots')
         .then(response => {
             let data = response.data;
@@ -125,6 +135,7 @@ export default {
             }
         });
 
+        //get all locations of teams and display on the map as markers 
         axios.get('//amazingtrail.ml/api/team/getAllTeamsInCurrentActiveTrail')
         .then (response => {
             
@@ -141,21 +152,10 @@ export default {
                     map: this.map,
                     title: 'team ' + marker.team,
                     icon: 'http://maps.google.com/mapfiles/kml/paddle/'+marker.team+'.png',
-                    // icon: '../../assets/marker.jpg',
-                    // label: {
-                    //     text: ""+marker.team,
-                    //     color: "white",
-                    //     fontSize: "20px"
-                    // },
-                    // icon: {
-                    //     url: "https://moonraft.com/wp-content/uploads/2018/02/cropped-MR_FAVICON.png",
-                    //     // url: '../../assets/marker.png',
-                    //     scaledSize: new google.maps.Size(50, 50), // scaled size
-                       
-                    // }
+
                 });
 
-
+                //show team number when team's marker is clicked
                 google.maps.event.addListener(team_marker, 'click', function() {
                     infowindow.open(this.map,team_marker);
                     infowindow.setContent(team_marker.title)
@@ -165,6 +165,7 @@ export default {
             })
         })
 
+        //get the current trail id of ongoing trail
         axios.get('//amazingtrail.ml/api/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;
@@ -173,6 +174,7 @@ export default {
             }
         })
 
+        //get live update of the teams' location via socket and display as markers
         this.socket.on('updateLocation', (location) => {
             let infowindow = new google.maps.InfoWindow();
 
@@ -201,6 +203,7 @@ export default {
            
         })
 
+        //get live update of team's activity feed and display
         axios.get('//amazingtrail.ml/api/team/activityFeed')
         .then(response => {
             let data = response.data;

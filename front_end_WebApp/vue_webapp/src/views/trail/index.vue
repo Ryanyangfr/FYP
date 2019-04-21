@@ -1,3 +1,4 @@
+//Shows all created trails in a table
 <template>
     <div class="Trail">
         <div class="card">
@@ -111,90 +112,9 @@ export default {
         saveSelectedTrail(trailID){
             this.$store.commit('saveSelectedTrailID', trailID);
         },
-
         //store in vuex store ends 
 
-        addRow(){
-            this.hotspotsAndMissions.push({
-            hotspot: "",
-            mission: "",
-            missionType: this.missionTypesAvailable[0],
-            missionList: [],
-            narrative: ""
-            })
-        },
-        deleteRow(index){
-        this.$delete(this.hotspotsAndMissions, index);
-        },
-        fetchMissions(missionList, missionType){
-            while (missionList.length > 0) {
-                missionList.pop();
-            }
-            axios.get('//amazingtrail.ml/api/mission/getMission' + missionType)
-            .then(response =>{
-                var data = response.data;
-                for(var index in data){
-                missionList.push({label: data[index].title, value: data[index].mission});
-                }
-            });
-        },
-        populateCurrentTrailInfo(){
-            this.allTrailsInfoList.forEach((information) => {
-                if(information.id === this.trailID.value){
-                    this.currTrailTitle = information.information.title;
-                    this.currTrailTotalTime = information.information.totalTime;
-                    this.currHotspotsAndMissions = information.information.hotspotsAndMissions;
-                }
-            })
-        },
-        trailOnSubmitToAdd(){
-        var postBody = {
-            title: this.title,
-            totalTime: this.duration,
-            numTeams: this.numTeams,
-            hotspotsAndMissions: this.hotspotsAndMissions
-        }
-        axios.post('//amazingtrail.ml/api/trail/addTrail', postBody)
-        .then(response => {
-            let data = response.data
-        })
-        },
-        trailOnSubmitToEdit(){
-        this.currHotspotsAndMissions.forEach((hotspotAndMission) => {
-            let hotspot = hotspotAndMission.hotspot;
-            let mission = hotspotAndMission.missionTitle;
-            let narrative = hotspotAndMission.narrativeTitle;
-
-            if (hotspot.label != undefined) {
-                hotspot = hotspot.label;
-            }
-
-            if (mission.label != undefined) {
-                mission = mission.value
-            } else {
-                mission = hotspotAndMission.mission;
-            }
-
-            if (narrative.label != undefined) {
-                narrative = narrative.value;
-            } else {
-                narrative = hotspotAndMission.narrativeID;
-            }
-
-            this.editedCurrHotspotsAndMissionsForUpdating.push({hotspot: hotspot, narrative: narrative, mission: mission })
-        })
-            var postBody = {
-                trailID: this.trailID.value,
-                title: this.trailID.label,
-                totalTime: this.currTrailTotalTime,
-                hotspotsAndMissions: this.editedCurrHotspotsAndMissionsForUpdating
-            }
-            axios.post('//amazingtrail.ml/api/trail/editTrail', postBody)
-            .then(response => {
-                let data = response.data
-            })
-        },
-
+        //show confirmation popup to delete trail 
         deleteTrail(trail_id, trail_title){
             this.curr_trail_id = trail_id;
             this.trailTitleToBeDeleted = trail_title;
@@ -206,6 +126,7 @@ export default {
             }
         },
 
+        //close confirmation popup
         closeDeleteTrail(){
             if(this.showDeleteTrail){
                 this.showDeleteTrail = false;
@@ -214,6 +135,7 @@ export default {
             }
         },
 
+        //close success delete message
         trailCloseDeleteMessage(){
             this.showDeleteTrail = false;
             this.trailCloseMessage = true;
@@ -224,6 +146,7 @@ export default {
             this.trailDeleteMessage = "";
         },
 
+        //delete trail from db
         onSubmitToDeleteTrail(){
             var postBody = {
                 "trailID": this.curr_trail_id

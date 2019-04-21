@@ -52,7 +52,8 @@ export default {
     }, 
 
     methods:{
-
+        
+        //submit edited wefie quesion 
         wefieOnSubmitToEdit() {
             var postBody = {
                 "id": this.wefie_ID,
@@ -73,6 +74,7 @@ export default {
             this.$router.push('/')
         }
 
+        //on page loads, retrieves the wefie title, wefie id and wefie question of wefie selected from vuex store
         this.wefie_title = this.$store.state.selectedWefieTitle;
         this.wefie_ID = this.$store.state.selectedWefieID;
         this.wefie_question = this.$store.state.selectedWefieQuestion;

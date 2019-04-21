@@ -1,3 +1,4 @@
+//edit selected narrative
 <template>
     <div class="EditNarrative">
        <div class="card">
@@ -37,6 +38,7 @@ export default {
     },
 
     methods: {
+        //submit the edited narrative
         narrativeOnSubmitToEdit(){
             var postBody = {
                 "narrative_id": this.narrativeID,
@@ -54,6 +56,7 @@ export default {
             this.$router.push('/')
         }
 
+        //retrieve the narrative if, title and the narrative from vuex store. 
         this.narrativeID = this.$store.state.selectedNarrativeID;  
         this.title = this.$store.state.selectedNarrativeTitle;  
         this.narrative = this.$store.state.selectedNarrative;  

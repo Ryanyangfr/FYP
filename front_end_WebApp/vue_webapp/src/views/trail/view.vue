@@ -1,3 +1,4 @@
+View details of the selected trail
 <template>
     <div class="ViewTrail">
        <div class="card">

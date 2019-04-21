@@ -1,3 +1,4 @@
+Login Page 
 <template>
   <div class="Login">
       <div class="login-box">
@@ -54,6 +55,9 @@ export default {
         }
   }, 
   methods: {
+
+    //check avlidity of username and password of user
+    //when user clicks Login
     login_check() {
         const baseURI = '//amazingtrail.ml/api/user/getPassword?username=' + this.user.username
         axios.get(baseURI)
@@ -77,6 +81,8 @@ export default {
   },
 
   mounted(){
+
+    //on page load, don't show side bar
     this.$store.commit('resetSideBar')
         
   }  

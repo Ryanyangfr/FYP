@@ -1,3 +1,6 @@
+View submissions of all teams
+//if there is an ongoing trail, the submissions of that trail will be auto-loaded and displayed
+//for submissions of past trails, select the trail id from the dropdown 
 <template>
     <div class="Submissions">
         <div v-bind:class="{ shift: this.$store.state.showSidebar }">
@@ -91,7 +94,8 @@ export default{
     },
 
     methods:{
-
+        
+        //download all the submissions from all teams in the trail 
         downloadAll() { 
             //get all submissionsurl
             for(var i=0; i<this.teamList.length; i++){
@@ -127,6 +131,7 @@ export default{
 
         },
 
+        //retriece the team numbers of all teams in the trail
         retrieveAllTeams(){
             this.teamList = [];
             axios.get('//amazingtrail.ml/api/team/getAllTeams?trail_instance_id='+this.trailID)
@@ -148,6 +153,7 @@ export default{
             });
         }, 
 
+        //display all submissions of the selected team id 
         load(teamID){
             axios.get('//amazingtrail.ml/api/upload/getAllSubmissionURL?team='+teamID+'&trail_instance_id='+this.trailID)
             .then(response=>{
@@ -189,6 +195,8 @@ export default{
             });
         
         },
+
+        //get the image using the image url
         getImage(url, updatedQn, qn, updatedSubmissionIDs, id, updatedSubmissionStatuses, status){
             
              axios.get('//amazingtrail.ml/api/upload/getSubmission?url=' + url, {responseType: 'blob'})
@@ -214,6 +222,8 @@ export default{
                     console.log(error)
                 })
         },
+
+        //submits whether the submission is approved or not for points allocation
         sendStatus(index, points){
             const postBody = {
                 team: this.currTeamID,
@@ -237,6 +247,8 @@ export default{
 
         },
 
+        //display the submissions of the team if selected. if the card of that team is selected again/ another team is selected,
+        //will hide the submissions
         showSubmissions(teamID){
             if(this.showSub && this.currTeamID == teamID){
                 this.showSub = false;
@@ -255,6 +267,7 @@ export default{
             this.$router.push('/')
         }
 
+        //get current ongoing trail id 
         axios.get('//amazingtrail.ml/api/getCurrentTrailInstanceID')
         .then(response => {
             let data = response.data;

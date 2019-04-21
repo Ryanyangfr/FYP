@@ -1,3 +1,4 @@
+//horizontal nav bar which shows the page name, the current/last trail ID and the countdown timer for the current trail
 <template>
     <div class="horizontal-menu">
             <div class="route-name-area">
@@ -63,6 +64,8 @@ export default{
             this.minutes = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
             this.seconds = Math.floor((dist % (1000 * 60)) / 1000);
         },
+
+        //count the time left for the trail
         timerCount(){
             // Get todays date and time
             let now = new Date().getTime();
@@ -75,6 +78,9 @@ export default{
             }
         },
 
+        //close the popup which indicates trail has ended by
+        //changing trailEnded to false. 
+        //remove the currenttrail from vuex store and the current number teams reset to 0 
         closeTrailEnded(){
             this.trailEnded = false;
             this.$store.commit('saveCurrentTrail', "");
@@ -82,6 +88,9 @@ export default{
         }
     },
 
+    //on page load, get the current trail ID from endpoint 
+    //save that current ongoing trailID to vuex store. 
+    //display time using timerCount() method to get timer
     mounted() {
         axios.get('//amazingtrail.ml/api/getCurrentTrailInstanceID')
         .then(response => {

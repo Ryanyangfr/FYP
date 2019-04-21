@@ -1,3 +1,4 @@
+//Show all narratives in a table format
 <template>
     <div class="Narrative">
         <div class="card">
@@ -93,13 +94,14 @@ export default {
     },
 
     methods: {
-
+        // save the selected narrative details when click on edit for that narrative
         saveNarrative(narrative_ID, narrative_title, narrative){
             this.$store.commit('saveSelectedNarrativeID', narrative_ID);
             this.$store.commit('saveSelectedNarrativeTitle', narrative_title);
             this.$store.commit('saveSelectedNarrative', narrative);
         },
 
+        //show delete confirmation prompt 
         deleteNarrative(narrative_id, narrative_title){
             this.curr_narrative_id = narrative_id;
             this.curr_narrative_title = narrative_title;
@@ -111,6 +113,7 @@ export default {
             }
         },
 
+        //close delete narrative confirmation prompt
         closeDelete(){
              if(this.showDelete){
                 this.showDelete = false;
@@ -123,6 +126,7 @@ export default {
             this.curr_narrative_id = "";
         },
 
+        //close delete success message
         closeDeleteMessage(){
             this.showDelete = false;
             this.closeMessage = true;
@@ -133,6 +137,7 @@ export default {
             this.deleteMessage = "";
         },
 
+        //delete the narrative from db
         onSubmitToDelete(){
             var postBody = {
                 "narrative_id": this.curr_narrative_id
@@ -158,6 +163,8 @@ export default {
         if (!this.$session.exists()) {
             this.$router.push('/')
         }
+
+        //retrieve all narratives in db
         axios.get('//amazingtrail.ml/api/narrative/getNarratives')
         .then(response => {
             let data = response.data;

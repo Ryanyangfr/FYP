@@ -1,3 +1,5 @@
+//Home page for the webapplication. Guide users on how to get started on 
+//Trail, mission, location, narrative creation
 <template>
     <div class="Landing">
         <div class="card">

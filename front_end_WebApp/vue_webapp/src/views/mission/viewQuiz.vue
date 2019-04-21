@@ -1,3 +1,4 @@
+View details of the quiz selected
 <template>
     <div class="ViewQuiz">
        <div class="card">
@@ -67,6 +68,7 @@ export default {
 
     methods:{
 
+        //retrieve all the options of the quiz using the quiz id 
         getQuizOptions(quiz_question, quiz_id, quiz_answer){
              axios.get('//amazingtrail.ml/api/quiz/getQuizOptions?quizID=' + quiz_id)
             .then(response =>{
@@ -82,6 +84,7 @@ export default {
             this.$router.push('/')
         }
 
+        //retrieve quiz questions using the selected mission id
         axios.get('//amazingtrail.ml/api/quiz/getQuizQuestion?mission=' + this.$store.state.selectedQuizID)
         .then(response =>{
             var data = response.data;

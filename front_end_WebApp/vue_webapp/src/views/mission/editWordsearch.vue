@@ -39,7 +39,7 @@ export default {
     data() {
         return{
             wordsearch_title: "",
-            words: [],
+            words: [], //size has to be 5 always
             wordsearch_ID: 0,
             
         }  
@@ -60,6 +60,8 @@ export default {
     },
 
     methods: {
+        //submits the edited wordsearch words
+        //needs to check the number of chars in each word cannot be more than 10
       wordsearchOnSubmitToEdit(){
         let wordsToBeSubmitted = []
         for(var index in this.words){
@@ -88,11 +90,13 @@ export default {
       if (!this.$session.exists()) {
           this.$router.push('/')
       }
-
+    
+    //on page loads, get all the wordsearch title of the selected wordsearch, the words and the ID of that wordsearch
       this.wordsearch_title = this.$store.state.selectedWordsearchTitle
       this.words = this.$store.state.selectedWords
       this.wordsearch_ID = this.$store.state.selectedWordsearchID
 
+    //ensure the size of "words" needs to be 5
     let numWordsMissing = 5 - this.words.length;
 
     for (let i = 0; i < numWordsMissing; i++) {

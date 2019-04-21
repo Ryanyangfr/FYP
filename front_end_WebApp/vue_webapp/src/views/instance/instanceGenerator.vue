@@ -1,3 +1,4 @@
+//Generate trail ID and start trail page
 <template>
     <div class="instanceGenerator">
         <div class="card">
@@ -67,33 +68,7 @@
                
             </div>
         </div>
-        <!-- confirmation popup to generate trailid -->
-
-        <!--Select Trail:
-         <v-select :options="trailsList" v-model="trail" placeholder="Select a trail" style="width:200px;margin-left:1170px"/>
-        <br>
-        Enter Number Of Teams:
-        <br>
-        <input id="numTeams" v-model="numTeams" placeholder="Enter number of teams">
-
-
-        <br>
-        <br>
-        <br>
-        <div v-if="this.trail.length != 0 && this.numTeams > 0">
-            <h1> GENERATE YOUR INSTANCE HERE </h1>
-
-            <button v-on:click="toggleGenerate()">Generate Trail Instance</button>
-
-            <br>
-            <br>
-            <br>
-            <div v-if="generate_id">
-                <h4>TRAIL ID:</h4>
-                <h4><font size="30">{{instance_id}}</font></h4>
-                <button type="button" @click="startTrail">Start Trail</button>
-            </div>
-        </div>-->
+        
     </div>
 </template>
 
@@ -139,6 +114,8 @@ export default {
     },
 
     methods: {
+        //create a random 6 digit trail ID 
+        //save the trail ID to the vuex store as the current trial ID going on
         makeID(){
             var possible = '0123456789'
             var id = ''
@@ -150,6 +127,7 @@ export default {
             this.$store.commit('saveCurrentTrailID', this.instance_id);
         },
 
+        //show confirmation prompt to generate a new trail ID 
         showConfirmationPopup(){
             if(this.showConfirmation){
                 this.showConfirmation = false;
@@ -158,6 +136,8 @@ export default {
             }
         },
 
+        //when the user confirms to generate a new trail ID 
+        //generate a new trail instance
         toggleGenerate(){
             if(this.trailStarted){
                 this.trailStarted = false;
@@ -192,6 +172,7 @@ export default {
             })
         },
 
+        //close confirmation prompt to generate new trail ID without generating a new trail ID and generate a trail instance
         closeConfirmation(){
             if(this.showConfirmation){
                 this.showConfirmation = false;
@@ -200,6 +181,8 @@ export default {
             }
         },
 
+        //when user confirms to start the current trail 
+        //save the instance start time, current trail ID and the number of teams for the current trail
         startTrail(){
             let postBody = {
                 trailID: this.trailMap[this.trail],
@@ -223,6 +206,7 @@ export default {
             // this.$router.push({ path: this.redirect || '/map' })
         },
 
+        //calculate the time for the trail for the countdown timer
         calcTime(dist){
             // Time calculations for days, hours, minutes and seconds
             this.hours = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -236,6 +220,8 @@ export default {
             this.$router.push('/')
         }
 
+        //on page load, retrieves all trails created in the db 
+        //displays in the dropdown menu
         axios.get('//amazingtrail.ml/api/trail/getAllTrails')
         .then(response => {
             let data = response.data;

@@ -1,3 +1,6 @@
+//View the all missions for the selected trail. 
+//shows all the missions in diferent tables
+//same as the view all missions page
 <template>
     <div class="TrailMissions">
         <div class="card">

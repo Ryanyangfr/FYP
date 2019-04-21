@@ -1,3 +1,4 @@
+//A page to create new narrative
 <template>
     <div class="AddNarrative">
        <div class="card">
@@ -35,6 +36,7 @@ export default {
     },
 
     methods: {
+        //submit the new nrrative 
         narrativeOnSubmitToAdd(){
           var postBody = {
                 "narrative": this.narrative,

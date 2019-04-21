@@ -1,3 +1,4 @@
+Edit a selected trail
 <template>
     <div class="EditTrail">
        <div class="card">
@@ -75,6 +76,8 @@ export default {
     },
 
     methods: {
+
+        //submit the edited trail details 
         trailOnSubmitToEdit(){
             this.details.forEach(element => {
                 let updatedNarrative = this.narrativeDict[element.narrativeTitle]

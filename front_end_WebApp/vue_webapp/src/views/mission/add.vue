@@ -1,3 +1,4 @@
+//Add new mission page
 <template>
     <div class="AddMission">
        <div class="card">
@@ -88,10 +89,6 @@
                             <label for="add-wefie-instruction-input">Instruction</label>
                             <input name="add-wefie-instruction-input" type="text" placeholder="Wefie Instruction" v-model="wefie_instruction" required> 
                         </div> 
-                        <!-- <div class="add-mission-input">
-                            <label for="points-input">Points</label>
-                            <input name="points-input" type="text" placeholder="Enter points for this question" v-model="wefie_points"> 
-                        </div> -->
                         <div class="submit-btn-area">
                             <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
@@ -125,10 +122,6 @@
                             </div>
 
                         </div>
-                        <!-- <div class="add-mission-input">
-                            <label for="points-input">Points</label>
-                            <input name="points-input" type="text" placeholder="Enter points for this question" v-model="dragdrop_points"> 
-                        </div> -->
                         <div class="submit-btn-area">
                             <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
@@ -148,10 +141,6 @@
                             <label for="add-drawing-instruction-input">Instruction</label>
                             <input name="add-drawing-instruction-input" type="text" placeholder="Drawing Instruction" v-model="drawing_instruction" required> 
                         </div> 
-                        <!-- <div class="add-mission-input">
-                            <label for="points-input">Points</label>
-                            <input name="points-input" type="text" placeholder="Enter points for this question" v-model="drawing_points"> 
-                        </div> -->
                         <div class="submit-btn-area">
                             <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
@@ -171,10 +160,6 @@
                             <label for="add-anagram-word-input">Word</label>
                             <input name="add-anagram-word-input" type="text" placeholder="Add word" v-model="anagram_word" required> 
                         </div> 
-                        <!-- <div class="add-mission-input">
-                            <label for="points-input">Points</label>
-                            <input name="points-input" type="text" placeholder="Enter points for this question" v-model="drawing_points"> 
-                        </div> -->
                         <div class="submit-btn-area">
                             <router-link to='/mission'><button class="cancel-btn" type="button">Cancel</button></router-link>
                             <button class="submit-btn" type="submit">Create</button>
@@ -244,12 +229,15 @@ export default {
 
             //wordsearch
             words: [{word: ""}, {word: ""}, {word: ""}, {word: ""}, {word: ""}],
-            wordMaxChar: 10
+            wordMaxChar: 10 //number of chars of each word cannot exceed 10
 
         }  
     },
 
     methods: {
+
+        //add new quiz: show new i/p fields for quiz question, title, options (1-4) and
+        //a dropdown to select correct answer
         addRow(){
             this.quiz.push({
                 question: "",
@@ -259,16 +247,18 @@ export default {
                 option3: "",
                 option4: "",
                 answer:"",
-                // points:""
             })
 
             this.showalert = false;
         },
-
+        
+        //remove that row of quiz 
         deleteRow(index){
             this.$delete(this.quiz, index);
         },
 
+
+        //submit to add quiz to db 
         quizOnSubmitToAdd(){
             if(this.quiz.length == 0){
                 this.showalert = true;
@@ -296,10 +286,14 @@ export default {
             }
         },
 
+
+        //close alert which reminds user to add a quiz before submitting 
         closeAlert(){
             this.showalert = false
         },
 
+
+        //submit new wefie to db
         wefieOnSubmitToAdd(){
             var postBody = {
                 "question": this.wefie_instruction,
@@ -313,6 +307,7 @@ export default {
             })
         },
 
+        //submit new drag and drop mission to db
         dragAndDropOnSubmitToAdd(){
             var postBody = {
                 title: this.title,
@@ -327,6 +322,7 @@ export default {
             })
         },
 
+        //add new drawing to db
         drawingOnSubmitToAdd(){
             var postBody = {
                 "question": this.drawing_instruction,
@@ -340,6 +336,8 @@ export default {
             })
         },
 
+
+        //add new anagram mission to db
         anagramOnSubmitToAdd(){
             var postBody = {
                 "word": this.anagram_word,
@@ -352,6 +350,7 @@ export default {
             })
         },
 
+        //add new wordsearch mission to db
         wordsearchOnSubmitToAdd(){
 
             let updatedWords = []

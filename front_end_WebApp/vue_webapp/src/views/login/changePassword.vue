@@ -1,3 +1,4 @@
+//change password page
 <template>
   <div class="passwordChange">
         <div class="card">
@@ -45,6 +46,8 @@ export default {
         }
     },
     methods: {
+        //submit change password request 
+        //submit new password and the username 
         change_password(){
             axios.get('//amazingtrail.ml/api/user/getPassword?username=' + this.user.username)
             .then(response => {

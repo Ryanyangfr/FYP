@@ -1,3 +1,4 @@
+//Edit hotspot page
 <template>
     <div class="EditHotspot">
        <div class="card">
@@ -45,6 +46,7 @@ export default {
     },
 
     methods: {
+        //submit the new hotspot values to the server
         hotspotOnSubmitToEdit(){
             var postBody = {
                 "hotspot_name": this.name,
@@ -69,6 +71,8 @@ export default {
             this.$router.push('/')
         }
 
+        //on page load, get the hotspot name, lat and long of hotspot selected by user
+        //save these values to be populated in input fields 
         this.name = this.$store.state.selectedHotspotName;  
         this.lat = this.$store.state.selectedLat;  
         this.lng = this.$store.state.selectedLng;
@@ -84,6 +88,7 @@ export default {
         })
 
         var infowindow = new google.maps.InfoWindow();
+        //set the marker's lat long to what we got from the vuex store. 
         var latlng = {lat: parseFloat(this.lat), lng: parseFloat(this.lng)};
 
         let marker = new google.maps.Marker({
@@ -96,7 +101,7 @@ export default {
             infowindow.setContent(marker.title)
         });
         
-        
+        //adds a listener to map to show marker on where user clicks
         this.map.addListener('click', function(e) {
             this.position = e.latLng;
             this.lat = e.latLng.lat();

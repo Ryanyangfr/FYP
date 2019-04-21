@@ -1,3 +1,4 @@
+View quiz details for selected quiz
 <template>
     <div class="ViewQuiz">
        <div class="card">

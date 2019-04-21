@@ -1,3 +1,4 @@
+//Edit selected anagram
 <template>
     <div class="EditAnagram">
        <div class="card">
@@ -51,7 +52,8 @@ export default {
     }, 
 
     methods:{
-
+        //submits edited anagram
+        //submits the anagram ID and the edited anagram word
         anagramOnSubmitToEdit() {
             var postBody = {
                 "id": this.anagram_ID,
@@ -71,7 +73,9 @@ export default {
         if (!this.$session.exists()) {
             this.$router.push('/')
         }
-
+        
+        //on page load, gets the selected anagram title ID and anagram word from the vuex store
+        //to display the title and word in input fields
         this.anagram_title = this.$store.state.selectedAnagramTitle;
         this.anagram_ID = this.$store.state.selectedAnagramID;
         this.anagram_word = this.$store.state.selectedAnagramWord;
