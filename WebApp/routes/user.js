@@ -33,7 +33,9 @@ router.get('/retrieveAllUser', (req,res) => {
   });
 });
 
-// for registration, Accepts get request
+// for registration
+// input: {username: username}
+// output: {team_id: teamID, }
 router.post('/register', (req, res) => {
   let currentTrailInstanceIDQuery = 'SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1';
   let numUsersEnteredQuery = 'SELECT COUNT(*) AS COUNT FROM PARTICIPANT WHERE TRAIL_INSTANCE_ID = ?';
@@ -87,6 +89,9 @@ router.post('/register', (req, res) => {
   });
 });
 
+// sends the password of the admin user
+// input: {username: username}
+// output: {password: password, token: token}
 router.get('/getPassword', cors(), (req,res) => {
   const username = req.query.username;
 
@@ -103,6 +108,9 @@ router.get('/getPassword', cors(), (req,res) => {
   });
 });
 
+// changes the password of the admin user
+// input: {username: username, password: password}
+// output: {status: success}
 router.post('/changeAdminPassword', cors(), (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   const username = req.body.username;
@@ -120,6 +128,8 @@ router.post('/changeAdminPassword', cors(), (req, res) => {
   });
 });
 
+// retrieves all users in the current active trail instance
+// output: {username:[user1, user2]}
 router.get('/retrieveAllUsers',(req,res) => {
   const query = 'SELECT USERNAME FROM PARTICIPANT WHERE TRAIL_INSTANCE_ID = (SELECT TRAIL_INSTANCE_ID FROM TRAIL_INSTANCE WHERE ISACTIVE = 1)';
   const response = [];

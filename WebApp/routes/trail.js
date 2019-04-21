@@ -118,6 +118,9 @@ router.post('/addTrail', (req, res) => {
   });
 });
 
+// edits trail in the database
+// required input: {trailID: trailID, trailTitle: titleOfTrail, totalTime: totalTimeOfTrail, hotspotsAndMissions: [hotspot: hotspot, narrative: narrative, mission: mission]}
+// response: {success: true} or {success: false}
 router.post('/editTrail', (req, res) => {
   const trailID = req.body.trailID;
   const trailTitle = req.body.title;
@@ -160,6 +163,9 @@ router.post('/editTrail', (req, res) => {
   });
 });
 
+// deletes trail from the database
+// required input: {trailID: trailID}
+// response: {success: true} or {success: false}
 router.post('/deleteTrail', (req, res) => {
   const trailID = req.body.trailID;
 
@@ -183,6 +189,9 @@ router.post('/deleteTrail', (req, res) => {
   });
 });
 
+// initializes trail in the database
+// required input: {trailID: trailID, trailInstanceID: trailInstanceID, numTeams: numTeams, date: date}
+// response: {success: true} or {success: false}
 router.post('/initializeTrail', (req, res) => {
   const trailID = req.body.trailID;
   const trailInstanceID = req.body.trailInstanceID;
@@ -266,6 +275,9 @@ router.post('/initializeTrail', (req, res) => {
 
 });
 
+// set the trail to started in the database
+// required input: {trailID: trailID, trailInstanceID: trailInstanceID}
+// response: {success: true} or {success: false}
 router.post('/startTrail', (req, res) => {
   const trailID = req.body.trailID;
   const trailInstanceID = req.body.trailInstanceID;

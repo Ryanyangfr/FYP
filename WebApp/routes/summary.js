@@ -7,6 +7,8 @@ const databaseConfig = require('../config/mysqlconf.js');
 
 const conn = mysql.createConnection(databaseConfig);
 
+// gets the summary report of past participants
+// output: [{trailInstanceID: trailInstanceID, hotspot: hotspot, date: date, participants: numOfParticipants}]
 router.get('/getSummaryReport', (req,res) => {
   const response = [];
   const query ='SELECT * FROM SUMMARY_TABLE';

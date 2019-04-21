@@ -6,6 +6,9 @@ const router = express.Router();
 
 const conn = mysql.createConnection(databaseConfig);
 
+// gets wordsearch words which would be used in the current trail instance
+// input: {trail_instance_id: trailInstanceID}
+// output: [{hotspot: hotspotName, words: [word1, word2, word3, word4, word5]}]
 router.get('/getWordSearchWords', (req, res) => {
   const trailInstanceID = req.query.trail_instance_id;
   const response = [];
@@ -50,6 +53,8 @@ router.get('/getWordSearchWords', (req, res) => {
   });
 });
 
+// gets wordsearch words in the database
+// output: [{id: wordSearchWordsID, title: title, words: [word1, word2, word3, word4, word5]}]
 router.get('/getAllWordSearchWords', (req,res) => {
   const response = [];
   const wordSearchQuery = 'SELECT WORDSEARCH.WORDSEARCH_ID, WORD, MISSION_TITLE FROM WORDSEARCH, WORDSEARCH_WORD, MISSION WHERE WORDSEARCH.WORDSEARCH_ID = WORDSEARCH_WORD.WORDSEARCH_ID AND MISSION.MISSION_ID = WORDSEARCH.MISSION_ID';
@@ -83,6 +88,9 @@ router.get('/getAllWordSearchWords', (req,res) => {
   });
 });
 
+// gets wordsearch words which was used in specified trail instance
+// input: {trail_instance_id: trailInstanceID}
+// output: [{hotspot: hotspotName, words: [word1, word2, word3, word4, word5]}]
 router.get('/getWordSearchWordsHistory', (req,res) => {
   const response = [];
   const trailInstanceID = req.query.trailInstanceID;

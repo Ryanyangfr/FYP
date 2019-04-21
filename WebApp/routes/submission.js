@@ -45,7 +45,8 @@ conn.query('SELECT MAX(MULTIMEDIA_ID) as MULTIMEDIA_ID FROM MULTIMEDIA', (err, d
   }
 });
 
-
+// uploads the submission to the database and emits to clients listening to the socket that the mission is completed
+// input multipart body: {team_id: teamID, trail_instance_id: tralInstanceID, question: question, hotspot: hotspot}
 router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, res) => {
   const submission_id = submission_index;
   submission_index++;
@@ -149,6 +150,7 @@ router.post('/uploadSubmission', multipart({ uploadDir: submissionDir }), (req, 
   });
 });
 
+// unused
 router.post('/uploadMultimedia', multipart({ uploadDir: submissionDir }), (req, res) => {
   const image_path = req.files.image.path;
   const new_image_path = path.normalize(`${submissionDir}/${
@@ -179,6 +181,9 @@ router.post('/uploadMultimedia', multipart({ uploadDir: submissionDir }), (req, 
   });
 });
 
+// get submission question for the trail instance
+// input: {trail_instance_id: trailInstanceID}
+// output: [{hotspot: hotspotName, question: question}]
 router.get('/getSubmissionQuestion', (req, res) => {
   const instance_id = req.query.trail_instance_id;
   const query = 'SELECT HOTSPOT_NAME, QUESTION FROM TRAIL_HOTSPOT AS TH, MISSION AS M, SUBMISSION_QUESTION AS SQ WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TH.MISSION_ID = M.MISSION_ID AND TH.MISSION_ID = SQ.MISSION_ID';
@@ -196,6 +201,9 @@ router.get('/getSubmissionQuestion', (req, res) => {
   });
 });
 
+// get drawing question for the trail instance
+// input: {trail_instance_id: trailInstanceID}
+// output: [{hotspot: hotspotName, question: question}]
 router.get('/getDrawingQuestion', (req, res) => {
   const instance_id = req.query.trail_instance_id;
   const query = 'SELECT HOTSPOT_NAME, QUESTION FROM TRAIL_HOTSPOT AS TH, MISSION AS M, DRAWING_QUESTION AS DQ WHERE TRAIL_ID = (SELECT TRAIL_ID FROM TRAIL_INSTANCE WHERE TRAIL_INSTANCE_ID = ?) AND TH.MISSION_ID = M.MISSION_ID AND TH.MISSION_ID = DQ.MISSION_ID';
@@ -214,6 +222,9 @@ router.get('/getDrawingQuestion', (req, res) => {
   });
 });
 
+// get all submission URL(in the server) for the trail instance
+// input: {trail_instance_id: trailInstanceID, team: team}
+// output: [{submissionID: submissionID, submissionURL: submissionURL, hotspot: hotspotName, question: question, status: status}]
 router.get('/getAllSubmissionURL', (req, res) => {
   const team = req.query.team;
   const instance_id = req.query.trail_instance_id;
@@ -248,12 +259,17 @@ router.get('/getAllSubmissionURL', (req, res) => {
   });
 });
 
+// get submission for the trail instance using the URL
+// input: {url: URL}
+// output: binary file of the image
 router.get('/getSubmission', (req, res) => {
   const image_url = req.query.url;
   const parentDir = path.normalize(`${__dirname}/..`);
   res.sendFile(path.normalize(`${parentDir}/${image_url}`));
 });
 
+// get all submission questions
+// output: [{hotspot: hotspotName, question: question, mission: missionID, title: title}]
 router.get('/getAllSubmissionQuestion', (req, res) => {
   const response = [];
   const query = 'SELECT * FROM SUBMISSION_QUESTION, MISSION WHERE MISSION.MISSION_ID = SUBMISSION_QUESTION.MISSION_ID';
@@ -272,6 +288,8 @@ router.get('/getAllSubmissionQuestion', (req, res) => {
   });
 });
 
+// get all drawing questions
+// output: [{hotspot: hotspotName, question: question, mission: missionID, title: title}]
 router.get('/getAllDrawingQuestion', (req,res) => {
   const response = [];
   const query = 'SELECT * FROM DRAWING_QUESTION, MISSION WHERE MISSION.MISSION_ID = DRAWING_QUESTION.MISSION_ID';
@@ -290,6 +308,9 @@ router.get('/getAllDrawingQuestion', (req,res) => {
   });
 });
 
+// get submission question for used trail instance
+// input: {trail_instance_id: trailInstanceID}
+// output: [{hotspot: hotspotName, question: question, mission: missionID, title: title}]
 router.get('/getSubmissionQuestionHistory', (req, res) => {
   const trailInstanceID = req.query.trailInstanceID;
   const response = [];
@@ -323,6 +344,9 @@ router.get('/getSubmissionQuestionHistory', (req, res) => {
   });
 });
 
+// get drawing question for used trail instance
+// input: {trail_instance_id: trailInstanceID}
+// output: [{hotspot: hotspotName, question: question, mission: missionID, title: title}]
 router.get('/getDrawingQuestionHistory', (req, res) => {
   const trailInstanceID = req.query.trailInstanceID;
   const response = [];

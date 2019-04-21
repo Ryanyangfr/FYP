@@ -85,6 +85,7 @@ export default {
                     currTrailInstance = row.trailInstanceID;
                     currDate = row.date;
                     currParticipant = row.participants;
+                    hotspots.push(row.hotspot);
                 }
             });
             this.summaryList.push({date: currDate, trail_id: currTrailInstance, participants: currParticipant, hotspots})
