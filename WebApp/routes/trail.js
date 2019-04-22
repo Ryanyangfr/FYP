@@ -85,7 +85,7 @@ router.get('/getAllTrails', (req, res) => {
 // response: {success: true} or {success: false}
 router.post('/addTrail', (req, res) => {
   trailID += 1;
-  const trailTitle = req.body.title;
+  const trailTitle = req.body.title.trim();
   const totalTime = req.body.totalTime;
   const hotspotsAndMissions = req.body.hotspotsAndMissions;
 
