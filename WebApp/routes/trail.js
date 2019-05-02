@@ -12,7 +12,7 @@ router.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 let trailID = 0;
 
-conn.query('SELECT COUNT(*) AS COUNT FROM TRAIL', (err, num) => {
+conn.query('SELECT MAX(TRAIL_ID) AS COUNT FROM TRAIL', (err, num) => {
   if (err) {
     console.log(err);
   } else {
